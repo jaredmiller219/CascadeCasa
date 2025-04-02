@@ -927,7 +927,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: Black
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1236,9 +1236,9 @@ RectTransform:
   - {fileID: 1921102568}
   m_Father: {fileID: 905802536}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 170.74998, y: 203}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -80, y: -15}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &875189473
@@ -1292,13 +1292,13 @@ MonoBehaviour:
   m_MultiSelect: 0
   m_Options:
     m_Options:
-    - m_Text: Option A
+    - m_Text: Black
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: Option B
+    - m_Text: Blank
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: Option C
+    - m_Text: Yellow
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
@@ -1355,9 +1355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb99c7e363554fcaaf6a65698711062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlankCursor: {fileID: 0}
-  BlackCursor: {fileID: 0}
-  YellowCursor: {fileID: 0}
+  BlankCursor: {fileID: 2800000, guid: e83cf32cf23fd4933b0129e621812153, type: 3}
+  BlackCursor: {fileID: 2800000, guid: 4f2cbaf4460394b48b32898cda42bb4a, type: 3}
+  YellowCursor: {fileID: 2800000, guid: a80284a91ce0a4f7591cd52a0bffb22e, type: 3}
 --- !u!1 &905802532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,10 +2296,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 905802536}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70.25, y: 193}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -25}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913847309
 MonoBehaviour:
@@ -2321,7 +2321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Challenge Reset
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2699,7 +2699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e060ebe4b2a64dd1af4c10b559ebf9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textCursor: {fileID: 0}
+  textCursor: {fileID: 2800000, guid: 06a668368f4044d96ac62e49f0277c37, type: 3}
 --- !u!1 &1995579588
 GameObject:
   m_ObjectHideFlags: 0
