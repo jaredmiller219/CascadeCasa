@@ -10,15 +10,48 @@ using UnityEngine.UI;
 public class NotepadManager : MonoBehaviour
 {
     // UI References
-    public GameObject notepadInput;  // Text area where users input their CSS solutions
-    public GameObject feedbackText;  // Displays feedback messages to the user
-    public GameObject submitButton;  // Button that triggers solution validation
-    public GameObject resetButton;   // Button to reset the current challenge
-    public GameObject resetText;     // Text to display when the reset button is clicked
-    private string saveFilePath;     // Path where progress is saved
-    private int currentChallengeIndex;  // Tracks current challenge number
+    /// <summary>
+    /// Text area where users input their CSS solutions
+    /// </summary>
+    public GameObject notepadInput;
 
-    // List of CSS challenges: Key = incorrect CSS snippet, Value = correct CSS snippet
+    /// <summary>
+    /// Displays feedback messages to the user
+    /// </summary>
+    public GameObject feedbackText;
+
+    /// <summary>
+    /// Button that triggers solution validation
+    /// </summary>
+    public GameObject submitButton;
+
+    /// <summary>
+    /// Button to reset the current challenge
+    /// </summary>
+    public GameObject resetButton;
+
+    /// <summary>
+    /// Text to display when the reset button is clicked
+    /// </summary>
+    public GameObject resetText;
+
+    /// <summary>
+    /// Path where progress is saved
+    /// </summary>
+    private string saveFilePath;
+
+    /// <summary>
+    /// Tracks current challenge number
+    /// </summary>
+    private int currentChallengeIndex;
+
+    /// <summary>
+    /// List of CSS challenges with incorrect and correct snippets
+    /// </summary>
+    /// <remarks>
+    /// Key = incorrect CSS snippet,
+    /// Value = correct CSS snippet
+    /// </remarks>
     private readonly List<KeyValuePair<string, string>> cssChallenges = new()
     {
         new KeyValuePair<string, string>(
@@ -113,6 +146,9 @@ public class NotepadManager : MonoBehaviour
         feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
     }
 
+    /// <summary>
+    /// Hides the reset text panel after a delay
+    /// </summary>
     private void HidePanel()
     {
         resetText.SetActive(false);
