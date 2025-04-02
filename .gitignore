@@ -26,7 +26,7 @@
 # Visual Studio cache directory
 .vs/
 
-// Visual Studio temporary files
+# Visual Studio temporary files
 .DS_Store
 
 # Gradle cache directory
