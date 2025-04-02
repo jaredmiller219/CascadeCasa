@@ -45,6 +45,11 @@ public class NotepadManager : MonoBehaviour
         resetButton.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
         resetText.SetActive(false);
 
+        // Scroll sensitivity value for smooth scrolling
+        float ScrollSensitivity = 0.01f;
+        // set the scroll sensitivity of the notepadInput
+        notepadInput.GetComponent<TMP_InputField>().scrollSensitivity = ScrollSensitivity;
+
         // Note: Progress loading is disabled for testing
         // LoadProgress();
 

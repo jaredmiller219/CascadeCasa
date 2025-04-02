@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 using UnityEngine.EventSystems;
 
 public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
