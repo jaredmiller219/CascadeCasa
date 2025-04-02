@@ -184,15 +184,15 @@ _The player has just moved to a new town after graduating college. Upon entering
 
 ### Storyboarding
 
-![Landing Page](Ref-Images/landing.png)
-![Level Select](Ref-Images/levels.png)
-![Properties 1](Ref-Images/functions1.png)
-![Properties 2](Ref-Images/functions2.png)
-![Properties 3](Ref-Images/functions3.png)
-![Kitchen Example 1](Ref-Images/kitchen.png)
-![Kitchen Example 2](Ref-Images/kitchen2.png)
-![Bedroom Example 1](Ref-Images/bedroom3.png)
-![Bedroom Example 2](Ref-Images/bedroom4.png)
+![Landing Page](../Ref-Images/landing.png)
+![Level Select](../Ref-Images/levels.png)
+![Properties 1](../Ref-Images/functions1.png)
+![Properties 2](../Ref-Images/functions2.png)
+![Properties 3](../Ref-Images/functions3.png)
+![Kitchen Example 1](../Ref-Images/kitchen.png)
+![Kitchen Example 2](../Ref-Images/kitchen2.png)
+![Bedroom Example 1](../Ref-Images/bedroom3.png)
+![Bedroom Example 2](../Ref-Images/bedroom4.png)
 
 ## Assets Needed
 
@@ -203,10 +203,10 @@ _Cascade Casa is meant to feel magical and cozy way more like a quiet rainy day 
 ### Graphical
 
 _Early game sketches_
-![Journal UI Mockup](Ref-Images/CCNotebook.png)
-![Floorplan](Ref-Images/CCfloorPlanRD.png)
-![ColorsAesthetic](Ref-Images/CClivroomFinished.png)
-![ColorsAesthetic2](Ref-Images/CClivRoomClick.png)
+![Journal UI Mockup](../Ref-Images/CCNotebook.png)
+![Floorplan](../Ref-Images/CCfloorPlanRD.png)
+![ColorsAesthetic](../Ref-Images/CClivroomFinished.png)
+![ColorsAesthetic2](../Ref-Images/CClivRoomClick.png)
 
 ### Audio
 
