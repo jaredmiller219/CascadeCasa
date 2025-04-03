@@ -164,7 +164,7 @@ public class NotepadManager : MonoBehaviour
         resetText.SetActive(true);
         // delay for 3 seconds and then hide the resetText panel
         CancelInvoke(nameof(HidePanel)); // Cancel any existing delayed hide
-        Invoke(nameof(HidePanel), 2f);   // Start a new delay
+        Invoke(nameof(HidePanel), 1f);   // Start a new delay
     }
 
     /// <summary>
