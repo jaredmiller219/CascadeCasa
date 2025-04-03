@@ -1,3 +1,5 @@
+// CursorManager.cs
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 
