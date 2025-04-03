@@ -15,9 +15,8 @@ using UnityEngine.EventSystems;
 /// </remarks>
 public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
     // The header for the i-beam cursor
-    [Header("I-Beam Cursor")]
+    [Header("Cursors")]
 
     /// <summary>
     /// Reference to the i-beam cursor texture
