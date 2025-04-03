@@ -13,26 +13,31 @@ public class NotepadManager : MonoBehaviour
     /// <summary>
     /// Text area where users input their CSS solutions
     /// </summary>
+    [Tooltip("The notepad input field for CSS code")]
     public GameObject notepadInput;
 
     /// <summary>
     /// Displays feedback messages to the user
     /// </summary>
+    [Tooltip("The feedback text area for user messages")]
     public GameObject feedbackText;
 
     /// <summary>
     /// Button that triggers solution validation
     /// </summary>
+    [Tooltip("The submit button for checking CSS code")]
     public GameObject submitButton;
 
     /// <summary>
     /// Button to reset the current challenge
     /// </summary>
+    [Tooltip("The reset button for restarting the challenge")]
     public GameObject resetButton;
 
     /// <summary>
     /// Text to display when the reset button is clicked
     /// </summary>
+    [Tooltip("The text that appears when the reset button is clicked")]
     public GameObject resetText;
 
     /// <summary>

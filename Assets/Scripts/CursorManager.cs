@@ -29,7 +29,6 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     /// <remarks>
     /// This script is used to get the currently selected cursor from the dropdown.
     /// </remarks>
-    [Tooltip("Reference to the CursorDropdown script")]
     private CursorDropdown cursorDropdown;
 
     /// <summary>

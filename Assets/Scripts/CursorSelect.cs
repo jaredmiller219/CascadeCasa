@@ -14,16 +14,19 @@ public class CursorDropdown : MonoBehaviour
     /// <summary>
     /// The blank cursor reference
     /// </summary>
+    [Tooltip("The cursor texture for the blank cursor")]
     public Texture2D BlankCursor;
 
     /// <summary>
     /// The black cursor reference
     /// </summary>
+    [Tooltip("The cursor texture for the black cursor")]
     public Texture2D BlackCursor;
 
     /// <summary>
     /// The yellow cursor reference
     /// </summary>
+    [Tooltip("The cursor texture for the yellow cursor")]
     public Texture2D YellowCursor;
 
     /// <summary>
