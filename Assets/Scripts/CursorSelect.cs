@@ -11,6 +11,10 @@ using TMPro;
 /// </summary>
 public class CursorDropdown : MonoBehaviour
 {
+
+    // The cursor styles header
+    [Header("Cursor Styles")]
+
     /// <summary>
     /// The blank cursor reference
     /// </summary>

@@ -241,8 +241,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 258285675}
   feedbackText: {fileID: 856529158}
-  submitButton: {fileID: 334880260}
-  resetButton: {fileID: 1058796262}
+  SubmitBtn: {fileID: 334880260}
+  ResetBtn: {fileID: 1058796262}
   resetPopup: {fileID: 1664499674}
 --- !u!1 &57432778
 GameObject:
