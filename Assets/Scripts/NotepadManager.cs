@@ -173,7 +173,7 @@ public class NotepadManager : MonoBehaviour
     private void SaveProgress()
     {
         File.WriteAllText(saveFilePath, currentChallengeIndex.ToString());
-        // Debug.Log("Progress saved!");
+        Debug.Log("Progress saved!");
     }
 
     /// <summary>
