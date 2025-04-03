@@ -1,0 +1,3 @@
+FIXME: Text area, add a few empty new lines, then delete those lines, scrolling psoition is messed up and doesn't reset back to original position
+
+FIXME: Cursor blinker isn't visible in certain spots
