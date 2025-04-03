@@ -48,7 +48,7 @@ public class NotepadManager : MonoBehaviour
     /// Text to display when the reset button is clicked
     /// </summary>
     [Tooltip("The text that appears when the reset button is clicked")]
-    public GameObject resetPopup;
+    public GameObject ResetPopup;
 
     /// <summary>
     /// Path where progress is saved
@@ -91,7 +91,7 @@ public class NotepadManager : MonoBehaviour
         saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
         SubmitBtn.GetComponent<Button>().onClick.AddListener(CheckCSSInput);
         ResetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
-        resetPopup.SetActive(false);
+        ResetPopup.SetActive(false);
 
         // Scroll sensitivity value for smooth scrolling
         float ScrollSensitivity = 0.01f;
@@ -166,7 +166,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void HidePanel()
     {
-        resetPopup.SetActive(false);
+        ResetPopup.SetActive(false);
     }
 
 
@@ -176,7 +176,7 @@ public class NotepadManager : MonoBehaviour
     private void ResetCurrentChallenge()
     {
         LoadChallenge();
-        resetPopup.SetActive(true);
+        ResetPopup.SetActive(true);
         // delay for 3 seconds and then hide the resetText panel
         CancelInvoke(nameof(HidePanel)); // Cancel any existing delayed hide
         Invoke(nameof(HidePanel), 1f);   // Start a new delay

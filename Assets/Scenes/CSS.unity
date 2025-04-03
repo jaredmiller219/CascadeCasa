@@ -243,7 +243,7 @@ MonoBehaviour:
   FeedbackText: {fileID: 856529158}
   SubmitBtn: {fileID: 334880260}
   ResetBtn: {fileID: 1058796262}
-  resetPopup: {fileID: 1664499674}
+  ResetPopup: {fileID: 1664499674}
 --- !u!1 &57432778
 GameObject:
   m_ObjectHideFlags: 0
