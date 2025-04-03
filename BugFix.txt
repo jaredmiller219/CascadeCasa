@@ -1,3 +1,8 @@
-FIXME: Text area, add a few empty new lines, then delete those lines, scrolling psoition is messed up and doesn't reset back to original position
+FIXME: Text area, scrolling psoition is messed up and doesn't reset back to original position
+Steps to reproduce:
+    1) Add a few empty new lines anywhere in the middle of the snippet
+    2) delete those lines
 
 FIXME: Cursor blinker isn't visible in certain spots
+Steps to reproduce:
+    No idea, its just not visible in certain areas
