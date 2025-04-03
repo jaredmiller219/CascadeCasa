@@ -16,31 +16,39 @@ public class NotepadManager : MonoBehaviour
     /// Text area where users input their CSS solutions
     /// </summary>
     [Tooltip("The notepad input field for CSS code")]
-    public GameObject notepadInput;
+    [Header("Notepad")]
+    public GameObject inputField;
 
     /// <summary>
     /// Displays feedback messages to the user
     /// </summary>
     [Tooltip("The feedback text area for user messages")]
+    [Header("Feedback")]
     public GameObject feedbackText;
+
+    // The header for the buttons
+    [Header("Buttons")]
 
     /// <summary>
     /// Button that triggers solution validation
     /// </summary>
     [Tooltip("The submit button for checking CSS code")]
-    public GameObject submitButton;
+    public GameObject SubmitBtn;
 
     /// <summary>
     /// Button to reset the current challenge
     /// </summary>
     [Tooltip("The reset button for restarting the challenge")]
-    public GameObject resetButton;
+    public GameObject ResetBtn;
+
+    // The header for the reset text
+    [Header("Reset Text")]
 
     /// <summary>
     /// Text to display when the reset button is clicked
     /// </summary>
     [Tooltip("The text that appears when the reset button is clicked")]
-    public GameObject resetText;
+    public GameObject resetPopup;
 
     /// <summary>
     /// Path where progress is saved
@@ -81,14 +89,14 @@ public class NotepadManager : MonoBehaviour
     void Start()
     {
         saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
-        submitButton.GetComponent<Button>().onClick.AddListener(CheckCSSInput);
-        resetButton.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
-        resetText.SetActive(false);
+        SubmitBtn.GetComponent<Button>().onClick.AddListener(CheckCSSInput);
+        ResetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
+        resetPopup.SetActive(false);
 
         // Scroll sensitivity value for smooth scrolling
         float ScrollSensitivity = 0.01f;
         // set the scroll sensitivity of the notepadInput
-        notepadInput.GetComponent<TMP_InputField>().scrollSensitivity = ScrollSensitivity;
+        inputField.GetComponent<TMP_InputField>().scrollSensitivity = ScrollSensitivity;
 
         // Note: Progress loading is disabled for testing
         // LoadProgress();
@@ -101,7 +109,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     public void CheckCSSInput()
     {
-        string userInput = notepadInput.GetComponent<TMP_InputField>().text.Trim().ToLower();
+        string userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
         string correctCSS = cssChallenges[currentChallengeIndex].Value.ToLower();
 
         // Normalize input (remove extra spaces, new lines)
@@ -131,10 +139,10 @@ public class NotepadManager : MonoBehaviour
         if (currentChallengeIndex >= cssChallenges.Count)
         {
             feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
-            notepadInput.GetComponent<TMP_InputField>().text = "You're a CSS master!";
+            inputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
-            submitButton.GetComponent<Button>().interactable = false;
-            resetButton.GetComponent<Button>().interactable = false;
+            SubmitBtn.GetComponent<Button>().interactable = false;
+            ResetBtn.GetComponent<Button>().interactable = false;
         }
         else
         {
@@ -148,7 +156,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void LoadChallenge()
     {
-        notepadInput.GetComponent<TMP_InputField>().text = cssChallenges[currentChallengeIndex].Key;
+        inputField.GetComponent<TMP_InputField>().text = cssChallenges[currentChallengeIndex].Key;
         feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
         feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
     }
@@ -158,7 +166,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void HidePanel()
     {
-        resetText.SetActive(false);
+        resetPopup.SetActive(false);
     }
 
 
@@ -168,7 +176,7 @@ public class NotepadManager : MonoBehaviour
     private void ResetCurrentChallenge()
     {
         LoadChallenge();
-        resetText.SetActive(true);
+        resetPopup.SetActive(true);
         // delay for 3 seconds and then hide the resetText panel
         CancelInvoke(nameof(HidePanel)); // Cancel any existing delayed hide
         Invoke(nameof(HidePanel), 1f);   // Start a new delay
