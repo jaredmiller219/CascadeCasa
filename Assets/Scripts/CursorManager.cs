@@ -25,7 +25,7 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     /// This texture should be set in the Unity Inspector.
     /// </remarks>
     [Tooltip("The texture for the text cursor (i-beam)")]
-    public Texture2D textCursor;
+    public Texture2D textHoverCursor;
 
     /// <summary>
     /// Reference to the CursorDropdown script
@@ -68,7 +68,7 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     /// <param name="eventData">The event data associated with the pointer event.</param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Cursor.SetCursor(textCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(textHoverCursor, Vector2.zero, CursorMode.Auto);
     }
 
 
