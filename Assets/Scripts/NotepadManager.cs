@@ -17,14 +17,14 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     [Tooltip("The notepad input field for CSS code")]
     [Header("Notepad")]
-    public GameObject inputField;
+    public GameObject InputField;
 
     /// <summary>
     /// Displays feedback messages to the user
     /// </summary>
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
-    public GameObject feedbackText;
+    public GameObject FeedbackText;
 
     // The header for the buttons
     [Header("Buttons")]
@@ -96,7 +96,7 @@ public class NotepadManager : MonoBehaviour
         // Scroll sensitivity value for smooth scrolling
         float ScrollSensitivity = 0.01f;
         // set the scroll sensitivity of the notepadInput
-        inputField.GetComponent<TMP_InputField>().scrollSensitivity = ScrollSensitivity;
+        InputField.GetComponent<TMP_InputField>().scrollSensitivity = ScrollSensitivity;
 
         // Note: Progress loading is disabled for testing
         // LoadProgress();
@@ -109,7 +109,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     public void CheckCSSInput()
     {
-        string userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+        string userInput = InputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
         string correctCSS = cssChallenges[currentChallengeIndex].Value.ToLower();
 
         // Normalize input (remove extra spaces, new lines)
@@ -118,14 +118,14 @@ public class NotepadManager : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCSS)
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Correct! Loading next challenge...";
-            feedbackText.GetComponent<TMP_Text>().color = Color.green;
+            FeedbackText.GetComponent<TMP_Text>().text = "Correct! Loading next challenge...";
+            FeedbackText.GetComponent<TMP_Text>().color = Color.green;
             Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Incorrect. Check colons, semicolons, and syntax!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.red;
+            FeedbackText.GetComponent<TMP_Text>().text = "Incorrect!\nCheck colons, semicolons, and syntax!";
+            FeedbackText.GetComponent<TMP_Text>().color = Color.red;
         }
     }
 
@@ -138,9 +138,9 @@ public class NotepadManager : MonoBehaviour
 
         if (currentChallengeIndex >= cssChallenges.Count)
         {
-            feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
-            inputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
+            FeedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
+            InputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
+            FeedbackText.GetComponent<TMP_Text>().color = Color.cyan;
             SubmitBtn.GetComponent<Button>().interactable = false;
             ResetBtn.GetComponent<Button>().interactable = false;
         }
@@ -156,9 +156,9 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void LoadChallenge()
     {
-        inputField.GetComponent<TMP_InputField>().text = cssChallenges[currentChallengeIndex].Key;
-        feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
-        feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
+        InputField.GetComponent<TMP_InputField>().text = cssChallenges[currentChallengeIndex].Key;
+        FeedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
+        FeedbackText.GetComponent<TMP_Text>().color = Color.yellow;
     }
 
     /// <summary>
