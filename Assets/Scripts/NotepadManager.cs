@@ -60,26 +60,30 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private int currentChallengeIndex;
 
-    /// <summary>
-    /// List of CSS challenges with incorrect and correct snippets
-    /// </summary>
-    /// <remarks>
-    /// Key = incorrect CSS snippet,
-    /// Value = correct CSS snippet
-    /// </remarks>
+/// <summary>
+/// List of CSS challenges with incorrect and correct snippets.
+///
+/// <para>
+/// - Key: The incorrect CSS with syntax errors to fix
+/// </para>
+/// <para>
+/// - Value: The correct CSS with proper syntax
+/// </para>
+///
+/// </summary>
     private readonly List<KeyValuePair<string, string>> cssChallenges = new()
     {
         new KeyValuePair<string, string>(
-            "div {\n    background color blue;\n    width: 100px;\n}",
-            "div {\n    background-color: blue;\n    width: 100px;\n}"
+            "div {\n    background color blue;\n    width: 100px;\n}", // Incorrect
+            "div {\n    background-color: blue;\n    width: 100px;\n}" // Correct
         ),
         new KeyValuePair<string, string>(
-            "p {\n    font size 20px;\n    text align center;\n}",
-            "p {\n    font-size: 20px;\n    text-align: center;\n}"
+            "p {\n    font size 20px;\n    text align center;\n}", // Incorrect
+            "p {\n    font-size: 20px;\n    text-align: center;\n}" // Correct
         ),
         new KeyValuePair<string, string>(
-            ".box {\n    border 2px solid black;\n    margin top 10px;\n}",
-            ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"
+            ".box {\n    border 2px solid black;\n    margin top 10px;\n}", // Incorrect
+            ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}" // Correct
         )
     };
 
