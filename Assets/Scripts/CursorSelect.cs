@@ -14,10 +14,7 @@ public class CursorDropdown : MonoBehaviour
 
     // The cursor styles header
     [Header("Cursor Styles")]
-
-    /// <summary>
-    /// The blank cursor reference
-    /// </summary>
+    
     [Tooltip("The cursor texture for the blank cursor")]
     public Texture2D BlankCursor;
 
@@ -36,20 +33,20 @@ public class CursorDropdown : MonoBehaviour
     /// <summary>
     /// Reference to the TMP_Dropdown component
     /// </summary>
-    private TMP_Dropdown dropdown;
+    private TMP_Dropdown _dropdown;
 
     /// <summary>
     /// The currently selected cursor texture
     /// </summary>
-    private Texture2D selectedCursor;
+    private Texture2D _selectedCursor;
 
     /// <summary>
     /// Initializes the dropdown and sets the initial cursor based on the selected index.
     /// </summary>
-    void Start()
+    private void Start()
     {
-        dropdown = GetComponent<TMP_Dropdown>(); // Get the Dropdown component
-        dropdown.onValueChanged.AddListener(SetCursor);
+        _dropdown = GetComponent<TMP_Dropdown>(); // Get the Dropdown component
+        _dropdown.onValueChanged.AddListener(SetCursor);
         SetCursor(0);
     }
 
@@ -57,22 +54,17 @@ public class CursorDropdown : MonoBehaviour
     /// This method is called when the dropdown value changes.
     /// It sets the cursor based on the selected index from the dropdown.
     /// </summary>
-    void SetCursor(int index)
+    private void SetCursor(int index)
     {
-        switch (index)
+        _selectedCursor = index switch
         {
-            case 0:
-                selectedCursor = BlackCursor;
-                break;
-            case 1:
-                selectedCursor = BlankCursor;
-                break;
-            case 2:
-                selectedCursor = YellowCursor;
-                break;
-        }
+            0 => BlackCursor,
+            1 => BlankCursor,
+            2 => YellowCursor,
+            _ => _selectedCursor
+        };
 
-        Cursor.SetCursor(selectedCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(_selectedCursor, Vector2.zero, CursorMode.Auto);
     }
 
     /// <summary>
@@ -80,6 +72,6 @@ public class CursorDropdown : MonoBehaviour
     /// </summary>
     public Texture2D GetSelectedCursor()
     {
-        return selectedCursor;
+        return _selectedCursor;
     }
 }

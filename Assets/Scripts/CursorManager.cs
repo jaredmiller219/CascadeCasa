@@ -17,23 +17,13 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     // The header for the i-beam cursor
     [Header("Cursors")]
-
-    /// <summary>
-    /// Reference to the i-beam cursor texture
-    /// </summary>
-    /// <remarks>
-    /// This texture should be set in the Unity Inspector.
-    /// </remarks>
-    [Tooltip("The texture for the text cursor (i-beam)")]
+    
     public Texture2D textHoverCursor;
-
-    /// <summary>
-    /// Reference to the CursorDropdown script
-    /// </summary>
-    /// <remarks>
-    /// This script is used to get the currently selected cursor from the dropdown.
-    /// </remarks>
-    private CursorDropdown cursorDropdown;
+    [Tooltip("The texture for the text cursor (i-beam)")]
+    
+    // Reference to the CursorDropdown script
+    // This script is used to get the currently selected cursor from the dropdown.
+    private CursorDropdown _cursorDropdown;
 
     /// <summary>
     /// Initializes the CursorManager by finding the CursorDropdown script in the scene
@@ -46,11 +36,11 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     void Start()
     {
         // Find the CursorDropdown script in the scene
-        cursorDropdown = FindFirstObjectByType<CursorDropdown>();
+        _cursorDropdown = FindFirstObjectByType<CursorDropdown>();
 
         // Set the initial cursor to whatever is currently selected in the dropdown
-        if (cursorDropdown != null) {
-            Texture2D selectedCursor = cursorDropdown.GetSelectedCursor();
+        if (_cursorDropdown != null) {
+            Texture2D selectedCursor = _cursorDropdown.GetSelectedCursor();
             Cursor.SetCursor(selectedCursor, Vector2.zero, CursorMode.Auto);
         } else {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
@@ -83,9 +73,9 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerExit(PointerEventData eventData)
     {
         // Get the currently selected cursor from CursorDropdown and set it
-        if (cursorDropdown != null)
+        if (_cursorDropdown != null)
         {
-            Cursor.SetCursor(cursorDropdown.GetSelectedCursor(), Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(_cursorDropdown.GetSelectedCursor(), Vector2.zero, CursorMode.Auto);
         }
     }
 }

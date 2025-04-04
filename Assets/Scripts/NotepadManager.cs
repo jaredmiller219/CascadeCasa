@@ -11,12 +11,13 @@ using UnityEngine.UI;
 /// </summary>
 public class NotepadManager : MonoBehaviour
 {
-    // UI References
     /// <summary>
     /// Text area where users input their CSS solutions
     /// </summary>
     [Tooltip("The notepad input field for CSS code")]
     [Header("Notepad")]
+    
+    // 
     public GameObject InputField;
 
     /// <summary>
@@ -28,10 +29,8 @@ public class NotepadManager : MonoBehaviour
 
     // The header for the buttons
     [Header("Buttons")]
-
-    /// <summary>
-    /// Button that triggers solution validation
-    /// </summary>
+    
+    // Button that triggers solution validation
     [Tooltip("The submit button for checking CSS code")]
     public GameObject SubmitBtn;
 
@@ -43,22 +42,20 @@ public class NotepadManager : MonoBehaviour
 
     // The header for the reset text
     [Header("Reset Text")]
-
-    /// <summary>
-    /// Text to display when the reset button is clicked
-    /// </summary>
+    
+    // Text to display when the reset button is clicked
     [Tooltip("The text that appears when the reset button is clicked")]
     public GameObject ResetPopup;
 
     /// <summary>
     /// Path where progress is saved
     /// </summary>
-    private string saveFilePath;
+    private string _saveFilePath;
 
     /// <summary>
     /// Tracks current challenge number
     /// </summary>
-    private int currentChallengeIndex;
+    private int _currentChallengeIndex;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -71,7 +68,7 @@ public class NotepadManager : MonoBehaviour
     /// </para>
     ///
     /// </summary>
-    private readonly List<KeyValuePair<string, string>> cssChallenges = new()
+    private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
         new KeyValuePair<string, string>(
             "div {\n    background color blue;\n    width: 100px;\n}", // Incorrect
@@ -90,17 +87,17 @@ public class NotepadManager : MonoBehaviour
     /// <summary>
     /// Initializes the game state and sets up event listeners
     /// </summary>
-    void Start()
+    private void Start()
     {
-        saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
-        SubmitBtn.GetComponent<Button>().onClick.AddListener(CheckCSSInput);
+        _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
+        SubmitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         ResetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
         ResetPopup.SetActive(false);
 
         // Scroll sensitivity value for smooth scrolling
-        float ScrollSensitivity = 0.01f;
+        const float scrollSensitivity = 0.01f;
         // set the scroll sensitivity of the notepadInput
-        InputField.GetComponent<TMP_InputField>().scrollSensitivity = ScrollSensitivity;
+        InputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
         // Note: Progress loading is disabled for testing
         // LoadProgress();
@@ -111,16 +108,16 @@ public class NotepadManager : MonoBehaviour
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
     /// </summary>
-    public void CheckCSSInput()
+    private void CheckCssInput()
     {
-        string userInput = InputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
-        string correctCSS = cssChallenges[currentChallengeIndex].Value.ToLower();
+        var userInput = InputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+        var correctCss = _cssChallenges[_currentChallengeIndex].Value.ToLower();
 
         // Normalize input (remove extra spaces, new lines)
-        string normalizedUserInput = NormalizeCSS(userInput);
-        string normalizedCorrectCSS = NormalizeCSS(correctCSS);
+        var normalizedUserInput = NormalizeCss(userInput);
+        var normalizedCorrectCss = NormalizeCss(correctCss);
 
-        if (normalizedUserInput == normalizedCorrectCSS)
+        if (normalizedUserInput == normalizedCorrectCss)
         {
             FeedbackText.GetComponent<TMP_Text>().text = "Correct! Loading next challenge...";
             FeedbackText.GetComponent<TMP_Text>().color = Color.green;
@@ -138,9 +135,9 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void NextChallenge()
     {
-        currentChallengeIndex++;
+        _currentChallengeIndex++;
 
-        if (currentChallengeIndex >= cssChallenges.Count)
+        if (_currentChallengeIndex >= _cssChallenges.Count)
         {
             FeedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
             InputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
@@ -160,18 +157,18 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void LoadChallenge()
     {
-        InputField.GetComponent<TMP_InputField>().text = cssChallenges[currentChallengeIndex].Key;
+        InputField.GetComponent<TMP_InputField>().text = _cssChallenges[_currentChallengeIndex].Key;
         FeedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
         FeedbackText.GetComponent<TMP_Text>().color = Color.yellow;
     }
 
-    /// <summary>
-    /// Hides the reset text panel after a delay
-    /// </summary>
-    private void HidePanel()
-    {
-        ResetPopup.SetActive(false);
-    }
+    // /// <summary>
+    // /// Hides the reset text panel after a delay
+    // /// </summary>
+    // private void HidePanel()
+    // {
+    //     ResetPopup.SetActive(false);
+    // }
 
 
     /// <summary>
@@ -187,30 +184,30 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void SaveProgress()
     {
-        File.WriteAllText(saveFilePath, currentChallengeIndex.ToString());
+        File.WriteAllText(_saveFilePath, _currentChallengeIndex.ToString());
         Debug.Log("Progress saved!");
     }
 
-    /// <summary>
-    /// Loads the saved challenge index from file and resumes progress
-    /// </summary>
-    private void LoadProgress()
-    {
-        if (File.Exists(saveFilePath))
-        {
-            string savedIndex = File.ReadAllText(saveFilePath);
-            if (int.TryParse(savedIndex, out int index) && index < cssChallenges.Count)
-            {
-                currentChallengeIndex = index;
-            }
-        }
-        LoadChallenge();
-    }
+    // /// <summary>
+    // /// Loads the saved challenge index from file and resumes progress
+    // /// </summary>
+    // private void LoadProgress()
+    // {
+    //     if (File.Exists(_saveFilePath))
+    //     {
+    //         string savedIndex = File.ReadAllText(_saveFilePath);
+    //         if (int.TryParse(savedIndex, out int index) && index < _cssChallenges.Count)
+    //         {
+    //             _currentChallengeIndex = index;
+    //         }
+    //     }
+    //     LoadChallenge();
+    // }
 
     /// <summary>
     /// Normalizes CSS input by removing excess spaces and line breaks
     /// </summary>
-    private string NormalizeCSS(string input)
+    private static string NormalizeCss(string input)
     {
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
