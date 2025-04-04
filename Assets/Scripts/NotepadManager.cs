@@ -168,11 +168,6 @@ public class NotepadManager : MonoBehaviour
     private void ResetCurrentChallenge()
     {
         LoadChallenge();
-        var tmpInput = inputField.GetComponent<TMP_InputField>();
-        // tmpInput.verticalScrollbar.value = 1f;
-        tmpInput.ForceLabelUpdate();
-        tmpInput.MoveTextEnd(false);
-        tmpInput.MoveTextStart(false);
     }
 
     /// <summary>
