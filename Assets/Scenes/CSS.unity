@@ -239,11 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289ed2873eb03425e8dfe712fea881a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputField: {fileID: 258285675}
-  FeedbackText: {fileID: 856529158}
-  SubmitBtn: {fileID: 334880260}
-  ResetBtn: {fileID: 1058796262}
-  ResetPopup: {fileID: 1664499674}
+  inputField: {fileID: 258285675}
+  feedbackText: {fileID: 856529158}
+  submitBtn: {fileID: 334880260}
+  resetBtn: {fileID: 1058796262}
+  resetPopup: {fileID: 1664499674}
 --- !u!1 &57432778
 GameObject:
   m_ObjectHideFlags: 0
