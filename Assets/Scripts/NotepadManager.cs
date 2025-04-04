@@ -176,13 +176,6 @@ public class NotepadManager : MonoBehaviour
     private void ResetCurrentChallenge()
     {
         LoadChallenge();
-        // ResetPopup.SetActive(true);
-
-        // Cancel any existing delayed hide
-        // CancelInvoke(nameof(HidePanel));
-
-        // Start a new delay
-        // Invoke(nameof(HidePanel), 1f);
     }
 
     /// <summary>
