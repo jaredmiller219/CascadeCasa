@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class ResetPopupManager : MonoBehaviour
 {
-    public GameObject ResetPopup;
+    public GameObject resetPopup;
     private Animator _animator;
 
     private void Start()
     {
-        _animator = ResetPopup.GetComponent<Animator>();
+        _animator = resetPopup.GetComponent<Animator>();
     }
 
     public void Animate()
     {
-        if (ResetPopup == null || _animator == null) return;
-        ResetPopup.SetActive(true);
+        if (resetPopup == null || _animator == null) return;
+        resetPopup.SetActive(true);
         _animator.Play("Pull", 0, 0f);
     }
 }

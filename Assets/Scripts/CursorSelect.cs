@@ -16,19 +16,19 @@ public class CursorDropdown : MonoBehaviour
     [Header("Cursor Styles")]
     
     [Tooltip("The cursor texture for the blank cursor")]
-    public Texture2D BlankCursor;
+    public Texture2D blankCursor;
 
     /// <summary>
     /// The black cursor reference
     /// </summary>
     [Tooltip("The cursor texture for the black cursor")]
-    public Texture2D BlackCursor;
+    public Texture2D blackCursor;
 
     /// <summary>
     /// The yellow cursor reference
     /// </summary>
     [Tooltip("The cursor texture for the yellow cursor")]
-    public Texture2D YellowCursor;
+    public Texture2D yellowCursor;
 
     /// <summary>
     /// Reference to the TMP_Dropdown component
@@ -58,9 +58,9 @@ public class CursorDropdown : MonoBehaviour
     {
         _selectedCursor = index switch
         {
-            0 => BlackCursor,
-            1 => BlankCursor,
-            2 => YellowCursor,
+            0 => blackCursor,
+            1 => blankCursor,
+            2 => yellowCursor,
             _ => _selectedCursor
         };
 

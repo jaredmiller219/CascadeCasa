@@ -1472,9 +1472,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb99c7e363554fcaaf6a65698711062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlankCursor: {fileID: 2800000, guid: e83cf32cf23fd4933b0129e621812153, type: 3}
-  BlackCursor: {fileID: 2800000, guid: 4f2cbaf4460394b48b32898cda42bb4a, type: 3}
-  YellowCursor: {fileID: 2800000, guid: a80284a91ce0a4f7591cd52a0bffb22e, type: 3}
+  blankCursor: {fileID: 2800000, guid: e83cf32cf23fd4933b0129e621812153, type: 3}
+  blackCursor: {fileID: 2800000, guid: 4f2cbaf4460394b48b32898cda42bb4a, type: 3}
+  yellowCursor: {fileID: 2800000, guid: a80284a91ce0a4f7591cd52a0bffb22e, type: 3}
 --- !u!1 &856529158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,7 +2108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1306f3dedd54451985eef3697847758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetPopup: {fileID: 1664499674}
+  resetPopup: {fileID: 1664499674}
 --- !u!1 &1115518755
 GameObject:
   m_ObjectHideFlags: 0
