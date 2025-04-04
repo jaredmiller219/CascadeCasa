@@ -17,35 +17,35 @@ public class NotepadManager : MonoBehaviour
     [Tooltip("The notepad input field for CSS code")]
     [Header("Notepad")]
     
-    // 
-    public GameObject InputField;
+    // the notepad input field
+    public GameObject inputField;
 
     /// <summary>
     /// Displays feedback messages to the user
     /// </summary>
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
-    public GameObject FeedbackText;
+    public GameObject feedbackText;
 
     // The header for the buttons
     [Header("Buttons")]
     
     // Button that triggers solution validation
     [Tooltip("The submit button for checking CSS code")]
-    public GameObject SubmitBtn;
+    public GameObject submitBtn;
 
     /// <summary>
     /// Button to reset the current challenge
     /// </summary>
     [Tooltip("The reset button for restarting the challenge")]
-    public GameObject ResetBtn;
+    public GameObject resetBtn;
 
     // The header for the reset text
     [Header("Reset Text")]
     
     // Text to display when the reset button is clicked
     [Tooltip("The text that appears when the reset button is clicked")]
-    public GameObject ResetPopup;
+    public GameObject resetPopup;
 
     /// <summary>
     /// Path where progress is saved
@@ -90,14 +90,14 @@ public class NotepadManager : MonoBehaviour
     private void Start()
     {
         _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
-        SubmitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
-        ResetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
-        ResetPopup.SetActive(false);
+        submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
+        resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
+        resetPopup.SetActive(false);
 
         // Scroll sensitivity value for smooth scrolling
         const float scrollSensitivity = 0.01f;
         // set the scroll sensitivity of the notepadInput
-        InputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
+        inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
         // Note: Progress loading is disabled for testing
         // LoadProgress();
@@ -110,7 +110,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void CheckCssInput()
     {
-        var userInput = InputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
         var correctCss = _cssChallenges[_currentChallengeIndex].Value.ToLower();
 
         // Normalize input (remove extra spaces, new lines)
@@ -119,14 +119,14 @@ public class NotepadManager : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            FeedbackText.GetComponent<TMP_Text>().text = "Correct! Loading next challenge...";
-            FeedbackText.GetComponent<TMP_Text>().color = Color.green;
+            feedbackText.GetComponent<TMP_Text>().text = "Correct! Loading next challenge...";
+            feedbackText.GetComponent<TMP_Text>().color = Color.green;
             Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
-            FeedbackText.GetComponent<TMP_Text>().text = "Incorrect!\nCheck colons, semicolons, and syntax!";
-            FeedbackText.GetComponent<TMP_Text>().color = Color.red;
+            feedbackText.GetComponent<TMP_Text>().text = "Incorrect!\nCheck colons, semicolons, and syntax!";
+            feedbackText.GetComponent<TMP_Text>().color = Color.red;
         }
     }
 
@@ -139,11 +139,11 @@ public class NotepadManager : MonoBehaviour
 
         if (_currentChallengeIndex >= _cssChallenges.Count)
         {
-            FeedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
-            InputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
-            FeedbackText.GetComponent<TMP_Text>().color = Color.cyan;
-            SubmitBtn.GetComponent<Button>().interactable = false;
-            ResetBtn.GetComponent<Button>().interactable = false;
+            feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
+            inputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
+            feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
+            submitBtn.GetComponent<Button>().interactable = false;
+            resetBtn.GetComponent<Button>().interactable = false;
         }
         else
         {
@@ -157,20 +157,11 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void LoadChallenge()
     {
-        InputField.GetComponent<TMP_InputField>().text = _cssChallenges[_currentChallengeIndex].Key;
-        FeedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
-        FeedbackText.GetComponent<TMP_Text>().color = Color.yellow;
+        inputField.GetComponent<TMP_InputField>().text = _cssChallenges[_currentChallengeIndex].Key;
+        feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
+        feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
     }
-
-    // /// <summary>
-    // /// Hides the reset text panel after a delay
-    // /// </summary>
-    // private void HidePanel()
-    // {
-    //     ResetPopup.SetActive(false);
-    // }
-
-
+    
     /// <summary>
     /// Resets the current challenge back to its original incorrect CSS snippet
     /// </summary>
@@ -188,21 +179,21 @@ public class NotepadManager : MonoBehaviour
         Debug.Log("Progress saved!");
     }
 
-    // /// <summary>
-    // /// Loads the saved challenge index from file and resumes progress
-    // /// </summary>
-    // private void LoadProgress()
-    // {
-    //     if (File.Exists(_saveFilePath))
-    //     {
-    //         string savedIndex = File.ReadAllText(_saveFilePath);
-    //         if (int.TryParse(savedIndex, out int index) && index < _cssChallenges.Count)
-    //         {
-    //             _currentChallengeIndex = index;
-    //         }
-    //     }
-    //     LoadChallenge();
-    // }
+    /// <summary>
+    /// Loads the saved challenge index from file and resumes progress
+    /// </summary>
+    private void LoadProgress()
+    {
+        if (File.Exists(_saveFilePath))
+        {
+            string savedIndex = File.ReadAllText(_saveFilePath);
+            if (int.TryParse(savedIndex, out int index) && index < _cssChallenges.Count)
+            {
+                _currentChallengeIndex = index;
+            }
+        }
+        LoadChallenge();
+    }
 
     /// <summary>
     /// Normalizes CSS input by removing excess spaces and line breaks
