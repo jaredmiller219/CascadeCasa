@@ -168,6 +168,11 @@ public class NotepadManager : MonoBehaviour
     private void ResetCurrentChallenge()
     {
         LoadChallenge();
+        var tmpInput = inputField.GetComponent<TMP_InputField>();
+        // tmpInput.verticalScrollbar.value = 1f;
+        tmpInput.ForceLabelUpdate();
+        tmpInput.MoveTextEnd(false);
+        tmpInput.MoveTextStart(false);
     }
 
     /// <summary>
@@ -178,8 +183,8 @@ public class NotepadManager : MonoBehaviour
         File.WriteAllText(_saveFilePath, _currentChallengeIndex.ToString());
         Debug.Log("Progress saved!");
     }
-    
-    
+
+
     // TODO: UNCOMMENT THIS LATER WHEN YOU ACTUALLY MAKE THE GAME
     // /// <summary>
     // /// Loads the saved challenge index from the file and resumes progress
