@@ -60,17 +60,17 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private int currentChallengeIndex;
 
-/// <summary>
-/// List of CSS challenges with incorrect and correct snippets.
-///
-/// <para>
-/// - Key: The incorrect CSS with syntax errors to fix
-/// </para>
-/// <para>
-/// - Value: The correct CSS with proper syntax
-/// </para>
-///
-/// </summary>
+    /// <summary>
+    /// List of CSS challenges with incorrect and correct snippets.
+    ///
+    /// <para>
+    /// - Key: The incorrect CSS with syntax errors to fix
+    /// </para>
+    /// <para>
+    /// - Value: The correct CSS with proper syntax
+    /// </para>
+    ///
+    /// </summary>
     private readonly List<KeyValuePair<string, string>> cssChallenges = new()
     {
         new KeyValuePair<string, string>(
