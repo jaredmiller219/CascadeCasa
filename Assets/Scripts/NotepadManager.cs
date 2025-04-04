@@ -16,7 +16,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     [Tooltip("The notepad input field for CSS code")]
     [Header("Notepad")]
-    
+
     // the notepad input field
     public GameObject inputField;
 
@@ -29,7 +29,7 @@ public class NotepadManager : MonoBehaviour
 
     // The header for the buttons
     [Header("Buttons")]
-    
+
     // Button that triggers solution validation
     [Tooltip("The submit button for checking CSS code")]
     public GameObject submitBtn;
@@ -42,7 +42,7 @@ public class NotepadManager : MonoBehaviour
 
     // The header for the reset text
     [Header("Reset Text")]
-    
+
     // Text to display when the reset button is clicked
     [Tooltip("The text that appears when the reset button is clicked")]
     public GameObject resetPopup;
@@ -161,7 +161,7 @@ public class NotepadManager : MonoBehaviour
         feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
         feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
     }
-    
+
     /// <summary>
     /// Resets the current challenge back to its original incorrect CSS snippet
     /// </summary>

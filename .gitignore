@@ -26,6 +26,10 @@
 # Visual Studio cache directory
 .vs/
 
+# ignore the .idea directory
+.idea/
+
+
 # Gradle cache directory
 .gradle/
 
