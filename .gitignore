@@ -27,8 +27,7 @@
 .vs/
 
 # ignore the .idea directory
-.idea/
-
+.idea/.idea.CascadeCasa/.idea
 
 # Gradle cache directory
 .gradle/
