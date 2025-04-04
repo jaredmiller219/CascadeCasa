@@ -214,7 +214,15 @@ public class NotepadManager : MonoBehaviour
             // get the text area
             var textArea = inputField.GetComponent<TMP_InputField>().textComponent;
             // set the text area to the top
-            textArea.transform.localPosition = new Vector3(0, 10, 0);
+            textArea.transform.localPosition = new Vector3(0, 0, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (inputField.GetComponent<TMP_InputField>().isFocused)
+            {
+                inputField.GetComponent<TMP_InputField>().DeactivateInputField();
+            }
         }
     }
 
