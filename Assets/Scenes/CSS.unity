@@ -878,7 +878,7 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 2052825994}
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
-  m_ScrollSensitivity: 0.009
+  m_ScrollSensitivity: 0.01
   m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
@@ -921,7 +921,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 1.2
   m_CaretWidth: 1
   m_ReadOnly: 0
-  m_RichText: 1
+  m_RichText: 0
   m_GlobalFontAsset: {fileID: 0}
   m_OnFocusSelectAll: 0
   m_ResetOnDeActivation: 0
@@ -1935,7 +1935,7 @@ MonoBehaviour:
   m_ActiveFontFeatures: 
   m_enableExtraPadding: 1
   checkPaddingRequired: 0
-  m_isRichText: 1
+  m_isRichText: 0
   m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1

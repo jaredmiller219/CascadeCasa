@@ -90,8 +90,8 @@ public class NotepadManager : MonoBehaviour
     private void Start()
     {
         _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
-        submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
-        resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
+        submitBtn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(CheckCssInput);
+        resetBtn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(ResetCurrentChallenge);
         resetPopup.SetActive(false);
 
         // Scroll sensitivity value for smooth scrolling
@@ -202,6 +202,20 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private static string NormalizeCss(string input)
     {
-        return input.Replace("\n", "").Replace("  ", " ").Trim();
+        return input;
+        // return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
+
+    private void Update()
+    {
+        // get key down is backspace
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            // get the text area
+            var textArea = inputField.GetComponent<TMP_InputField>().textComponent;
+            // set the text area to the top
+            textArea.transform.localPosition = new Vector3(0, 10, 0);
+        }
+    }
+
 }

@@ -17,10 +17,10 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     // The header for the i-beam cursor
     [Header("Cursors")]
-    
+
     public Texture2D textHoverCursor;
     [Tooltip("The texture for the text cursor (i-beam)")]
-    
+
     // Reference to the CursorDropdown script
     // This script is used to get the currently selected cursor from the dropdown.
     private CursorDropdown _cursorDropdown;
