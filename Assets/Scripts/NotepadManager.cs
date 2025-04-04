@@ -178,22 +178,24 @@ public class NotepadManager : MonoBehaviour
         File.WriteAllText(_saveFilePath, _currentChallengeIndex.ToString());
         Debug.Log("Progress saved!");
     }
-
-    /// <summary>
-    /// Loads the saved challenge index from the file and resumes progress
-    /// </summary>
-    private void LoadProgress()
-    {
-        if (File.Exists(_saveFilePath))
-        {
-            var savedIndex = File.ReadAllText(_saveFilePath);
-            if (int.TryParse(savedIndex, out var index) && index < _cssChallenges.Count)
-            {
-                _currentChallengeIndex = index;
-            }
-        }
-        LoadChallenge();
-    }
+    
+    
+    // TODO: UNCOMMENT THIS LATER WHEN YOU ACTUALLY MAKE THE GAME
+    // /// <summary>
+    // /// Loads the saved challenge index from the file and resumes progress
+    // /// </summary>
+    // private void LoadProgress()
+    // {
+    //     if (File.Exists(_saveFilePath))
+    //     {
+    //         var savedIndex = File.ReadAllText(_saveFilePath);
+    //         if (int.TryParse(savedIndex, out var index) && index < _cssChallenges.Count)
+    //         {
+    //             _currentChallengeIndex = index;
+    //         }
+    //     }
+    //     LoadChallenge();
+    // }
 
     /// <summary>
     /// Normalizes CSS input by removing excess spaces and line breaks
