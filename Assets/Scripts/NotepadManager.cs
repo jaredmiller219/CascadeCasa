@@ -180,14 +180,14 @@ public class NotepadManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Loads the saved challenge index from file and resumes progress
+    /// Loads the saved challenge index from the file and resumes progress
     /// </summary>
     private void LoadProgress()
     {
         if (File.Exists(_saveFilePath))
         {
-            string savedIndex = File.ReadAllText(_saveFilePath);
-            if (int.TryParse(savedIndex, out int index) && index < _cssChallenges.Count)
+            var savedIndex = File.ReadAllText(_saveFilePath);
+            if (int.TryParse(savedIndex, out var index) && index < _cssChallenges.Count)
             {
                 _currentChallengeIndex = index;
             }

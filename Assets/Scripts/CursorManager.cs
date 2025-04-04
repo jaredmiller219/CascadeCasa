@@ -33,14 +33,14 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     /// This method is called when the script instance is being loaded.
     /// It sets the cursor to the currently selected cursor in the CursorDropdown script.
     /// </remarks>
-    void Start()
+    private void Start()
     {
         // Find the CursorDropdown script in the scene
         _cursorDropdown = FindFirstObjectByType<CursorDropdown>();
 
         // Set the initial cursor to whatever is currently selected in the dropdown
         if (_cursorDropdown != null) {
-            Texture2D selectedCursor = _cursorDropdown.GetSelectedCursor();
+            var selectedCursor = _cursorDropdown.GetSelectedCursor();
             Cursor.SetCursor(selectedCursor, Vector2.zero, CursorMode.Auto);
         } else {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
