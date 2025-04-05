@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CCNotebook_0: -1569934583366463781
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
