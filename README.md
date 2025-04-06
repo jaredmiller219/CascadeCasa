@@ -7,7 +7,7 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 ## Developers
 
 - **Jared Miller** - [jaredmil@udel.edu](mailto:jaredmil@udel.edu)
-- **Selin Bacaz** - [selinb@udel.edu](mailto:selinb@udel.edu)
+- **Selin Bacaz** - [selinb@udel.edu](mailto:selinb@udel.edu) !!
 - **Dustin Tran** - [dustintr@udel.edu](mailto:dustintr@udel.edu)
 - **Mohamed Mouhoud** - [tahamou@udel.edu](mailto:tahamou@udel.edu)
 
