@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CCtheJournalClosed_0: -1678483687148924662
+      CCtheJournalClosed_1: 5288353798653876613
+      CCtheJournalClosed_2: 3554075284473288266
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

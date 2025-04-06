@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CClivroomFinished_0: 9021628802537239661
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
