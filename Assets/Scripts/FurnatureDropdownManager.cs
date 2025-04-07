@@ -9,14 +9,16 @@ public class FurnatureDropdownManager : MonoBehaviour
     private void Start()
     {
         _animator = furnatureDropdown.GetComponent<Animator>();
-        if (_animator == null){
-            Debug.LogError("No Animator component found on furnatureDropdown!");
-        }
-        if (btnImage == null){
-            Debug.LogError("No btnImage assigned!");
-        }
-        if (furnatureDropdown == null){
-            Debug.LogError("No furnatureDropdown assigned!");
+        switch (true){
+            case true when _animator == null:
+                Debug.LogError("No Animator component found on furnatureDropdown!");
+                break;
+            case true when btnImage == null:
+                Debug.LogError("No btnImage assigned!");
+                break;
+            case true when furnatureDropdown == null:
+                Debug.LogError("No furnatureDropdown assigned!");
+                break;
         }
     }
 
