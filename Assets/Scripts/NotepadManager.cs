@@ -58,7 +58,7 @@ public class NotepadManager : MonoBehaviour
     [HideInInspector]
     public int currentChallengeIndex;
 
-    public readonly GameObject challengeCompleteManager;
+    private readonly ChallengeCompleteManager challengeCompleteManager;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -149,7 +149,7 @@ public class NotepadManager : MonoBehaviour
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
 
             // Show the complete popup
-            challengeCompleteManager.GetComponent<ChallengeCompleteManager>().ShowCompletePopup();
+            challengeCompleteManager.ShowCompletePopup();
 
             // Disable buttons
             submitBtn.GetComponent<Button>().interactable = false;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChallengeCompleteManager : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class ChallengeCompleteManager : MonoBehaviour
     {
         // set active as false
         completePopup.SetActive(false);
-        restartBtn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(RestartGame);
-        menuBtn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(GoToMenu);
+        restartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
+        menuBtn.GetComponent<Button>().onClick.AddListener(GoToMenu);
     }
 
     // Update is called once per frame
