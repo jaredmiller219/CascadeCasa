@@ -1931,7 +1931,7 @@ GameObject:
   - component: {fileID: 815620130}
   - component: {fileID: 815620129}
   m_Layer: 5
-  m_Name: FurnaturePulldown
+  m_Name: FurnatureSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
