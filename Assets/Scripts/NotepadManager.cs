@@ -140,10 +140,15 @@ public class NotepadManager : MonoBehaviour
         if (_currentChallengeIndex >= _cssChallenges.Count)
         {
             feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
-            inputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
+            // inputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
+
+            // Disable buttons
             submitBtn.GetComponent<Button>().interactable = false;
             resetBtn.GetComponent<Button>().interactable = false;
+
+            // disable the notepad
+            inputField.GetComponent<TMP_InputField>().interactable = false;
         }
         else
         {
@@ -202,8 +207,8 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private static string NormalizeCss(string input)
     {
-        return input;
-        // return input.Replace("\n", "").Replace("  ", " ").Trim();
+        // return input;
+        return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
 
     private void Update()
@@ -215,14 +220,6 @@ public class NotepadManager : MonoBehaviour
             var textArea = inputField.GetComponent<TMP_InputField>().textComponent;
             // set the text area to the top
             textArea.transform.localPosition = new Vector3(0, 0, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (inputField.GetComponent<TMP_InputField>().isFocused)
-            {
-                inputField.GetComponent<TMP_InputField>().DeactivateInputField();
-            }
         }
     }
 
