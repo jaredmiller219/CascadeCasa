@@ -15,6 +15,5 @@ public class ResetPopupManager : MonoBehaviour
         if (resetPopup == null || _animator == null) return;
         resetPopup.SetActive(true);
         _animator.Play("Pull", 0, 0f);
-        // resetPopup.SetActive(false);
     }
 }
