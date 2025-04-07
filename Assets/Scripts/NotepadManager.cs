@@ -1,7 +1,7 @@
 // NotepadManager.cs
 
 using System.Collections.Generic;
-using System.IO;
+// using System.IO;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -47,9 +47,9 @@ public class NotepadManager : MonoBehaviour
     [Tooltip("The text that appears when the reset button is clicked")]
     public GameObject resetPopup;
 
-    /// <summary>
-    /// Path where progress is saved
-    /// </summary>
+    // /// <summary>
+    // /// Path where progress is saved
+    // /// </summary>
     // private string _saveFilePath;
 
     /// <summary>
@@ -58,7 +58,7 @@ public class NotepadManager : MonoBehaviour
     [HideInInspector]
     public int currentChallengeIndex;
 
-    private readonly ChallengeCompleteManager challengeCompleteManager;
+    private ChallengeCompleteManager _challengeCompleteManager;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -92,6 +92,8 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        _challengeCompleteManager = GetComponent<ChallengeCompleteManager>();
+        
         // _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
@@ -149,7 +151,7 @@ public class NotepadManager : MonoBehaviour
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
 
             // Show the complete popup
-            challengeCompleteManager.ShowCompletePopup();
+            _challengeCompleteManager.ShowCompletePopup();
 
             // Disable buttons
             submitBtn.GetComponent<Button>().interactable = false;
