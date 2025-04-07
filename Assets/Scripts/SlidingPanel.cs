@@ -15,7 +15,7 @@ public class SlidePanelController : MonoBehaviour
         _panelRect = GetComponent<RectTransform>();
 
         _openPos = new Vector2(178.99f, _panelRect.anchoredPosition.y);
-        float panelWidth = _panelRect.rect.width;
+        var panelWidth = _panelRect.rect.width;
         _closedPos = new Vector2(178.99f - panelWidth + visibleTabWidth, _panelRect.anchoredPosition.y);
 
         _panelRect.anchoredPosition = _closedPos;
