@@ -26,6 +26,15 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private CursorDropdown _cursorDropdown;
 
     /// <summary>
+    /// The hotspot for the cursor, which is the point within the cursor image
+    /// that will be used to click on objects.
+    /// </summary>
+    /// <remarks>
+    /// The hotspot is set to the center of the cursor image (7.5, 7.5) for a 15x15 pixel cursor.
+    /// </remarks>
+    private readonly Vector2 _cursorHotspot = new(7.5f, 7.5f);
+
+    /// <summary>
     /// Initializes the CursorManager by finding the CursorDropdown script in the scene
     /// and setting the initial cursor to the currently selected cursor in the dropdown.
     /// </summary>
@@ -58,7 +67,7 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     /// <param name="eventData">The event data associated with the pointer event.</param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Cursor.SetCursor(textHoverCursor, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(textHoverCursor, _cursorHotspot, CursorMode.Auto);
     }
 
 
