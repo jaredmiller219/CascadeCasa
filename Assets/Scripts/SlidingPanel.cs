@@ -10,7 +10,7 @@ public class SlidePanelController : MonoBehaviour
     private Vector2 _closedPos;
     private bool _isOpen;
 
-    void Start()
+    private void Start()
     {
         _panelRect = GetComponent<RectTransform>();
 
@@ -28,7 +28,7 @@ public class SlidePanelController : MonoBehaviour
         _isOpen = !_isOpen;
     }
 
-    System.Collections.IEnumerator Slide(Vector2 target)
+    private System.Collections.IEnumerator Slide(Vector2 target)
     {
         while (Vector2.Distance(_panelRect.anchoredPosition, target) > 0.1f)
         {
