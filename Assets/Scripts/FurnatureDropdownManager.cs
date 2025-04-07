@@ -28,7 +28,9 @@ public class FurnatureDropdownManager : MonoBehaviour
             return;
         }
 
+        // toggle the animator's "open" bool
         bool isOpen = _animator.GetBool("open");
+        // set the animator's "open" bool to the opposite of its current value
         _animator.SetBool("open", !isOpen);
 
         if (!isOpen){
