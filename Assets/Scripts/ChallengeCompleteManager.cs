@@ -19,12 +19,6 @@ public class ChallengeCompleteManager : MonoBehaviour
         // menuBtn.GetComponent<Button>().onClick.AddListener(GoToMenu);
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
-
     // Restart the game
     private void RestartGame()
     {
