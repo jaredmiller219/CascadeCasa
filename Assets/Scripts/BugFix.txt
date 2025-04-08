@@ -1,3 +1,7 @@
 FIXME: Cursor blinker isn't visible in certain spots
 Steps to reproduce:
     No idea, it's just not visible in certain areas
+
+FIXME: Level End Popup doesnt show up at end of Level
+Steps to reproduce:
+    1) literally just get to the end, and youll see it doesnt show up
