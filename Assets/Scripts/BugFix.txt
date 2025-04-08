@@ -1,0 +1,3 @@
+FIXME: Cursor blinker isn't visible in certain spots
+Steps to reproduce:
+    No idea, it's just not visible in certain areas

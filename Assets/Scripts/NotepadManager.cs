@@ -1,7 +1,7 @@
 // NotepadManager.cs
 
 using System.Collections.Generic;
-using System.IO;
+// using System.IO;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -47,9 +47,9 @@ public class NotepadManager : MonoBehaviour
     [Tooltip("The text that appears when the reset button is clicked")]
     public GameObject resetPopup;
 
-    /// <summary>
-    /// Path where progress is saved
-    /// </summary>
+    // /// <summary>
+    // /// Path where progress is saved
+    // /// </summary>
     // private string _saveFilePath;
 
     /// <summary>
@@ -58,7 +58,7 @@ public class NotepadManager : MonoBehaviour
     [HideInInspector]
     public int currentChallengeIndex;
 
-    private readonly ChallengeCompleteManager challengeCompleteManager;
+    private ChallengeCompleteManager _challengeCompleteManager;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -92,6 +92,8 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        _challengeCompleteManager = GetComponent<ChallengeCompleteManager>();
+        
         // _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
@@ -122,13 +124,13 @@ public class NotepadManager : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Correct! Loading next challenge...";
+            feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
             feedbackText.GetComponent<TMP_Text>().color = Color.green;
             Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Incorrect!\nCheck colons, semicolons, and syntax!";
+            feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, and syntax!";
             feedbackText.GetComponent<TMP_Text>().color = Color.red;
         }
     }
@@ -149,7 +151,7 @@ public class NotepadManager : MonoBehaviour
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
 
             // Show the complete popup
-            challengeCompleteManager.ShowCompletePopup();
+            _challengeCompleteManager.ShowCompletePopup();
 
             // Disable buttons
             submitBtn.GetComponent<Button>().interactable = false;
@@ -160,7 +162,7 @@ public class NotepadManager : MonoBehaviour
         else
         {
             LoadChallenge();
-            SaveProgress();
+            // SaveProgress();
         }
     }
 
@@ -182,14 +184,14 @@ public class NotepadManager : MonoBehaviour
         LoadChallenge();
     }
 
-    /// <summary>
-    /// Saves the current challenge index to a file
-    /// </summary>
-    private void SaveProgress()
-    {
-        // File.WriteAllText(_saveFilePath, currentChallengeIndex.ToString());
-        Debug.Log("Progress saved!");
-    }
+    // /// <summary>
+    // /// Saves the current challenge index to a file
+    // /// </summary>
+    // private void SaveProgress()
+    // {
+    //     File.WriteAllText(_saveFilePath, currentChallengeIndex.ToString());
+    //     Debug.Log("Progress saved!");
+    // }
 
 
     // TODO: UNCOMMENT THIS LATER WHEN YOU ACTUALLY MAKE THE GAME
