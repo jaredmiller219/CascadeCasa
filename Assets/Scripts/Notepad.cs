@@ -25,6 +25,7 @@ public class Notepad : MonoBehaviour
     /// </summary>
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
+    // TODO: THIS IS ONLY FOR TESTING, REMOVE LATER
     public GameObject feedbackText;
 
     // The header for the buttons
