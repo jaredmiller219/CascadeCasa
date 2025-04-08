@@ -21,4 +21,10 @@ public class Menu : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("CSS-Dustin");
     }
 
+    public void Settings()
+    {
+        // load the settings scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+    }
+
 }
