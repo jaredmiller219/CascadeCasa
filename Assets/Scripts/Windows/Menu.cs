@@ -2,17 +2,6 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    // // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // void Start()
-    // {
-
-    // }
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
 
     public void Quit()
     {
@@ -20,7 +9,7 @@ public class Menu : MonoBehaviour
         Application.Quit();
 
         // if we are in the editor, stop playing
-        // JUST FOR TESTING
+        // TODO: JUST FOR TESTING
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
@@ -30,6 +19,12 @@ public class Menu : MonoBehaviour
     {
         // load the level select scene
         UnityEngine.SceneManagement.SceneManager.LoadScene("CSS-Dustin");
+    }
+
+    public void Settings()
+    {
+        // load the settings scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
     }
 
 }
