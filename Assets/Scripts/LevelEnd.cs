@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChallengeCompleteManager : MonoBehaviour
+public class LevelEnd : MonoBehaviour
 {
 
     public GameObject completePopup;
     public GameObject restartBtn;
     // public GameObject menuBtn;
-    private NotepadManager _notepadManager;
+    private Notepad _notepadManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        _notepadManager = GameObject.Find("NotepadManager").GetComponent<NotepadManager>();
+        _notepadManager = GameObject.Find("NotepadManager").GetComponent<Notepad>();
         // set active as false
         completePopup.SetActive(false);
         restartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);

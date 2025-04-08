@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
 /// </summary>
-public class NotepadManager : MonoBehaviour
+public class Notepad : MonoBehaviour
 {
     /// <summary>
     /// Text area where users input their CSS solutions
@@ -58,7 +58,7 @@ public class NotepadManager : MonoBehaviour
     [HideInInspector]
     public int currentChallengeIndex;
 
-    private ChallengeCompleteManager _challengeCompleteManager;
+    private LevelEnd _challengeComplete;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -92,8 +92,8 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        _challengeCompleteManager = GetComponent<ChallengeCompleteManager>();
-        
+        _challengeComplete = GetComponent<LevelEnd>();
+
         // _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
@@ -151,7 +151,7 @@ public class NotepadManager : MonoBehaviour
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
 
             // Show the complete popup
-            _challengeCompleteManager.ShowCompletePopup();
+            _challengeComplete.ShowCompletePopup();
 
             // Disable buttons
             submitBtn.GetComponent<Button>().interactable = false;

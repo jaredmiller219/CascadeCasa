@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ResetPopupManager : MonoBehaviour
+public class ResetPopup : MonoBehaviour
 {
     public GameObject resetPopup;
     private Animator _animator;

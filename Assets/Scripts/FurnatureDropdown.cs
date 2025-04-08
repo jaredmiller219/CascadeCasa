@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FurnitureDropdownManager : MonoBehaviour
+public class FurnitureDropdown : MonoBehaviour
 {
     private static readonly int Open = Animator.StringToHash("open");
     public GameObject furnitureDropdown;
