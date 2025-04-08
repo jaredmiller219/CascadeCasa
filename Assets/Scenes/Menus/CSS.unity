@@ -1594,7 +1594,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completePopup: {fileID: 531749349}
   restartBtn: {fileID: 2091105351}
-  menuBtn: {fileID: 201838785}
 --- !u!1 &637287898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,7 +1930,7 @@ GameObject:
   - component: {fileID: 815620130}
   - component: {fileID: 815620129}
   m_Layer: 5
-  m_Name: FurnatureSelection
+  m_Name: FurnitureSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3752,7 +3751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b26a6ad339b4edc91921c8c966df89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  furnatureDropdown: {fileID: 815620128}
+  furnitureDropdown: {fileID: 815620128}
   btnImage: {fileID: 2141786702}
 --- !u!114 &1887702713
 MonoBehaviour:
