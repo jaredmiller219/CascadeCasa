@@ -14,10 +14,19 @@ public class LevelEnd : MonoBehaviour
     {
         _notepadManager = GameObject.Find("NotepadManager").GetComponent<Notepad>();
         // set active as false
-        completePopup.SetActive(false);
+        // completePopup.SetActive(false);
         restartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
         // menuBtn.GetComponent<Button>().onClick.AddListener(GoToMenu);
     }
+
+    // void Update(){
+    //     // Check if all challenges are completed
+    //     if (_notepadManager != null && _notepadManager.IsLevelComplete())
+    //     {
+    //         ShowCompletePopup();
+    //     }
+    // }
+
 
     // Restart the game
     private void RestartGame()
@@ -41,10 +50,10 @@ public class LevelEnd : MonoBehaviour
     // }
 
     // Show the complete popup
-    public void ShowCompletePopup()
-    {
-        // Set the complete popup to active
-        completePopup.SetActive(true);
-    }
+    // public void ShowCompletePopup()
+    // {
+    //     // Set the complete popup to active
+    //     completePopup.SetActive(true);
+    // }
 
 }

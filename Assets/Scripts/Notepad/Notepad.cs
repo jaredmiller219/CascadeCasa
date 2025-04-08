@@ -11,6 +11,8 @@ using UnityEngine.UI;
 /// </summary>
 public class Notepad : MonoBehaviour
 {
+    private CursorManager cursorManager;
+
     /// <summary>
     /// Text area where users input their CSS solutions
     /// </summary>
@@ -56,10 +58,15 @@ public class Notepad : MonoBehaviour
     /// <summary>
     /// Tracks current challenge number
     /// </summary>
-    [HideInInspector]
+    // [HideInInspector]
+    [Tooltip("The index of the current challenge")]
+    [Header("Challenge Index")]
     public int currentChallengeIndex;
 
-    private LevelEnd _challengeComplete;
+    [Header("Lvl End Popup")]
+    public GameObject challengeComplete;
+
+    // private readonly CursorManager mainCursor;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -93,7 +100,6 @@ public class Notepad : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        _challengeComplete = GetComponent<LevelEnd>();
 
         // _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
@@ -105,8 +111,17 @@ public class Notepad : MonoBehaviour
         // set the scroll sensitivity of the notepadInput
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
+        // Set the cursor to the text cursor when the pointer enters the object
+        // mainCursor.GetComponent<CursorManager>();
+
         // Note: Progress loading is disabled for testing
         // LoadProgress();
+
+        // Find or get the CursorManager reference
+        if (cursorManager == null)
+        {
+            cursorManager = GetComponent<CursorManager>();
+        }
 
         LoadChallenge();
     }
@@ -136,6 +151,11 @@ public class Notepad : MonoBehaviour
         }
     }
 
+    public bool IsLevelComplete()
+    {
+        return currentChallengeIndex >= _cssChallenges.Count;
+    }
+
     /// <summary>
     /// Advances to the next challenge or completes the game
     /// </summary>
@@ -143,25 +163,32 @@ public class Notepad : MonoBehaviour
     {
         currentChallengeIndex++;
 
-        if (currentChallengeIndex >= _cssChallenges.Count)
-        {
+        if (IsLevelComplete()) {
             feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
             // instead of setting the text to "You're a CSS master!", show a popup with the text
             inputField.GetComponent<TMP_InputField>().text = "";
             inputField.GetComponent<TMP_InputField>().interactable = false;
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
 
-            // Show the complete popup
-            _challengeComplete.ShowCompletePopup();
-
             // Disable buttons
             submitBtn.GetComponent<Button>().interactable = false;
             resetBtn.GetComponent<Button>().interactable = false;
 
-            // disable the notepad
+            // Show the complete popup
+            challengeComplete.SetActive(true);
+
+            // Use the cursor manager if available
+            if (cursorManager != null)
+            {
+                cursorManager.ResetToDefaultCursor();
+            }
+            else
+            {
+                Debug.LogWarning("CursorManager reference is missing!");
+            }
         }
-        else
-        {
+
+        else {
             LoadChallenge();
             // SaveProgress();
         }

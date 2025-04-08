@@ -11,6 +11,20 @@ using TMPro;
 /// </summary>
 public class CursorType : MonoBehaviour
 {
+    public static CursorType Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // The cursor styles header
     [Header("Cursor Styles")]
