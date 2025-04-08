@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    
+
     public void Quit()
     {
         // quit the game
