@@ -23,7 +23,7 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     // Reference to the CursorDropdown script
     // This script is used to get the currently selected cursor from the dropdown.
-    private CursorDropdown _cursorDropdown;
+    private CursorType _cursorDropdown;
 
     /// <summary>
     /// The hotspot for the cursor, which is the point within the cursor image
@@ -45,7 +45,7 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void Start()
     {
         // Find the CursorDropdown script in the scene
-        _cursorDropdown = FindFirstObjectByType<CursorDropdown>();
+        _cursorDropdown = FindFirstObjectByType<CursorType>();
 
         // Set the initial cursor to whatever is currently selected in the dropdown
         if (_cursorDropdown != null) {

@@ -9,12 +9,12 @@ using TMPro;
 /// The selected cursor is applied to the mouse cursor when the dropdown value changes.
 /// The script also provides a method to get the currently selected cursor texture.
 /// </summary>
-public class CursorDropdown : MonoBehaviour
+public class CursorType : MonoBehaviour
 {
 
     // The cursor styles header
     [Header("Cursor Styles")]
-    
+
     [Tooltip("The cursor texture for the blank cursor")]
     public Texture2D blankCursor;
 
