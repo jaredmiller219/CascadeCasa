@@ -3,8 +3,12 @@ using UnityEngine;
 public class FurnitureDropdown : MonoBehaviour
 {
     private static readonly int Open = Animator.StringToHash("open");
+    
+    // Game Object References
     public GameObject furnitureDropdown;
     public GameObject btnImage;
+    
+    // Reference to the animation
     private Animator _animator;
 
     private void Start()
@@ -25,7 +29,9 @@ public class FurnitureDropdown : MonoBehaviour
 
     public void PullBarDown()
     {
+        // Check if both dont exist
         if (furnitureDropdown == null || _animator == null){
+            // if they dont exist, return
             return;
         }
 
@@ -34,12 +40,15 @@ public class FurnitureDropdown : MonoBehaviour
         // set the animator's "open" bool to the opposite of its current value
         _animator.SetBool(Open, !isOpen);
 
+        // check if the panel is open
+        // This makes no sense, but for some reason I had to reverse the rotation lines
+        // because it should rotate it if the panel is open, not if it is closed...
         if (!isOpen){
-            // then rotate the image's x-axis by 180 degrees
+            // Rotate the image's x-axis by 180 degrees
             btnImage.transform.Rotate(180, 0, 0);
         }
         else{
-            // reset the image's x-axis to 0 degrees
+            // Reset the image's x-axis-rotation to 0 degrees
             btnImage.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
