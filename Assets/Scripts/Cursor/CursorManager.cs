@@ -23,7 +23,35 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     // Reference to the CursorDropdown script
     // This script is used to get the currently selected cursor from the dropdown.
+    // [SerializeField]
     private CursorType _cursorDropdown;
+
+    private static CursorType _sharedDropdown;
+
+    private void Awake()
+    {
+        if (_cursorDropdown != null)
+        {
+            _sharedDropdown = _cursorDropdown;
+        }
+    }
+
+    public void ResetToDefaultCursor()
+    {
+        // Try both the instance and shared reference
+        CursorType dropdownToUse = _cursorDropdown != null ? _cursorDropdown : _sharedDropdown;
+
+        if (dropdownToUse != null)
+        {
+            Debug.Log("Resetting cursor using dropdown");
+            var selectedCursor = dropdownToUse.GetSelectedCursor();
+            Cursor.SetCursor(selectedCursor, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            Debug.LogWarning("No cursor dropdown reference available!");
+        }
+    }
 
     /// <summary>
     /// The hotspot for the cursor, which is the point within the cursor image
@@ -82,9 +110,10 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerExit(PointerEventData eventData)
     {
         // Get the currently selected cursor from CursorDropdown and set it
-        if (_cursorDropdown != null)
-        {
-            Cursor.SetCursor(_cursorDropdown.GetSelectedCursor(), Vector2.zero, CursorMode.Auto);
-        }
+        // if (_cursorDropdown != null)
+        // {
+        //     Cursor.SetCursor(_cursorDropdown.GetSelectedCursor(), Vector2.zero, CursorMode.Auto);
+        // }
+        ResetToDefaultCursor();
     }
 }
