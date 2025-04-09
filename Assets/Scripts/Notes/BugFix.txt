@@ -5,3 +5,8 @@ Steps to reproduce:
 FIXME: Level End Popup doesnt show up at end of Level
 Steps to reproduce:
     1) literally just get to the end, and youll see it doesnt show up
+
+
+In a manager object, check player prefs to see if mouse setting/values are set
+if it isnt, update it (define it)
+after, load that value when you use it
