@@ -22,6 +22,8 @@ public class Notepad : MonoBehaviour
     // the notepad input field
     public GameObject inputField;
 
+    public TMP_InputField notepad;
+
     /// <summary>
     /// Displays feedback messages to the user
     /// </summary>
@@ -246,18 +248,6 @@ public class Notepad : MonoBehaviour
     {
         // return input;
         return input.Replace("\n", "").Replace("  ", " ").Trim();
-    }
-
-    private void Update()
-    {
-        // get key down is backspace
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            // get the text area
-            var textArea = inputField.GetComponent<TMP_InputField>().textComponent;
-            // set the text area to the top
-            textArea.transform.localPosition = new Vector3(0, 0, 0);
-        }
     }
 
 }
