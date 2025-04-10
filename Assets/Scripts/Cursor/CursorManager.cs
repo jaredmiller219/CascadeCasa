@@ -36,22 +36,22 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
-    public void ResetToDefaultCursor()
-    {
-        // Try both the instance and shared reference
-        CursorType dropdownToUse = _cursorDropdown != null ? _cursorDropdown : _sharedDropdown;
+    // public void ResetToDefaultCursor()
+    // {
+    //     // Try both the instance and shared reference
+    //     CursorType dropdownToUse = _cursorDropdown != null ? _cursorDropdown : _sharedDropdown;
 
-        if (dropdownToUse != null)
-        {
-            Debug.Log("Resetting cursor using dropdown");
-            var selectedCursor = dropdownToUse.GetSelectedCursor();
-            Cursor.SetCursor(selectedCursor, Vector2.zero, CursorMode.Auto);
-        }
-        else
-        {
-            Debug.LogWarning("No cursor dropdown reference available!");
-        }
-    }
+    //     if (dropdownToUse != null)
+    //     {
+    //         Debug.Log("Resetting cursor using dropdown");
+    //         var selectedCursor = dropdownToUse.GetSelectedCursor();
+    //         Cursor.SetCursor(selectedCursor, Vector2.zero, CursorMode.Auto);
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("No cursor dropdown reference available!");
+    //     }
+    // }
 
     /// <summary>
     /// The hotspot for the cursor, which is the point within the cursor image
@@ -80,6 +80,7 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             var selectedCursor = _cursorDropdown.GetSelectedCursor();
             Cursor.SetCursor(selectedCursor, Vector2.zero, CursorMode.Auto);
         } else {
+            Debug.LogWarning("No cursor dropdown reference available!");
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }
@@ -110,10 +111,10 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerExit(PointerEventData eventData)
     {
         // Get the currently selected cursor from CursorDropdown and set it
-        // if (_cursorDropdown != null)
-        // {
-        //     Cursor.SetCursor(_cursorDropdown.GetSelectedCursor(), Vector2.zero, CursorMode.Auto);
-        // }
-        ResetToDefaultCursor();
+        if (_cursorDropdown != null)
+        {
+            Cursor.SetCursor(_cursorDropdown.GetSelectedCursor(), Vector2.zero, CursorMode.Auto);
+        }
+        // ResetToDefaultCursor();
     }
 }

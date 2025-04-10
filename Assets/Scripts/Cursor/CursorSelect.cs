@@ -11,20 +11,10 @@ using TMPro;
 /// </summary>
 public class CursorType : MonoBehaviour
 {
-    public static CursorType Instance { get; private set; }
+    // Constants for PlayerPrefs keys
+    private const string CURSOR_PREF_KEY = "SelectedCursorIndex";
+    private const int DEFAULT_CURSOR = 0; // Black cursor is default
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     // The cursor styles header
     [Header("Cursor Styles")]
@@ -60,8 +50,12 @@ public class CursorType : MonoBehaviour
     private void Start()
     {
         _dropdown = GetComponent<TMP_Dropdown>(); // Get the Dropdown component
+        int savedCursorIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR); // Set the default value
+
+        // Set the cursor based on the selected index
+        _dropdown.value = savedCursorIndex;
         _dropdown.onValueChanged.AddListener(SetCursor);
-        SetCursor(0);
+        SetCursor(savedCursorIndex);
     }
 
     /// <summary>
@@ -70,6 +64,13 @@ public class CursorType : MonoBehaviour
     /// </summary>
     private void SetCursor(int index)
     {
+
+        // Save the selected index to PlayerPrefs
+        PlayerPrefs.SetInt(CURSOR_PREF_KEY, index);
+        PlayerPrefs.Save();
+
+        // Set the cursor based on the selected index
+        // The index corresponds to the order of the cursors in the dropdown
         _selectedCursor = index switch
         {
             0 => blackCursor,
@@ -86,6 +87,18 @@ public class CursorType : MonoBehaviour
     /// </summary>
     public Texture2D GetSelectedCursor()
     {
+        // If _selectedCursor is null, load from PlayerPrefs
+        if (_selectedCursor == null)
+        {
+            int savedIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR);
+            _selectedCursor = savedIndex switch
+            {
+                0 => blackCursor,
+                1 => blankCursor,
+                2 => yellowCursor,
+                _ => blackCursor // Fallback to default
+            };
+        }
         return _selectedCursor;
     }
 }

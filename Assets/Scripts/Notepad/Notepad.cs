@@ -181,7 +181,7 @@ public class Notepad : MonoBehaviour
             // Use the cursor manager if available
             if (cursorManager != null)
             {
-                cursorManager.ResetToDefaultCursor();
+                // cursorManager.ResetToDefaultCursor();
             }
             else
             {
