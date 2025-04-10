@@ -54,32 +54,37 @@ public class CursorType : MonoBehaviour
 
         // Set the cursor based on the selected index
         _dropdown.value = savedCursorIndex;
-        _dropdown.onValueChanged.AddListener(SetCursor);
-        SetCursor(savedCursorIndex);
+        _dropdown.onValueChanged.AddListener(SwitchCursor); // Add listener to the dropdown
+        SwitchCursor(savedCursorIndex);
     }
 
     /// <summary>
     /// This method is called when the dropdown value changes.
     /// It sets the cursor based on the selected index from the dropdown.
     /// </summary>
-    private void SetCursor(int index)
+    // private void SetCursor(int index)
+    // {
+
+    //     // Save the selected index to PlayerPrefs
+    //     PlayerPrefs.SetInt(CURSOR_PREF_KEY, index);
+    //     PlayerPrefs.Save();
+
+    //     // Set the cursor based on the selected index
+    //     // The index corresponds to the order of the cursors in the dropdown
+    //     _selectedCursor = index switch
+    //     {
+    //         0 => blackCursor,
+    //         1 => blankCursor,
+    //         2 => yellowCursor,
+    //         _ => _selectedCursor
+    //     };
+
+    //     Cursor.SetCursor(_selectedCursor, Vector2.zero, CursorMode.Auto);
+    // }
+
+    public void SwitchCursor(int cursorIndex)
     {
-
-        // Save the selected index to PlayerPrefs
-        PlayerPrefs.SetInt(CURSOR_PREF_KEY, index);
-        PlayerPrefs.Save();
-
-        // Set the cursor based on the selected index
-        // The index corresponds to the order of the cursors in the dropdown
-        _selectedCursor = index switch
-        {
-            0 => blackCursor,
-            1 => blankCursor,
-            2 => yellowCursor,
-            _ => _selectedCursor
-        };
-
-        Cursor.SetCursor(_selectedCursor, Vector2.zero, CursorMode.Auto);
+        GlobalCursorManager.Instance.SetCursor(cursorIndex);
     }
 
     /// <summary>

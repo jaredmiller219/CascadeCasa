@@ -26,15 +26,15 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     // [SerializeField]
     private CursorType _cursorDropdown;
 
-    private static CursorType _sharedDropdown;
+    // private static CursorType _sharedDropdown;
 
-    private void Awake()
-    {
-        if (_cursorDropdown != null)
-        {
-            _sharedDropdown = _cursorDropdown;
-        }
-    }
+    // private void Awake()
+    // {
+    //     if (_cursorDropdown != null)
+    //     {
+    //         _sharedDropdown = _cursorDropdown;
+    //     }
+    // }
 
     // public void ResetToDefaultCursor()
     // {
@@ -80,7 +80,7 @@ public class CursorManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             var selectedCursor = _cursorDropdown.GetSelectedCursor();
             Cursor.SetCursor(selectedCursor, Vector2.zero, CursorMode.Auto);
         } else {
-            Debug.LogWarning("No cursor dropdown reference available!");
+            // Debug.LogWarning("No cursor dropdown reference available!");
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }
