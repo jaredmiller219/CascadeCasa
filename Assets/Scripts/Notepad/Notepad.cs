@@ -209,8 +209,7 @@ public class Notepad : MonoBehaviour
     /// <summary>
     /// Resets the current challenge back to its original incorrect CSS snippet
     /// </summary>
-    private void ResetCurrentChallenge()
-    {
+    private void ResetCurrentChallenge(){
         LoadChallenge();
     }
 

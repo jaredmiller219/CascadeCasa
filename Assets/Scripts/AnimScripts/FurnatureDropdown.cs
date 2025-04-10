@@ -3,11 +3,11 @@ using UnityEngine;
 public class FurnitureDropdown : MonoBehaviour
 {
     private static readonly int Open = Animator.StringToHash("open");
-    
+
     // Game Object References
     public GameObject furnitureDropdown;
     public GameObject btnImage;
-    
+
     // Reference to the animation
     private Animator _animator;
 
