@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class SlidePanelController : MonoBehaviour
 {
-    // public float slideSpeed = 10f;
-    // public float visibleTabWidth = 40f;
-    // private RectTransform _panelRect;
-    // private Vector2 _openPos;
-    // private Vector2 _closedPos;
-    // private bool _isOpen;
-
     public GameObject Panel;
 
     // Animation reference

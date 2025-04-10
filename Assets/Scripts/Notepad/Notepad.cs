@@ -102,7 +102,6 @@ public class Notepad : MonoBehaviour
     /// </summary>
     private void Start()
     {
-
         // _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
@@ -182,7 +181,7 @@ public class Notepad : MonoBehaviour
             // Use the cursor manager if available
             if (cursorManager != null)
             {
-                cursorManager.ResetToDefaultCursor();
+                // cursorManager.ResetToDefaultCursor();
             }
             else
             {
