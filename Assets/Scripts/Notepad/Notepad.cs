@@ -126,7 +126,6 @@ public class Notepad : MonoBehaviour
         }
 
         LoadChallenge();
-        // ResetScrollPosition();
     }
 
     /// <summary>
@@ -210,23 +209,8 @@ public class Notepad : MonoBehaviour
     /// <summary>
     /// Resets the current challenge back to its original incorrect CSS snippet
     /// </summary>
-    private void ResetCurrentChallenge()
-    {
+    private void ResetCurrentChallenge(){
         LoadChallenge();
-        // ResetScrollPosition();
-    }
-
-    private void ResetScrollPosition()
-    {
-        if (inputField != null)
-        {
-            // Get the scrollbar component from the input field
-            var scrollbar = inputField.GetComponentInChildren<Scrollbar>();
-            if (scrollbar != null)
-            {
-                scrollbar.value = 1; // 1 = top, 0 = bottom
-            }
-        }
     }
 
     // /// <summary>
