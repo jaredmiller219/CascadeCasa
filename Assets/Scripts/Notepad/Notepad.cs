@@ -119,10 +119,10 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // Find or get the CursorManager reference
         cursorManager = GlobalCursorManager.Instance;
         cursorManager.SetCursor(cursorManager.GetSelectedCursor());
-        if (cursorManager == null)
-        {
-            Debug.LogWarning("globalcursormanager not found in scene!");
-        }
+        // if (cursorManager == null)
+        // {
+        //     Debug.LogWarning("globalcursormanager not found in scene!");
+        // }
 
         LoadChallenge();
     }
@@ -130,7 +130,7 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // Implement the interface methods
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (cursorManager != null)
+        if (cursorManager != null && eventData.pointerCurrentRaycast.gameObject == inputField)
         {
             cursorManager.SetCursor(3); // Set to text cursor (blank)
         }
@@ -138,9 +138,10 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (cursorManager != null)
+        if (cursorManager != null && eventData.pointerCurrentRaycast.gameObject != inputField)
         {
-            cursorManager.SetCursor(cursorManager.GetSelectedCursor()); // Set to default cursor (black)
+            cursorManager.SetCursor(cursorManager.GetSelectedCursor()); // this doesnt work for some reason
+            // cursorManager.SetCursor(0); // temp solution
         }
     }
 

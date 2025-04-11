@@ -23,7 +23,7 @@ public class GlobalCursorManager : MonoBehaviour
     [SerializeField] private Texture2D iBeamCursor;
 
     // private Texture2D _selectedCursor;
-    private int _selectedCursor;
+    private readonly int _selectedCursor;
 
 
     private Texture2D[] cursorTextures;
@@ -55,17 +55,17 @@ public class GlobalCursorManager : MonoBehaviour
         cursorTextures[3] = iBeamCursor;
 
         // Add validation
-        for (int i = 0; i < cursorTextures.Length; i++)
-        {
-            if (cursorTextures[i] == null)
-            {
-                Debug.LogError($"Cursor texture at index {i} is null!");
-            }
-            else
-            {
-                Debug.Log($"Loaded cursor texture {i}: {cursorTextures[i].name}");
-            }
-        }
+        // for (int i = 0; i < cursorTextures.Length; i++)
+        // {
+        //     if (cursorTextures[i] == null)
+        //     {
+        //         Debug.LogError($"Cursor texture at index {i} is null!");
+        //     }
+        //     else
+        //     {
+        //         Debug.Log($"Loaded cursor texture {i}: {cursorTextures[i].name}");
+        //     }
+        // }
     }
 
     private void LoadSavedCursor()
@@ -78,7 +78,7 @@ public class GlobalCursorManager : MonoBehaviour
     {
         if (cursorIndex < 0 || cursorIndex >= cursorTextures.Length)
         {
-            Debug.LogWarning($"Invalid cursor index: {cursorIndex}");
+            // Debug.LogWarning($"Invalid cursor index: {cursorIndex}");
             return;
         }
 
@@ -102,25 +102,8 @@ public class GlobalCursorManager : MonoBehaviour
     {
         if (index >= 0 && index < cursorTextures.Length && cursorTextures[index] != null)
         {
-            Debug.Log($"Setting cursor to index {index}: {cursorTextures[index].name}");
-            Vector2 hotspot = Vector2.zero;
-            Debug.Log($"Applying cursor: {cursorTextures[index].name}");
-
-            // Special handling for text cursor
-            if (index == 3) // Assuming index 1 is your text cursor
-            {
-                hotspot = _cursorHotspot;
-                Cursor.SetCursor(cursorTextures[index], hotspot, CursorMode.Auto);
-            }
-            else
-            {
-                Cursor.SetCursor(cursorTextures[index], hotspot, CursorMode.Auto);
-            }
-            // _selectedCursor = index;
-        }
-        else
-        {
-            Debug.LogError($"Failed to apply cursor: Invalid index {index} or missing texture");
+            Vector2 hotspot = index == 3 ? _cursorHotspot : Vector2.zero;
+            Cursor.SetCursor(cursorTextures[index], hotspot, CursorMode.Auto);
         }
     }
 }
