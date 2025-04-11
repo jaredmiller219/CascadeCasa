@@ -104,15 +104,19 @@ public class GlobalCursorManager : MonoBehaviour
         {
             Debug.Log($"Setting cursor to index {index}: {cursorTextures[index].name}");
             Vector2 hotspot = Vector2.zero;
+            Debug.Log($"Applying cursor: {cursorTextures[index].name}");
 
             // Special handling for text cursor
             if (index == 3) // Assuming index 1 is your text cursor
             {
                 hotspot = _cursorHotspot;
+                Cursor.SetCursor(cursorTextures[index], hotspot, CursorMode.Auto);
             }
-            Debug.Log($"Applying cursor: {cursorTextures[index].name}");
-            Cursor.SetCursor(cursorTextures[index], hotspot, CursorMode.Auto);
-            _selectedCursor = index;
+            else
+            {
+                Cursor.SetCursor(cursorTextures[index], hotspot, CursorMode.Auto);
+            }
+            // _selectedCursor = index;
         }
         else
         {
