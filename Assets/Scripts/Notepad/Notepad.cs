@@ -117,8 +117,8 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // LoadProgress();
 
         // Find or get the CursorManager reference
-        cursorManager = GlobalCursorManager.Instance;
-        cursorManager.SetCursor(cursorManager.GetSelectedCursor());
+        // cursorManager = GlobalCursorManager.Instance;
+        // // cursorManager.SetCursor(cursorManager.GetSelectedCursor());
         // if (cursorManager == null)
         // {
         //     Debug.LogWarning("globalcursormanager not found in scene!");
