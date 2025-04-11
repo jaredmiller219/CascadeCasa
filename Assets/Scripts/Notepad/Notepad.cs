@@ -1,7 +1,7 @@
 // NotepadManager.cs
 
 using System.Collections.Generic;
-using System.IO;
+using UnityEngine.EventSystems;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -9,8 +9,10 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
 /// </summary>
-public class NotepadManager : MonoBehaviour
+public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private GlobalCursorManager cursorManager;
+
     /// <summary>
     /// Text area where users input their CSS solutions
     /// </summary>
@@ -25,6 +27,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
+    // TODO: THIS IS ONLY FOR TESTING, REMOVE LATER
     public GameObject feedbackText;
 
     // The header for the buttons
@@ -47,15 +50,23 @@ public class NotepadManager : MonoBehaviour
     [Tooltip("The text that appears when the reset button is clicked")]
     public GameObject resetPopup;
 
-    /// <summary>
-    /// Path where progress is saved
-    /// </summary>
-    private string _saveFilePath;
+    // /// <summary>
+    // /// Path where progress is saved
+    // /// </summary>
+    // private string _saveFilePath;
 
     /// <summary>
     /// Tracks current challenge number
     /// </summary>
-    private int _currentChallengeIndex;
+    // [HideInInspector]
+    [Tooltip("The index of the current challenge")]
+    [Header("Challenge Index")]
+    public int currentChallengeIndex;
+
+    [Header("Lvl End Popup")]
+    public GameObject challengeComplete;
+
+    // private readonly CursorManager mainCursor;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -89,9 +100,9 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
-        submitBtn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(CheckCssInput);
-        resetBtn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(ResetCurrentChallenge);
+        // _saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
+        submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
+        resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
         resetPopup.SetActive(false);
 
         // Scroll sensitivity value for smooth scrolling
@@ -99,10 +110,39 @@ public class NotepadManager : MonoBehaviour
         // set the scroll sensitivity of the notepadInput
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
+        // Set the cursor to the text cursor when the pointer enters the object
+        // mainCursor.GetComponent<CursorManager>();
+
         // Note: Progress loading is disabled for testing
         // LoadProgress();
 
+        // Find or get the CursorManager reference
+        cursorManager = GlobalCursorManager.Instance;
+        cursorManager.SetCursor(cursorManager.GetSelectedCursor());
+        // if (cursorManager == null)
+        // {
+        //     Debug.LogWarning("globalcursormanager not found in scene!");
+        // }
+
         LoadChallenge();
+    }
+
+    // Implement the interface methods
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (cursorManager != null && eventData.pointerCurrentRaycast.gameObject == inputField)
+        {
+            cursorManager.SetCursor(3); // Set to text cursor (blank)
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (cursorManager != null && eventData.pointerCurrentRaycast.gameObject != inputField)
+        {
+            cursorManager.SetCursor(cursorManager.GetSelectedCursor()); // this doesnt work for some reason
+            // cursorManager.SetCursor(0); // temp solution
+        }
     }
 
     /// <summary>
@@ -111,7 +151,7 @@ public class NotepadManager : MonoBehaviour
     private void CheckCssInput()
     {
         var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
-        var correctCss = _cssChallenges[_currentChallengeIndex].Value.ToLower();
+        var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
 
         // Normalize input (remove extra spaces, new lines)
         var normalizedUserInput = NormalizeCss(userInput);
@@ -119,15 +159,20 @@ public class NotepadManager : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Correct! Loading next challenge...";
+            feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
             feedbackText.GetComponent<TMP_Text>().color = Color.green;
             Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Incorrect!\nCheck colons, semicolons, and syntax!";
+            feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, and syntax!";
             feedbackText.GetComponent<TMP_Text>().color = Color.red;
         }
+    }
+
+    public bool IsLevelComplete()
+    {
+        return currentChallengeIndex >= _cssChallenges.Count;
     }
 
     /// <summary>
@@ -135,20 +180,36 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void NextChallenge()
     {
-        _currentChallengeIndex++;
+        currentChallengeIndex++;
 
-        if (_currentChallengeIndex >= _cssChallenges.Count)
-        {
+        if (IsLevelComplete()) {
             feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
-            inputField.GetComponent<TMP_InputField>().text = "You're a CSS master!";
+            // instead of setting the text to "You're a CSS master!", show a popup with the text
+            inputField.GetComponent<TMP_InputField>().text = "";
+            inputField.GetComponent<TMP_InputField>().interactable = false;
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
+
+            // Disable buttons
             submitBtn.GetComponent<Button>().interactable = false;
             resetBtn.GetComponent<Button>().interactable = false;
+
+            // Show the complete popup
+            challengeComplete.SetActive(true);
+
+            // // Use the cursor manager if available
+            // if (cursorManager != null)
+            // {
+            //     // cursorManager.ResetToDefaultCursor();
+            // }
+            // else
+            // {
+            //     Debug.LogWarning("CursorManager reference is missing!");
+            // }
         }
-        else
-        {
+
+        else {
             LoadChallenge();
-            SaveProgress();
+            // SaveProgress();
         }
     }
 
@@ -157,7 +218,7 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private void LoadChallenge()
     {
-        inputField.GetComponent<TMP_InputField>().text = _cssChallenges[_currentChallengeIndex].Key;
+        inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
         feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
         feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
     }
@@ -165,19 +226,18 @@ public class NotepadManager : MonoBehaviour
     /// <summary>
     /// Resets the current challenge back to its original incorrect CSS snippet
     /// </summary>
-    private void ResetCurrentChallenge()
-    {
+    private void ResetCurrentChallenge(){
         LoadChallenge();
     }
 
-    /// <summary>
-    /// Saves the current challenge index to a file
-    /// </summary>
-    private void SaveProgress()
-    {
-        File.WriteAllText(_saveFilePath, _currentChallengeIndex.ToString());
-        Debug.Log("Progress saved!");
-    }
+    // /// <summary>
+    // /// Saves the current challenge index to a file
+    // /// </summary>
+    // private void SaveProgress()
+    // {
+    //     File.WriteAllText(_saveFilePath, currentChallengeIndex.ToString());
+    //     Debug.Log("Progress saved!");
+    // }
 
 
     // TODO: UNCOMMENT THIS LATER WHEN YOU ACTUALLY MAKE THE GAME
@@ -202,28 +262,8 @@ public class NotepadManager : MonoBehaviour
     /// </summary>
     private static string NormalizeCss(string input)
     {
-        return input;
-        // return input.Replace("\n", "").Replace("  ", " ").Trim();
-    }
-
-    private void Update()
-    {
-        // get key down is backspace
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            // get the text area
-            var textArea = inputField.GetComponent<TMP_InputField>().textComponent;
-            // set the text area to the top
-            textArea.transform.localPosition = new Vector3(0, 0, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (inputField.GetComponent<TMP_InputField>().isFocused)
-            {
-                inputField.GetComponent<TMP_InputField>().DeactivateInputField();
-            }
-        }
+        // return input;
+        return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
 
 }

@@ -9,12 +9,15 @@ using TMPro;
 /// The selected cursor is applied to the mouse cursor when the dropdown value changes.
 /// The script also provides a method to get the currently selected cursor texture.
 /// </summary>
-public class CursorDropdown : MonoBehaviour
+public class CursorType : MonoBehaviour
 {
+    // Constants for PlayerPrefs keys
+    private const string CURSOR_PREF_KEY = "SelectedCursorIndex";
+    private const int DEFAULT_CURSOR = 0; // Black cursor is default
 
     // The cursor styles header
     [Header("Cursor Styles")]
-    
+
     [Tooltip("The cursor texture for the blank cursor")]
     public Texture2D blankCursor;
 
@@ -38,7 +41,7 @@ public class CursorDropdown : MonoBehaviour
     /// <summary>
     /// The currently selected cursor texture
     /// </summary>
-    private Texture2D _selectedCursor;
+    private int _selectedCursor;
 
     /// <summary>
     /// Initializes the dropdown and sets the initial cursor based on the selected index.
@@ -46,32 +49,54 @@ public class CursorDropdown : MonoBehaviour
     private void Start()
     {
         _dropdown = GetComponent<TMP_Dropdown>(); // Get the Dropdown component
-        _dropdown.onValueChanged.AddListener(SetCursor);
-        SetCursor(0);
+        int savedCursorIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR); // Set the default value
+
+        // Set the cursor based on the selected index
+        _dropdown.value = savedCursorIndex;
+        _dropdown.onValueChanged.AddListener(SwitchCursor); // Add listener to the dropdown
+        SwitchCursor(savedCursorIndex);
     }
 
     /// <summary>
     /// This method is called when the dropdown value changes.
     /// It sets the cursor based on the selected index from the dropdown.
     /// </summary>
-    private void SetCursor(int index)
-    {
-        _selectedCursor = index switch
-        {
-            0 => blackCursor,
-            1 => blankCursor,
-            2 => yellowCursor,
-            _ => _selectedCursor
-        };
+    // private void SetCursor(int index)
+    // {
 
-        Cursor.SetCursor(_selectedCursor, Vector2.zero, CursorMode.Auto);
+    //     // Save the selected index to PlayerPrefs
+    //     PlayerPrefs.SetInt(CURSOR_PREF_KEY, index);
+    //     PlayerPrefs.Save();
+
+    //     // Set the cursor based on the selected index
+    //     // The index corresponds to the order of the cursors in the dropdown
+    //     _selectedCursor = index switch
+    //     {
+    //         0 => blackCursor,
+    //         1 => blankCursor,
+    //         2 => yellowCursor,
+    //         _ => _selectedCursor
+    //     };
+
+    //     Cursor.SetCursor(_selectedCursor, Vector2.zero, CursorMode.Auto);
+    // }
+
+    public void SwitchCursor(int cursorIndex)
+    {
+        GlobalCursorManager.Instance.SetCursor(cursorIndex);
     }
 
     /// <summary>
     /// This method allows CursorManager to get the currently selected cursor
     /// </summary>
-    public Texture2D GetSelectedCursor()
+    public int GetSelectedCursor()
     {
+        // If _selectedCursor is null, load from PlayerPrefs
+        if (_selectedCursor == 0 && !PlayerPrefs.HasKey(CURSOR_PREF_KEY))
+        {
+            int savedIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR);
+            return savedIndex;
+        }
         return _selectedCursor;
     }
 }

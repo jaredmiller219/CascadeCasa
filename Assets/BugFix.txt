@@ -1,9 +1,0 @@
-FIXME: Text area, scrolling position is messed up and doesn't reset back to original position
-Steps to reproduce:
-    1) Add a few empty new lines anywhere in the middle of the snippet
-    2) delete those lines, don't scroll just delete the lines
-    3) now you see the text doesn't show again correctly
-
-FIXME: Cursor blinker isn't visible in certain spots
-Steps to reproduce:
-    No idea, it's just not visible in certain areas

@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class ResetPopupManager : MonoBehaviour
+public class ResetPopup : MonoBehaviour
 {
+    // Reference to the Challenge Reset notification
     public GameObject resetPopup;
+
+    // Animation reference
     private Animator _animator;
 
     private void Start()
@@ -15,6 +18,5 @@ public class ResetPopupManager : MonoBehaviour
         if (resetPopup == null || _animator == null) return;
         resetPopup.SetActive(true);
         _animator.Play("Pull", 0, 0f);
-        // resetPopup.SetActive(false);
     }
 }
