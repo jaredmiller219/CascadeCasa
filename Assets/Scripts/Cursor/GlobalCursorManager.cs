@@ -7,7 +7,7 @@ using UnityEngine;
 public class GlobalCursorManager : MonoBehaviour
 {
     private const string CURSOR_PREF_KEY = "SelectedCursorIndex";
-    private int DEFAULT_CURSOR;
+    private readonly int DEFAULT_CURSOR;
     private static GlobalCursorManager instance;
 
     private readonly Vector2 _cursorHotspot = new(7.5f, 7.5f);

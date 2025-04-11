@@ -66,8 +66,6 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
-    // private readonly CursorManager mainCursor;
-
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
     ///
@@ -112,9 +110,6 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         // Note: Progress loading is disabled for testing
         // LoadProgress();
-
-        // Set the default cursor
-        // cursorManager.SetCursor(cursorManager.GetSelectedCursor());
 
         LoadChallenge();
     }
@@ -176,10 +171,10 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (IsLevelComplete()) {
             feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
+            feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
             // instead of setting the text to "You're a CSS master!", show a popup with the text
             inputField.GetComponent<TMP_InputField>().text = "";
             inputField.GetComponent<TMP_InputField>().interactable = false;
-            feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
 
             // Disable buttons
             submitBtn.GetComponent<Button>().interactable = false;
