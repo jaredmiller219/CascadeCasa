@@ -2180,7 +2180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 1748149724}
-  notepad: {fileID: 1748149727}
   feedbackText: {fileID: 584400909}
   submitBtn: {fileID: 1874566561}
   resetBtn: {fileID: 989279833}
@@ -2460,6 +2459,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989279833}
   m_CullTransparentMesh: 1
+--- !u!1001 &1248981663
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 497.14597
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 393.76593
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.9779873
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335137161703272142, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074300837622846126, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
+      propertyPath: m_Name
+      value: Cursor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b62d2dc50e0934b7ca69ca0f1bd7f7a4, type: 3}
 --- !u!1 &1272219691
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,7 +3094,6 @@ GameObject:
   - component: {fileID: 1748149729}
   - component: {fileID: 1748149728}
   - component: {fileID: 1748149727}
-  - component: {fileID: 1748149726}
   m_Layer: 5
   m_Name: NotepadInput
   m_TagString: Untagged
@@ -3066,19 +3121,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 368, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1748149726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1748149724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e060ebe4b2a64dd1af4c10b559ebf9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textHoverCursor: {fileID: 2800000, guid: 06a668368f4044d96ac62e49f0277c37, type: 3}
 --- !u!114 &1748149727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4157,3 +4199,4 @@ SceneRoots:
   - {fileID: 607503821}
   - {fileID: 942927235}
   - {fileID: 18693121}
+  - {fileID: 1248981663}

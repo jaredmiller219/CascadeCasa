@@ -2,9 +2,10 @@ FIXME: Cursor blinker isn't visible in certain spots
 Steps to reproduce:
     No idea, it's just not visible in certain areas
 
-FIXME: Level End Popup doesnt show up at end of Level
+FIXME: Sometimes cursor doesnt change to i-beam when hovering over input field, other times it doesnt
 Steps to reproduce:
-    1) literally just get to the end, and youll see it doesnt show up
+    just keep going back and forth between
+    hovering over the input field and not hovering over it
 
 
 In a manager object, check player prefs to see if mouse setting/values are set

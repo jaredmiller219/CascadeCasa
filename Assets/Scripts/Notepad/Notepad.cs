@@ -1,7 +1,7 @@
 // NotepadManager.cs
 
 using System.Collections.Generic;
-// using System.IO;
+using UnityEngine.EventSystems;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -9,9 +9,9 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
 /// </summary>
-public class Notepad : MonoBehaviour
+public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private CursorManager cursorManager;
+    private GlobalCursorManager cursorManager;
 
     /// <summary>
     /// Text area where users input their CSS solutions
@@ -21,8 +21,6 @@ public class Notepad : MonoBehaviour
 
     // the notepad input field
     public GameObject inputField;
-
-    public TMP_InputField notepad;
 
     /// <summary>
     /// Displays feedback messages to the user
@@ -119,12 +117,32 @@ public class Notepad : MonoBehaviour
         // LoadProgress();
 
         // Find or get the CursorManager reference
-        if (cursorManager == null)
-        {
-            cursorManager = GetComponent<CursorManager>();
-        }
+        cursorManager = GlobalCursorManager.Instance;
+        cursorManager.SetCursor(cursorManager.GetSelectedCursor());
+        // if (cursorManager == null)
+        // {
+        //     Debug.LogWarning("globalcursormanager not found in scene!");
+        // }
 
         LoadChallenge();
+    }
+
+    // Implement the interface methods
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (cursorManager != null && eventData.pointerCurrentRaycast.gameObject == inputField)
+        {
+            cursorManager.SetCursor(3); // Set to text cursor (blank)
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (cursorManager != null && eventData.pointerCurrentRaycast.gameObject != inputField)
+        {
+            cursorManager.SetCursor(cursorManager.GetSelectedCursor()); // this doesnt work for some reason
+            // cursorManager.SetCursor(0); // temp solution
+        }
     }
 
     /// <summary>
@@ -178,15 +196,15 @@ public class Notepad : MonoBehaviour
             // Show the complete popup
             challengeComplete.SetActive(true);
 
-            // Use the cursor manager if available
-            if (cursorManager != null)
-            {
-                // cursorManager.ResetToDefaultCursor();
-            }
-            else
-            {
-                Debug.LogWarning("CursorManager reference is missing!");
-            }
+            // // Use the cursor manager if available
+            // if (cursorManager != null)
+            // {
+            //     // cursorManager.ResetToDefaultCursor();
+            // }
+            // else
+            // {
+            //     Debug.LogWarning("CursorManager reference is missing!");
+            // }
         }
 
         else {
