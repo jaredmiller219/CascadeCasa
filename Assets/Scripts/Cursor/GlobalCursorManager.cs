@@ -43,8 +43,9 @@ public class GlobalCursorManager : MonoBehaviour
 
     private void Start()
     {
+
         InitializeCursorTextures();
-        int savedCursorIndex = -1;
+        int savedCursorIndex = 0;
         // Load the saved cursor index and apply it
         if (!PlayerPrefs.HasKey(CURSOR_PREF_KEY)){
             savedCursorIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR);
