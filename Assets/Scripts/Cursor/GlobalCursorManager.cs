@@ -7,8 +7,8 @@ using UnityEngine;
 public class GlobalCursorManager : MonoBehaviour
 {
     private const string CURSOR_PREF_KEY = "SelectedCursorIndex";
-    private const int DEFAULT_CURSOR = 0;
-    private static readonly GlobalCursorManager instance;
+    private int DEFAULT_CURSOR;
+    private static GlobalCursorManager instance;
 
     private readonly Vector2 _cursorHotspot = new(7.5f, 7.5f);
 
@@ -26,31 +26,19 @@ public class GlobalCursorManager : MonoBehaviour
 
     public static GlobalCursorManager Instance => instance;
 
-    // private void Awake()
-    // {
-    //     if (instance == null)
-    //     {
-    //         instance = this;
-    //         InitializeCursorTextures();
-    //         DontDestroyOnLoad(gameObject);
-    //         LoadSavedCursor();
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
-
-    private void Start()
+    private void Awake()
     {
-
-        InitializeCursorTextures();
-        int savedCursorIndex = 0;
-        // Load the saved cursor index and apply it
-        if (!PlayerPrefs.HasKey(CURSOR_PREF_KEY)){
-            savedCursorIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR);
+        if (instance == null)
+        {
+            instance = this;
+            InitializeCursorTextures();
+            LoadSavedCursor(); // Add this line
+            DontDestroyOnLoad(gameObject);
         }
-        ApplyCursor(savedCursorIndex);
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void InitializeCursorTextures()
@@ -60,6 +48,13 @@ public class GlobalCursorManager : MonoBehaviour
         cursorTextures[1] = blankCursor;
         cursorTextures[2] = yellowCursor;
         cursorTextures[3] = iBeamCursor;
+    }
+
+    private void LoadSavedCursor()
+    {
+        // Get the saved cursor index, defaulting to DEFAULT_CURSOR if not found
+        int savedCursorIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR);
+        ApplyCursor(savedCursorIndex);
     }
 
     public void SetCursor(int cursorIndex)

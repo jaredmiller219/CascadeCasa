@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private GlobalCursorManager cursorManager;
+    private readonly GlobalCursorManager cursorManager;
 
     /// <summary>
     /// Text area where users input their CSS solutions
@@ -110,19 +110,11 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // set the scroll sensitivity of the notepadInput
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
-        // Set the cursor to the text cursor when the pointer enters the object
-        // mainCursor.GetComponent<CursorManager>();
-
         // Note: Progress loading is disabled for testing
         // LoadProgress();
 
-        // Find or get the CursorManager reference
-        // cursorManager = GlobalCursorManager.Instance;
-        // // cursorManager.SetCursor(cursorManager.GetSelectedCursor());
-        // if (cursorManager == null)
-        // {
-        //     Debug.LogWarning("globalcursormanager not found in scene!");
-        // }
+        // Set the default cursor
+        // cursorManager.SetCursor(cursorManager.GetSelectedCursor());
 
         LoadChallenge();
     }
@@ -132,7 +124,8 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (cursorManager != null && eventData.pointerCurrentRaycast.gameObject == inputField)
         {
-            cursorManager.SetCursor(3); // Set to text cursor (blank)
+            // set the cursor to the I-beam index
+            cursorManager.SetCursor(3); // Assuming 3 is the index for the I-beam cursor
         }
     }
 
@@ -140,8 +133,7 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (cursorManager != null && eventData.pointerCurrentRaycast.gameObject != inputField)
         {
-            cursorManager.SetCursor(cursorManager.GetSelectedCursor()); // this doesnt work for some reason
-            // cursorManager.SetCursor(0); // temp solution
+            cursorManager.SetCursor(cursorManager.GetSelectedCursor());
         }
     }
 
@@ -195,16 +187,6 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             // Show the complete popup
             challengeComplete.SetActive(true);
-
-            // // Use the cursor manager if available
-            // if (cursorManager != null)
-            // {
-            //     // cursorManager.ResetToDefaultCursor();
-            // }
-            // else
-            // {
-            //     Debug.LogWarning("CursorManager reference is missing!");
-            // }
         }
 
         else {
