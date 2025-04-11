@@ -33,7 +33,7 @@ _(Coming Soon)._
 
 ## Educational Game Design Document
 
-[View EGDD](Docs/egdd.md)
+[View EGDD](egdd.md)
 
 ---
 
