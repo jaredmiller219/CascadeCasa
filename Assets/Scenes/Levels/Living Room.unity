@@ -2561,7 +2561,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 533730707}
   m_Direction: 3
   m_Value: -0.000000068919555
-  m_Size: 0.262
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4550,7 +4550,6 @@ GameObject:
   - component: {fileID: 2084070690}
   - component: {fileID: 2084070689}
   - component: {fileID: 2084070688}
-  - component: {fileID: 2084070692}
   m_Layer: 5
   m_Name: PullDownBtn
   m_TagString: Untagged
@@ -4686,23 +4685,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084070686}
   m_CullTransparentMesh: 1
---- !u!114 &2084070692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084070686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6a2316760014a85a5b93ee718179fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 0}
-  imagePrefab: {fileID: 0}
-  spacing: 20
-  imageSize: {x: 200, y: 200}
-  imageSprites: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
