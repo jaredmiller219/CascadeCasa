@@ -6,8 +6,3 @@ FIXME: Sometimes cursor doesnt change to i-beam when hovering over input field, 
 Steps to reproduce:
     just keep going back and forth between
     hovering over the input field and not hovering over it
-
-
-In a manager object, check player prefs to see if mouse setting/values are set
-if it isnt, update it (define it)
-after, load that value when you use it
