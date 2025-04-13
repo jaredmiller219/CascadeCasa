@@ -2,53 +2,64 @@ using UnityEngine;
 
 public class FurnitureDropdown : MonoBehaviour
 {
+    // Hash for the "open" parameter in the Animator
     private static readonly int Open = Animator.StringToHash("open");
 
     // Game Object References
-    public GameObject furnitureDropdown;
-    public GameObject btnImage;
+    public GameObject furnitureDropdown; // Reference to the dropdown panel GameObject
+    public GameObject btnImage; // Reference to the button image GameObject
 
-    // Reference to the animation
+    // Reference to the Animator component
     private Animator _animator;
 
     private void Start()
     {
+        // Get the Animator component attached to the furnitureDropdown GameObject
         _animator = furnitureDropdown.GetComponent<Animator>();
-        switch (true){
+
+        // Validate that all required references are assigned
+        switch (true)
+        {
             case true when _animator == null:
+                // Log an error if the Animator component is missing
                 Debug.LogError("No Animator component found on furnitureDropdown!");
                 break;
             case true when btnImage == null:
+                // Log an error if the btnImage reference is not assigned
                 Debug.LogError("No btnImage assigned!");
                 break;
             case true when furnitureDropdown == null:
+                // Log an error if the furnitureDropdown reference is not assigned
                 Debug.LogError("No furnitureDropdown assigned!");
                 break;
         }
     }
 
+    // Method to toggle the dropdown panel and rotate the button image
     public void PullBarDown()
     {
-        // Check if both dont exist
-        if (furnitureDropdown == null || _animator == null){
-            // if they dont exist, return
+        // Check if the furnitureDropdown or Animator reference is missing
+        if (furnitureDropdown == null || _animator == null)
+        {
+            // If either is missing, exit the method
             return;
         }
 
-        // toggle the animator's "open" bool
+        // Get the current value of the "open" parameter in the Animator
         var isOpen = _animator.GetBool(Open);
-        // set the animator's "open" bool to the opposite of its current value
+
+        // Toggle the "open" parameter to the opposite of its current value
         _animator.SetBool(Open, !isOpen);
 
-        // check if the panel is open,
-        // This makes no sense, but for some reason I had to reverse the rotation lines
-        // because it should rotate it if the panel is open, not if it is closed...
-        if (!isOpen){
-            // Rotate the image's x-axis by 180 degrees
+        // Check if the panel is currently closed (isOpen is false)
+        if (!isOpen)
+        {
+            // Rotate the button image's x-axis by 180 degrees to indicate the panel is open
             btnImage.transform.Rotate(180, 0, 0);
         }
-        else{
-            // Reset the image's x-axis-rotation to 0 degrees
+        else
+        {
+            // Reset the button image's rotation to its original state (0 degrees on all axes)
             btnImage.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
