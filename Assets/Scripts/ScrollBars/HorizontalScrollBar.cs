@@ -48,7 +48,7 @@ public class HorizontalScrollBar : MonoBehaviour
             contentSizeFitter = content.gameObject.AddComponent<ContentSizeFitter>();
         }
         contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-        contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;  // Added vertical fit
+        contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
     }
 
     private void LoadImagesFromArray()
@@ -86,7 +86,6 @@ public class HorizontalScrollBar : MonoBehaviour
             layoutElement.preferredWidth = imageSize.x;
             layoutElement.preferredHeight = imageSize.y;
 
-            // Add dragging functionality
             imgObj.AddComponent<DraggableImage>();
         }
     }

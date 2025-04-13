@@ -8,14 +8,14 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private RectTransform rectTransform;
     private Vector2 originalPosition;
     private Transform originalParent;
+    private GameObject insertionPreview;
+    private HorizontalScrollBar scrollBar;
     private bool isDragging = false;
     private bool isInWorld = false;
-    private GameObject insertionPreview;
-    private readonly float insertPreviewAlpha = 0.3f;
     private int insertIndex = -1;
-    private HorizontalScrollBar scrollBar; // Add this field
-    private float lastInsertX; // Add this field
-    private float insertionThreshold = 20f; // Add this field for minimum movement required
+    private float lastInsertX;
+    private readonly float insertPreviewAlpha = 0.3f;
+    private readonly float insertionThreshold = 20f;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         canvas = GetComponentInParent<Canvas>();
         originalPosition = rectTransform.anchoredPosition;
         originalParent = transform.parent;
-        scrollBar = originalParent.GetComponentInParent<HorizontalScrollBar>(); // Get reference to scroll bar
+        scrollBar = originalParent.GetComponentInParent<HorizontalScrollBar>();
         CreateInsertionPreview();
     }
 
@@ -48,7 +48,9 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         isDragging = true;
         transform.SetParent(canvas.transform);
         transform.SetAsLastSibling();
-        CreateInsertionPreview(); // Recreate preview on each drag start
+
+        // Recreate preview on each drag start
+        CreateInsertionPreview();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -80,8 +82,7 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         if (insertionPreview == null) return;
 
         var scrollRect = originalParent.GetComponent<RectTransform>();
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(scrollRect, Input.mousePosition, canvas.worldCamera, out localPoint);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(scrollRect, Input.mousePosition, canvas.worldCamera, out Vector2 localPoint);
 
         insertIndex = FindNearestInsertionIndex();
 
