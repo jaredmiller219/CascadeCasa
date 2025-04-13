@@ -10,43 +10,43 @@ public class HorizontalScrollBar : MonoBehaviour
 {
     [Header("References")]
     /// <summary>
-    /// The parent container for the scrollable content.
-    /// This is typically a RectTransform that holds all the child elements (images).
+    /// The RectTransform that serves as the parent container for the scrollable content.
     /// </summary>
-    public RectTransform content;
+    [Tooltip("The parent container for the scrollable content.")]
+    public RectTransform content; // The parent container for the scrollable content.
 
     /// <summary>
-    /// Prefab used to create individual images in the scroll bar.
-    /// This prefab should have an Image component and optionally other components like LayoutElement.
+    /// The prefab used to create individual images in the scroll bar.
     /// </summary>
-    public GameObject imagePrefab;
+    [Tooltip("Prefab used to create individual images in the scroll bar.")]
+    public GameObject imagePrefab; // Prefab used to create individual images in the scroll bar.
 
     [Header("Layout")]
-    /// <summary>
-    /// Space between images in pixels.
-    /// This determines the horizontal gap between each image in the scroll bar.
-    /// </summary>
-    [Tooltip("Space between images in pixels")]
-    public float spacing = 20f;
 
     /// <summary>
-    /// Size of each image in pixels (width and height).
-    /// This controls the dimensions of the images displayed in the scroll bar.
+    /// The spacing between images in the scroll bar.
     /// </summary>
-    [Tooltip("Size of each image in pixels")]
-    public Vector2 imageSize = new(200f, 200f);
+    [Tooltip("Space between images in pixels.")]
+    public float spacing;
+
+    /// <summary>
+    /// The size of each image in the scroll bar.
+    /// </summary>
+    [Tooltip("Size of each image in pixels.")]
+    public Vector2 imageSize; // Size of each image in pixels.
 
     [Header("Images")]
-    /// <summary>
-    /// Array of sprites to be displayed in the scroll bar.
-    /// These sprites are used to populate the scroll bar dynamically.
-    /// </summary>
-    public Sprite[] imageSprites;
 
     /// <summary>
-    /// List to keep track of instantiated image components.
-    /// This is used to manage and clear the images when needed.
+    /// The array of sprites to be displayed in the scroll bar.
     /// </summary>
+    [Tooltip("Array of sprites to be displayed in the scroll bar.")]
+    public Sprite[] imageSprites; // Array of sprites to be displayed in the scroll bar.
+
+    /// <summary>
+    /// A list to keep track of instantiated image components.
+    /// </summary>
+    [Tooltip("List to keep track of instantiated image components.")]
     private readonly List<Image> _scrollImages = new();
 
     /// <summary>
@@ -67,24 +67,21 @@ public class HorizontalScrollBar : MonoBehaviour
     {
         if (content == null) return; // Exit if the content RectTransform is not assigned.
 
-        // Check if the content has a HorizontalLayoutGroup component.
-        // If not, add one to manage the horizontal layout of child elements.
+        // Add a HorizontalLayoutGroup component if it doesn't exist.
         if (!content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
         {
             layoutGroup = content.gameObject.AddComponent<HorizontalLayoutGroup>();
         }
 
-        // Configure the HorizontalLayoutGroup settings.
-        layoutGroup.spacing = spacing; // Set the spacing between child elements.
+        // Configure the layout group to align children and set padding.
         layoutGroup.childAlignment = TextAnchor.MiddleLeft; // Align children to the left.
-        layoutGroup.padding = new RectOffset(10, 10, 10, 10); // Add padding around the content.
+        layoutGroup.padding = new RectOffset(10, 10, 30, 10); // left, right, top, bottom
         layoutGroup.childControlWidth = false; // Disable automatic width control for children.
         layoutGroup.childControlHeight = false; // Disable automatic height control for children.
         layoutGroup.childForceExpandWidth = false; // Prevent forced width expansion.
         layoutGroup.childForceExpandHeight = false; // Prevent forced height expansion.
 
-        // Ensure the content has a ContentSizeFitter component.
-        // If not, add one to adjust the size of the content based on its children.
+        // Add a ContentSizeFitter component if it doesn't exist.
         if (!content.TryGetComponent<ContentSizeFitter>(out var contentSizeFitter))
         {
             contentSizeFitter = content.gameObject.AddComponent<ContentSizeFitter>();
@@ -93,6 +90,8 @@ public class HorizontalScrollBar : MonoBehaviour
         // Configure the ContentSizeFitter to adjust size based on preferred size.
         contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
         contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+        UpdateLayout(); // Update the layout to apply spacing.
     }
 
     /// <summary>
@@ -140,14 +139,15 @@ public class HorizontalScrollBar : MonoBehaviour
 
             _scrollImages.Add(img); // Add the Image component to the list of scroll images.
 
-            // Ensure the object has a LayoutElement component.
-            // If not, add one to control its layout properties.
-            if (!imgObj.TryGetComponent<LayoutElement>(out var layoutElement))
-                layoutElement = imgObj.AddComponent<LayoutElement>();
+            // Set the RectTransform size directly.
+            RectTransform rectTransform = imgObj.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = new Vector2(imageSize.x * 2, imageSize.y * 2); // Set the size of the image.
 
-            // Set the preferred width and height for the LayoutElement.
-            layoutElement.preferredWidth = imageSize.x;
-            layoutElement.preferredHeight = imageSize.y;
+            // Remove LayoutElement if it exists.
+            if (imgObj.TryGetComponent<LayoutElement>(out var existingLayout))
+            {
+                DestroyImmediate(existingLayout); // Remove the LayoutElement component.
+            }
 
             // Add a custom DraggableImage component to make the image draggable.
             imgObj.AddComponent<DraggableImage>();
@@ -167,5 +167,58 @@ public class HorizontalScrollBar : MonoBehaviour
         }
 
         _scrollImages.Clear(); // Clear the list of images.
+    }
+
+    /// <summary>
+    /// Called when a value in the inspector is changed.
+    /// Updates the image sizes if the application is playing.
+    /// </summary>
+    private void OnValidate()
+    {
+        if (!Application.isPlaying) return; // Only update if the application is running.
+        UpdateImageSizes(); // Update the sizes of all images.
+    }
+
+    /// <summary>
+    /// Updates the sizes of all images in the scroll bar.
+    /// Ensures the RectTransform size matches the specified image size.
+    /// </summary>
+    private void UpdateImageSizes()
+    {
+        // Loop through all active images in the scroll bar.
+        foreach (var img in _scrollImages)
+        {
+            if (img != null)
+            {
+                RectTransform rectTransform = img.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector2(imageSize.x * 2, imageSize.y * 2); // Update the size.
+            }
+        }
+
+        // Force layout update to reflect changes.
+        if (content != null)
+        {
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+        }
+    }
+
+    /// <summary>
+    /// Updates the layout of the scroll bar's content container.
+    /// Adjusts the spacing between images.
+    /// </summary>
+    private void UpdateLayout()
+    {
+        if (content == null) return; // Exit if the content RectTransform is not assigned.
+
+        // Update the spacing in the HorizontalLayoutGroup.
+        if (content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
+        {
+            layoutGroup.spacing = spacing; // Set the spacing between images.
+        }
+
+        // Force layout update to apply changes.
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 }
