@@ -90,7 +90,26 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             _insertionPreview.SetActive(true);
             _insertionPreview.transform.SetParent(_originalParent);
-            _insertionPreview.transform.SetSiblingIndex(_insertIndex);
+
+            // Handle the case when inserting at the end
+            var validItemCount = 0;
+            for (var i = 0; i < _originalParent.childCount; i++)
+            {
+                var child = _originalParent.GetChild(i);
+                if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
+                {
+                    validItemCount++;
+                }
+            }
+
+            if (_insertIndex >= validItemCount)
+            {
+                _insertionPreview.transform.SetAsLastSibling();
+            }
+            else
+            {
+                _insertionPreview.transform.SetSiblingIndex(_insertIndex);
+            }
 
             var previewRect = _insertionPreview.GetComponent<RectTransform>();
             previewRect.sizeDelta = _rectTransform.sizeDelta;
@@ -143,18 +162,41 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         // Only update if mouse has moved beyond a threshold
         if (Mathf.Abs(localMousePos.x - _lastInsertX) < InsertionThreshold)
         {
-            return _insertIndex; // Keep the current index if movement is small
+            return _insertIndex;
         }
 
         _lastInsertX = localMousePos.x;
 
-        // Find nearest valid insertion point
+        // Count valid items (excluding preview and current dragged item)
+        int validItemCount = 0;
+        float rightmostPosition = float.MinValue;
+
         for (var i = 0; i < _originalParent.childCount; i++)
         {
-            var childRect = _originalParent.GetChild(i).GetComponent<RectTransform>();
-            if (childRect.gameObject != gameObject && childRect.gameObject != _insertionPreview)
+            var child = _originalParent.GetChild(i);
+            if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
             {
-                var insertPoint = childRect.anchoredPosition.x;
+                validItemCount++;
+                var childRect = child.GetComponent<RectTransform>();
+                rightmostPosition = Mathf.Max(rightmostPosition, childRect.anchoredPosition.x);
+            }
+        }
+
+        // If mouse is to the right of the rightmost item
+        float rightEdgeThreshold = rightmostPosition + (_rectTransform.rect.width / 2);
+        if (localMousePos.x > rightEdgeThreshold)
+        {
+            return validItemCount;
+        }
+
+        // Find nearest valid insertion point for other positions
+        for (var i = 0; i < _originalParent.childCount; i++)
+        {
+            var child = _originalParent.GetChild(i);
+            if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
+            {
+                var childRect = child.GetComponent<RectTransform>();
+                var insertPoint = childRect.anchoredPosition.x + (_rectTransform.rect.width / 2);
                 if (localMousePos.x < insertPoint)
                 {
                     return i;
@@ -162,7 +204,7 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             }
         }
 
-        return _originalParent.childCount;
+        return validItemCount;
     }
 
     public void OnEndDrag(PointerEventData eventData)
