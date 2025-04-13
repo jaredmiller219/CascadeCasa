@@ -197,6 +197,11 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             var previewRect = insertionPreview.GetComponent<RectTransform>();
             previewRect.sizeDelta = rectTransform.sizeDelta;
 
+            // Set anchors to center
+            previewRect.anchorMin = new Vector2(0, 0.5f);
+            previewRect.anchorMax = new Vector2(0, 0.5f);
+            previewRect.pivot = new Vector2(0, 0.5f);
+
             // Shift images right of insertion point by one position only
             for (int i = insertIndex; i < originalParent.childCount; i++)
             {
@@ -208,8 +213,11 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                 }
             }
 
-            // Position preview at the insertion point
-            previewRect.anchoredPosition = new Vector2(insertIndex * (rectTransform.rect.width + scrollBar.spacing), 0);
+            // Position preview at the insertion point with vertical center alignment
+            previewRect.anchoredPosition = new Vector2(
+                insertIndex * (rectTransform.rect.width + scrollBar.spacing),
+                0
+            );
         }
         else
         {
