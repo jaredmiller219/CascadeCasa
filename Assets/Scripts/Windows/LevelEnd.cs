@@ -7,12 +7,12 @@ public class LevelEnd : MonoBehaviour
     public GameObject completePopup;
     public GameObject restartBtn;
     // public GameObject menuBtn;
-    private Notepad _notepadManager;
+    private Notepad.Notepad _notepadManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        _notepadManager = GameObject.Find("NotepadManager").GetComponent<Notepad>();
+        _notepadManager = GameObject.Find("NotepadManager").GetComponent<Notepad.Notepad>();
         // set active as false
         // completePopup.SetActive(false);
         restartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);

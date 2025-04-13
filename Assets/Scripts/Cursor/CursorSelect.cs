@@ -12,8 +12,8 @@ using TMPro;
 public class CursorType : MonoBehaviour
 {
     // Constants for PlayerPrefs keys
-    private const string CURSOR_PREF_KEY = "SelectedCursorIndex";
-    private const int DEFAULT_CURSOR = 0; // Black cursor is default
+    private const string CursorPrefKey = "SelectedCursorIndex";
+    private const int DefaultCursor = 0; // Black cursor is default
 
     // The cursor styles header
     [Header("Cursor Styles")]
@@ -49,7 +49,7 @@ public class CursorType : MonoBehaviour
     private void Start()
     {
         _dropdown = GetComponent<TMP_Dropdown>(); // Get the Dropdown component
-        int savedCursorIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR); // Set the default value
+        var savedCursorIndex = PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor); // Set the default value
 
         // Set the cursor based on the selected index
         _dropdown.value = savedCursorIndex;
@@ -65,7 +65,7 @@ public class CursorType : MonoBehaviour
     {
 
         // Save the selected index to PlayerPrefs
-        PlayerPrefs.SetInt(CURSOR_PREF_KEY, index);
+        PlayerPrefs.SetInt(CursorPrefKey, index);
         PlayerPrefs.Save();
 
         // Set the cursor based on the selected index
@@ -92,11 +92,9 @@ public class CursorType : MonoBehaviour
     public int GetSelectedCursor()
     {
         // If _selectedCursor is null, load from PlayerPrefs
-        if (_selectedCursor == null && !PlayerPrefs.HasKey(CURSOR_PREF_KEY))
-        {
-            var savedIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR);
-            return savedIndex;
-        }
-        return PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR);
+        if (_selectedCursor != null || PlayerPrefs.HasKey(CursorPrefKey))
+            return PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor);
+        var savedIndex = PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor);
+        return savedIndex;
     }
 }

@@ -6,9 +6,8 @@ using UnityEngine;
 /// </summary>
 public class GlobalCursorManager : MonoBehaviour
 {
-    private const string CURSOR_PREF_KEY = "SelectedCursorIndex";
-    private readonly int DEFAULT_CURSOR;
-    private static GlobalCursorManager instance;
+    private const string CursorPrefKey = "SelectedCursorIndex";
+    private const int DefaultCursor = 0;
 
     private readonly Vector2 _cursorHotspot = new(7.5f, 7.5f);
 
@@ -22,15 +21,15 @@ public class GlobalCursorManager : MonoBehaviour
     [Tooltip("I-beam cursor texture")]
     [SerializeField] private Texture2D iBeamCursor;
 
-    private Texture2D[] cursorTextures;
+    private Texture2D[] _cursorTextures;
 
-    public static GlobalCursorManager Instance => instance;
+    private static GlobalCursorManager Instance { get; set; }
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             InitializeCursorTextures();
             LoadSavedCursor(); // Add this line
             DontDestroyOnLoad(gameObject);
@@ -43,42 +42,40 @@ public class GlobalCursorManager : MonoBehaviour
 
     private void InitializeCursorTextures()
     {
-        cursorTextures = new Texture2D[4];
-        cursorTextures[0] = blackCursor;
-        cursorTextures[1] = blankCursor;
-        cursorTextures[2] = yellowCursor;
-        cursorTextures[3] = iBeamCursor;
+        _cursorTextures = new Texture2D[4];
+        _cursorTextures[0] = blackCursor;
+        _cursorTextures[1] = blankCursor;
+        _cursorTextures[2] = yellowCursor;
+        _cursorTextures[3] = iBeamCursor;
     }
 
     private void LoadSavedCursor()
     {
         // Get the saved cursor index, defaulting to DEFAULT_CURSOR if not found
-        int savedCursorIndex = PlayerPrefs.GetInt(CURSOR_PREF_KEY, DEFAULT_CURSOR);
+        var savedCursorIndex = PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor);
         ApplyCursor(savedCursorIndex);
     }
 
     public void SetCursor(int cursorIndex)
     {
-        if (cursorIndex < 0 || cursorIndex >= cursorTextures.Length)
+        if (cursorIndex < 0 || cursorIndex >= _cursorTextures.Length)
         {
             return;
         }
 
-        PlayerPrefs.SetInt(CURSOR_PREF_KEY, cursorIndex);
+        PlayerPrefs.SetInt(CursorPrefKey, cursorIndex);
         PlayerPrefs.Save();
         ApplyCursor(cursorIndex);
     }
 
     public int GetSelectedCursor(){
-        return PlayerPrefs.GetInt(CURSOR_PREF_KEY);
+        return PlayerPrefs.GetInt(CursorPrefKey);
     }
 
     private void ApplyCursor(int index)
     {
-        if (index >= 0 && index < cursorTextures.Length && cursorTextures[index] != null)
-        {
-            Vector2 hotspot = index == 3 ? _cursorHotspot : Vector2.zero;
-            Cursor.SetCursor(cursorTextures[index], hotspot, CursorMode.Auto);
-        }
+        if (index < 0 || index >= _cursorTextures.Length || _cursorTextures[index] == null) return;
+        var hotspot = index == 3 ? _cursorHotspot : Vector2.zero;
+        Cursor.SetCursor(_cursorTextures[index], hotspot, CursorMode.Auto);
     }
 }
