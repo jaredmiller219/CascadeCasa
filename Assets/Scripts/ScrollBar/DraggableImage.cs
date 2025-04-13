@@ -356,16 +356,16 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             // Check if the current child is not the dragged image itself and not the insertion preview
             if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
             {
-            // Increment the count of valid items (items that are not the dragged image or the preview)
-            validItemCount++;
+                // Increment the count of valid items (items that are not the dragged image or the preview)
+                validItemCount++;
 
-            // Get the RectTransform component of the current child
-            var childRect = child.GetComponent<RectTransform>();
+                // Get the RectTransform component of the current child
+                var childRect = child.GetComponent<RectTransform>();
 
-            // Update the rightmost position:
-            // - Compare the current child's anchored X position with the current rightmost position.
-            // - Use Mathf.Max to store the larger value, ensuring we track the furthest X position among valid items.
-            rightmostPosition = Mathf.Max(rightmostPosition, childRect.anchoredPosition.x);
+                // Update the rightmost position:
+                // - Compare the current child's anchored X position with the current rightmost position.
+                // - Use Mathf.Max to store the larger value, ensuring we track the furthest X position among valid items.
+                rightmostPosition = Mathf.Max(rightmostPosition, childRect.anchoredPosition.x);
             }
         }
 
@@ -381,7 +381,8 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             var child = _originalParent.GetChild(i); // Get the child at the current index 'i'
 
             // Check if the current child is not the dragged image itself and not the insertion preview
-            if (child.gameObject != gameObject && child.gameObject != _insertionPreview){
+            if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
+            {
                 var childRect = child.GetComponent<RectTransform>(); // Get the RectTransform of the current child
 
                 // Calculate the potential insertion point for this child:
@@ -392,7 +393,8 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                 // Check if the mouse's local X position is less than the calculated insertion point:
                 // - If true, this means the mouse is positioned to the left of this child's midpoint,
                 //   making this a valid insertion index.
-                if (localMousePos.x < insertPoint){
+                if (localMousePos.x < insertPoint)
+                {
                     return i; // Return the current index 'i' as the nearest valid insertion point
                 }
             }
