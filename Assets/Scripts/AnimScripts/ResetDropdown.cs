@@ -1,22 +1,25 @@
 using UnityEngine;
 
-public class ResetPopup : MonoBehaviour
+namespace AnimScripts
 {
-    // Reference to the Challenge Reset notification
-    public GameObject resetPopup;
-
-    // Animation reference
-    private Animator _animator;
-
-    private void Start()
+    public class ResetPopup : MonoBehaviour
     {
-        _animator = resetPopup.GetComponent<Animator>();
-    }
+        // Reference to the Challenge Reset notification
+        public GameObject resetPopup;
 
-    public void Animate()
-    {
-        if (resetPopup == null || _animator == null) return;
-        resetPopup.SetActive(true);
-        _animator.Play("Pull", 0, 0f);
+        // Animation reference
+        private Animator _animator;
+
+        private void Start()
+        {
+            _animator = resetPopup.GetComponent<Animator>();
+        }
+
+        public void Animate()
+        {
+            if (resetPopup == null || _animator == null) return;
+            resetPopup.SetActive(true);
+            _animator.Play("Pull", 0, 0f);
+        }
     }
 }

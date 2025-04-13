@@ -3,103 +3,100 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ScrollBar
+public class HorizontalScrollBar : MonoBehaviour
 {
-    public class HorizontalScrollBar : MonoBehaviour
+    [Header("References")]
+    public RectTransform content;
+    public GameObject imagePrefab;
+
+    [Header("Layout")]
+    [Tooltip("Space between images in pixels")]
+    public float spacing = 20f;
+    [Tooltip("Size of each image in pixels")]
+    public Vector2 imageSize = new(200f, 200f);
+
+    [Header("Images")]
+    public Sprite[] imageSprites;
+    private readonly List<Image> _scrollImages = new();
+
+    private void Start()
     {
-        [Header("References")]
-        public RectTransform content;
-        public GameObject imagePrefab;
+        SetupLayout();
+        LoadImagesFromArray();
+    }
 
-        [Header("Layout")]
-        [Tooltip("Space between images in pixels")]
-        public float spacing = 20f;
-        [Tooltip("Size of each image in pixels")]
-        public Vector2 imageSize = new(200f, 200f);
+    private void SetupLayout()
+    {
+        if (content == null) return;
 
-        [Header("Images")]
-        public Sprite[] imageSprites;
-        private readonly List<Image> _scrollImages = new();
-
-        private void Start()
+        if (!content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
         {
-            SetupLayout();
-            LoadImagesFromArray();
+            layoutGroup = content.gameObject.AddComponent<HorizontalLayoutGroup>();
         }
 
-        private void SetupLayout()
+        // Update layout group settings
+        layoutGroup.spacing = spacing;
+        layoutGroup.childAlignment = TextAnchor.MiddleLeft;
+        layoutGroup.padding = new RectOffset(10, 10, 10, 10);
+        layoutGroup.childControlWidth = false;
+        layoutGroup.childControlHeight = false;
+        layoutGroup.childForceExpandWidth = false;
+        layoutGroup.childForceExpandHeight = false;
+
+        // Ensure content size fitter is present
+        if (!content.TryGetComponent<ContentSizeFitter>(out var contentSizeFitter))
         {
-            if (content == null) return;
+            contentSizeFitter = content.gameObject.AddComponent<ContentSizeFitter>();
+        }
+        contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+    }
 
-            if (!content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
-            {
-                layoutGroup = content.gameObject.AddComponent<HorizontalLayoutGroup>();
-            }
+    private void LoadImagesFromArray()
+    {
+        if (imageSprites == null) return;
+        ClearImages(); // Clear existing images first
 
-            // Update layout group settings
-            layoutGroup.spacing = spacing;
-            layoutGroup.childAlignment = TextAnchor.MiddleLeft;
-            layoutGroup.padding = new RectOffset(10, 10, 10, 10);
-            layoutGroup.childControlWidth = false;
-            layoutGroup.childControlHeight = false;
-            layoutGroup.childForceExpandWidth = false;
-            layoutGroup.childForceExpandHeight = false;
-
-            // Ensure content size fitter is present
-            if (!content.TryGetComponent<ContentSizeFitter>(out var contentSizeFitter))
-            {
-                contentSizeFitter = content.gameObject.AddComponent<ContentSizeFitter>();
-            }
-            contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-            contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        foreach (Sprite sprite in imageSprites)
+        {
+            AddImage(sprite);
         }
 
-        private void LoadImagesFromArray()
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+    }
+
+    private void AddImage(Sprite sprite)
+    {
+        if (content == null || imagePrefab == null)
         {
-            if (imageSprites == null) return;
-            ClearImages(); // Clear existing images first
-
-            foreach (Sprite sprite in imageSprites)
-            {
-                AddImage(sprite);
-            }
-
-            Canvas.ForceUpdateCanvases();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+            Debug.LogError("Content or image prefab not assigned!");
+            return;
         }
 
-        private void AddImage(Sprite sprite)
+        GameObject imgObj = Instantiate(imagePrefab, content);
+        if (imgObj.TryGetComponent<Image>(out var img))
         {
-            if (content == null || imagePrefab == null)
-            {
-                Debug.LogError("Content or image prefab not assigned!");
-                return;
-            }
+            img.sprite = sprite;
+            img.preserveAspect = true;
+            _scrollImages.Add(img);
 
-            GameObject imgObj = Instantiate(imagePrefab, content);
-            if (imgObj.TryGetComponent<Image>(out var img))
-            {
-                img.sprite = sprite;
-                img.preserveAspect = true;
-                _scrollImages.Add(img);
+            if (!imgObj.TryGetComponent<LayoutElement>(out var layoutElement))
+                layoutElement = imgObj.AddComponent<LayoutElement>();
 
-                if (!imgObj.TryGetComponent<LayoutElement>(out var layoutElement))
-                    layoutElement = imgObj.AddComponent<LayoutElement>();
+            layoutElement.preferredWidth = imageSize.x;
+            layoutElement.preferredHeight = imageSize.y;
 
-                layoutElement.preferredWidth = imageSize.x;
-                layoutElement.preferredHeight = imageSize.y;
-
-                imgObj.AddComponent<DraggableImage>();
-            }
+            imgObj.AddComponent<DraggableImage>();
         }
+    }
 
-        private void ClearImages()
+    private void ClearImages()
+    {
+        foreach (var img in _scrollImages.Where(img => img != null))
         {
-            foreach (var img in _scrollImages.Where(img => img != null))
-            {
-                Destroy(img.gameObject);
-            }
-            _scrollImages.Clear();
+            Destroy(img.gameObject);
         }
+        _scrollImages.Clear();
     }
 }
