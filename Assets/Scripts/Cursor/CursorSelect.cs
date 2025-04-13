@@ -88,11 +88,6 @@ public class CursorType : MonoBehaviour
         Cursor.SetCursor(_selectedCursor, Vector2.zero, CursorMode.Auto);
     }
 
-    // public void SwitchCursor(int cursorIndex)
-    // {
-    //     GlobalCursorManager.Instance.SetCursor(cursorIndex);
-    // }
-
     /// <summary>
     /// This method allows CursorManager to get the currently selected cursor.
     /// </summary>
