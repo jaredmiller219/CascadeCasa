@@ -1,4 +1,4 @@
-using UnityEngine; // Import the UnityEngine namespace, which provides access to Unity-specific classes and functions
+using UnityEngine;
 
 // This class represents the settings functionality in the game.
 // It inherits from MonoBehaviour, which is the base class for all Unity scripts.

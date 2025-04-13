@@ -1,4 +1,4 @@
-using UnityEngine; // Importing the UnityEngine namespace for Unity-specific functionality.
+using UnityEngine;
 
 public class SelectTemp : MonoBehaviour // Defining a public class named SelectTemp that inherits from MonoBehaviour.
 {

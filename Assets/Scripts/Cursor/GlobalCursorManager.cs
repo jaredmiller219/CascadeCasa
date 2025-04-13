@@ -6,32 +6,54 @@ using UnityEngine;
 /// </summary>
 public class GlobalCursorManager : MonoBehaviour
 {
-    // Key used to save and retrieve the selected cursor index from PlayerPrefs
+    /// <summary>
+    /// Key used to save and retrieve the selected cursor index from PlayerPrefs.
+    /// </summary>
     private const string CursorPrefKey = "SelectedCursorIndex";
 
-    // Default cursor index to use if no saved preference is found
+    /// <summary>
+    /// Default cursor index to use if no saved preference is found.
+    /// </summary>
     private const int DefaultCursor = 0;
 
-    // Hotspot position for the I-beam cursor (used for text editing)
+    /// <summary>
+    /// Hotspot position for the I-beam cursor (used for text editing).
+    /// </summary>
     private readonly Vector2 _cursorHotspot = new(7.5f, 7.5f);
 
     [Header("Cursor Textures")]
     [Tooltip("Black cursor texture")]
-    [SerializeField] private Texture2D blackCursor; // Texture for the black cursor
+    /// <summary>
+    /// Texture for the black cursor.
+    /// </summary>
+    [SerializeField] private Texture2D blackCursor;
 
     [Tooltip("Blank cursor texture")]
-    [SerializeField] private Texture2D blankCursor; // Texture for the blank cursor
+    /// <summary>
+    /// Texture for the blank cursor.
+    /// </summary>
+    [SerializeField] private Texture2D blankCursor;
 
     [Tooltip("Yellow cursor texture")]
-    [SerializeField] private Texture2D yellowCursor; // Texture for the yellow cursor
+    /// <summary>
+    /// Texture for the yellow cursor.
+    /// </summary>
+    [SerializeField] private Texture2D yellowCursor;
 
     [Tooltip("I-beam cursor texture")]
-    [SerializeField] private Texture2D iBeamCursor; // Texture for the I-beam cursor
+    /// <summary>
+    /// Texture for the I-beam cursor.
+    /// </summary>
+    [SerializeField] private Texture2D iBeamCursor;
 
-    // Array to hold all cursor textures
+    /// <summary>
+    /// Array to hold all cursor textures.
+    /// </summary>
     private Texture2D[] _cursorTextures;
 
-    // Singleton instance of the GlobalCursorManager
+    /// <summary>
+    /// Singleton instance of the GlobalCursorManager.
+    /// </summary>
     private static GlobalCursorManager Instance { get; set; }
 
     /// <summary>
