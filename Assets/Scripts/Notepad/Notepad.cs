@@ -11,52 +11,57 @@ using UnityEngine.UI;
 /// </summary>
 public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    // Reference to the global cursor manager for handling cursor changes
+    /// <summary>
+    /// Reference to the global cursor manager for handling cursor changes
+    /// </summary>
     private readonly GlobalCursorManager _cursorManager;
 
     /// <summary>
-    /// Text area where users input their CSS solutions
+    /// The input field where users type their CSS solutions
     /// </summary>
     [Tooltip("The notepad input field for CSS code")]
     [Header("Notepad")]
-    public GameObject inputField; // The input field for user CSS code
+    public GameObject inputField;
 
     /// <summary>
-    /// Displays feedback messages to the user
+    /// The text area used to display feedback messages to the user
     /// </summary>
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
-    public GameObject feedbackText; // Text area for displaying feedback to the user
-
-    // The header for the buttons
-    [Header("Buttons")]
-
-    // Button that triggers solution validation
-    [Tooltip("The submit button for checking CSS code")]
-    public GameObject submitBtn; // Button to submit the user's CSS solution
+    public GameObject feedbackText;
 
     /// <summary>
-    /// Button to reset the current challenge
+    /// The button that users click to submit their CSS solution for validation
+    /// </summary>
+    [Tooltip("The submit button for checking CSS code")]
+    [Header("Buttons")]
+    public GameObject submitBtn;
+
+    /// <summary>
+    /// The button that resets the current challenge to its initial state
     /// </summary>
     [Tooltip("The reset button for restarting the challenge")]
-    public GameObject resetBtn; // Button to reset the current challenge
-
-    // The header for the reset text
-    [Header("Reset Text")]
-
-    // Text to display when the reset button is clicked
-    [Tooltip("The text that appears when the reset button is clicked")]
-    public GameObject resetPopup; // Popup text displayed when the reset button is clicked
+    public GameObject resetBtn;
 
     /// <summary>
-    /// Tracks current challenge number
+    /// The popup text displayed when the reset button is clicked
+    /// </summary>
+    [Tooltip("The text that appears when the reset button is clicked")]
+    [Header("Reset Text")]
+    public GameObject resetPopup;
+
+    /// <summary>
+    /// The index of the current challenge being solved by the user
     /// </summary>
     [Tooltip("The index of the current challenge")]
     [Header("Challenge Index")]
-    public int currentChallengeIndex; // Index of the current challenge being solved
+    public int currentChallengeIndex;
 
+    /// <summary>
+    /// The popup displayed when all challenges are completed
+    /// </summary>
     [Header("Lvl End Popup")]
-    public GameObject challengeComplete; // Popup displayed when all challenges are completed
+    public GameObject challengeComplete;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -113,9 +118,10 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <summary>
     /// Handles pointer entering the input field area
     /// </summary>
+    /// <param name="eventData">Data related to the pointer event</param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // If the cursor manager is available and the pointer is over the input field
+        // Check if the cursor manager is available and the pointer is over the input field
         if (_cursorManager != null && eventData.pointerCurrentRaycast.gameObject == inputField)
         {
             // Change the cursor to the I-beam cursor (index 3 assumed)
@@ -126,9 +132,10 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <summary>
     /// Handles pointer exiting the input field area
     /// </summary>
+    /// <param name="eventData">Data related to the pointer event</param>
     public void OnPointerExit(PointerEventData eventData)
     {
-        // If the cursor manager is available and the pointer is not over the input field
+        // Check if the cursor manager is available and the pointer is not over the input field
         if (_cursorManager != null && eventData.pointerCurrentRaycast.gameObject != inputField)
         {
             // Reset the cursor to the previously selected cursor
@@ -141,25 +148,31 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     private void CheckCssInput()
     {
-        // Get the user's input from the input field and normalize it
+        // Retrieve the user's input from the input field and normalize it
         var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+
+        // Retrieve the correct CSS snippet for the current challenge and normalize it
         var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
 
-        // Normalize both user input and the correct CSS for comparison
+        // Normalize the user's input by removing unnecessary spaces and line breaks
         var normalizedUserInput = NormalizeCss(userInput);
+
+        // Normalize the correct CSS snippet for comparison
         var normalizedCorrectCss = NormalizeCss(correctCss);
 
-        // Check if the normalized user input matches the correct CSS
+        // Compare the normalized user input with the normalized correct CSS
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            // Display success feedback and load the next challenge after a delay
+            // If the input is correct, display success feedback
             feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
             feedbackText.GetComponent<TMP_Text>().color = Color.green;
+
+            // Load the next challenge after a delay
             Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
-            // Display error feedback if the input is incorrect
+            // If the input is incorrect, display error feedback
             feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, and syntax!";
             feedbackText.GetComponent<TMP_Text>().color = Color.red;
         }
@@ -168,6 +181,7 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <summary>
     /// Checks if all challenges have been completed
     /// </summary>
+    /// <returns>True if all challenges are completed, otherwise false</returns>
     private bool IsLevelComplete()
     {
         // Return true if the current challenge index exceeds the total number of challenges
@@ -179,19 +193,21 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     private void NextChallenge()
     {
-        // Increment the current challenge index
+        // Increment the current challenge index to move to the next challenge
         currentChallengeIndex++;
 
-        // If all challenges are completed
+        // Check if all challenges have been completed
         if (IsLevelComplete())
         {
-            // Display a completion message and disable input
+            // Display a completion message to the user
             feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
+
+            // Clear the input field and make it non-interactable
             inputField.GetComponent<TMP_InputField>().text = "";
             inputField.GetComponent<TMP_InputField>().interactable = false;
 
-            // Disable buttons
+            // Disable the submit and reset buttons
             submitBtn.GetComponent<Button>().interactable = false;
             resetBtn.GetComponent<Button>().interactable = false;
 
@@ -200,7 +216,7 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         else
         {
-            // Load the next challenge
+            // Load the next challenge if there are more challenges remaining
             LoadChallenge();
         }
     }
@@ -223,16 +239,18 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// </summary>
     private void ResetCurrentChallenge()
     {
-        // Reload the current challenge
+        // Reload the current challenge to reset the input field
         LoadChallenge();
     }
 
     /// <summary>
     /// Normalizes CSS input by removing excess spaces and line breaks
     /// </summary>
+    /// <param name="input">The CSS string to normalize</param>
+    /// <returns>A normalized CSS string</returns>
     private static string NormalizeCss(string input)
     {
-        // Remove newlines and extra spaces, then trim the result
+        // Replace newlines with empty strings, remove double spaces, and trim the result
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
 }

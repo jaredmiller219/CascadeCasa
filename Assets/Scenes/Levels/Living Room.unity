@@ -976,8 +976,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 19521646}
   imagePrefab: {fileID: 6493582166146260891, guid: 1aec1cbf72fce4114bc4803c86c58eeb, type: 3}
-  spacing: 20
-  imageSize: {x: 10, y: 10}
+  spacing: 50
+  imageSize: {x: 70, y: 70}
   imageSprites:
   - {fileID: -1826540195440363676, guid: 830329b2f6cad43a19e638de6c11cc56, type: 3}
   - {fileID: 8271860834264090974, guid: 75d097968330f49479939f1c44955f84, type: 3}

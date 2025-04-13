@@ -1,4 +1,4 @@
-using UnityEngine; // Import the UnityEngine namespace for MonoBehaviour and other Unity-specific functionality.
+using UnityEngine;
 
 public class Menu : MonoBehaviour // Define a class named Menu that inherits from MonoBehaviour, allowing it to be attached to GameObjects in Unity.
 {
