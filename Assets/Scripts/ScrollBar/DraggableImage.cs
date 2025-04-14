@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 /// This class allows an image to be draggable within a UI canvas and provides functionality
 /// for inserting the dragged image into a horizontal scroll bar at a specific position.
 /// </summary>
-public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableImage : MonoBehaviour,
+IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     /// <summary>
     /// The parent canvas of the draggable image.
@@ -67,6 +68,11 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     /// Minimum distance to update insertion index.
     /// </summary>
     private const float InsertionThreshold = 20f;
+
+    /// <summary>
+    /// The index of the button in the scroll area.
+    /// </summary>
+    private int _buttonIndex;
 
     /// <summary>
     /// Called when the script is initialized. Caches references and sets up the insertion preview.
@@ -429,13 +435,24 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                 // If a valid insertion index exists, set the sibling index of the dragged image
                 // This determines the position of the image within the scroll area's hierarchy
                 transform.SetSiblingIndex(_insertIndex);
+
+                // Update the anchored position of the dragged image
+                // This sets the position of the image based on its new index in the hierarchy
+                _buttonIndex = _insertIndex;
             }
             else
             {
                 // If no valid insertion index was found, reset the image to its original position
                 // This ensures the image snaps back to where it started
                 _rectTransform.anchoredPosition = _originalPosition;
+
+                // Reset the sibling index to the original position
+                // This ensures the image is placed back in its original order within the scroll area
+                _buttonIndex = transform.GetSiblingIndex();
             }
+
+            // Update the scroll bar to reflect the new arrangement of images
+            UpdateAllImageIndices();
 
             // Force a layout rebuild for the scroll area
             // This ensures that the UI updates to reflect the new arrangement of elements
@@ -446,6 +463,7 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             // If the image was dragged outside the scroll area and is not already marked as "in-world"
             // This block handles the transition of the image to a "world" state
             _isInWorld = true; // Mark the image as placed in the world
+            UpdateAllImageIndices(); // Add this line to update indices when removing an image
         }
 
         // Hide the insertion preview
@@ -454,6 +472,46 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             _insertionPreview.SetActive(false); // Deactivate the preview object
         }
+    }
+
+    /// <summary>
+    /// Updates the indices of all draggable images within the scroll area.
+    /// Ensures that the sibling order and button indices are consistent.
+    /// </summary>
+    private void UpdateAllImageIndices()
+    {
+        // Initialize a counter to track the sequential index of valid draggable images
+        int sequentialIndex = 0;
+
+        // Iterate through all children of the original parent (scroll area)
+        for (var i = 0; i < _originalParent.childCount; i++)
+        {
+            // Get the child at the current index
+            var child = _originalParent.GetChild(i);
+
+            // Check if the child has a DraggableImage component
+            if (child.TryGetComponent<DraggableImage>(out var draggableImage))
+            {
+                // Only update indices for images that are not marked as "in-world"
+                if (!draggableImage._isInWorld)
+                {
+                    // Update the button index of the draggable image
+                    // This index represents the logical position of the image in the scroll area
+                    draggableImage._buttonIndex = sequentialIndex;
+
+                    // Update the sibling index of the child in the hierarchy
+                    // This determines the visual order of the image within the scroll area
+                    child.SetSiblingIndex(sequentialIndex);
+
+                    // Increment the sequential index for the next valid draggable image
+                    sequentialIndex++;
+                }
+            }
+        }
+
+        // Force a layout rebuild for the scroll area
+        // This ensures that the UI updates to reflect the new arrangement of elements
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_originalParent as RectTransform);
     }
 
     /// <summary>
@@ -481,6 +539,27 @@ public class DraggableImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                Input.mousePosition.x > right ||
                Input.mousePosition.y < bottom ||
                Input.mousePosition.y > top;
+    }
+
+    /// <summary>
+    /// Handles pointer click events on the draggable image.
+    /// </summary>
+    /// <param name="eventData">Pointer event data containing information about the click.</param>
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // Check if the image is not being dragged and is not marked as "in-world"
+        // - _isDragging: Indicates whether the image is currently being dragged.
+        // - _isInWorld: Indicates whether the image has been placed outside the scrollable UI.
+        if (!_isDragging && !_isInWorld)
+        {
+            // Retrieve the sibling index of the image within its parent hierarchy
+            // - The sibling index represents the position of the image in the scroll area's hierarchy.
+            _buttonIndex = transform.GetSiblingIndex();
+
+            // Log the index of the clicked button to the console
+            // - This is useful for debugging or identifying which button was clicked.
+            Debug.Log($"Clicked button at index {_buttonIndex}");
+        }
     }
 
     /// <summary>
