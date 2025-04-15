@@ -597,7 +597,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691568967}
         m_TargetAssemblyTypeName: SelectTemp, Assembly-CSharp
-        m_MethodName: CSS
+        m_MethodName: Css
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
