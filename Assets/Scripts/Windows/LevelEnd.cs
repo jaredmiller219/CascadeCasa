@@ -50,8 +50,7 @@ public class LevelEnd : MonoBehaviour
         // This effectively resets the game's challenge progress to the beginning.
         _notepadManager.currentChallengeIndex = 0;
 
-        // Note: The following line is commented out.
-        // It would reload the current scene, effectively restarting the game.
+        // The following line would reload the current scene, effectively restarting the game.
         // Uncomment this line if you want the scene to reload when restarting:
         // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
