@@ -21,6 +21,25 @@ public class Journal : MonoBehaviour
     [SerializeField]
     private Button journalButton;
 
+
+    /// <summary>
+    /// Initializes the journal by setting up the button listener.
+    /// This method is called when the script instance is being loaded.
+    /// It sets up the button to call the <c>ToggleJournal</c> method when clicked.
+    /// </summary>
+    /// <remarks>
+    /// The <c>Start</c> method is called before the first frame update.
+    /// It is a good place to initialize variables and set up references.
+    /// </remarks>
+    public void Start()
+    {
+        // set the journal to inactive at the start
+        if (journalPopup != null)
+        {
+            journalPopup.SetActive(false);
+        }
+    }
+
     /// <summary>
     /// Toggles the visibility of the journal popup.
     /// If the journal popup is currently active, it will be deactivated.
