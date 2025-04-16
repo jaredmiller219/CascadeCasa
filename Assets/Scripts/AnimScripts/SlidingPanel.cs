@@ -13,6 +13,8 @@ public class SlidePanelController : MonoBehaviour
     // Using a hash instead of a string improves performance
     private static readonly int Open = Animator.StringToHash("open");
 
+    public GameObject btnImage;
+
     // Unity's Start method is called before the first frame update
     private void Start()
     {
@@ -29,5 +31,16 @@ public class SlidePanelController : MonoBehaviour
         // Set the "open" parameter to the opposite of its current value
         // This effectively toggles the panel's open/close state
         _animator.SetBool(Open, !isOpen);
+
+        if (isOpen)
+        {
+            // Rotate the button image's x-axis by 180 degrees (Opened)
+            btnImage.transform.Rotate(180, 0, 0);
+        }
+        else
+        {
+            // Reset the rotation of the button image to its original state (Closed)
+            btnImage.transform.Rotate(-180, 0, 0);
+        }
     }
 }
