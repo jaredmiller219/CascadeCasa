@@ -671,6 +671,8 @@ GameObject:
   - component: {fileID: 115715714}
   - component: {fileID: 115715713}
   - component: {fileID: 115715712}
+  - component: {fileID: 115715715}
+  - component: {fileID: 115715716}
   m_Layer: 5
   m_Name: JournalOpen
   m_TagString: Untagged
@@ -695,7 +697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -10, y: 9.999999}
+  m_AnchoredPosition: {x: -5, y: -5}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &115715712
@@ -792,6 +794,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115715710}
   m_CullTransparentMesh: 1
+--- !u!95 &115715715
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115715710}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6232b7062aa384b8e82bb18558dccc28, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &115715716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115715710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30eaaabff6548440caf103c027396145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  journalManager: {fileID: 942927237}
 --- !u!1 &153508280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2844,7 +2881,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 533730707}
   m_Direction: 3
   m_Value: 0
-  m_Size: 0.00000010172527
+  m_Size: 0.26200002
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
