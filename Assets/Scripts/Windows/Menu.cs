@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Menu : MonoBehaviour // Define a class named Menu that inherits from MonoBehaviour, allowing it to be attached to GameObjects in Unity.
+public class Menu : MonoBehaviour
 {
     // This method is called to quit the game.
     public void Quit()
@@ -10,9 +10,9 @@ public class Menu : MonoBehaviour // Define a class named Menu that inherits fro
 
         // If the game is running in the Unity Editor, stop playing the game.
         // This is useful for testing purposes since Application.Quit() does not work in the editor.
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false; // Stop the play mode in the Unity Editor.
-        #endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Stop the play mode in the Unity Editor.
+#endif
     }
 
     // This method is called to load the level select scene.
