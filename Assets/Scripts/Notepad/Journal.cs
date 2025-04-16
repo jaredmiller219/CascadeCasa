@@ -16,7 +16,6 @@ public class Journal : MonoBehaviour
         {
             journalPopup.SetActive(false);
         }
-
         animator = journalButton.GetComponent<Animator>();
         canToggle = false;
     }

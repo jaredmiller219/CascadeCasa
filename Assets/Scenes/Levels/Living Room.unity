@@ -740,6 +740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   journalManager: {fileID: 942927237}
+  JournalImage: {fileID: 1654796851}
 --- !u!1 &153508280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,6 +2584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   journalPopup: {fileID: 1857089845}
   journalButton: {fileID: 115715712}
+  JournalImage: {fileID: 1654796851}
 --- !u!1 &948496671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2666,7 +2668,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 533730707}
   m_Direction: 3
   m_Value: 0
-  m_Size: 0.26200002
+  m_Size: 0.00000010172527
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
