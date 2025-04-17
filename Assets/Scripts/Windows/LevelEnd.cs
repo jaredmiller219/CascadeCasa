@@ -49,7 +49,7 @@ public class LevelEnd : MonoBehaviour
     }
 
     // Method to restart the game.
-    private void RestartGame()
+    public void RestartGame()
     {
         // Log a message to the console indicating that the game is restarting.
         // This is useful for debugging purposes.
@@ -69,7 +69,7 @@ public class LevelEnd : MonoBehaviour
     }
 
     // Method to go to the main menu.
-    private void GoToMenu()
+    public void GoToMenu()
     {
         // Log a message to the console indicating that the game is going to the menu.
         // This is useful for debugging purposes.
