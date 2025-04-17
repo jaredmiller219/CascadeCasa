@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Menu.unity
     guid: 24fd6404d6eab44bca93f803abf7a87a
   - enabled: 1
-    path: Assets/Scenes/Menus/CSS-Dustin.unity
+    path: Assets/Scenes/Menus/LevelSelect.unity
     guid: 5f34797de87f1418e897ceede1ce718d
   - enabled: 1
     path: Assets/Scenes/Menus/Settings.unity
