@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
     public void LevelSelect()
     {
         // Load the scene named "CSS-Dustin". This is typically the level select screen.
-        UnityEngine.SceneManagement.SceneManager.LoadScene("CSS-Dustin");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
     }
 
     // This method is called to load the settings scene.
