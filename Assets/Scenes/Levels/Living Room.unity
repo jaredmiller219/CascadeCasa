@@ -1216,7 +1216,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 225276810}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 876042510}
+        m_TargetAssemblyTypeName: LevelEnd, Assembly-CSharp
+        m_MethodName: GoToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &225276810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2403,6 +2415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completePopup: {fileID: 876042508}
   restartBtn: {fileID: 1689855487}
+  menuBtn: {fileID: 225276807}
 --- !u!114 &876042511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2667,7 +2680,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 533730707}
   m_Direction: 3
   m_Value: 0.00000010337933
-  m_Size: 0
+  m_Size: 0.262
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3823,7 +3836,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1689855490}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 876042510}
+        m_TargetAssemblyTypeName: LevelEnd, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1689855490
 MonoBehaviour:
   m_ObjectHideFlags: 0
