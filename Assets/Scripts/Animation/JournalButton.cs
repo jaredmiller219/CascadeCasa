@@ -2,29 +2,30 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class JournalButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+// ,IPointerEnterHandler, IPointerExitHandler,
 {
     [SerializeField] private Journal journalManager;
 
     [SerializeField] private GameObject JournalImage;
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (journalManager != null)
-        {
-            journalManager.SetHover(true);
-            journalManager.SetToggleStateAfterAnimation("Hover", true);
-        }
-    }
+    // public void OnPointerEnter(PointerEventData eventData)
+    // {
+    //     if (journalManager != null)
+    //     {
+    //         journalManager.SetHover(true);
+    //         journalManager.SetToggleStateAfterAnimation("Hover", true);
+    //     }
+    // }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (journalManager != null)
-        {
-            journalManager.SetHover(false);
-            journalManager.SetToggleStateAfterAnimation("Idle", false);
-        }
-    }
+    // public void OnPointerExit(PointerEventData eventData)
+    // {
+    //     if (journalManager != null)
+    //     {
+    //         journalManager.SetHover(false);
+    //         journalManager.SetToggleStateAfterAnimation("Idle", false);
+    //     }
+    // }
 
     public void OnPointerDown(PointerEventData eventData)
     {
