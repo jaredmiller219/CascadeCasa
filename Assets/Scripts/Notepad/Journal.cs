@@ -8,7 +8,8 @@ public class Journal : MonoBehaviour
     [SerializeField] private Button journalButton;
 
     private Animator animator;
-    private bool canToggle = false;
+
+    // private bool canToggle = false;
 
     private void Start()
     {
@@ -17,35 +18,35 @@ public class Journal : MonoBehaviour
             journalPopup.SetActive(false);
         }
         animator = journalButton.GetComponent<Animator>();
-        canToggle = false;
+        // canToggle = false;
     }
 
     public void ToggleJournal()
     {
-        if (!canToggle) return;
+        // if (!canToggle) return;
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
 
-    public void SetToggleStateAfterAnimation(string stateName, bool setToggle)
-    {
-        StopAllCoroutines();
-        StartCoroutine(WaitForAnimationToEnd(stateName, setToggle));
-    }
+    // public void SetToggleStateAfterAnimation(string stateName, bool setToggle)
+    // {
+    //     StopAllCoroutines();
+    //     StartCoroutine(WaitForAnimationToEnd(stateName, setToggle));
+    // }
 
-    private IEnumerator WaitForAnimationToEnd(string stateName, bool setToggle)
-    {
-        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
-        {
-            yield return null;
-        }
+    // private IEnumerator WaitForAnimationToEnd(string stateName, bool setToggle)
+    // {
+    //     while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+    //     {
+    //         yield return null;
+    //     }
 
-        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-        {
-            yield return null;
-        }
+    //     while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+    //     {
+    //         yield return null;
+    //     }
 
-        canToggle = setToggle;
-    }
+    //     canToggle = setToggle;
+    // }
 
     public void SetHover(bool isHovering)
     {
