@@ -16,7 +16,16 @@ public class ResetPopup : MonoBehaviour
         _animator = resetPopup.GetComponent<Animator>();
     }
 
-    // Method to trigger the animation for the reset popup
+
+    /// <summary>
+    /// Plays the "Pull" animation on the resetPopup GameObject.
+    /// This method is called to trigger the animation when needed.
+    /// </summary>
+    /// <remarks>
+    /// This method checks if the resetPopup GameObject and the Animator component are not null
+    /// before attempting to play the animation.
+    /// It also ensures that the resetPopup GameObject is active in the scene.
+    /// </remarks>
     public void Animate()
     {
         // Check if the resetPopup GameObject or the Animator component is null

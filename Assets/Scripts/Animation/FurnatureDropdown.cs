@@ -35,7 +35,16 @@ public class FurnitureDropdown : MonoBehaviour
         }
     }
 
-    // Method to toggle the dropdown panel and rotate the button image
+
+    /// <summary>
+    /// Toggles the dropdown panel's visibility and animates the button image.
+    /// This method is called to pull the bar down and show/hide the dropdown panel.
+    /// </summary>
+    /// <remarks>
+    /// This method checks if the furnitureDropdown and Animator component are not null
+    /// before attempting to toggle the panel's visibility.
+    /// It also rotates the button image to indicate the panel's state.
+    /// </remarks>
     public void PullBarDown()
     {
         // Check if the furnitureDropdown or Animator reference is missing

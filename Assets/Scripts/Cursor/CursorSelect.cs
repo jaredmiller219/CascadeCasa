@@ -68,6 +68,10 @@ public class CursorType : MonoBehaviour
     /// This method is called when the dropdown value changes.
     /// It sets the cursor based on the selected index from the dropdown.
     /// </summary>
+    /// <remarks>
+    /// This method is called automatically by the TMP_Dropdown component when the user selects a new option.
+    /// It updates the cursor texture and saves the selected index to PlayerPrefs for persistence.
+    /// </remarks>
     /// <param name="index">The index of the selected dropdown option</param>
     private void SetCursor(int index)
     {
@@ -91,6 +95,10 @@ public class CursorType : MonoBehaviour
     /// <summary>
     /// This method allows CursorManager to get the currently selected cursor.
     /// </summary>
+    /// <remarks>
+    /// This method retrieves the currently selected cursor index from PlayerPrefs.
+    /// If the index is not found, it returns the default cursor index.
+    /// </remarks>
     /// <returns>The index of the currently selected cursor</returns>
     public int GetSelectedCursor()
     {
