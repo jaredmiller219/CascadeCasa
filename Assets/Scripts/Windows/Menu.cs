@@ -2,7 +2,16 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    // This method is called to quit the game.
+
+    /// <summary>
+    /// This method is called to quit the game.
+    /// It closes the application when running in a standalone build.
+    /// </summary>
+    /// <remarks>
+    /// This method uses Application.Quit() to close the application.
+    /// In the Unity Editor, it stops the play mode instead of quitting.
+    /// This is useful for testing purposes since Application.Quit() does not work in the editor.
+    /// </remarks>
     public void Quit()
     {
         // Quit the application. This works when the game is built and running as a standalone application.
@@ -15,17 +24,30 @@ public class Menu : MonoBehaviour
 #endif
     }
 
-    // This method is called to load the level select scene.
+    /// <summary>
+    /// This method is called to start the level select screen.
+    /// It loads the level select screen where players can choose a level to play.
+    /// </summary>
+    /// <remarks>
+    /// This method uses the SceneManager to load the scene named "LevelSelect".
+    /// It assumes that the scene is added to the build settings.
+    /// </remarks>
     public void LevelSelect()
     {
-        // Load the scene named "CSS-Dustin". This is typically the level select screen.
         UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
     }
 
-    // This method is called to load the settings scene.
+
+    /// <summary>
+    /// This method is called to start the settings screen.
+    /// It loads the settings screen where players can adjust game settings.
+    /// </summary>
+    /// <remarks>
+    /// This method uses the SceneManager to load the scene named "Settings".
+    /// It assumes that the scene is added to the build settings.
+    /// </remarks>
     public void Settings()
     {
-        // Load the scene named "Settings". This is typically where game settings can be adjusted.
         UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
     }
 }
