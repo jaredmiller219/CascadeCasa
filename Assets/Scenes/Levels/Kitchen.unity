@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 85603544}
   - component: {fileID: 85603543}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Dropdown_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1528,12 +1528,12 @@ MonoBehaviour:
   spacing: 50
   imageSize: {x: 70, y: 70}
   imageSprites:
-  - {fileID: -1826540195440363676, guid: 830329b2f6cad43a19e638de6c11cc56, type: 3}
-  - {fileID: 8271860834264090974, guid: 75d097968330f49479939f1c44955f84, type: 3}
-  - {fileID: -4752172839745577673, guid: c028f4a0ebe30402c83f896c9946d155, type: 3}
-  - {fileID: 5103920634025675128, guid: 1f634aa0a10774e399a2fa4507bc7315, type: 3}
-  - {fileID: -7104301190457302039, guid: e8fb0ef1b8dec40ad8417d168bd4a136, type: 3}
-  - {fileID: -7104301190457302039, guid: e8fb0ef1b8dec40ad8417d168bd4a136, type: 3}
+  - {fileID: -8938819534478884857, guid: 6002686c31fc2402b90009d8bc47666c, type: 3}
+  - {fileID: -271153395187383962, guid: 1e009b283cc6f41a699328afcfaea24c, type: 3}
+  - {fileID: 4992453765389984465, guid: ec9c600bdcc2140269ec2cf0559354f7, type: 3}
+  - {fileID: -5649470061204452833, guid: bb8f42a0bf9df451d8e3b50e2296b00f, type: 3}
+  - {fileID: -3302215156215320260, guid: 390404bca98f542fe9a0a2778ee8c910, type: 3}
+  - {fileID: -5696803668876324512, guid: 043b5137423644e619b837108c463256, type: 3}
 --- !u!114 &615742654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2460,7 +2460,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 289819166}
   m_Direction: 3
   m_Value: 0
-  m_Size: 0.262
+  m_Size: 0.00000005086263
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3912,8 +3912,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017b97aca39524bc3a9409ab9bf5b1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  furnitureDropdown: {fileID: 0}
-  btnImage: {fileID: 0}
+  furnitureDropdown: {fileID: 1587966233}
+  btnImage: {fileID: 85603541}
 --- !u!1001 &1692447976
 PrefabInstance:
   m_ObjectHideFlags: 0
