@@ -2583,6 +2583,7 @@ MonoBehaviour:
   resetPopup: {fileID: 90493303}
   currentChallengeIndex: 0
   challengeComplete: {fileID: 876042508}
+  hintText: {fileID: 2061471224}
 --- !u!114 &942927237
 MonoBehaviour:
   m_ObjectHideFlags: 0

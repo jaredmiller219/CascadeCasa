@@ -63,6 +63,13 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
+
+    /// <summary>
+    /// The text area used to display hints for the current challenge
+    /// </summary>
+    [Header("Hint Section")]
+    public GameObject hintText;
+
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
     ///
@@ -91,6 +98,21 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             ".box {\n    border 2px solid black;\n    margin top 10px;\n}", // Incorrect
             ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}" // Correct
         )
+    };
+
+    /// <summary>
+    /// List of hints to assist the user in fixing CSS syntax errors
+    /// </summary>
+    private readonly List<string> _cssHints = new()
+    {
+        "CSS lets you style HTML elements by changing things like size and color." +
+        "For example, you can use width to set how wide something is, " +
+        "and background-color to set its background color.",
+
+        "Look for missing colons in the font size and text align properties.",
+
+        "Ensure the border and margin top properties have colons." // Hint for challenge 3
+        // etc...
     };
 
     /// <summary>
@@ -228,6 +250,9 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         // Set the input field text to the incorrect CSS snippet for the current challenge
         inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
+
+        // Set the hint text for the current challenge
+        hintText.GetComponent<TMP_Text>().text = _cssHints[currentChallengeIndex];
 
         // Display a message prompting the user to fix the syntax
         feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
