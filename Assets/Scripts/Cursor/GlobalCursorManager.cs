@@ -54,7 +54,7 @@ public class GlobalCursorManager : MonoBehaviour
     /// <summary>
     /// Singleton instance of the GlobalCursorManager.
     /// </summary>
-    private static GlobalCursorManager Instance { get; set; }
+    public static GlobalCursorManager Instance { get; set; }
 
     /// <summary>
     /// Called when the script instance is being loaded.
@@ -81,6 +81,7 @@ public class GlobalCursorManager : MonoBehaviour
         {
             // Destroy this GameObject if another instance already exists
             Destroy(gameObject);
+            return;
         }
     }
 
