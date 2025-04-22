@@ -6,9 +6,12 @@ public class DropdownActionMenu : MonoBehaviour
 {
     public TMP_Dropdown dropdown;
 
+    private Notepad notepad;
+
     void Start()
     {
         dropdown.onValueChanged.AddListener(OnOptionSelected);
+        notepad = notepad.GetComponent<Notepad>();
     }
 
     void OnOptionSelected(int index)
@@ -20,13 +23,43 @@ public class DropdownActionMenu : MonoBehaviour
         switch (index)
         {
             case 0:
-                Debug.Log("Option 1 clicked");
+                // Option 1 is Save
+
+                // Call save function from notepad
+                // notepad.SaveProgress();
+
+                // break
                 break;
             case 1:
-                Debug.Log("Option 2 clicked");
+                // Option 2 is Menu
+
+                // call save function from notepad
+                // notepad.SaveProgress();
+
+                // Load menu scene
+                // UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+
+                // break
                 break;
             case 2:
-                Debug.Log("Option 3 clicked");
+                // Option 3 is Quit
+
+                // call save function from notepad
+                // notepad.SaveProgress();
+
+                // Quit the game
+                // If in editor, stop playing. If in build, quit application
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
+                Application.Quit();
+
+                // break
+                break;
+            default:
+                // Handle unexpected index
+
+                // break
                 break;
         }
     }
