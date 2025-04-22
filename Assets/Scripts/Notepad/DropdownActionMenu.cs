@@ -37,7 +37,7 @@ public class DropdownActionMenu : MonoBehaviour
                 // notepad.SaveProgress();
 
                 // Load menu scene
-                // UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
 
                 // break
                 break;
