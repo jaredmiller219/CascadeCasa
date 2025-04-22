@@ -10,12 +10,12 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
 /// </summary>
-public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Notepad : MonoBehaviour
 {
     /// <summary>
     /// Reference to the global cursor manager for handling cursor changes
     /// </summary>
-    private readonly GlobalCursorManager _cursorManager;
+    private GlobalCursorManager _cursorManager;
 
     /// <summary>
     /// The input field where users type their CSS solutions
@@ -121,6 +121,7 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // etc...
     };
 
+    private int _previousCursorIndex;
 
 
     /// <summary>
@@ -143,36 +144,34 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         const float scrollSensitivity = 0.01f;
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
+        // Initialize the cursor manager
+        // _cursorManager = FindFirstObjectByType<GlobalCursorManager>();
+        _cursorManager = FindFirstObjectByType<GlobalCursorManager>();
+        if (_cursorManager != null)
+        {
+            _previousCursorIndex = _cursorManager.GetSelectedCursor();
+        }
+
+        // set te previus cursor index to whatever is set in the cursor manager
+        // _previousCursorIndex = _cursorManager.GetSelectedCursor();
+
         // Load the first challenge
         LoadChallenge();
     }
 
-    /// <summary>
-    /// Handles pointer entering the input field area
-    /// </summary>
-    /// <param name="eventData">Data related to the pointer event</param>
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnInputFieldEnter()
     {
-        // Check if the cursor manager is available and the pointer is over the input field
-        if (_cursorManager != null && eventData.pointerCurrentRaycast.gameObject == inputField)
-        {
-            // Change the cursor to the I-beam cursor (index 3 assumed)
-            _cursorManager.SetCursor(3);
-        }
+        // Save the current cursor before switching
+        _previousCursorIndex = _cursorManager.GetSelectedCursor();
+
+        // Set the cursor to the I-beam cursor for text input
+        _cursorManager.SetCursor(3);
     }
 
-    /// <summary>
-    /// Handles pointer exiting the input field area
-    /// </summary>
-    /// <param name="eventData">Data related to the pointer event</param>
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnInputFieldExit()
     {
-        // Check if the cursor manager is available and the pointer is not over the input field
-        if (_cursorManager != null && eventData.pointerCurrentRaycast.gameObject != inputField)
-        {
-            // Reset the cursor to the previously selected cursor
-            _cursorManager.SetCursor(_cursorManager.GetSelectedCursor());
-        }
+        // Restore the previous cursor when exiting the input field
+        _cursorManager.SetCursor(_previousCursorIndex);
     }
 
     /// <summary>
