@@ -10,8 +10,14 @@ public class DropdownActionMenu : MonoBehaviour
 
     void Start()
     {
-        dropdown.onValueChanged.AddListener(OnOptionSelected);
-        notepad = notepad.GetComponent<Notepad>();
+        // Get the TMP_Dropdown component
+        if (dropdown != null)
+        {
+            dropdown = GetComponentInChildren<TMP_Dropdown>();
+            dropdown.onValueChanged.AddListener(OnOptionSelected);
+        }
+
+        notepad = GetComponentInChildren<Notepad>();
     }
 
     void OnOptionSelected(int index)
