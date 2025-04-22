@@ -1,6 +1,7 @@
 // NotepadManager.cs
 
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -71,6 +72,11 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public GameObject hintText;
 
     /// <summary>
+    /// The path where the progress of the game is saved
+    /// </summary>
+    private readonly string saveFilePath;
+
+    /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
     ///
     /// <para>
@@ -115,6 +121,8 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // etc...
     };
 
+
+
     /// <summary>
     /// Initializes the game state and sets up event listeners
     /// </summary>
@@ -125,6 +133,8 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         // Attach the ResetCurrentChallenge method to the reset button's click event
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
+
+        // saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
 
         // Ensure the reset popup is hidden at the start
         resetPopup.SetActive(false);
@@ -240,6 +250,9 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             // Load the next challenge if there are more challenges remaining
             LoadChallenge();
+
+            // Save
+            // SaveProgress();
         }
     }
 
@@ -277,5 +290,30 @@ public class Notepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         // Replace newlines with empty strings, remove double spaces, and trim the result
         return input.Replace("\n", "").Replace("  ", " ").Trim();
+    }
+
+    /// <summary>
+    /// Saves the current challenge index to a file
+    /// </summary>
+    public void SaveProgress()
+    {
+        File.WriteAllText(saveFilePath, currentChallengeIndex.ToString());
+        Debug.Log("Progress saved!");
+    }
+
+    /// <summary>
+    /// Loads the saved challenge index from file and resumes progress
+    /// </summary>
+    private void LoadProgress()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            string savedIndex = File.ReadAllText(saveFilePath);
+            if (int.TryParse(savedIndex, out int index) && index < _cssChallenges.Count)
+            {
+                currentChallengeIndex = index;
+            }
+        }
+        LoadChallenge();
     }
 }
