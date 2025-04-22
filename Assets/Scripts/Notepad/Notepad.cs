@@ -145,15 +145,11 @@ public class Notepad : MonoBehaviour
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
         // Initialize the cursor manager
-        // _cursorManager = FindFirstObjectByType<GlobalCursorManager>();
-        _cursorManager = FindFirstObjectByType<GlobalCursorManager>();
+        _cursorManager = GlobalCursorManager.Instance;
         if (_cursorManager != null)
         {
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
-
-        // set te previus cursor index to whatever is set in the cursor manager
-        // _previousCursorIndex = _cursorManager.GetSelectedCursor();
 
         // Load the first challenge
         LoadChallenge();
