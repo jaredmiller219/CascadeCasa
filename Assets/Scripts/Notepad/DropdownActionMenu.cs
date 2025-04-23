@@ -37,6 +37,17 @@ public class DropdownActionMenu : MonoBehaviour
                 // break
                 break;
             case 1:
+                // Option 1 is Level Select
+
+                // call save function from notepad
+                // notepad.SaveProgress();
+
+                // Load level select scene
+                UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
+
+                // break
+                break;
+            case 2:
                 // Option 2 is Menu
 
                 // call save function from notepad
@@ -47,7 +58,7 @@ public class DropdownActionMenu : MonoBehaviour
 
                 // break
                 break;
-            case 2:
+            case 3:
                 // Option 3 is Quit
 
                 // call save function from notepad
