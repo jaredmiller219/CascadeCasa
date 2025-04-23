@@ -50,6 +50,7 @@ public class Menu : MonoBehaviour
     public void OnInstructionsRelease()
     {
         SetDefaultColor(instructionsText);
+        Instructions();
     }
 
     private void SetPressedColor(TMP_Text text)
@@ -70,6 +71,11 @@ public class Menu : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void Instructions()
+    {
+        SceneManager.LoadScene("Instructions");
     }
 
     public void LevelSelect()
