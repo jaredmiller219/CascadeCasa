@@ -1,10 +1,3 @@
 FIXME: Cursor blinker is not visible in certain areas
 Steps to reproduce:
     - No clue, but the cursor blinker disappears in specific spots.
-
-FIXME: Cursor does not consistently change to an I-beam when hovering over input fields
-Steps to reproduce:
-    - Hover over the input field and move the cursor away repeatedly.
-    - Sometimes the cursor does not change to an I-beam as expected.
-
-FIXME: Cursor doesnt switch to I-Beam when hovering over notepad area
