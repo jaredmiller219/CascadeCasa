@@ -44,27 +44,6 @@ public class KitchenJournal : MonoBehaviour
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
 
-    // public void SetToggleStateAfterAnimation(string stateName, bool setToggle)
-    // {
-    //     StopAllCoroutines();
-    //     StartCoroutine(WaitForAnimationToEnd(stateName, setToggle));
-    // }
-
-    // private IEnumerator WaitForAnimationToEnd(string stateName, bool setToggle)
-    // {
-    //     while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
-    //     {
-    //         yield return null;
-    //     }
-
-    //     while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-    //     {
-    //         yield return null;
-    //     }
-
-    //     canToggle = setToggle;
-    // }
-
     /// <summary>
     /// Sets the hover state of the journal button.
     /// This method is called to indicate whether the mouse is hovering over the button.

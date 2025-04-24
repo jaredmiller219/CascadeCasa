@@ -25,24 +25,6 @@ public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     /// </remarks>
     [SerializeField] private GameObject JournalImage;
 
-    // public void OnPointerEnter(PointerEventData eventData)
-    // {
-    //     if (journalManager != null)
-    //     {
-    //         journalManager.SetHover(true);
-    //         journalManager.SetToggleStateAfterAnimation("Hover", true);
-    //     }
-    // }
-
-    // public void OnPointerExit(PointerEventData eventData)
-    // {
-    //     if (journalManager != null)
-    //     {
-    //         journalManager.SetHover(false);
-    //         journalManager.SetToggleStateAfterAnimation("Idle", false);
-    //     }
-    // }
-
     /// <summary>
     /// Handles the pointer down event when the button is pressed.
     /// This method changes the color of the JournalImage to indicate a pressed state.
