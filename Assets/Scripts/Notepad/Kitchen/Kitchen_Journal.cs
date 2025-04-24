@@ -40,29 +40,9 @@ public class KitchenJournal : MonoBehaviour
     public void ToggleJournal()
     {
         // if (!canToggle) return;
+        Debug.Log("ToggleJournal called");
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
-
-    // public void SetToggleStateAfterAnimation(string stateName, bool setToggle)
-    // {
-    //     StopAllCoroutines();
-    //     StartCoroutine(WaitForAnimationToEnd(stateName, setToggle));
-    // }
-
-    // private IEnumerator WaitForAnimationToEnd(string stateName, bool setToggle)
-    // {
-    //     while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
-    //     {
-    //         yield return null;
-    //     }
-
-    //     while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-    //     {
-    //         yield return null;
-    //     }
-
-    //     canToggle = setToggle;
-    // }
 
     /// <summary>
     /// Sets the hover state of the journal button.
