@@ -1711,7 +1711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
+  m_AnchoredPosition: {x: 0, y: -0.000006925381}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &658410679
@@ -1825,7 +1825,7 @@ GameObject:
   - component: {fileID: 752646904}
   - component: {fileID: 752646903}
   m_Layer: 5
-  m_Name: BG
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5019,5 +5019,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 340895257}
   - {fileID: 1044200185}
-  - {fileID: 1692447976}
   - {fileID: 1928474569}
+  - {fileID: 1692447976}
