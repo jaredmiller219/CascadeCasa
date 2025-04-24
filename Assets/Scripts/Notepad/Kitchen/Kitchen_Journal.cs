@@ -4,12 +4,20 @@ using UnityEngine.UI;
 
 public class KitchenJournal : MonoBehaviour
 {
+    /// <summary>
+    /// Reference to the journal popup GameObject that appears when the journal is opened.
+    /// </summary>
     [SerializeField] private GameObject journalPopup;
+
+    /// <summary>
+    /// Reference to the journal button GameObject that opens the journal.
+    /// </summary>
     [SerializeField] private Button journalButton;
 
+    /// <summary>
+    /// Reference to the animator component attached to the journal button.
+    /// </summary>
     private Animator animator;
-
-    // private bool canToggle = false;
 
     private void Start()
     {

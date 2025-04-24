@@ -2,14 +2,29 @@ using UnityEngine;
 
 public class KitchenFurnitureDropdown : MonoBehaviour
 {
-    // Hash for the "open" parameter in the Animator
+    /// <summary>
+    /// This class handles the behavior of a dropdown panel in the kitchen furniture UI.
+    /// It allows the player to toggle the visibility of the dropdown panel and animate the button image.
+    /// </summary>
     private static readonly int Open = Animator.StringToHash("open");
 
-    // Game Object References
-    public GameObject furnitureDropdown; // Reference to the dropdown panel GameObject
-    public GameObject btnImage; // Reference to the button image GameObject
+    /// <summary>
+    /// Reference to the dropdown panel GameObject.
+    /// </summary>
+    /// <remarks>
+    /// This GameObject should have an Animator component attached to it.
+    /// The Animator component is responsible for controlling the animations of the dropdown panel.
+    /// </remarks>
+    public GameObject furnitureDropdown;
 
-    // Reference to the Animator component
+    /// <summary>
+    /// Reference to the button image GameObject.
+    /// </summary>
+    public GameObject btnImage;
+
+    /// <summary>
+    /// Reference to the Animator component attached to the furnitureDropdown GameObject.
+    /// </summary>
     private Animator _animator;
 
     private void Start()

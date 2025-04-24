@@ -4,8 +4,16 @@ using TMPro;
 
 public class DropdownActionMenu : MonoBehaviour
 {
+    /// <summary>
+    /// This class handles the behavior of a dropdown menu in the game.
+    /// It allows the player to select different options such as saving progress,
+    /// going to the level select screen, returning to the main menu, or quitting the game.
+    /// </summary>
     public TMP_Dropdown dropdown;
 
+    /// <summary>
+    /// Reference to the Notepad script, which manages the game's challenges.
+    /// </summary>
     private Notepad notepad;
 
     void Start()
@@ -20,6 +28,25 @@ public class DropdownActionMenu : MonoBehaviour
         notepad = GetComponentInChildren<Notepad>();
     }
 
+    /// <summary>
+    /// This method is called when an option is selected from the dropdown menu.
+    /// It handles the action associated with the selected option.
+    /// <para>
+    /// The index corresponds to the following options:
+    /// </para>
+    /// <para>
+    /// 0 - Save
+    /// </para>
+    /// <para>
+    /// 1 - Level Select
+    /// </para>
+    /// <para>
+    /// 2 - Menu
+    /// </para>
+    /// <para>
+    /// 3 - Quit
+    /// </para>
+    /// </summary>
     void OnOptionSelected(int index)
     {
         // Immediately reset so no option is visually "selected"

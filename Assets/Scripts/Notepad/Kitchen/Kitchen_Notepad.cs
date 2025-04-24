@@ -93,9 +93,6 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         )
     };
 
-    /// <summary>
-    /// Initializes the game state and sets up event listeners
-    /// </summary>
     private void Start()
     {
         // Attach the CheckCssInput method to the submit button's click event

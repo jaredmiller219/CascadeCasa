@@ -5,15 +5,6 @@ using UnityEngine.UI;
 public class Kitchen_JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     /// <summary>
-    /// Reference to the Journal manager script that handles journal-related functionality.
-    /// </summary>
-    /// <remarks>
-    /// This field is serialized so that it can be assigned in the Unity Inspector.
-    /// It is used to manage the journal's state and interactions.
-    /// </remarks>
-    // [SerializeField] private Journal journalManager;
-
-    /// <summary>
     /// Reference to the GameObject representing the journal image.
     /// </summary>
     /// <remarks>

@@ -4,10 +4,28 @@ using TMPro;
 
 public class Menu : MonoBehaviour
 {
-    [Header("Buttons (Parents with Button Component)")]
+
+    /// <summary>
+    /// Button to load the level select scene
+    /// </summary>
+    [Tooltip("Button to load the level select scene")]
+    [Header("Menu Buttons")]
     public GameObject levelSelectButton;
+
+
+    /// <summary>
+    /// Button to load the play scene
+    /// </summary>
+    [Tooltip("Button to load the play scene")]
     public GameObject playButton;
+
+
+    /// <summary>
+    /// Button to load the instructions scene
+    /// </summary>
+    [Tooltip("Button to load the instructions scene")]
     public GameObject instructionsButton;
+
 
     private TMP_Text levelSelectText;
     private TMP_Text playText;

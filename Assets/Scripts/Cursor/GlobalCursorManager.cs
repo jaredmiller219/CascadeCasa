@@ -21,29 +21,29 @@ public class GlobalCursorManager : MonoBehaviour
     /// </summary>
     private readonly Vector2 _cursorHotspot = new(7.5f, 7.5f);
 
-    [Header("Cursor Textures")]
-    [Tooltip("Black cursor texture")]
     /// <summary>
     /// Texture for the black cursor.
     /// </summary>
+    [Header("Cursor Textures")]
+    [Tooltip("Black cursor texture")]
     [SerializeField] private Texture2D blackCursor;
 
-    [Tooltip("Blank cursor texture")]
     /// <summary>
     /// Texture for the blank cursor.
     /// </summary>
+    [Tooltip("Blank cursor texture")]
     [SerializeField] private Texture2D blankCursor;
 
-    [Tooltip("Yellow cursor texture")]
     /// <summary>
     /// Texture for the yellow cursor.
     /// </summary>
+    [Tooltip("Yellow cursor texture")]
     [SerializeField] private Texture2D yellowCursor;
 
-    [Tooltip("I-beam cursor texture")]
     /// <summary>
     /// Texture for the I-beam cursor.
     /// </summary>
+    [Tooltip("I-beam cursor texture")]
     [SerializeField] private Texture2D iBeamCursor;
 
     /// <summary>

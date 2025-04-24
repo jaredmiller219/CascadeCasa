@@ -4,12 +4,20 @@ using UnityEngine.UI;
 
 public class Journal : MonoBehaviour
 {
+    /// <summary>
+    /// Reference to the journal popup GameObject that appears when the journal button is clicked.
+    /// </summary>
     [SerializeField] private GameObject journalPopup;
+
+    /// <summary>
+    /// Reference to the journal button GameObject.
+    /// </summary>
     [SerializeField] private Button journalButton;
 
+    /// <summary>
+    /// Reference to the animator component attached to the journal button.
+    /// </summary>
     private Animator animator;
-
-    // private bool canToggle = false;
 
     private void Start()
     {
@@ -18,7 +26,6 @@ public class Journal : MonoBehaviour
             journalPopup.SetActive(false);
         }
         animator = journalButton.GetComponent<Animator>();
-        // canToggle = false;
     }
 
     /// <summary>
@@ -42,27 +49,6 @@ public class Journal : MonoBehaviour
         // if (!canToggle) return;
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
-
-    // public void SetToggleStateAfterAnimation(string stateName, bool setToggle)
-    // {
-    //     StopAllCoroutines();
-    //     StartCoroutine(WaitForAnimationToEnd(stateName, setToggle));
-    // }
-
-    // private IEnumerator WaitForAnimationToEnd(string stateName, bool setToggle)
-    // {
-    //     while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
-    //     {
-    //         yield return null;
-    //     }
-
-    //     while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-    //     {
-    //         yield return null;
-    //     }
-
-    //     canToggle = setToggle;
-    // }
 
     /// <summary>
     /// Sets the hover state of the journal button.
