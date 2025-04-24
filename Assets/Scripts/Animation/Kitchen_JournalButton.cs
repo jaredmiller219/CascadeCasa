@@ -2,10 +2,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
-// ,IPointerEnterHandler, IPointerExitHandler,
+public class Kitchen_JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-
     /// <summary>
     /// Reference to the Journal manager script that handles journal-related functionality.
     /// </summary>
@@ -13,8 +11,7 @@ public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     /// This field is serialized so that it can be assigned in the Unity Inspector.
     /// It is used to manage the journal's state and interactions.
     /// </remarks>
-    // [SerializeField]
-    // private KitchenJournal journalManager;
+    // [SerializeField] private Journal journalManager;
 
     /// <summary>
     /// Reference to the GameObject representing the journal image.
@@ -24,24 +21,6 @@ public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     /// It is used to change the appearance of the journal button when pressed.
     /// </remarks>
     [SerializeField] private GameObject JournalImage;
-
-    // public void OnPointerEnter(PointerEventData eventData)
-    // {
-    //     if (journalManager != null)
-    //     {
-    //         journalManager.SetHover(true);
-    //         journalManager.SetToggleStateAfterAnimation("Hover", true);
-    //     }
-    // }
-
-    // public void OnPointerExit(PointerEventData eventData)
-    // {
-    //     if (journalManager != null)
-    //     {
-    //         journalManager.SetHover(false);
-    //         journalManager.SetToggleStateAfterAnimation("Idle", false);
-    //     }
-    // }
 
     /// <summary>
     /// Handles the pointer down event when the button is pressed.

@@ -40,6 +40,7 @@ public class KitchenJournal : MonoBehaviour
     public void ToggleJournal()
     {
         // if (!canToggle) return;
+        Debug.Log("ToggleJournal called");
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
 
