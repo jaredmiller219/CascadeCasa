@@ -4,5 +4,5 @@ TODO: Make the options panel on the side show a different panel based on the cli
 
 TODO: Add the rest of the functionalities from the living room scene to the kitchen scene
 
-BUG: FIXME: Cursor blinker is not visible in certain areas
+BUG: Cursor blinker is not visible in certain areas
 Steps to reproduce: - No clue, but the cursor blinker disappears in specific spots.
