@@ -8,11 +8,11 @@ using UnityEngine.UI;
 /// </summary>
 public class HorizontalScrollBar : MonoBehaviour
 {
-    [Header("References")]
     /// <summary>
     /// The RectTransform that serves as the parent container for the scrollable content.
     /// </summary>
     [Tooltip("The parent container for the scrollable content.")]
+    [Header("References")]
     public RectTransform content; // The parent container for the scrollable content.
 
     /// <summary>
@@ -21,12 +21,11 @@ public class HorizontalScrollBar : MonoBehaviour
     [Tooltip("Prefab used to create individual images in the scroll bar.")]
     public GameObject imagePrefab; // Prefab used to create individual images in the scroll bar.
 
-    [Header("Layout")]
-
     /// <summary>
     /// The spacing between images in the scroll bar.
     /// </summary>
     [Tooltip("Space between images in pixels.")]
+    [Header("Layout")]
     public float spacing;
 
     /// <summary>
@@ -35,12 +34,11 @@ public class HorizontalScrollBar : MonoBehaviour
     [Tooltip("Size of each image in pixels.")]
     public Vector2 imageSize; // Size of each image in pixels.
 
-    [Header("Images")]
-
     /// <summary>
     /// The array of sprites to be displayed in the scroll bar.
     /// </summary>
     [Tooltip("Array of sprites to be displayed in the scroll bar.")]
+    [Header("Images")]
     public Sprite[] imageSprites; // Array of sprites to be displayed in the scroll bar.
 
     /// <summary>

@@ -11,14 +11,24 @@ using TMPro;
 /// </summary>
 public class CursorType : MonoBehaviour
 {
-    // Constants for PlayerPrefs keys
-    private const string CursorPrefKey = "SelectedCursorIndex"; // Key used to save and retrieve the selected cursor index from PlayerPrefs
-    private const int DefaultCursor = 0; // Default cursor index (black cursor)
+    /// <summary>
+    /// The key used to save the selected cursor index in PlayerPrefs.
+    /// This allows the selected cursor to persist between game sessions.
+    /// The index is saved as an integer, and the default value is set to 0 (black cursor).
+    /// </summary>
+    private const string CursorPrefKey = "SelectedCursorIndex";
 
-    // The cursor styles header
-    [Header("Cursor Styles")]
+    /// <summary>
+    /// The default cursor index used when no cursor is selected or saved.
+    /// This is set to 0, which corresponds to the black cursor.
+    /// </summary>
+    private const int DefaultCursor = 0;
 
+    /// <summary>
+    /// The blank cursor reference
+    /// </summary>
     [Tooltip("The cursor texture for the blank cursor")]
+    [Header("Cursor Styles")]
     public Texture2D blankCursor; // Texture for the blank cursor
 
     /// <summary>

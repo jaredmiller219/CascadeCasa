@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class SelectTemp : MonoBehaviour // Defining a public class named SelectTemp that inherits from MonoBehaviour.
 {
-    // This method is called Css (likely short for something, e.g., "Change Scene").
-    // It is public, so it can be accessed from other scripts or UI elements like buttons.
+    /// <summary>
+    /// This method is called when the script instance is being loaded.
+    /// </summary>
     public void Css()
     {
         // Using the SceneManager from UnityEngine.SceneManagement to load a scene named "Living Room".

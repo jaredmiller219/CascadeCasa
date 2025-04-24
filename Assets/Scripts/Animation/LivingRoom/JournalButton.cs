@@ -3,19 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
-// ,IPointerEnterHandler, IPointerExitHandler,
 {
-
-    /// <summary>
-    /// Reference to the Journal manager script that handles journal-related functionality.
-    /// </summary>
-    /// <remarks>
-    /// This field is serialized so that it can be assigned in the Unity Inspector.
-    /// It is used to manage the journal's state and interactions.
-    /// </remarks>
-    // [SerializeField]
-    // private KitchenJournal journalManager;
-
     /// <summary>
     /// Reference to the GameObject representing the journal image.
     /// </summary>

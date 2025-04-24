@@ -1,15 +1,21 @@
 using UnityEngine;
 
-// This class is responsible for handling the reset popup animation
 public class ResetPopup : MonoBehaviour
 {
-    // Reference to the GameObject that represents the Challenge Reset notification popup
+
+    /// <summary>
+    /// Reference to the GameObject that represents the reset popup in the scene.
+    /// This GameObject should have an Animator component attached to it.
+    /// The Animator component is used to control the animation of the reset popup.
+    /// </summary>
     public GameObject resetPopup;
 
-    // Private reference to the Animator component used to control animations
+    /// <summary>
+    /// Reference to the Animator component attached to the resetPopup GameObject.
+    /// This component is responsible for playing the animation clips assigned to it.
+    /// </summary>
     private Animator _animator;
 
-    // Unity's Start method is called before the first frame update
     private void Start()
     {
         // Get the Animator component attached to the resetPopup GameObject

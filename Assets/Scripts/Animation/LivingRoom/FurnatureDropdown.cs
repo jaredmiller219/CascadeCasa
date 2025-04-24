@@ -2,14 +2,26 @@ using UnityEngine;
 
 public class FurnitureDropdown : MonoBehaviour
 {
-    // Hash for the "open" parameter in the Animator
+
+    /// <summary>
+    /// This class handles the dropdown panel for furniture in the game.
+    /// It manages the visibility of the dropdown panel and animates the button image.
+    /// </summary>
     private static readonly int Open = Animator.StringToHash("open");
 
-    // Game Object References
-    public GameObject furnitureDropdown; // Reference to the dropdown panel GameObject
-    public GameObject btnImage; // Reference to the button image GameObject
+    /// <summary>
+    /// Reference to the dropdown panel GameObject.
+    /// </summary>
+    public GameObject furnitureDropdown;
 
-    // Reference to the Animator component
+    /// <summary>
+    /// Reference to the button image GameObject.
+    /// </summary>
+    public GameObject btnImage;
+
+    /// <summary>
+    /// Reference to the Animator component for animating the dropdown panel.
+    /// </summary>
     private Animator _animator;
 
     private void Start()

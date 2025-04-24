@@ -1,3 +1,10 @@
+# TODO
+
 TODO: Make buttons on instructions panel show a dropdown pane with the text for that action
 
 TODO: Make the options panel on the side show a different panel based on the clicked button
+
+TODO: Add the rest of the functionalities from the living room scene to the kitchen scene
+
+BUG: Cursor blinker is not visible in certain areas
+Steps to reproduce: - No clue, but the cursor blinker disappears in specific spots.

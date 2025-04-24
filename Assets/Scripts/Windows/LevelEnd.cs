@@ -26,7 +26,6 @@ public class LevelEnd : MonoBehaviour
     /// </summary>
     private Notepad _notepadManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created.
     private void Start()
     {
         // Find the GameObject named "NotepadManager" in the scene.
@@ -48,7 +47,9 @@ public class LevelEnd : MonoBehaviour
         menuBtn.GetComponent<Button>().onClick.AddListener(GoToMenu);
     }
 
-    // Method to restart the game.
+    /// <summary>
+    /// This method is called to display the level completion popup.
+    /// </summary>
     public void RestartGame()
     {
         // Log a message to the console indicating that the game is restarting.
@@ -68,7 +69,9 @@ public class LevelEnd : MonoBehaviour
         // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
-    // Method to go to the main menu.
+    /// <summary>
+    /// This method is called to navigate to the main menu.
+    /// </summary>
     public void GoToMenu()
     {
         // Log a message to the console indicating that the game is going to the menu.
