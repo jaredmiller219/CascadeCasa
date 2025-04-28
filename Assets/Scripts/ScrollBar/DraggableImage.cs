@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
+// using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 
 /// <summary>
 /// This class allows an image to be draggable within a UI canvas and provides functionality
@@ -73,6 +77,44 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     /// The index of the button in the scroll area.
     /// </summary>
     private int _buttonIndex;
+
+    private Notepad notepad;
+
+    private string defaultCSS; // Store default CSS string
+    private string currentCSS; // Store current CSS applied
+
+    // Constructor
+    public DraggableImage()
+    {
+        defaultCSS = ""; // initialize with empty or default CSS
+        currentCSS = "";  // initialize with empty CSS string
+    }
+
+    // Apply a given CSS string to the image
+    public void ApplyCSS(string cssText)
+    {
+        if (IsValidCSS(cssText))
+        {
+            this.currentCSS = cssText;
+            // Apply the CSS logic (here it could be applied to the image's styling attributes)
+            // Example: image.Style = cssText
+            Console.WriteLine($"Applied CSS: {cssText}");
+        }
+        else
+        {
+            Console.WriteLine("Invalid CSS Syntax");
+        }
+    }
+
+    // Simple CSS validation (you may want to expand this depending on the CSS syntax you want to support)
+    private bool IsValidCSS(string cssText)
+    {
+        // Example of a very basic validation using regex for CSS properties (you can expand as needed)
+        string pattern = @"([a-zA-Z-]+):\s*([^;]+);";
+        Regex regex = new Regex(pattern);
+        return regex.IsMatch(cssText);
+    }
+
 
     /// <summary>
     /// Called when the script is initialized. Caches references and sets up the insertion preview.
@@ -556,9 +598,11 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
             // - The sibling index represents the position of the image in the scroll area's hierarchy.
             _buttonIndex = transform.GetSiblingIndex();
 
-            // Log the index of the clicked button to the console
-            // - This is useful for debugging or identifying which button was clicked.
-            Debug.Log($"Clicked button at index {_buttonIndex}");
+            DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            string imageName = clickedImage.GetComponent<Image>().sprite.name;
+
+            Debug.Log($"Clicked image {imageName} at index {_buttonIndex}");
+            // notepad.SelectImage(clickedImage);
         }
     }
 

@@ -219,4 +219,27 @@ public class HorizontalScrollBar : MonoBehaviour
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
+
+    /// <summary>
+    /// Retrieves the image at the specified index from the scroll bar.
+    /// </summary>
+    /// <param name="index">The index of the image to retrieve.</param>
+    /// <returns>The Image component at the specified index, or null if the index is out of range.</returns>
+    public DraggableImage GetImageAtIndex(int index)
+    {
+        if (index < 0 || index >= _scrollImages.Count)
+        {
+            Debug.LogError($"Index {index} is out of range!"); // Log an error if the index is invalid.
+            return null; // Return null if the index is out of range.
+        }
+
+        // return image at the specified index.
+        if (_scrollImages[index].TryGetComponent<DraggableImage>(out var draggableImage))
+        {
+            return draggableImage; // Return the DraggableImage component at the specified index.
+        }
+        Debug.LogError($"No DraggableImage component found at index {index}!"); // Log an error if no DraggableImage is found.
+        return null; // Return null if no DraggableImage is found.
+        // return _scrollImages[index]; // Return the Image component at the specified index.
+    }
 }
