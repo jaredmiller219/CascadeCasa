@@ -240,6 +240,5 @@ public class HorizontalScrollBar : MonoBehaviour
         }
         Debug.LogError($"No DraggableImage component found at index {index}!"); // Log an error if no DraggableImage is found.
         return null; // Return null if no DraggableImage is found.
-        // return _scrollImages[index]; // Return the Image component at the specified index.
     }
 }
