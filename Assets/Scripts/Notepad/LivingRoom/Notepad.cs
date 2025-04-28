@@ -5,6 +5,7 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
@@ -15,6 +16,8 @@ public class Notepad : MonoBehaviour
     /// Reference to the global cursor manager for handling cursor changes
     /// </summary>
     private GlobalCursorManager _cursorManager;
+
+    private DraggableImage selectedImage; // Reference to the selected image
 
     /// <summary>
     /// The input field where users type their CSS solutions
@@ -153,6 +156,34 @@ public class Notepad : MonoBehaviour
         // Load the first challenge
         LoadChallenge();
     }
+
+    public Notepad()
+    {
+        selectedImage = null; // Initially no image selected
+    }
+
+    // When an image is clicked, set it as the selected image
+    public void SelectImage(DraggableImage image)
+    {
+        this.selectedImage = image;
+        Console.WriteLine("Image selected for editing.");
+    }
+
+    // On submit, validate CSS syntax and apply if valid
+    public void SubmitCSS(string cssText)
+    {
+        if (selectedImage != null)
+        {
+            // Validate and apply CSS to the selected image
+            selectedImage.ApplyCSS(cssText);
+        }
+        else
+        {
+            Console.WriteLine("No image selected to apply CSS to.");
+        }
+    }
+
+
 
     public void OnInputFieldEnter()
     {
