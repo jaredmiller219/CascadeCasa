@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4b7234b053ac9474e992400469574acc
+guid: 996de3fa19e1a4954aa3e9f66cf2b026
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1057630118679352951
-    second: ts spoon-02_0
+      213: 5386775746153495110
+    second: ts fire-01_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ts spoon-02_0
+      name: ts fire-01_0
       rect:
         serializedVersion: 2
-        x: 118
-        y: 57
-        width: 964
-        height: 1086
+        x: 184
+        y: 119
+        width: 832
+        height: 962
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 77613a74df47dae00800000000000000
-      internalID: 1057630118679352951
+      spriteID: 64a3b22300ca1ca40800000000000000
+      internalID: 5386775746153495110
       vertices: []
       indices: 
       edges: []
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ts fire-01_0: 5386775746153495110
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
