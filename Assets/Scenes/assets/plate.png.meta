@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 29f755fb7b42340b0bc4c1f8ca4dbbd0
+guid: a2af00e1a94f94009b1b5abbc88d5056
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4097014229187107724
-    second: CC Lock_0
+      213: -4795573259988461060
+    second: plate_0
+  - first:
+      213: 330159055237114263
+    second: plate_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CC Lock_0
+      name: plate_0
       rect:
         serializedVersion: 2
-        x: 231
-        y: 187
-        width: 305
-        height: 394
+        x: 201
+        y: 396
+        width: 1366
+        height: 480
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c8b1b6a0cb48bd830800000000000000
-      internalID: 4097014229187107724
+      spriteID: cf996003783b27db0800000000000000
+      internalID: -4795573259988461060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: plate_1
+      rect:
+        serializedVersion: 2
+        x: 1071
+        y: 352
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79969c659e5f49400800000000000000
+      internalID: 330159055237114263
       vertices: []
       indices: 
       edges: []
@@ -147,8 +172,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      CC Lock_0: 4097014229187107724
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
