@@ -78,7 +78,7 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     /// </summary>
     private int _buttonIndex;
 
-    private Notepad notepad;
+    // private Notepad notepad;
 
     private string defaultCSS; // Store default CSS string
     private string currentCSS; // Store current CSS applied
@@ -111,7 +111,7 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
         // Example of a very basic validation using regex for CSS properties (you can expand as needed)
         string pattern = @"([a-zA-Z-]+):\s*([^;]+);";
-        Regex regex = new Regex(pattern);
+        Regex regex = new(pattern);
         return regex.IsMatch(cssText);
     }
 
