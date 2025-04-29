@@ -169,19 +169,12 @@ public class Notepad : MonoBehaviour
         Debug.Log("Image selected for editing.");
     }
 
-    // On submit, validate CSS syntax and apply if valid
-    public void SubmitCSS(string cssText)
+    public void SetCssText(string css)
     {
-        if (selectedImage != null)
-        {
-            // Validate and apply CSS to the selected image
-            selectedImage.ApplyCSS(cssText);
-        }
-        else
-        {
-            Debug.Log("No image selected to apply CSS to.");
-        }
+        // Debug.Log("CSS applied: " + css);
+        inputField.GetComponent<TMP_InputField>().text = css;
     }
+
 
     public void OnInputFieldEnter()
     {
@@ -218,7 +211,7 @@ public class Notepad : MonoBehaviour
         // Compare the normalized user input with the normalized correct CSS
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            SubmitCSS(userInput);
+            // SubmitCSS(userInput);
 
             // If the input is correct, display success feedback
             feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
@@ -288,6 +281,8 @@ public class Notepad : MonoBehaviour
     {
         // Set the input field text to the incorrect CSS snippet for the current challenge
         inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
+
+        // The line above is fine, but we want to set the css challenge that is linked up to each draggable image
 
         // Set the hint text for the current challenge
         hintText.GetComponent<TMP_Text>().text = _cssHints[currentChallengeIndex];
