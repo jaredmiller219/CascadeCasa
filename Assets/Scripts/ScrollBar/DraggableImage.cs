@@ -576,19 +576,22 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         // - _isInWorld: Indicates whether the image has been placed outside the scrollable UI.
         if (!_isDragging && !_isInWorld)
         {
-            // Retrieve the sibling index of the image within its parent hierarchy
-            // - The sibling index represents the position of the image in the scroll area's hierarchy.
             // _buttonIndex = transform.GetSiblingIndex();
-
             // DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
             // string imageName = clickedImage.GetComponent<Image>().sprite.name;
-
-            // Perform the desired action when the image is clicked
-            // notepad.SelectImage(clickedImage);
-            OnAnyImageClicked?.Invoke(AssociatedCss);
-
             // Debug.Log($"Clicked image {imageName} at index {_buttonIndex}");
+
+            OnAnyImageClicked?.Invoke(AssociatedCss);
         }
+
+        else if (!_isDragging)
+        {
+            OnAnyImageClicked?.Invoke(AssociatedCss);
+        }
+
+        // If the image is being dragged, do not trigger the click event
+        // This prevents accidental clicks while dragging
+        return;
     }
 
     /// <summary>
