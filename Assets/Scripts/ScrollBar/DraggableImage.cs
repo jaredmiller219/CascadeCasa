@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 // using System.Collections.Generic;
-using System.Text.RegularExpressions;
+// using System.Text.RegularExpressions;
 
 
 /// <summary>
@@ -80,41 +80,17 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 
     private Notepad notepad;
 
-    private string defaultCSS; // Store default CSS string
-    private string currentCSS; // Store current CSS applied
+    public string AssociatedCss { get; set; }
 
-    // Constructor
-    public DraggableImage()
+    public static event Action<string> OnAnyImageClicked;
+
+    public int AssociatedIndex; // <-- Add this to track which challenge this image is tied to
+
+    public DraggableImage(GameObject image, string associatedCss) : base()
     {
-        defaultCSS = ""; // initialize with empty or default CSS
-        currentCSS = "";  // initialize with empty CSS string
+        _scrollBar.imagePrefab = image;
+        AssociatedCss = associatedCss;
     }
-
-    // Apply a given CSS string to the image
-    public void ApplyCSS(string cssText)
-    {
-        if (IsValidCSS(cssText))
-        {
-            this.currentCSS = cssText;
-            // Apply the CSS logic (here it could be applied to the image's styling attributes)
-            // Example: image.Style = cssText
-            Console.WriteLine($"Applied CSS: {cssText}");
-        }
-        else
-        {
-            Console.WriteLine("Invalid CSS Syntax");
-        }
-    }
-
-    // Simple CSS validation (you may want to expand this depending on the CSS syntax you want to support)
-    private bool IsValidCSS(string cssText)
-    {
-        // Example of a very basic validation using regex for CSS properties (you can expand as needed)
-        string pattern = @"([a-zA-Z-]+):\s*([^;]+);";
-        Regex regex = new(pattern);
-        return regex.IsMatch(cssText);
-    }
-
 
     /// <summary>
     /// Called when the script is initialized. Caches references and sets up the insertion preview.
@@ -144,7 +120,8 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 
         if (notepad == null)
         {
-            notepad = FindFirstObjectByType<Notepad>();
+            // notepad = FindFirstObjectByType<Notepad>();
+            OnAnyImageClicked += FindFirstObjectByType<Notepad>().SetCssText;
         }
 
         // Create the insertion preview object
@@ -601,13 +578,14 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         {
             // Retrieve the sibling index of the image within its parent hierarchy
             // - The sibling index represents the position of the image in the scroll area's hierarchy.
-            _buttonIndex = transform.GetSiblingIndex();
+            // _buttonIndex = transform.GetSiblingIndex();
 
-            DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-            string imageName = clickedImage.GetComponent<Image>().sprite.name;
+            // DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
 
             // Perform the desired action when the image is clicked
-            notepad.SelectImage(clickedImage);
+            // notepad.SelectImage(clickedImage);
+            OnAnyImageClicked?.Invoke(AssociatedCss);
 
             // Debug.Log($"Clicked image {imageName} at index {_buttonIndex}");
         }
@@ -623,6 +601,11 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         {
             // Destroy the insertion preview object to free up resources
             Destroy(_insertionPreview);
+        }
+
+        if (notepad != null)
+        {
+            OnAnyImageClicked -= notepad.SetCssText;
         }
     }
 }

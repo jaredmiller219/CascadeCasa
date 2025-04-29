@@ -47,12 +47,39 @@ public class HorizontalScrollBar : MonoBehaviour
     [Tooltip("List to keep track of instantiated image components.")]
     private readonly List<Image> _scrollImages = new();
 
+    private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
+    {
+        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
+        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
+        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
+        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
+        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
+        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
+        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
+    };
+
+    [SerializeField] private Notepad notepad; // Assign in Inspector or via FindObjectOfType
+
     /// <summary>
     /// Unity's Start method, called when the script is first initialized.
     /// Sets up the layout and loads the images into the scroll bar.
     /// </summary>
     private void Start()
     {
+        if (notepad == null)
+        {
+            notepad = FindFirstObjectByType<Notepad>();
+            if (notepad == null)
+            {
+                Debug.LogError("Notepad not found in scene!");
+                return;
+            }
+        }
+
+        // Unsubscribe first to avoid stacking
+        DraggableImage.OnAnyImageClicked -= notepad.SetCssText;
+        DraggableImage.OnAnyImageClicked += notepad.SetCssText;
+
         SetupLayout(); // Configures the layout of the scroll bar.
         LoadImagesFromArray(); // Loads the images from the provided sprite array.
     }
@@ -148,7 +175,11 @@ public class HorizontalScrollBar : MonoBehaviour
             }
 
             // Add a custom DraggableImage component to make the image draggable.
-            imgObj.AddComponent<DraggableImage>();
+            var draggable = imgObj.AddComponent<DraggableImage>();
+            // int index = _scrollImages.Count % _cssChallenges.Count;
+            int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
+            draggable.AssociatedCss = _cssChallenges[index].Key;
+
         }
     }
 
