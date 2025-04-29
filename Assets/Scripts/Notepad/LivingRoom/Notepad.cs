@@ -91,21 +91,13 @@ public class Notepad : MonoBehaviour
     /// </summary>
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
-        // Challenge 1: Fix the missing colon in "background color"
-        new KeyValuePair<string, string>(
-            "div {\n    background color blue;\n    width: 100px;\n}", // Incorrect
-            "div {\n    background-color: blue;\n    width: 100px;\n}" // Correct
-        ),
-        // Challenge 2: Fix the missing colons in "font size" and "text align"
-        new KeyValuePair<string, string>(
-            "p {\n    font size 20px;\n    text align center;\n}", // Incorrect
-            "p {\n    font-size: 20px;\n    text-align: center;\n}" // Correct
-        ),
-        // Challenge 3: Fix the missing colons in "border" and "margin top"
-        new KeyValuePair<string, string>(
-            ".box {\n    border 2px solid black;\n    margin top 10px;\n}", // Incorrect
-            ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}" // Correct
-        )
+        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
+        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
+        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
+        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
+        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
+        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
+        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
     };
 
     /// <summary>
@@ -153,8 +145,8 @@ public class Notepad : MonoBehaviour
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
 
-        // Load the first challenge
-        LoadChallenge();
+        // dont load anything at the start, but load the first challenge when the user clicks on an image
+        // LoadChallenge();
     }
 
     public Notepad()
@@ -281,8 +273,7 @@ public class Notepad : MonoBehaviour
     {
         // Set the input field text to the incorrect CSS snippet for the current challenge
         inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
-
-        // The line above is fine, but we want to set the css challenge that is linked up to each draggable image
+        // this sets to the one after its supposed to set to for some reason?
 
         // Set the hint text for the current challenge
         hintText.GetComponent<TMP_Text>().text = _cssHints[currentChallengeIndex];

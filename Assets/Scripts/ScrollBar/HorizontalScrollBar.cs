@@ -175,11 +175,11 @@ public class HorizontalScrollBar : MonoBehaviour
             }
 
             // Add a custom DraggableImage component to make the image draggable.
-            // imgObj.AddComponent<DraggableImage>();
             var draggable = imgObj.AddComponent<DraggableImage>();
-            int index = _scrollImages.Count % _cssChallenges.Count;
+            // int index = _scrollImages.Count % _cssChallenges.Count;
+            int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
             draggable.AssociatedCss = _cssChallenges[index].Key;
-            // draggable.AssociatedCss = GetCssForSprite(sprite);
+
         }
     }
 
