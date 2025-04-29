@@ -78,7 +78,7 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     /// </summary>
     private int _buttonIndex;
 
-    // private Notepad notepad;
+    private Notepad notepad;
 
     private string defaultCSS; // Store default CSS string
     private string currentCSS; // Store current CSS applied
@@ -141,6 +141,11 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         // Cache the HorizontalScrollBar component from the parent hierarchy
         // This component is used to manage spacing and alignment within the scroll area
         _scrollBar = _originalParent.GetComponentInParent<HorizontalScrollBar>();
+
+        if (notepad == null)
+        {
+            notepad = FindFirstObjectByType<Notepad>();
+        }
 
         // Create the insertion preview object
         CreateInsertionPreview();
@@ -601,8 +606,10 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
             DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
             string imageName = clickedImage.GetComponent<Image>().sprite.name;
 
-            Debug.Log($"Clicked image {imageName} at index {_buttonIndex}");
-            // notepad.SelectImage(clickedImage);
+            // Perform the desired action when the image is clicked
+            notepad.SelectImage(clickedImage);
+
+            // Debug.Log($"Clicked image {imageName} at index {_buttonIndex}");
         }
     }
 
