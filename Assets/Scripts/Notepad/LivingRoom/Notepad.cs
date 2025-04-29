@@ -165,8 +165,8 @@ public class Notepad : MonoBehaviour
     // When an image is clicked, set it as the selected image
     public void SelectImage(DraggableImage image)
     {
-        this.selectedImage = image;
-        Console.WriteLine("Image selected for editing.");
+        selectedImage = image;
+        Debug.Log("Image selected for editing.");
     }
 
     // On submit, validate CSS syntax and apply if valid
@@ -179,11 +179,9 @@ public class Notepad : MonoBehaviour
         }
         else
         {
-            Console.WriteLine("No image selected to apply CSS to.");
+            Debug.Log("No image selected to apply CSS to.");
         }
     }
-
-
 
     public void OnInputFieldEnter()
     {
@@ -220,6 +218,8 @@ public class Notepad : MonoBehaviour
         // Compare the normalized user input with the normalized correct CSS
         if (normalizedUserInput == normalizedCorrectCss)
         {
+            SubmitCSS(userInput);
+
             // If the input is correct, display success feedback
             feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
             feedbackText.GetComponent<TMP_Text>().color = Color.green;
