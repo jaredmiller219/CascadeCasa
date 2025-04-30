@@ -76,7 +76,7 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     /// <summary>
     /// The index of the button in the scroll area.
     /// </summary>
-    private int _buttonIndex;
+    public int _buttonIndex;
 
     private Notepad notepad;
 
@@ -123,6 +123,8 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
             // notepad = FindFirstObjectByType<Notepad>();
             OnAnyImageClicked += FindFirstObjectByType<Notepad>().SetCssText;
         }
+
+        notepad = FindFirstObjectByType<Notepad>();
 
         // Create the insertion preview object
         CreateInsertionPreview();
@@ -505,33 +507,33 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     private void UpdateAllImageIndices()
     {
         // Initialize a counter to track the sequential index of valid draggable images
-        int sequentialIndex = 0;
+        // int sequentialIndex = 0;
 
-        // Iterate through all children of the original parent (scroll area)
-        for (var i = 0; i < _originalParent.childCount; i++)
-        {
-            // Get the child at the current index
-            var child = _originalParent.GetChild(i);
+        // // Iterate through all children of the original parent (scroll area)
+        // for (var i = 0; i < _originalParent.childCount; i++)
+        // {
+        //     // Get the child at the current index
+        //     var child = _originalParent.GetChild(i);
 
-            // Check if the child has a DraggableImage component
-            if (child.TryGetComponent<DraggableImage>(out var draggableImage))
-            {
-                // Only update indices for images that are not marked as "in-world"
-                if (!draggableImage._isInWorld)
-                {
-                    // Update the button index of the draggable image
-                    // This index represents the logical position of the image in the scroll area
-                    draggableImage._buttonIndex = sequentialIndex;
+        //     // Check if the child has a DraggableImage component
+        //     if (child.TryGetComponent<DraggableImage>(out var draggableImage))
+        //     {
+        //         // Only update indices for images that are not marked as "in-world"
+        //         if (!draggableImage._isInWorld)
+        //         {
+        //             // Update the button index of the draggable image
+        //             // This index represents the logical position of the image in the scroll area
+        //             draggableImage._buttonIndex = sequentialIndex;
 
-                    // Update the sibling index of the child in the hierarchy
-                    // This determines the visual order of the image within the scroll area
-                    child.SetSiblingIndex(sequentialIndex);
+        //             // Update the sibling index of the child in the hierarchy
+        //             // This determines the visual order of the image within the scroll area
+        //             child.SetSiblingIndex(sequentialIndex);
 
-                    // Increment the sequential index for the next valid draggable image
-                    sequentialIndex++;
-                }
-            }
-        }
+        //             // Increment the sequential index for the next valid draggable image
+        //             sequentialIndex++;
+        //         }
+        //     }
+        // }
 
         // Force a layout rebuild for the scroll area
         // This ensures that the UI updates to reflect the new arrangement of elements
@@ -576,10 +578,11 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         // - _isInWorld: Indicates whether the image has been placed outside the scrollable UI.
         if (!_isDragging && !_isInWorld)
         {
-            // _buttonIndex = transform.GetSiblingIndex();
-            // DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
-            // Debug.Log($"Clicked image {imageName} at index {_buttonIndex}");
+            _buttonIndex = transform.GetSiblingIndex();
+            notepad.buttonindex = _buttonIndex;
+            DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            string imageName = clickedImage.GetComponent<Image>().sprite.name;
+            Debug.Log($"Clicked image {imageName} at index {_buttonIndex}");
 
             OnAnyImageClicked?.Invoke(AssociatedCss);
         }

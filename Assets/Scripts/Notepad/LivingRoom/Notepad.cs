@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using NUnit.Framework.Constraints;
 
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
@@ -59,6 +60,9 @@ public class Notepad : MonoBehaviour
     [Tooltip("The index of the current challenge")]
     [Header("Challenge Index")]
     public int currentChallengeIndex;
+
+    [HideInInspector]
+    public int buttonindex;
 
     /// <summary>
     /// The popup displayed when all challenges are completed
@@ -154,13 +158,6 @@ public class Notepad : MonoBehaviour
     //     selectedImage = null; // Initially no image selected
     // }
 
-    // When an image is clicked, set it as the selected image
-    // public void SelectImage(DraggableImage image)
-    // {
-    //     selectedImage = image;
-    //     Debug.Log("Image selected for editing.");
-    // }
-
     public void SetCssText(string css)
     {
         // Debug.Log("CSS applied: " + css);
@@ -181,6 +178,36 @@ public class Notepad : MonoBehaviour
     {
         // Restore the previous cursor when exiting the input field
         _cursorManager.SetCursor(_previousCursorIndex);
+    }
+
+
+    private void SetButtonInteractable(GameObject button, bool isInteractable)
+    {
+        // Set the button to be interactable or not
+        button.GetComponent<Button>().interactable = isInteractable;
+    }
+
+    // private void SetTextOfComponent(GameObject textObject, string text)
+    // {
+    //     // Set the text of the specified GameObject
+    //     textObject.GetComponent<TMP_Text>().text = text;
+    // }
+
+    /// <summary>
+    /// Sets the feedback text and color for the user
+    /// </summary>
+    /// <param name="textObject">The GameObject containing the text</param>
+    /// <param name="text">The text to display</param>
+    /// <param name="color">The color of the text</param>
+    /// <param name="isInteractable">Whether it is interactable</param>
+    private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
+    {
+        // Set the feedback text and color
+        textObject.GetComponent<TMP_Text>().text = text;
+        textObject.GetComponent<TMP_Text>().color = color;
+
+        // Set the input field to be interactable or not
+        textObject.GetComponent<TMP_InputField>().interactable = isInteractable;
     }
 
     /// <summary>
@@ -205,18 +232,15 @@ public class Notepad : MonoBehaviour
         {
             // SubmitCSS(userInput);
 
-            // If the input is correct, display success feedback
-            feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
-            feedbackText.GetComponent<TMP_Text>().color = Color.green;
+            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
 
             // Load the next challenge after a delay
-            Invoke(nameof(NextChallenge), 1.5f);
+            // Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
             // If the input is incorrect, display error feedback
-            feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, and syntax!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.red;
+            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
         }
     }
 
@@ -242,16 +266,14 @@ public class Notepad : MonoBehaviour
         if (IsLevelComplete())
         {
             // Display a completion message to the user
-            feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
+            SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
 
             // Clear the input field and make it non-interactable
-            inputField.GetComponent<TMP_InputField>().text = "";
-            inputField.GetComponent<TMP_InputField>().interactable = false;
+            SetTextOfComponent(inputField, "", Color.clear, false);
 
             // Disable the submit and reset buttons
-            submitBtn.GetComponent<Button>().interactable = false;
-            resetBtn.GetComponent<Button>().interactable = false;
+            SetButtonInteractable(submitBtn, false);
+            SetButtonInteractable(resetBtn, false);
 
             // Show the challenge completion popup
             challengeComplete.SetActive(true);
@@ -276,15 +298,23 @@ public class Notepad : MonoBehaviour
         if (selectedImage != null)
         {
             // Set the input field text to the incorrect CSS snippet for the current challenge
-            inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
-            // this sets to the one after its supposed to set to for some reason?
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // update the current challenge index to the selected image's button index
+            currentChallengeIndex = selectedImage.GetComponent<DraggableImage>()._buttonIndex;
 
             // Set the hint text for the current challenge
-            hintText.GetComponent<TMP_Text>().text = _cssHints[currentChallengeIndex];
+            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
 
             // Display a message prompting the user to fix the syntax
-            feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
+            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
+        }
+
+        if (inputField.GetComponent<TMP_InputField>().text != "")
+        {
+            // If the input field is not empty, set the current challenge index to the button index
+            currentChallengeIndex = buttonindex;
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
         }
 
         // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
