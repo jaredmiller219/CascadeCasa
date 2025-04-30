@@ -202,16 +202,16 @@ public class Notepad : MonoBehaviour
             // SubmitCSS(userInput);
 
             // If the input is correct, display success feedback
-            feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
+            feedbackText.GetComponent<TMP_Text>().text = "Correct!";
             feedbackText.GetComponent<TMP_Text>().color = Color.green;
 
             // Load the next challenge after a delay
-            Invoke(nameof(NextChallenge), 1.5f);
+            // Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
             // If the input is incorrect, display error feedback
-            feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, and syntax!";
+            feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, dashes, and syntax!";
             feedbackText.GetComponent<TMP_Text>().color = Color.red;
         }
     }
