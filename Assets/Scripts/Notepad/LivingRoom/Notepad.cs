@@ -149,17 +149,17 @@ public class Notepad : MonoBehaviour
         // LoadChallenge();
     }
 
-    public Notepad()
-    {
-        selectedImage = null; // Initially no image selected
-    }
+    // public Notepad()
+    // {
+    //     selectedImage = null; // Initially no image selected
+    // }
 
     // When an image is clicked, set it as the selected image
-    public void SelectImage(DraggableImage image)
-    {
-        selectedImage = image;
-        Debug.Log("Image selected for editing.");
-    }
+    // public void SelectImage(DraggableImage image)
+    // {
+    //     selectedImage = image;
+    //     Debug.Log("Image selected for editing.");
+    // }
 
     public void SetCssText(string css)
     {
@@ -271,16 +271,24 @@ public class Notepad : MonoBehaviour
     /// </summary>
     private void LoadChallenge()
     {
-        // Set the input field text to the incorrect CSS snippet for the current challenge
-        inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
-        // this sets to the one after its supposed to set to for some reason?
 
-        // Set the hint text for the current challenge
-        hintText.GetComponent<TMP_Text>().text = _cssHints[currentChallengeIndex];
+        // if the image exists, then we can set the text in the notepad
+        if (selectedImage != null)
+        {
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
+            // this sets to the one after its supposed to set to for some reason?
 
-        // Display a message prompting the user to fix the syntax
-        feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
-        feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
+            // Set the hint text for the current challenge
+            hintText.GetComponent<TMP_Text>().text = _cssHints[currentChallengeIndex];
+
+            // Display a message prompting the user to fix the syntax
+            feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
+            feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
+        }
+
+        // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
+        return;
     }
 
     /// <summary>
