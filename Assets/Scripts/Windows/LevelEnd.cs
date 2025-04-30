@@ -1,59 +1,89 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class handles the behavior for the end of a level in the game.
+/// </summary>
 public class LevelEnd : MonoBehaviour
 {
-
+    /// <summary>
+    /// Reference to the popup GameObject that appears when the level is completed.
+    /// </summary>
     public GameObject completePopup;
+
+    /// <summary>
+    /// Reference to the restart button GameObject.
+    /// </summary>
     public GameObject restartBtn;
-    // public GameObject menuBtn;
+
+    /// <summary>
+    /// Reference to the menu button GameObject.
+    /// </summary>
+    public GameObject menuBtn;
+
+    /// <summary>
+    /// Reference to the Notepad manager script, which manages the game's challenges.
+    /// </summary>
     private Notepad _notepadManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        _notepadManager = GameObject.Find("NotepadManager").GetComponent<Notepad>();
-        // set active as false
-        // completePopup.SetActive(false);
+        // Find the GameObject named "NotepadManager" in the scene.
+        // This assumes there is a GameObject in the scene with the exact name "NotepadManager".
+        // Get the Notepad component attached to that GameObject and assign it to _notepadManager.
+        if (GameObject.Find("NotepadManager") != null)
+        {
+            _notepadManager = GameObject.Find("NotepadManager").GetComponent<Notepad>();
+        }
+
+        // Access the Button component of the restartBtn GameObject.
+        // Add a listener to the button's onClick event.
+        // When the button is clicked, the RestartGame method will be executed.
         restartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
-        // menuBtn.GetComponent<Button>().onClick.AddListener(GoToMenu);
+
+        // Access the Button component of the menuBtn GameObject.
+        // Add a listener to the button's onClick event.
+        // When the button is clicked, the GoToMenu method will be executed.
+        menuBtn.GetComponent<Button>().onClick.AddListener(GoToMenu);
     }
 
-    // void Update(){
-    //     // Check if all challenges are completed
-    //     if (_notepadManager != null && _notepadManager.IsLevelComplete())
-    //     {
-    //         ShowCompletePopup();
-    //     }
-    // }
-
-
-    // Restart the game
-    private void RestartGame()
+    /// <summary>
+    /// This method is called to display the level completion popup.
+    /// </summary>
+    public void RestartGame()
     {
-        // Reload the current scene
-        // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        // debug log for now
+        // Log a message to the console indicating that the game is restarting.
+        // This is useful for debugging purposes.
         Debug.Log("Restarting Game...");
-        // Set the complete popup to inactive
+
+        // Deactivate the completePopup GameObject.
+        // This hides the popup from the screen by setting its active state to false.
         completePopup.SetActive(false);
-        // Reset the game state
-        // set current challenge index to 0
+
+        // Reset the current challenge index in the Notepad manager to 0.
+        // This effectively resets the game's challenge progress to the beginning.
         _notepadManager.currentChallengeIndex = 0;
+
+        // The following line would reload the current scene, effectively restarting the game.
+        // Uncomment this line if you want the scene to reload when restarting:
+        // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
-    // Go to the main menu
-    // private void GoToMenu()
-    // {
-    //     // Load the main menu scene
-    //     // UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-    // }
+    /// <summary>
+    /// This method is called to navigate to the main menu.
+    /// </summary>
+    public void GoToMenu()
+    {
+        // Log a message to the console indicating that the game is going to the menu.
+        // This is useful for debugging purposes.
+        Debug.Log("Going to Menu...");
 
-    // Show the complete popup
-    // public void ShowCompletePopup()
-    // {
-    //     // Set the complete popup to active
-    //     completePopup.SetActive(true);
-    // }
+        // Deactivate the completePopup GameObject.
+        // This hides the popup from the screen by setting its active state to false.
+        completePopup.SetActive(false);
 
+        // The following line would load the main menu scene.
+        // Uncomment this line if you want to load the main menu when going to it:
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+    }
 }

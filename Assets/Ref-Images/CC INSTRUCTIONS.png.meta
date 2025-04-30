@@ -1,0 +1,442 @@
+fileFormatVersion: 2
+guid: e157484e446fc4d75b50acab0fde5c8e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1642017327036408067
+    second: CC INSTRUCTIONS_0
+  - first:
+      213: 4776174878885285347
+    second: CC INSTRUCTIONS_1
+  - first:
+      213: -1400422664719374629
+    second: CC INSTRUCTIONS_2
+  - first:
+      213: -4025105462874936477
+    second: CC INSTRUCTIONS_3
+  - first:
+      213: 5415283568597231482
+    second: CC INSTRUCTIONS_4
+  - first:
+      213: 1766810104963595030
+    second: CC INSTRUCTIONS_5
+  - first:
+      213: 4677380305178849876
+    second: CC INSTRUCTIONS_6
+  - first:
+      213: 5092348570195760607
+    second: CC INSTRUCTIONS_7
+  - first:
+      213: 2464814132023280151
+    second: CC INSTRUCTIONS_8
+  - first:
+      213: -2417272882965373336
+    second: CC INSTRUCTIONS_9
+  - first:
+      213: -14089071214622479
+    second: CC INSTRUCTIONS_10
+  - first:
+      213: 2700211568735985719
+    second: CC INSTRUCTIONS_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_0
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 60
+        width: 25
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfe55fad0f16639e0800000000000000
+      internalID: -1642017327036408067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_1
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 60
+        width: 55
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ed0a114fb1684240800000000000000
+      internalID: 4776174878885285347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_2
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 59
+        width: 50
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd6eef59103b09ce0800000000000000
+      internalID: -1400422664719374629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_3
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 60
+        width: 61
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36beadd48e3f328c0800000000000000
+      internalID: -4025105462874936477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_4
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 57
+        width: 56
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a776f38d6b3f62b40800000000000000
+      internalID: 5415283568597231482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_5
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 60
+        width: 59
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61bfce3fd68f48810800000000000000
+      internalID: 1766810104963595030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_6
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 61
+        width: 53
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 452f7911b9469e040800000000000000
+      internalID: 4677380305178849876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_7
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 59
+        width: 61
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd59cfe4b08aba640800000000000000
+      internalID: 5092348570195760607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_8
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 58
+        width: 25
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7124c98d467c43220800000000000000
+      internalID: 2464814132023280151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_9
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 60
+        width: 58
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86e1aa5ce1f147ed0800000000000000
+      internalID: -2417272882965373336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_10
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 59
+        width: 57
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f8890b7012fdcff0800000000000000
+      internalID: -14089071214622479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC INSTRUCTIONS_11
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 58
+        width: 51
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 730a8ec8d14197520800000000000000
+      internalID: 2700211568735985719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CC INSTRUCTIONS_0: -1642017327036408067
+      CC INSTRUCTIONS_1: 4776174878885285347
+      CC INSTRUCTIONS_10: -14089071214622479
+      CC INSTRUCTIONS_11: 2700211568735985719
+      CC INSTRUCTIONS_2: -1400422664719374629
+      CC INSTRUCTIONS_3: -4025105462874936477
+      CC INSTRUCTIONS_4: 5415283568597231482
+      CC INSTRUCTIONS_5: 1766810104963595030
+      CC INSTRUCTIONS_6: 4677380305178849876
+      CC INSTRUCTIONS_7: 5092348570195760607
+      CC INSTRUCTIONS_8: 2464814132023280151
+      CC INSTRUCTIONS_9: -2417272882965373336
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

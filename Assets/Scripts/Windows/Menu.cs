@@ -1,30 +1,108 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Menu : MonoBehaviour
 {
 
+    /// <summary>
+    /// Button to load the level select scene
+    /// </summary>
+    [Tooltip("Button to load the level select scene")]
+    [Header("Menu Buttons")]
+    public GameObject levelSelectButton;
+
+
+    /// <summary>
+    /// Button to load the play scene
+    /// </summary>
+    [Tooltip("Button to load the play scene")]
+    public GameObject playButton;
+
+
+    /// <summary>
+    /// Button to load the instructions scene
+    /// </summary>
+    [Tooltip("Button to load the instructions scene")]
+    public GameObject instructionsButton;
+
+
+    private TMP_Text levelSelectText;
+    private TMP_Text playText;
+    private TMP_Text instructionsText;
+
+    private void Start()
+    {
+        // Get TMP_Text from each button’s children
+        levelSelectText = levelSelectButton.GetComponentInChildren<TMP_Text>();
+        playText = playButton.GetComponentInChildren<TMP_Text>();
+        instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
+    }
+
+    public void OnLevelSelectPress()
+    {
+        SetPressedColor(levelSelectText);
+    }
+
+    public void OnLevelSelectRelease()
+    {
+        SetDefaultColor(levelSelectText);
+        LevelSelect();
+    }
+
+    public void OnPlayPress()
+    {
+        SetPressedColor(playText);
+    }
+
+    public void OnPlayRelease()
+    {
+        SetDefaultColor(playText);
+    }
+
+    public void OnInstructionsPress()
+    {
+        SetPressedColor(instructionsText);
+    }
+
+    public void OnInstructionsRelease()
+    {
+        SetDefaultColor(instructionsText);
+        Instructions();
+    }
+
+    private void SetPressedColor(TMP_Text text)
+    {
+        if (text != null)
+            text.color = new Color32(200, 200, 200, 255); // Light gray
+    }
+
+    private void SetDefaultColor(TMP_Text text)
+    {
+        if (text != null)
+            text.color = new Color32(255, 255, 255, 255); // White
+    }
+
     public void Quit()
     {
-        // quit the game
         Application.Quit();
-
-        // if we are in the editor, stop playing
-        // TODO: JUST FOR TESTING
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
+    }
+
+    public void Instructions()
+    {
+        SceneManager.LoadScene("Instructions");
     }
 
     public void LevelSelect()
     {
-        // load the level select scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene("CSS-Dustin");
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void Settings()
     {
-        // load the settings scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+        SceneManager.LoadScene("Settings");
     }
-
 }
