@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ResetPopup : MonoBehaviour
@@ -42,5 +43,31 @@ public class ResetPopup : MonoBehaviour
 
         // Play the "Pull" animation from the Animator, starting at the beginning (time 0f)
         _animator.Play("Pull", 0, 0f);
+
+        // Start a coroutine to wait for the animation to finish
+        StartCoroutine(WaitForAnimationToEnd());
+    }
+
+    /// <summary>
+    /// Coroutine that waits for the animation to finish before deactivating the resetPopup GameObject.
+    /// </summary>
+    /// <remarks>
+    /// This coroutine retrieves the length of the currently playing animation clip
+    /// and waits for that duration before deactivating the resetPopup GameObject.
+    /// It uses the AnimatorStateInfo to get the length of the animation.
+    /// </remarks>
+    /// <returns>An IEnumerator for the coroutine.</returns>
+    /// <exception cref="MissingReferenceException">Thrown if the Animator component is missing.</exception>
+    private IEnumerator WaitForAnimationToEnd()
+    {
+        // Get the length of the animation clip
+        AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+        float animationLength = stateInfo.length;
+
+        // Wait for the animation to finish
+        yield return new WaitForSeconds(animationLength);
+
+        // Now deactivate the popup
+        resetPopup.SetActive(false);
     }
 }
