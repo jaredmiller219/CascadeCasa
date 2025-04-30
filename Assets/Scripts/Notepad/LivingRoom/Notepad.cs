@@ -210,15 +210,6 @@ public class Notepad : MonoBehaviour
         textObject.GetComponent<TMP_InputField>().interactable = isInteractable;
     }
 
-    // private void SetInputFieldText(string text, bool isInteractable)
-    // {
-    //     // Set the text of the input field
-    //     inputField.GetComponent<TMP_InputField>().text = text;
-
-    //     // Set the input field to be interactable or not
-    //     inputField.GetComponent<TMP_InputField>().interactable = isInteractable;
-    // }
-
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
     /// </summary>
