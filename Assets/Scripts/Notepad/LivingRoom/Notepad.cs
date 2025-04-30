@@ -299,7 +299,7 @@ public class Notepad : MonoBehaviour
             // inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
             // get the index of the current challenge
             // currentChallengeIndex = selectedImage.GetComponent<DraggableImage>()._buttonIndex;
-            Debug.Log("Current challenge index: " + currentChallengeIndex);
+            Debug.Log("Current challenge index: " + buttonindex);
         }
         else
         {
