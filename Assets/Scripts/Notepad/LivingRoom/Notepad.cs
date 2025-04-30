@@ -60,6 +60,8 @@ public class Notepad : MonoBehaviour
     [Header("Challenge Index")]
     public int currentChallengeIndex;
 
+    public int buttonindex;
+
     /// <summary>
     /// The popup displayed when all challenges are completed
     /// </summary>
@@ -152,13 +154,6 @@ public class Notepad : MonoBehaviour
     // public Notepad()
     // {
     //     selectedImage = null; // Initially no image selected
-    // }
-
-    // When an image is clicked, set it as the selected image
-    // public void SelectImage(DraggableImage image)
-    // {
-    //     selectedImage = image;
-    //     Debug.Log("Image selected for editing.");
     // }
 
     public void SetCssText(string css)
@@ -277,6 +272,9 @@ public class Notepad : MonoBehaviour
         {
             // Set the input field text to the incorrect CSS snippet for the current challenge
             inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
+            // updated the current challenge index to the selected image's button index
+            currentChallengeIndex = selectedImage.GetComponent<DraggableImage>()._buttonIndex;
+            // Debug.Log("Current challenge key: " + _cssChallenges[currentChallengeIndex].Key);
             // this sets to the one after its supposed to set to for some reason?
 
             // Set the hint text for the current challenge
@@ -286,6 +284,33 @@ public class Notepad : MonoBehaviour
             feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
             feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
         }
+
+        // cuurentKey = _cssChallenges[currentChallengeIndex].Key;
+
+        // update the notepad text to the current challenge
+
+        // get the current key of the challenge in the notepad
+        // if there is text in the notepad, get the key of the most recent image that was selected
+        // and set the current key the key of the challenge in the notepad
+
+        if (inputField.GetComponent<TMP_InputField>().text != "")
+        {
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            // inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
+            // get the index of the current challenge
+            // currentChallengeIndex = selectedImage.GetComponent<DraggableImage>()._buttonIndex;
+            Debug.Log("Current challenge index: " + currentChallengeIndex);
+        }
+        else
+        {
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            // inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
+            Debug.Log("Nothing");
+        }
+
+
+        // inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
+        //
 
         // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
         return;
