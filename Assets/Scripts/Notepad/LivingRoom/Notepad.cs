@@ -202,12 +202,31 @@ public class Notepad : MonoBehaviour
     /// <param name="isInteractable">Whether it is interactable</param>
     private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
     {
-        // Set the feedback text and color
-        textObject.GetComponent<TMP_Text>().text = text;
-        textObject.GetComponent<TMP_Text>().color = color;
+        if (textObject == null)
+        {
+            Debug.LogWarning("Text object is null!");
+            return;
+        }
 
-        // Set the input field to be interactable or not
-        textObject.GetComponent<TMP_InputField>().interactable = isInteractable;
+        TMP_Text tmpText = textObject.GetComponent<TMP_Text>();
+
+        if (textObject.TryGetComponent<TMP_InputField>(out var inputField))
+        {
+            // Set text and color for TMP_InputField
+            inputField.text = text;
+            inputField.textComponent.color = color;
+            inputField.interactable = isInteractable;
+        }
+        else if (tmpText != null)
+        {
+            // Set text and color for TMP_Text
+            tmpText.text = text;
+            tmpText.color = color;
+        }
+        else
+        {
+            Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
+        }
     }
 
     /// <summary>
