@@ -328,284 +328,125 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         return count;
     }
 
-
-    // private void UpdateInsertionPreview()
-    // {
-    //     // Do nothing if no preview exists
-    //     if (_insertionPreview == null) return;
-
-    //     // Get the RectTransform of the scroll area
-    //     var scrollRect = _originalParent.GetComponent<RectTransform>();
-
-    //     // Convert the mouse position to local coordinates within the scroll area
-    //     RectTransformUtility.ScreenPointToLocalPointInRectangle(scrollRect, Input.mousePosition, _canvas.worldCamera, out _);
-
-    //     // Find the nearest valid insertion index
-    //     _insertIndex = FindNearestInsertionIndex();
-
-    //     if (_insertIndex >= 0)
-    //     {
-    //         // Show the preview and attach it to the scroll area
-    //         _insertionPreview.SetActive(true);
-    //         _insertionPreview.transform.SetParent(_originalParent);
-
-    //         // Handle the case where the image is inserted at the end
-    //         var validItemCount = 0; // Initialize a counter to track the number of valid items (excluding the dragged image and preview)
-
-    //         // Iterate through all children of the original parent
-    //         for (var i = 0; i < _originalParent.childCount; i++)
-    //         {
-    //             // Get the child at the current index 'i'
-    //             var child = _originalParent.GetChild(i);
-
-    //             // Check if the current child is not the dragged image itself and not the insertion preview
-    //             if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
-    //             {
-    //                 // Increment the count of valid items (items that are not the dragged image or the preview)
-    //                 validItemCount++;
-    //             }
-    //         }
-
-    //         // Set the preview's sibling index based on the insertion index
-    //         // Check if the insertion index is at or beyond the count of valid items
-    //         if (_insertIndex >= validItemCount)
-    //         {
-    //             // If the insertion index is at or beyond the valid item count:
-    //             // - This means the dragged image is being inserted at the end of the list.
-    //             // - Set the insertion preview to be the last sibling in the hierarchy.
-    //             _insertionPreview.transform.SetAsLastSibling();
-    //         }
-    //         else
-    //         {
-    //             // If the insertion index is within the range of valid items:
-    //             // - This means the dragged image is being inserted somewhere in the middle of the list.
-    //             // - Set the sibling index of the insertion preview to match the calculated insertion index.
-    //             _insertionPreview.transform.SetSiblingIndex(_insertIndex);
-    //         }
-
-    //         // Update the preview's size and alignment
-    //         // Get the RectTransform component of the insertion preview
-    //         var previewRect = _insertionPreview.GetComponent<RectTransform>();
-
-    //         // Set the size of the insertion preview to match the draggable image's size
-    //         // - sizeDelta determines the width and height of the RectTransform relative to its anchors.
-    //         previewRect.sizeDelta = _rectTransform.sizeDelta;
-
-    //         // Set the minimum anchor point of the preview to the left-center of the parent
-    //         // - anchorMin defines the normalized position (0 to 1) of the lower-left corner of the RectTransform relative to its parent.
-    //         // - (0, 0.5f) means the left edge of the preview is aligned with the left edge of the parent, and vertically centered.
-    //         previewRect.anchorMin = new Vector2(0, 0.5f);
-
-    //         // Set the maximum anchor point of the preview to the left-center of the parent
-    //         // - anchorMax defines the normalized position (0 to 1) of the upper-right corner of the RectTransform relative to its parent.
-    //         // - (0, 0.5f) ensures the right edge of the preview is also aligned with the left edge of the parent, and vertically centered.
-    //         previewRect.anchorMax = new Vector2(0, 0.5f);
-
-    //         // Set the pivot point of the preview to the left-center
-    //         // - pivot determines the point around which the RectTransform rotates and scales.
-    //         // - (0, 0.5f) means the pivot is at the left edge of the preview, vertically centered.
-    //         previewRect.pivot = new Vector2(0, 0.5f);
-
-    //         // Shift images to the right of the insertion point
-    //         for (var i = _insertIndex; i < _originalParent.childCount; i++) // Loop through all children starting from the insertion index
-    //         {
-    //             if (_originalParent.GetChild(i).gameObject != _insertionPreview) // Skip the insertion preview object
-    //             {
-    //                 // Get the RectTransform of the current child
-    //                 var childRect = _originalParent.GetChild(i).GetComponent<RectTransform>();
-
-    //                 // Update the anchored position of the child:
-    //                 // - Calculate the new X position by shifting the child one position to the right of its current index.
-    //                 // - Multiply the index (i + 1) by the width of the draggable image (_rectTransform.rect.width) plus the spacing between items (_scrollBar.spacing).
-    //                 // - Set the Y position to 0 to keep the child aligned vertically.
-    //                 childRect.anchoredPosition = new Vector2((i + 1) * (_rectTransform.rect.width + _scrollBar.spacing), 0);
-    //             }
-    //         }
-
-    //         // Position the preview at the insertion point
-    //         previewRect.anchoredPosition = new Vector2(
-    //             _insertIndex * (_rectTransform.rect.width + _scrollBar.spacing),
-    //             0
-    //         );
-    //     }
-    //     else
-    //     {
-    //         // Hide the preview if no valid index
-    //         _insertionPreview.SetActive(false);
-
-    //         // Reset the positions of all items
-    //         // Initialize a counter to track the current index for valid items
-    //         var currentIndex = 0;
-
-    //         // Iterate through all children of the original parent
-    //         for (var i = 0; i < _originalParent.childCount; i++)
-    //         {
-    //             // Get the current child at index 'i'
-    //             var child = _originalParent.GetChild(i);
-
-    //             // Skip the dragged image itself and the insertion preview object
-    //             if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
-    //             {
-    //                 // Get the RectTransform component of the current child
-    //                 var childRect = child.GetComponent<RectTransform>();
-
-    //                 // Calculate the new anchored position for the child:
-    //                 // - The X position is determined by multiplying the current index by the sum of the draggable image's width and the spacing between items.
-    //                 // - The Y position is set to 0 to keep the child vertically aligned.
-    //                 childRect.anchoredPosition = new Vector2(
-    //                     currentIndex * (_rectTransform.rect.width + _scrollBar.spacing), // X position
-    //                     0 // Y position
-    //                 );
-
-    //                 // Increment the current index to prepare for the next valid child
-    //                 currentIndex++;
-    //             }
-    //         }
-    //     }
-    // }
-
     /// <summary>
     /// Finds the nearest valid insertion index based on the mouse position.
     /// </summary>
-    /// <returns>The nearest valid insertion index.</returns>
     private int FindNearestInsertionIndex()
     {
         var scrollRect = _originalParent.GetComponent<RectTransform>();
-
-        // Convert the mouse position to local coordinates
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(scrollRect, Input.mousePosition, _canvas.worldCamera, out var localMousePos);
-
-        // Only update the index if the mouse has moved beyond a threshold
-        if (Mathf.Abs(localMousePos.x - _lastInsertX) < InsertionThreshold)
-        {
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(scrollRect,
+                Input.mousePosition, _canvas.worldCamera, out var localMousePos))
             return _insertIndex;
-        }
 
-        _lastInsertX = localMousePos.x; // Update the last X position
+        if (Mathf.Abs(localMousePos.x - _lastInsertX) < InsertionThreshold)
+            return _insertIndex;
 
-        // Count valid items (excluding the dragged item and preview)
-        int validItemCount = 0;
-        float rightmostPosition = float.MinValue;
+        _lastInsertX = localMousePos.x;
 
-        // Iterate through all children of the original parent
-        for (var i = 0; i < _originalParent.childCount; i++)
-        {
-            // Get the child at the current index
-            var child = _originalParent.GetChild(i);
+        var (validItemCount, rightmostX) = GetValidChildCountAndRightmostX();
 
-            // Check if the current child is not the dragged image itself and not the insertion preview
-            if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
-            {
-                // Increment the count of valid items (items that are not the dragged image or the preview)
-                validItemCount++;
-
-                // Get the RectTransform component of the current child
-                var childRect = child.GetComponent<RectTransform>();
-
-                // Update the rightmost position:
-                // - Compare the current child's anchored X position with the current rightmost position.
-                // - Use Mathf.Max to store the larger value, ensuring we track the furthest X position among valid items.
-                rightmostPosition = Mathf.Max(rightmostPosition, childRect.anchoredPosition.x);
-            }
-        }
-
-        // If the mouse is to the right of the rightmost item, return the last index
-        float rightEdgeThreshold = rightmostPosition + (_rectTransform.rect.width / 2);
-        if (localMousePos.x > rightEdgeThreshold)
-        {
+        if (localMousePos.x > rightmostX + (_rectTransform.rect.width / 2))
             return validItemCount;
-        }
-        // Iterate through all children of the original parent to find the nearest valid insertion point
-        for (var i = 0; i < _originalParent.childCount; i++) // Loop through each child in the original parent
-        {
-            var child = _originalParent.GetChild(i); // Get the child at the current index 'i'
 
-            // Check if the current child is not the dragged image itself and not the insertion preview
-            if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
-            {
-                var childRect = child.GetComponent<RectTransform>(); // Get the RectTransform of the current child
-
-                // Calculate the potential insertion point for this child:
-                // - Take the child's anchored X position (its current horizontal position in the parent).
-                // - Add half the width of the draggable image (_rectTransform.rect.width / 2) to determine the midpoint of the child.
-                var insertPoint = childRect.anchoredPosition.x + (_rectTransform.rect.width / 2);
-
-                // Check if the mouse's local X position is less than the calculated insertion point:
-                // - If true, this means the mouse is positioned to the left of this child's midpoint,
-                //   making this a valid insertion index.
-                if (localMousePos.x < insertPoint)
-                {
-                    return i; // Return the current index 'i' as the nearest valid insertion point
-                }
-            }
-        }
-
-        return validItemCount; // Default to the last index
+        return FindInsertIndexBefore(localMousePos.x, validItemCount);
     }
 
-    /// <summary>
-    /// Called when the user ends dragging the image. Handles snapping or placement logic.
-    /// </summary>
-    /// <param name="eventData">Pointer event data containing information about the drag.</param>
+    private (int count, float rightmostX) GetValidChildCountAndRightmostX()
+    {
+        int count = 0;
+        float rightmostX = float.MinValue;
+
+        for (int i = 0; i < _originalParent.childCount; i++)
+        {
+            var child = _originalParent.GetChild(i);
+            if (!IsValidInsertTarget(child)) continue;
+
+            count++;
+            var childX = child.GetComponent<RectTransform>().anchoredPosition.x;
+            rightmostX = Mathf.Max(rightmostX, childX);
+        }
+
+        return (count, rightmostX);
+    }
+
+    private int FindInsertIndexBefore(float mouseX, int fallbackIndex)
+    {
+        for (int i = 0; i < _originalParent.childCount; i++)
+        {
+            var child = _originalParent.GetChild(i);
+            if (!IsValidInsertTarget(child)) continue;
+
+            var childRect = child.GetComponent<RectTransform>();
+            float insertPoint = childRect.anchoredPosition.x + (_rectTransform.rect.width / 2);
+
+            if (mouseX < insertPoint)
+                return i;
+        }
+
+        return fallbackIndex;
+    }
+
+    private bool IsValidInsertTarget(Transform child)
+    {
+        return child.gameObject != gameObject && child.gameObject != _insertionPreview;
+    }
+
     public void OnEndDrag(PointerEventData eventData)
     {
-        // Mark as no longer dragging
-        // This flag indicates that the dragging operation has ended
         _isDragging = false;
 
-        // Check if the dragged image is still within the scroll area
         if (!IsOutsideScrollArea())
         {
-            // If the image is inside the scroll area, reset the "in-world" flag
-            // This flag tracks whether the image has been placed outside the scrollable UI
-            _isInWorld = false;
-
-            // Reattach the image to its original parent (the scroll area)
-            transform.SetParent(_originalParent);
-
-            // Check if a valid insertion index was determined during the drag
-            if (_insertIndex >= 0)
-            {
-                // If a valid insertion index exists, set the sibling index of the dragged image
-                // This determines the position of the image within the scroll area's hierarchy
-                transform.SetSiblingIndex(_insertIndex);
-
-                // Update the anchored position of the dragged image
-                // This sets the position of the image based on its new index in the hierarchy
-                _buttonIndex = _insertIndex;
-            }
-            else
-            {
-                // If no valid insertion index was found, reset the image to its original position
-                // This ensures the image snaps back to where it started
-                _rectTransform.anchoredPosition = _originalPosition;
-
-                // Reset the sibling index to the original position
-                // This ensures the image is placed back in its original order within the scroll area
-                _buttonIndex = transform.GetSiblingIndex();
-            }
-
-            // Update the scroll bar to reflect the new arrangement of images
-            UpdateAllImageIndices();
-
-            // Force a layout rebuild for the scroll area
-            // This ensures that the UI updates to reflect the new arrangement of elements
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_originalParent as RectTransform);
+            HandleReturnToScrollArea();
         }
         else if (!_isInWorld)
         {
-            // If the image was dragged outside the scroll area and is not already marked as "in-world"
-            // This block handles the transition of the image to a "world" state
-            _isInWorld = true; // Mark the image as placed in the world
-            UpdateAllImageIndices(); // Add this line to update indices when removing an image
+            PlaceInWorld();
         }
 
-        // Hide the insertion preview
-        // The preview is no longer needed since the drag operation has ended
-        if (_insertionPreview != null)
+        HideInsertionPreview();
+    }
+
+    private void HandleReturnToScrollArea()
+    {
+        _isInWorld = false;
+        transform.SetParent(_originalParent);
+
+        if (_insertIndex >= 0)
         {
-            _insertionPreview.SetActive(false); // Deactivate the preview object
+            PlaceAtInsertIndex();
         }
+        else
+        {
+            SnapBackToOriginalPosition();
+        }
+
+        UpdateAllImageIndices();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_originalParent as RectTransform);
+    }
+
+    private void PlaceAtInsertIndex()
+    {
+        transform.SetSiblingIndex(_insertIndex);
+        _buttonIndex = _insertIndex;
+    }
+
+    private void SnapBackToOriginalPosition()
+    {
+        _rectTransform.anchoredPosition = _originalPosition;
+        _buttonIndex = transform.GetSiblingIndex();
+    }
+
+    private void PlaceInWorld()
+    {
+        _isInWorld = true;
+        UpdateAllImageIndices();
+    }
+
+    private void HideInsertionPreview()
+    {
+        if (_insertionPreview != null)
+            _insertionPreview.SetActive(false);
     }
 
     /// <summary>
@@ -614,35 +455,6 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     /// </summary>
     private void UpdateAllImageIndices()
     {
-        // Initialize a counter to track the sequential index of valid draggable images
-        // int sequentialIndex = 0;
-
-        // // Iterate through all children of the original parent (scroll area)
-        // for (var i = 0; i < _originalParent.childCount; i++)
-        // {
-        //     // Get the child at the current index
-        //     var child = _originalParent.GetChild(i);
-
-        //     // Check if the child has a DraggableImage component
-        //     if (child.TryGetComponent<DraggableImage>(out var draggableImage))
-        //     {
-        //         // Only update indices for images that are not marked as "in-world"
-        //         if (!draggableImage._isInWorld)
-        //         {
-        //             // Update the button index of the draggable image
-        //             // This index represents the logical position of the image in the scroll area
-        //             draggableImage._buttonIndex = sequentialIndex;
-
-        //             // Update the sibling index of the child in the hierarchy
-        //             // This determines the visual order of the image within the scroll area
-        //             child.SetSiblingIndex(sequentialIndex);
-
-        //             // Increment the sequential index for the next valid draggable image
-        //             sequentialIndex++;
-        //         }
-        //     }
-        // }
-
         // Force a layout rebuild for the scroll area
         // This ensures that the UI updates to reflect the new arrangement of elements
         LayoutRebuilder.ForceRebuildLayoutImmediate(_originalParent as RectTransform);
@@ -675,6 +487,11 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
                Input.mousePosition.y > top;
     }
 
+    private void DebugImageAtIndex(DraggableImage ClickedImage, string ImageName)
+    {
+        Debug.Log($"Clicked image {ImageName} at index {_buttonIndex}");
+    }
+
     /// <summary>
     /// Handles pointer click events on the draggable image.
     /// </summary>
@@ -688,9 +505,10 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         {
             _buttonIndex = transform.GetSiblingIndex();
             notepad.buttonindex = _buttonIndex;
-            DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-            string imageName = clickedImage.GetComponent<Image>().sprite.name;
-            Debug.Log($"Clicked image {imageName} at index {_buttonIndex}");
+
+            // debug image at index
+            DraggableImage image = _scrollBar.GetImageAtIndex(_buttonIndex);
+            DebugImageAtIndex(image, image.GetComponent<Image>().sprite.name);
 
             OnAnyImageClicked?.Invoke(AssociatedCss);
         }
@@ -723,3 +541,287 @@ IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
         }
     }
 }
+
+
+// private void UpdateInsertionPreview()
+// {
+//     // Do nothing if no preview exists
+//     if (_insertionPreview == null) return;
+
+//     // Get the RectTransform of the scroll area
+//     var scrollRect = _originalParent.GetComponent<RectTransform>();
+
+//     // Convert the mouse position to local coordinates within the scroll area
+//     RectTransformUtility.ScreenPointToLocalPointInRectangle(scrollRect, Input.mousePosition, _canvas.worldCamera, out _);
+
+//     // Find the nearest valid insertion index
+//     _insertIndex = FindNearestInsertionIndex();
+
+//     if (_insertIndex >= 0)
+//     {
+//         // Show the preview and attach it to the scroll area
+//         _insertionPreview.SetActive(true);
+//         _insertionPreview.transform.SetParent(_originalParent);
+
+//         // Handle the case where the image is inserted at the end
+//         var validItemCount = 0; // Initialize a counter to track the number of valid items (excluding the dragged image and preview)
+
+//         // Iterate through all children of the original parent
+//         for (var i = 0; i < _originalParent.childCount; i++)
+//         {
+//             // Get the child at the current index 'i'
+//             var child = _originalParent.GetChild(i);
+
+//             // Check if the current child is not the dragged image itself and not the insertion preview
+//             if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
+//             {
+//                 // Increment the count of valid items (items that are not the dragged image or the preview)
+//                 validItemCount++;
+//             }
+//         }
+
+//         // Set the preview's sibling index based on the insertion index
+//         // Check if the insertion index is at or beyond the count of valid items
+//         if (_insertIndex >= validItemCount)
+//         {
+//             // If the insertion index is at or beyond the valid item count:
+//             // - This means the dragged image is being inserted at the end of the list.
+//             // - Set the insertion preview to be the last sibling in the hierarchy.
+//             _insertionPreview.transform.SetAsLastSibling();
+//         }
+//         else
+//         {
+//             // If the insertion index is within the range of valid items:
+//             // - This means the dragged image is being inserted somewhere in the middle of the list.
+//             // - Set the sibling index of the insertion preview to match the calculated insertion index.
+//             _insertionPreview.transform.SetSiblingIndex(_insertIndex);
+//         }
+
+//         // Update the preview's size and alignment
+//         // Get the RectTransform component of the insertion preview
+//         var previewRect = _insertionPreview.GetComponent<RectTransform>();
+
+//         // Set the size of the insertion preview to match the draggable image's size
+//         // - sizeDelta determines the width and height of the RectTransform relative to its anchors.
+//         previewRect.sizeDelta = _rectTransform.sizeDelta;
+
+//         // Set the minimum anchor point of the preview to the left-center of the parent
+//         // - anchorMin defines the normalized position (0 to 1) of the lower-left corner of the RectTransform relative to its parent.
+//         // - (0, 0.5f) means the left edge of the preview is aligned with the left edge of the parent, and vertically centered.
+//         previewRect.anchorMin = new Vector2(0, 0.5f);
+
+//         // Set the maximum anchor point of the preview to the left-center of the parent
+//         // - anchorMax defines the normalized position (0 to 1) of the upper-right corner of the RectTransform relative to its parent.
+//         // - (0, 0.5f) ensures the right edge of the preview is also aligned with the left edge of the parent, and vertically centered.
+//         previewRect.anchorMax = new Vector2(0, 0.5f);
+
+//         // Set the pivot point of the preview to the left-center
+//         // - pivot determines the point around which the RectTransform rotates and scales.
+//         // - (0, 0.5f) means the pivot is at the left edge of the preview, vertically centered.
+//         previewRect.pivot = new Vector2(0, 0.5f);
+
+//         // Shift images to the right of the insertion point
+//         for (var i = _insertIndex; i < _originalParent.childCount; i++) // Loop through all children starting from the insertion index
+//         {
+//             if (_originalParent.GetChild(i).gameObject != _insertionPreview) // Skip the insertion preview object
+//             {
+//                 // Get the RectTransform of the current child
+//                 var childRect = _originalParent.GetChild(i).GetComponent<RectTransform>();
+
+//                 // Update the anchored position of the child:
+//                 // - Calculate the new X position by shifting the child one position to the right of its current index.
+//                 // - Multiply the index (i + 1) by the width of the draggable image (_rectTransform.rect.width) plus the spacing between items (_scrollBar.spacing).
+//                 // - Set the Y position to 0 to keep the child aligned vertically.
+//                 childRect.anchoredPosition = new Vector2((i + 1) * (_rectTransform.rect.width + _scrollBar.spacing), 0);
+//             }
+//         }
+
+//         // Position the preview at the insertion point
+//         previewRect.anchoredPosition = new Vector2(
+//             _insertIndex * (_rectTransform.rect.width + _scrollBar.spacing),
+//             0
+//         );
+//     }
+//     else
+//     {
+//         // Hide the preview if no valid index
+//         _insertionPreview.SetActive(false);
+
+//         // Reset the positions of all items
+//         // Initialize a counter to track the current index for valid items
+//         var currentIndex = 0;
+
+//         // Iterate through all children of the original parent
+//         for (var i = 0; i < _originalParent.childCount; i++)
+//         {
+//             // Get the current child at index 'i'
+//             var child = _originalParent.GetChild(i);
+
+//             // Skip the dragged image itself and the insertion preview object
+//             if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
+//             {
+//                 // Get the RectTransform component of the current child
+//                 var childRect = child.GetComponent<RectTransform>();
+
+//                 // Calculate the new anchored position for the child:
+//                 // - The X position is determined by multiplying the current index by the sum of the draggable image's width and the spacing between items.
+//                 // - The Y position is set to 0 to keep the child vertically aligned.
+//                 childRect.anchoredPosition = new Vector2(
+//                     currentIndex * (_rectTransform.rect.width + _scrollBar.spacing), // X position
+//                     0 // Y position
+//                 );
+
+//                 // Increment the current index to prepare for the next valid child
+//                 currentIndex++;
+//             }
+//         }
+//     }
+// }
+
+
+
+// /// <summary>
+// /// Finds the nearest valid insertion index based on the mouse position.
+// /// </summary>
+// /// <returns>The nearest valid insertion index.</returns>
+// private int FindNearestInsertionIndex()
+// {
+//     var scrollRect = _originalParent.GetComponent<RectTransform>();
+
+//     // Convert the mouse position to local coordinates
+//     RectTransformUtility.ScreenPointToLocalPointInRectangle(scrollRect, Input.mousePosition, _canvas.worldCamera, out var localMousePos);
+
+//     // Only update the index if the mouse has moved beyond a threshold
+//     if (Mathf.Abs(localMousePos.x - _lastInsertX) < InsertionThreshold)
+//     {
+//         return _insertIndex;
+//     }
+
+//     _lastInsertX = localMousePos.x; // Update the last X position
+
+//     // Count valid items (excluding the dragged item and preview)
+//     int validItemCount = 0;
+//     float rightmostPosition = float.MinValue;
+
+//     // Iterate through all children of the original parent
+//     for (var i = 0; i < _originalParent.childCount; i++)
+//     {
+//         // Get the child at the current index
+//         var child = _originalParent.GetChild(i);
+
+//         // Check if the current child is not the dragged image itself and not the insertion preview
+//         if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
+//         {
+//             // Increment the count of valid items (items that are not the dragged image or the preview)
+//             validItemCount++;
+
+//             // Get the RectTransform component of the current child
+//             var childRect = child.GetComponent<RectTransform>();
+
+//             // Update the rightmost position:
+//             // - Compare the current child's anchored X position with the current rightmost position.
+//             // - Use Mathf.Max to store the larger value, ensuring we track the furthest X position among valid items.
+//             rightmostPosition = Mathf.Max(rightmostPosition, childRect.anchoredPosition.x);
+//         }
+//     }
+
+//     // If the mouse is to the right of the rightmost item, return the last index
+//     float rightEdgeThreshold = rightmostPosition + (_rectTransform.rect.width / 2);
+//     if (localMousePos.x > rightEdgeThreshold)
+//     {
+//         return validItemCount;
+//     }
+//     // Iterate through all children of the original parent to find the nearest valid insertion point
+//     for (var i = 0; i < _originalParent.childCount; i++) // Loop through each child in the original parent
+//     {
+//         var child = _originalParent.GetChild(i); // Get the child at the current index 'i'
+
+//         // Check if the current child is not the dragged image itself and not the insertion preview
+//         if (child.gameObject != gameObject && child.gameObject != _insertionPreview)
+//         {
+//             var childRect = child.GetComponent<RectTransform>(); // Get the RectTransform of the current child
+
+//             // Calculate the potential insertion point for this child:
+//             // - Take the child's anchored X position (its current horizontal position in the parent).
+//             // - Add half the width of the draggable image (_rectTransform.rect.width / 2) to determine the midpoint of the child.
+//             var insertPoint = childRect.anchoredPosition.x + (_rectTransform.rect.width / 2);
+
+//             // Check if the mouse's local X position is less than the calculated insertion point:
+//             // - If true, this means the mouse is positioned to the left of this child's midpoint,
+//             //   making this a valid insertion index.
+//             if (localMousePos.x < insertPoint)
+//             {
+//                 return i; // Return the current index 'i' as the nearest valid insertion point
+//             }
+//         }
+//     }
+
+//     return validItemCount; // Default to the last index
+// }
+
+
+
+// / <summary>
+// / Called when the user ends dragging the image. Handles snapping or placement logic.
+// / </summary>
+// / <param name="eventData">Pointer event data containing information about the drag.</param>
+// public void OnEndDrag(PointerEventData eventData)
+// {
+//     // Mark as no longer dragging
+//     // This flag indicates that the dragging operation has ended
+//     _isDragging = false;
+
+//     // Check if the dragged image is still within the scroll area
+//     if (!IsOutsideScrollArea())
+//     {
+//         // If the image is inside the scroll area, reset the "in-world" flag
+//         // This flag tracks whether the image has been placed outside the scrollable UI
+//         _isInWorld = false;
+
+//         // Reattach the image to its original parent (the scroll area)
+//         transform.SetParent(_originalParent);
+
+//         // Check if a valid insertion index was determined during the drag
+//         if (_insertIndex >= 0)
+//         {
+//             // If a valid insertion index exists, set the sibling index of the dragged image
+//             // This determines the position of the image within the scroll area's hierarchy
+//             transform.SetSiblingIndex(_insertIndex);
+
+//             // Update the anchored position of the dragged image
+//             // This sets the position of the image based on its new index in the hierarchy
+//             _buttonIndex = _insertIndex;
+//         }
+//         else
+//         {
+//             // If no valid insertion index was found, reset the image to its original position
+//             // This ensures the image snaps back to where it started
+//             _rectTransform.anchoredPosition = _originalPosition;
+
+//             // Reset the sibling index to the original position
+//             // This ensures the image is placed back in its original order within the scroll area
+//             _buttonIndex = transform.GetSiblingIndex();
+//         }
+
+//         // Update the scroll bar to reflect the new arrangement of images
+//         UpdateAllImageIndices();
+
+//         // Force a layout rebuild for the scroll area
+//         // This ensures that the UI updates to reflect the new arrangement of elements
+//         LayoutRebuilder.ForceRebuildLayoutImmediate(_originalParent as RectTransform);
+//     }
+//     else if (!_isInWorld)
+//     {
+//         // If the image was dragged outside the scroll area and is not already marked as "in-world"
+//         // This block handles the transition of the image to a "world" state
+//         _isInWorld = true; // Mark the image as placed in the world
+//         UpdateAllImageIndices(); // Add this line to update indices when removing an image
+//     }
+
+//     // Hide the insertion preview
+//     // The preview is no longer needed since the drag operation has ended
+//     if (_insertionPreview != null)
+//     {
+//         _insertionPreview.SetActive(false); // Deactivate the preview object
+//     }
+// }
