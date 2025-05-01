@@ -48,8 +48,7 @@ public class ResetPopup : MonoBehaviour
         if (resetPopup == null || _animator == null || notepad == null) return;
 
         // the there is nothing in the notepad aka no text is set, then dont play the animation
-        if (notepad.inputField.GetComponent<TMPro.TMP_InputField>().text == "") return;
-        else
+        if (notepad.inputField.GetComponent<TMPro.TMP_InputField>().text != "")
         {
             // Ensure the resetPopup GameObject is active in the scene
             resetPopup.SetActive(true);

@@ -1,7 +1,12 @@
 # TODO
 
-TODO: Make buttons on instructions panel show a dropdown pane with the text for that action
+## INSTRUCTIONS
 
+TODO: Make buttons on instructions panel show a dropdown pane with the text for that action
 TODO: Make the options panel on the side show a different panel based on the clicked button
 
+## KITCHEN
+
 TODO: Add the rest of the functionalities from the living room scene to the kitchen scene
+
+BUG: When you move images in the top bar, it messes up the index, it should keep its original index, but just update the position visually

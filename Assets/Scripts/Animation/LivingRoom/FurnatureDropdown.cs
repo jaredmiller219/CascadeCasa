@@ -60,11 +60,7 @@ public class FurnitureDropdown : MonoBehaviour
     public void PullBarDown()
     {
         // Check if the furnitureDropdown or Animator reference is missing
-        if (furnitureDropdown == null || _animator == null)
-        {
-            // If either is missing, exit the method
-            return;
-        }
+        if (furnitureDropdown == null || _animator == null) return;
 
         // Get the current value of the "open" parameter in the Animator
         var isOpen = _animator.GetBool(Open);

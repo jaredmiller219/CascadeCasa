@@ -5,8 +5,6 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using NUnit.Framework.Constraints;
 
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
@@ -160,8 +158,8 @@ public class Notepad : MonoBehaviour
 
     public void SetCssText(string css)
     {
-        // Debug.Log("CSS applied: " + css);
-        inputField.GetComponent<TMP_InputField>().text = css;
+        // inputField.GetComponent<TMP_InputField>().text = css;
+        SetTextOfComponent(inputField, css, Color.black, true);
     }
 
 
@@ -180,18 +178,11 @@ public class Notepad : MonoBehaviour
         _cursorManager.SetCursor(_previousCursorIndex);
     }
 
-
     private void SetButtonInteractable(GameObject button, bool isInteractable)
     {
         // Set the button to be interactable or not
         button.GetComponent<Button>().interactable = isInteractable;
     }
-
-    // private void SetTextOfComponent(GameObject textObject, string text)
-    // {
-    //     // Set the text of the specified GameObject
-    //     textObject.GetComponent<TMP_Text>().text = text;
-    // }
 
     /// <summary>
     /// Sets the feedback text and color for the user
@@ -312,7 +303,6 @@ public class Notepad : MonoBehaviour
     /// </summary>
     private void LoadChallenge()
     {
-
         // if the image exists, then we can set the text in the notepad
         if (selectedImage != null)
         {
