@@ -119,10 +119,7 @@ public class GlobalCursorManager : MonoBehaviour
     public void SetCursor(int cursorIndex)
     {
         // Ensure the index is within the valid range
-        if (cursorIndex < 0 || cursorIndex >= _cursorTextures.Length)
-        {
-            return; // Exit if the index is invalid
-        }
+        if (cursorIndex < 0 || cursorIndex >= _cursorTextures.Length) return;
 
         // Save the selected cursor index to PlayerPrefs
         PlayerPrefs.SetInt(CursorPrefKey, cursorIndex);
@@ -151,10 +148,7 @@ public class GlobalCursorManager : MonoBehaviour
     private void ApplyCursor(int index)
     {
         // Ensure the index is within the valid range and the texture is not null
-        if (index < 0 || index >= _cursorTextures.Length || _cursorTextures[index] == null)
-        {
-            return; // Exit if the index is invalid or the texture is missing
-        }
+        if (index < 0 || index >= _cursorTextures.Length || _cursorTextures[index] == null) return;
 
         // Use a custom hotspot for the I-beam cursor, otherwise use the default (top-left corner)
         var hotspot = index == 3 ? _cursorHotspot : Vector2.zero;
