@@ -10,21 +10,6 @@ using System;
 public class DraggableImage : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
-    /// The parent canvas of the draggable image.
-    /// </summary>
-    private Canvas _canvas;
-
-    /// <summary>
-    /// The RectTransform of the draggable image.
-    /// </summary>
-    private RectTransform _rectTransform;
-
-    /// <summary>
-    /// The original position of the image before dragging.
-    /// </summary>
-    private Vector2 _originalPosition;
-
-    /// <summary>
     /// The original parent of the image.
     /// </summary>
     private Transform _originalParent;
@@ -58,9 +43,6 @@ public class DraggableImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void Awake()
     {
-        _rectTransform = GetComponent<RectTransform>();
-        _canvas = GetComponentInParent<Canvas>();
-        _originalPosition = _rectTransform.anchoredPosition;
         _originalParent = transform.parent;
         _scrollBar = _originalParent.GetComponentInParent<HorizontalScrollBar>();
 
