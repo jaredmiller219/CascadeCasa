@@ -43,8 +43,8 @@ public class HorizontalScrollBar : MonoBehaviour
             }
         }
 
-        DraggableImage.OnAnyImageClicked -= notepad.SetCssText;
-        DraggableImage.OnAnyImageClicked += notepad.SetCssText;
+        ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+        ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
 
         SetupLayout();
         LoadImagesFromArray();
@@ -104,7 +104,7 @@ public class HorizontalScrollBar : MonoBehaviour
         if (imgObj.TryGetComponent<LayoutElement>(out var layout))
             DestroyImmediate(layout);
 
-        var draggable = imgObj.AddComponent<DraggableImage>();
+        var draggable = imgObj.AddComponent<ChallengeImage>();
         int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
         draggable.AssociatedCss = _cssChallenges[index].Key;
     }
@@ -149,7 +149,7 @@ public class HorizontalScrollBar : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
-    public DraggableImage GetImageAtIndex(int index)
+    public ChallengeImage GetImageAtIndex(int index)
     {
         if (index < 0 || index >= _scrollImages.Count)
         {
@@ -157,6 +157,6 @@ public class HorizontalScrollBar : MonoBehaviour
             return null;
         }
 
-        return _scrollImages[index].GetComponent<DraggableImage>();
+        return _scrollImages[index].GetComponent<ChallengeImage>();
     }
 }

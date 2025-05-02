@@ -16,7 +16,7 @@ public class Notepad : MonoBehaviour
     /// </summary>
     private GlobalCursorManager _cursorManager;
 
-    private DraggableImage selectedImage; // Reference to the selected image
+    private ChallengeImage selectedImage; // Reference to the selected image
 
     /// <summary>
     /// The input field where users type their CSS solutions
@@ -310,7 +310,7 @@ public class Notepad : MonoBehaviour
             SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // update the current challenge index to the selected image's button index
-            currentChallengeIndex = selectedImage.GetComponent<DraggableImage>()._buttonIndex;
+            currentChallengeIndex = selectedImage.GetComponent<ChallengeImage>()._buttonIndex;
 
             // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
