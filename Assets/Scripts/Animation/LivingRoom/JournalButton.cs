@@ -13,6 +13,9 @@ public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     /// </remarks>
     [SerializeField] private GameObject JournalImage;
 
+    public AudioSource audioSource; // $$$$
+    public AudioClip clickSound; // $$$$
+
     /// <summary>
     /// Handles the pointer down event when the button is pressed.
     /// This method changes the color of the JournalImage to indicate a pressed state.
@@ -29,6 +32,11 @@ public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         {
             JournalImage.GetComponent<Image>().color = new Color32(200, 200, 200, 255); // Light gray
         }
+
+        if (audioSource && clickSound) // $$$$
+        { // $$$$
+            audioSource.PlayOneShot(clickSound); // $$$$
+        } // $$$$
     }
 
     /// <summary>

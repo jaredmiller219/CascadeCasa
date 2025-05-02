@@ -1,5 +1,3 @@
-// NotepadManager.cs
-
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -63,33 +61,27 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
+    // $$$$ Click sound fields
+    [Header("Audio")] // $$$$
+    public AudioSource audioSource; // $$$$
+    public AudioClip clickSound; // $$$$
+
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
-    ///
-    /// <para>
-    /// - Key: The incorrect CSS with syntax errors to fix
-    /// </para>
-    /// <para>
-    /// - Value: The correct CSS with proper syntax
-    /// </para>
-    ///
     /// </summary>
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
-        // Challenge 1: Fix the missing colon in "background color"
         new KeyValuePair<string, string>(
-            "div {\n    background color blue;\n    width: 100px;\n}", // Incorrect
-            "div {\n    background-color: blue;\n    width: 100px;\n}" // Correct
+            "div {\n    background color blue;\n    width: 100px;\n}",
+            "div {\n    background-color: blue;\n    width: 100px;\n}"
         ),
-        // Challenge 2: Fix the missing colons in "font size" and "text align"
         new KeyValuePair<string, string>(
-            "p {\n    font size 20px;\n    text align center;\n}", // Incorrect
-            "p {\n    font-size: 20px;\n    text-align: center;\n}" // Correct
+            "p {\n    font size 20px;\n    text align center;\n}",
+            "p {\n    font-size: 20px;\n    text-align: center;\n}"
         ),
-        // Challenge 3: Fix the missing colons in "border" and "margin top"
         new KeyValuePair<string, string>(
-            ".box {\n    border 2px solid black;\n    margin top 10px;\n}", // Incorrect
-            ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}" // Correct
+            ".box {\n    border 2px solid black;\n    margin top 10px;\n}",
+            ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"
         )
     };
 
@@ -118,10 +110,8 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData">Data related to the pointer event</param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Check if the cursor manager is available and the pointer is over the input field
         if (_cursorManager != null && eventData.pointerCurrentRaycast.gameObject == inputField)
         {
-            // Change the cursor to the I-beam cursor (index 3 assumed)
             _cursorManager.SetCursor(3);
         }
     }
@@ -132,10 +122,8 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData">Data related to the pointer event</param>
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Check if the cursor manager is available and the pointer is not over the input field
         if (_cursorManager != null && eventData.pointerCurrentRaycast.gameObject != inputField)
         {
-            // Reset the cursor to the previously selected cursor
             _cursorManager.SetCursor(_cursorManager.GetSelectedCursor());
         }
     }
@@ -145,31 +133,22 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// </summary>
     private void CheckCssInput()
     {
-        // Retrieve the user's input from the input field and normalize it
-        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+        PlayClickSound(); // $$$$
 
-        // Retrieve the correct CSS snippet for the current challenge and normalize it
+        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
         var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
 
-        // Normalize the user's input by removing unnecessary spaces and line breaks
         var normalizedUserInput = NormalizeCss(userInput);
-
-        // Normalize the correct CSS snippet for comparison
         var normalizedCorrectCss = NormalizeCss(correctCss);
 
-        // Compare the normalized user input with the normalized correct CSS
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            // If the input is correct, display success feedback
             feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
             feedbackText.GetComponent<TMP_Text>().color = Color.green;
-
-            // Load the next challenge after a delay
             Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
-            // If the input is incorrect, display error feedback
             feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, and syntax!";
             feedbackText.GetComponent<TMP_Text>().color = Color.red;
         }
@@ -181,7 +160,6 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <returns>True if all challenges are completed, otherwise false</returns>
     private bool IsLevelComplete()
     {
-        // Return true if the current challenge index exceeds the total number of challenges
         return currentChallengeIndex >= _cssChallenges.Count;
     }
 
@@ -190,30 +168,23 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// </summary>
     private void NextChallenge()
     {
-        // Increment the current challenge index to move to the next challenge
         currentChallengeIndex++;
 
-        // Check if all challenges have been completed
         if (IsLevelComplete())
         {
-            // Display a completion message to the user
             feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
             feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
 
-            // Clear the input field and make it non-interactable
             inputField.GetComponent<TMP_InputField>().text = "";
             inputField.GetComponent<TMP_InputField>().interactable = false;
 
-            // Disable the submit and reset buttons
             submitBtn.GetComponent<Button>().interactable = false;
             resetBtn.GetComponent<Button>().interactable = false;
 
-            // Show the challenge completion popup
             challengeComplete.SetActive(true);
         }
         else
         {
-            // Load the next challenge if there are more challenges remaining
             LoadChallenge();
         }
     }
@@ -223,10 +194,7 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// </summary>
     private void LoadChallenge()
     {
-        // Set the input field text to the incorrect CSS snippet for the current challenge
         inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
-
-        // Display a message prompting the user to fix the syntax
         feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
         feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
     }
@@ -236,7 +204,7 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// </summary>
     private void ResetCurrentChallenge()
     {
-        // Reload the current challenge to reset the input field
+        PlayClickSound(); // $$$$
         LoadChallenge();
     }
 
@@ -247,7 +215,15 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <returns>A normalized CSS string</returns>
     private static string NormalizeCss(string input)
     {
-        // Replace newlines with empty strings, remove double spaces, and trim the result
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
+
+    /// <summary>
+    /// Plays the UI click sound if available
+    /// </summary>
+    private void PlayClickSound() // $$$$
+    { // $$$$
+        if (audioSource && clickSound) // $$$$
+            audioSource.PlayOneShot(clickSound); // $$$$
+    } // $$$$
 }

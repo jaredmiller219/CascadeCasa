@@ -16,12 +16,14 @@ public class ResetPopup : MonoBehaviour
     /// </summary>
     private Animator _animator;
 
+    public AudioSource audioSource; // $$$$
+    public AudioClip popupSound; // $$$$
+
     private void Start()
     {
         // Get the Animator component attached to the resetPopup GameObject
         _animator = resetPopup.GetComponent<Animator>();
     }
-
 
     /// <summary>
     /// Plays the "Pull" animation on the resetPopup GameObject.
@@ -39,6 +41,11 @@ public class ResetPopup : MonoBehaviour
 
         // Ensure the resetPopup GameObject is active in the scene
         resetPopup.SetActive(true);
+
+        if (audioSource && popupSound) // $$$$
+        { // $$$$
+            audioSource.PlayOneShot(popupSound); // $$$$
+        } // $$$$
 
         // Play the "Pull" animation from the Animator, starting at the beginning (time 0f)
         _animator.Play("Pull", 0, 0f);

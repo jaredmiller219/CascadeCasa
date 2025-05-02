@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections; // $$$$
 
 public class Menu : MonoBehaviour
 {
-
     /// <summary>
     /// Button to load the level select scene
     /// </summary>
@@ -12,13 +12,11 @@ public class Menu : MonoBehaviour
     [Header("Menu Buttons")]
     public GameObject levelSelectButton;
 
-
     /// <summary>
     /// Button to load the play scene
     /// </summary>
     [Tooltip("Button to load the play scene")]
     public GameObject playButton;
-
 
     /// <summary>
     /// Button to load the instructions scene
@@ -26,6 +24,9 @@ public class Menu : MonoBehaviour
     [Tooltip("Button to load the instructions scene")]
     public GameObject instructionsButton;
 
+    [Header("Audio")] // $$$$
+    public AudioSource audioSource; // $$$$
+    public AudioClip clickSound; // $$$$
 
     private TMP_Text levelSelectText;
     private TMP_Text playText;
@@ -47,7 +48,8 @@ public class Menu : MonoBehaviour
     public void OnLevelSelectRelease()
     {
         SetDefaultColor(levelSelectText);
-        LevelSelect();
+        PlayClickSound(); // $$$$
+        StartCoroutine(LoadSceneDelayed("LevelSelect")); // $$$$
     }
 
     public void OnPlayPress()
@@ -58,6 +60,8 @@ public class Menu : MonoBehaviour
     public void OnPlayRelease()
     {
         SetDefaultColor(playText);
+        PlayClickSound(); // $$$$
+        // Add your Play() call here if needed
     }
 
     public void OnInstructionsPress()
@@ -68,7 +72,23 @@ public class Menu : MonoBehaviour
     public void OnInstructionsRelease()
     {
         SetDefaultColor(instructionsText);
-        Instructions();
+        PlayClickSound(); // $$$$
+        StartCoroutine(LoadSceneDelayed("Instructions")); // $$$$
+    }
+
+    public void Settings()
+    {
+        PlayClickSound(); // $$$$
+        StartCoroutine(LoadSceneDelayed("Settings")); // $$$$
+    }
+
+    public void Quit()
+    {
+        PlayClickSound(); // $$$$
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     private void SetPressedColor(TMP_Text text)
@@ -83,26 +103,15 @@ public class Menu : MonoBehaviour
             text.color = new Color32(255, 255, 255, 255); // White
     }
 
-    public void Quit()
-    {
-        Application.Quit();
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-    }
+    private void PlayClickSound() // $$$$
+    { // $$$$
+        if (audioSource && clickSound) // $$$$
+            audioSource.PlayOneShot(clickSound); // $$$$
+    } // $$$$
 
-    public void Instructions()
-    {
-        SceneManager.LoadScene("Instructions");
-    }
-
-    public void LevelSelect()
-    {
-        SceneManager.LoadScene("LevelSelect");
-    }
-
-    public void Settings()
-    {
-        SceneManager.LoadScene("Settings");
-    }
+    private IEnumerator LoadSceneDelayed(string sceneName) // $$$$
+    { // $$$$
+        yield return new WaitForSeconds(1f); // $$$$ adjust if needed
+        SceneManager.LoadScene(sceneName); // $$$$
+    } // $$$$
 }

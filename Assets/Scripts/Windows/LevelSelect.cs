@@ -1,14 +1,27 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; 
+using System.Collections; // Needed for IEnumerator
 
-public class SelectTemp : MonoBehaviour // Defining a public class named SelectTemp that inherits from MonoBehaviour.
+public class SelectTemp : MonoBehaviour
 {
-    /// <summary>
-    /// This method is called when the script instance is being loaded.
-    /// </summary>
+    public AudioSource audioSource; // $$$$
+    public AudioClip clickSound; // $$$$
+
     public void Css()
     {
-        // Using the SceneManager from UnityEngine.SceneManagement to load a scene named "Living Room".
-        // This will switch the current scene to the one named "Living Room".
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Living Room");
+        PlayClickSound(); // $$$$
+        StartCoroutine(LoadLivingRoom()); // $$$$
+    }
+
+    private void PlayClickSound() // $$$$
+    {
+        if (audioSource && clickSound)
+            audioSource.PlayOneShot(clickSound);
+    }
+
+    private IEnumerator LoadLivingRoom() // $$$$
+    {
+        yield return new WaitForSeconds(1f); // $$$$
+        SceneManager.LoadScene("Living Room"); // $$$$
     }
 }
