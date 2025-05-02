@@ -43,8 +43,8 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
             }
         }
 
-        ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
-        ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
+        Bedroom2_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+        Bedroom2_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
 
         SetupLayout();
         LoadImagesFromArray();
@@ -104,7 +104,7 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
         if (imgObj.TryGetComponent<LayoutElement>(out var layout))
             DestroyImmediate(layout);
 
-        var draggable = imgObj.AddComponent<ChallengeImage>();
+        var draggable = imgObj.AddComponent<Bedroom2_ChallengeImage>();
         int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
         draggable.AssociatedCss = _cssChallenges[index].Key;
     }
@@ -149,7 +149,7 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
-    public ChallengeImage GetImageAtIndex(int index)
+    public Bedroom2_ChallengeImage GetImageAtIndex(int index)
     {
         if (index < 0 || index >= _scrollImages.Count)
         {
@@ -157,6 +157,6 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
             return null;
         }
 
-        return _scrollImages[index].GetComponent<ChallengeImage>();
+        return _scrollImages[index].GetComponent<Bedroom2_ChallengeImage>();
     }
 }

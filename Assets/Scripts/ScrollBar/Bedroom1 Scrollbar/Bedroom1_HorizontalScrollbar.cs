@@ -16,7 +16,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     [Header("Images")]
     public Sprite[] imageSprites;
 
-    [SerializeField] private Notepad notepad;
+    [SerializeField] private Bedroom1Notepad notepad;
 
     private readonly List<Image> _scrollImages = new();
 
@@ -35,7 +35,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     {
         if (notepad == null)
         {
-            notepad = FindFirstObjectByType<Notepad>();
+            notepad = FindFirstObjectByType<Bedroom1Notepad>();
             if (notepad == null)
             {
                 Debug.LogError("Notepad not found in scene!");
@@ -43,8 +43,8 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
             }
         }
 
-        ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
-        ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
+        Bedroom1_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+        Bedroom1_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
 
         SetupLayout();
         LoadImagesFromArray();
@@ -104,7 +104,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
         if (imgObj.TryGetComponent<LayoutElement>(out var layout))
             DestroyImmediate(layout);
 
-        var draggable = imgObj.AddComponent<ChallengeImage>();
+        var draggable = imgObj.AddComponent<Bedroom1_ChallengeImage>();
         int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
         draggable.AssociatedCss = _cssChallenges[index].Key;
     }
@@ -149,7 +149,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
-    public ChallengeImage GetImageAtIndex(int index)
+    public Bedroom1_ChallengeImage GetImageAtIndex(int index)
     {
         if (index < 0 || index >= _scrollImages.Count)
         {
@@ -157,6 +157,6 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
             return null;
         }
 
-        return _scrollImages[index].GetComponent<ChallengeImage>();
+        return _scrollImages[index].GetComponent<Bedroom1_ChallengeImage>();
     }
 }
