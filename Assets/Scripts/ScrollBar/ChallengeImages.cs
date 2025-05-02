@@ -7,7 +7,7 @@ using System;
 /// This class allows an image to be draggable within a UI canvas and provides functionality
 /// for inserting the dragged image into a horizontal scroll bar at a specific position.
 /// </summary>
-public class DraggableImage : MonoBehaviour, IPointerClickHandler
+public class ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
     /// The original parent of the image.
@@ -32,7 +32,7 @@ public class DraggableImage : MonoBehaviour, IPointerClickHandler
 
     public int AssociatedIndex;
 
-    public DraggableImage(GameObject image, string associatedCss) : base()
+    public ChallengeImage(GameObject image, string associatedCss) : base()
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
@@ -61,7 +61,7 @@ public class DraggableImage : MonoBehaviour, IPointerClickHandler
     {
         _buttonIndex = transform.GetSiblingIndex();
         notepad.buttonindex = _buttonIndex;
-        DraggableImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+        ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         string imageName = clickedImage.GetComponent<Image>().sprite.name;
         Debug.Log($"Image: {imageName}, Index: {_buttonIndex}");
 
