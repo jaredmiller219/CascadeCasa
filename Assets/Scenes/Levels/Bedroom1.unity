@@ -2344,8 +2344,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2145569370}
   m_HandleRect: {fileID: 2145569369}
   m_Direction: 3
-  m_Value: -0.000000034459777
-  m_Size: 0.262
+  m_Value: 0.00000013783911
+  m_Size: 0.00000030517577
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3281,7 +3281,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0}
+  m_AnchoredPosition: {x: 0, y: -0.000009233842}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564313535
@@ -3415,7 +3415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000076293945, y: 221.4}
+  m_AnchoredPosition: {x: 0.000076293945, y: 221.40002}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1574640176
@@ -4143,7 +4143,7 @@ GameObject:
   - component: {fileID: 1830458601}
   - component: {fileID: 1830458600}
   - component: {fileID: 1830458603}
-  - component: {fileID: 1830458602}
+  - component: {fileID: 1830458606}
   m_Layer: 5
   m_Name: JournalOpen
   m_TagString: Untagged
@@ -4237,19 +4237,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1830458602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830458599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73cbe06fa2ce54af6922766c12ceaabd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  JournalImage: {fileID: 1545752927}
 --- !u!95 &1830458603
 Animator:
   serializedVersion: 7
@@ -4300,6 +4287,20 @@ RectTransform:
   m_AnchoredPosition: {x: -35.85, y: 37.5312}
   m_SizeDelta: {x: 73.36, y: 86.0497}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1830458606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830458599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d50774292bbd4376be0173c2af0765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  journalPopup: {fileID: 0}
+  journalButton: {fileID: 1830458600}
 --- !u!1 &1864055885
 GameObject:
   m_ObjectHideFlags: 0
