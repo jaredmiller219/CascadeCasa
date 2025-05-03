@@ -1,4 +1,5 @@
 using UnityEngine;
+// using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -21,29 +22,20 @@ public class LevelEnd : MonoBehaviour
     /// </summary>
     public GameObject menuBtn;
 
-    /// <summary>
-    /// Reference to the Notepad manager script, which manages the game's challenges.
-    /// </summary>
-    private Notepad _notepadManager;
+    // /// <summary>
+    // /// Reference to the Notepad manager script, which manages the game's challenges.
+    // /// </summary>
+    // private Notepad _notepadManager;
 
     private void Start()
     {
-        // Find the GameObject named "NotepadManager" in the scene.
-        // This assumes there is a GameObject in the scene with the exact name "NotepadManager".
-        // Get the Notepad component attached to that GameObject and assign it to _notepadManager.
-        if (GameObject.Find("NotepadManager") != null)
-        {
-            _notepadManager = GameObject.Find("NotepadManager").GetComponent<Notepad>();
-        }
+        // if (GameObject.Find("NotepadManager") != null)
+        // {
+        //     _notepadManager = GameObject.Find("NotepadManager").GetComponent<Notepad>();
+        // }
 
-        // Access the Button component of the restartBtn GameObject.
-        // Add a listener to the button's onClick event.
-        // When the button is clicked, the RestartGame method will be executed.
+        // Add event listeners to buttons
         restartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
-
-        // Access the Button component of the menuBtn GameObject.
-        // Add a listener to the button's onClick event.
-        // When the button is clicked, the GoToMenu method will be executed.
         menuBtn.GetComponent<Button>().onClick.AddListener(GoToMenu);
     }
 
@@ -52,21 +44,14 @@ public class LevelEnd : MonoBehaviour
     /// </summary>
     public void RestartGame()
     {
-        // Log a message to the console indicating that the game is restarting.
-        // This is useful for debugging purposes.
         Debug.Log("Restarting Game...");
-
-        // Deactivate the completePopup GameObject.
-        // This hides the popup from the screen by setting its active state to false.
         completePopup.SetActive(false);
 
-        // Reset the current challenge index in the Notepad manager to 0.
-        // This effectively resets the game's challenge progress to the beginning.
-        _notepadManager.currentChallengeIndex = 0;
+        // _notepadManager.currentChallengeIndex = 0;
 
         // The following line would reload the current scene, effectively restarting the game.
-        // Uncomment this line if you want the scene to reload when restarting:
-        // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        // string activeSceneName = SceneManager.GetActiveScene().name;
+        // SceneManager.LoadScene(activeSceneName);
     }
 
     /// <summary>
@@ -74,16 +59,8 @@ public class LevelEnd : MonoBehaviour
     /// </summary>
     public void GoToMenu()
     {
-        // Log a message to the console indicating that the game is going to the menu.
-        // This is useful for debugging purposes.
-        Debug.Log("Going to Menu...");
-
-        // Deactivate the completePopup GameObject.
-        // This hides the popup from the screen by setting its active state to false.
+        // Debug.Log("Going to Menu...");
         completePopup.SetActive(false);
-
-        // The following line would load the main menu scene.
-        // Uncomment this line if you want to load the main menu when going to it:
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 }

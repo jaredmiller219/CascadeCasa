@@ -10,6 +10,26 @@ using System;
 public class ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
+    /// The index of the button in the scroll area.
+    /// </summary>
+    public int _buttonIndex;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public string AssociatedCss { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    public static event Action<string> OnAnyImageClicked;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public int AssociatedIndex;
+
+    /// <summary>
     /// The original parent of the image.
     /// </summary>
     private Transform _originalParent;
@@ -20,19 +40,16 @@ public class ChallengeImage : MonoBehaviour, IPointerClickHandler
     private HorizontalScrollBar _scrollBar;
 
     /// <summary>
-    /// The index of the button in the scroll area.
+    ///
     /// </summary>
-    public int _buttonIndex;
-
     private Notepad notepad;
 
-    public string AssociatedCss { get; set; }
-
-    public static event Action<string> OnAnyImageClicked;
-
-    public int AssociatedIndex;
-
-    public ChallengeImage(GameObject image, string associatedCss) : base()
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="image"></param>
+    /// <param name="associatedCss"></param>
+    public void Init(GameObject image, string associatedCss)
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
@@ -61,9 +78,12 @@ public class ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         _buttonIndex = transform.GetSiblingIndex();
         notepad.buttonindex = _buttonIndex;
+
+        // ---------------- For debug only --------------------------
         ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         string imageName = clickedImage.GetComponent<Image>().sprite.name;
         Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+        // ----------------------------------------------------------
 
         OnAnyImageClicked?.Invoke(AssociatedCss);
     }

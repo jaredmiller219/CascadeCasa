@@ -30,65 +30,42 @@ public class DropdownActionMenu : MonoBehaviour
     /// <summary>
     /// This method is called when an option is selected from the dropdown menu.
     /// It handles the action associated with the selected option.
-    /// <para>
-    /// The index corresponds to the following options:
-    /// </para>
-    /// <para>
-    /// 0 - Save
-    /// </para>
-    /// <para>
-    /// 1 - Level Select
-    /// </para>
-    /// <para>
-    /// 2 - Menu
-    /// </para>
-    /// <para>
-    /// 3 - Quit
-    /// </para>
+    /// <para>The index corresponds to the following options:<br/>
+    /// 0 - Save <br/>
+    /// 1 - Level Select <br/>
+    /// 2 - Menu <br/>
+    /// 3 - Quit</para>
     /// </summary>
     void OnOptionSelected(int index)
     {
         // Immediately reset so no option is visually "selected"
         dropdown.RefreshShownValue();
 
-        // Do something based on what was clicked
         switch (index)
         {
             case 0:
                 // Option 1 is Save
 
                 // Call save function from notepad
-                // notepad.SaveProgress();
-
-                // break
+                notepad.SaveProgress();
                 break;
+
             case 1:
                 // Option 1 is Level Select
 
-                // call save function from notepad
-                // notepad.SaveProgress();
-
                 // Load level select scene
                 UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
-
-                // break
                 break;
+
             case 2:
                 // Option 2 is Menu
 
-                // call save function from notepad
-                // notepad.SaveProgress();
-
                 // Load menu scene
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-
-                // break
                 break;
+
             case 3:
                 // Option 3 is Quit
-
-                // call save function from notepad
-                // notepad.SaveProgress();
 
                 // Quit the game
                 // If in editor, stop playing. If in build, quit application
@@ -96,13 +73,10 @@ public class DropdownActionMenu : MonoBehaviour
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif
                 Application.Quit();
-
-                // break
                 break;
+
             default:
                 // Handle unexpected index
-
-                // break
                 break;
         }
     }
