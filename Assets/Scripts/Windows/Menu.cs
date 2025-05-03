@@ -27,7 +27,7 @@ public class Menu : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip clickSound;
-    
+
     /// <summary>
     /// The text on the level select button
     /// </summary>
@@ -142,8 +142,8 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void Instructions()
     {
-        if (text != null)
-            text.color = new Color32(200, 200, 200, 255); // Light gray
+        if (instructionsText != null)
+            instructionsText.color = new Color32(200, 200, 200, 255); // Light gray
     }
 
     /// <summary>
@@ -151,8 +151,8 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void LevelSelect()
     {
-        if (text != null)
-            text.color = new Color32(255, 255, 255, 255); // White
+        if (levelSelectText != null)
+            levelSelectText.color = new Color32(255, 255, 255, 255); // White
     }
 
     private void PlayClickSound()
