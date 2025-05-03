@@ -48,6 +48,10 @@ public class Notepad : MonoBehaviour
     [Header("Hint Section")]
     public GameObject hintText;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+
     private readonly string saveFilePath;
 
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
@@ -73,9 +77,6 @@ public class Notepad : MonoBehaviour
     };
 
     private int _previousCursorIndex;
-
-    public AudioSource audioSource; // $$$$
-    public AudioClip clickSound; // $$$$
 
     private void Start()
     {
