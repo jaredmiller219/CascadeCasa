@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -44,7 +45,20 @@ public class HorizontalScrollBar : MonoBehaviour
         ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
 
         SetupLayout();
-        LoadImagesFromArray();
+        StartCoroutine(DelayedLoad());
+    }
+
+    private IEnumerator DelayedLoad()
+    {
+        yield return null; // Wait one frame
+
+        LoadImagesFromArray(); // Will just add images — no rebuilding inside
+
+        // UpdateLayout();
+
+        // Now safe to rebuild here
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
     private void SetupLayout()
@@ -62,8 +76,6 @@ public class HorizontalScrollBar : MonoBehaviour
         var fitter = content.GetComponent<ContentSizeFitter>() ?? content.gameObject.AddComponent<ContentSizeFitter>();
         fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
         fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-        UpdateLayout();
     }
 
     private void LoadImagesFromArray()
@@ -74,9 +86,6 @@ public class HorizontalScrollBar : MonoBehaviour
 
         foreach (var sprite in imageSprites)
             AddImage(sprite);
-
-        Canvas.ForceUpdateCanvases();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
     private void AddImage(Sprite sprite)
@@ -141,9 +150,6 @@ public class HorizontalScrollBar : MonoBehaviour
 
         if (content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
             layoutGroup.spacing = spacing;
-
-        Canvas.ForceUpdateCanvases();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
     public ChallengeImage GetImageAtIndex(int index)
