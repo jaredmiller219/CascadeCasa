@@ -1,5 +1,3 @@
-// NotepadManager.cs
-
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -68,6 +66,10 @@ public class KitchenNotepad : MonoBehaviour
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
+    // $$$$ Click sound fields
+    [Header("Audio")] // $$$$
+    public AudioSource audioSource; // $$$$
+    public AudioClip clickSound; // $$$$
 
     /// <summary>
     /// The text area used to display hints for the current challenge
@@ -82,14 +84,6 @@ public class KitchenNotepad : MonoBehaviour
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
-    ///
-    /// <para>
-    /// - Key: The incorrect CSS with syntax errors to fix
-    /// </para>
-    /// <para>
-    /// - Value: The correct CSS with proper syntax
-    /// </para>
-    ///
     /// </summary>
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
@@ -225,19 +219,14 @@ public class KitchenNotepad : MonoBehaviour
     /// </summary>
     private void CheckCssInput()
     {
-        // Retrieve the user's input from the input field and normalize it
-        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+        PlayClickSound(); // $$$$
 
-        // Retrieve the correct CSS snippet for the current challenge and normalize it
+        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
         var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
 
-        // Normalize the user's input by removing unnecessary spaces and line breaks
         var normalizedUserInput = NormalizeCss(userInput);
-
-        // Normalize the correct CSS snippet for comparison
         var normalizedCorrectCss = NormalizeCss(correctCss);
 
-        // Compare the normalized user input with the normalized correct CSS
         if (normalizedUserInput == normalizedCorrectCss)
         {
             // SubmitCSS(userInput);
@@ -260,7 +249,6 @@ public class KitchenNotepad : MonoBehaviour
     /// <returns>True if all challenges are completed, otherwise false</returns>
     private bool IsLevelComplete()
     {
-        // Return true if the current challenge index exceeds the total number of challenges
         return currentChallengeIndex >= _cssChallenges.Count;
     }
 
@@ -269,10 +257,8 @@ public class KitchenNotepad : MonoBehaviour
     /// </summary>
     private void NextChallenge()
     {
-        // Increment the current challenge index to move to the next challenge
         currentChallengeIndex++;
 
-        // Check if all challenges have been completed
         if (IsLevelComplete())
         {
             // Display a completion message to the user
@@ -285,12 +271,10 @@ public class KitchenNotepad : MonoBehaviour
             SetButtonInteractable(submitBtn, false);
             SetButtonInteractable(resetBtn, false);
 
-            // Show the challenge completion popup
             challengeComplete.SetActive(true);
         }
         else
         {
-            // Load the next challenge if there are more challenges remaining
             LoadChallenge();
 
             // Save
@@ -335,7 +319,7 @@ public class KitchenNotepad : MonoBehaviour
     /// </summary>
     private void ResetCurrentChallenge()
     {
-        // Reload the current challenge to reset the input field
+        PlayClickSound(); // $$$$
         LoadChallenge();
     }
 
@@ -346,11 +330,17 @@ public class KitchenNotepad : MonoBehaviour
     /// <returns>A normalized CSS string</returns>
     private static string NormalizeCss(string input)
     {
-        // Replace newlines with empty strings, remove double spaces, and trim the result
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
 
     /// <summary>
+    /// Plays the UI click sound if available
+    /// </summary>
+    private void PlayClickSound() // $$$$
+    { // $$$$
+        if (audioSource && clickSound) // $$$$
+            audioSource.PlayOneShot(clickSound); // $$$$
+    } // $$$$
     /// Saves the current challenge index to a file
     /// </summary>
     public void SaveProgress()

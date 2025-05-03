@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections; // $$$$
 
 public class Menu : MonoBehaviour
 {
-
     /// <summary>
     /// Button to load the level select scene
     /// </summary>
@@ -24,6 +24,10 @@ public class Menu : MonoBehaviour
     [Tooltip("Button to load the instructions scene")]
     public GameObject instructionsButton;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+    
     /// <summary>
     /// The text on the level select button
     /// </summary>
@@ -61,7 +65,8 @@ public class Menu : MonoBehaviour
     public void OnLevelSelectRelease()
     {
         SetDefaultColor(levelSelectText);
-        LevelSelect();
+        PlayClickSound();
+        StartCoroutine(LoadSceneDelayed("LevelSelect"));
     }
 
     /// <summary>
@@ -78,6 +83,8 @@ public class Menu : MonoBehaviour
     public void OnPlayRelease()
     {
         SetDefaultColor(playText);
+        PlayClickSound();
+        // Add your Play() call here if needed
     }
 
     /// <summary>
@@ -94,7 +101,8 @@ public class Menu : MonoBehaviour
     public void OnInstructionsRelease()
     {
         SetDefaultColor(instructionsText);
-        Instructions();
+        PlayClickSound();
+        StartCoroutine(LoadSceneDelayed("Instructions"));
     }
 
     /// <summary>
@@ -113,8 +121,8 @@ public class Menu : MonoBehaviour
     /// <param name="text">the text to change</param>
     private void SetDefaultColor(TMP_Text text)
     {
-        if (text != null)
-            text.color = new Color32(255, 255, 255, 255); // White
+        PlayClickSound();
+        StartCoroutine(LoadSceneDelayed("Settings"));
     }
 
     /// <summary>
@@ -122,6 +130,7 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void Quit()
     {
+        PlayClickSound();
         Application.Quit();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -133,7 +142,8 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void Instructions()
     {
-        SceneManager.LoadScene("Instructions");
+        if (text != null)
+            text.color = new Color32(200, 200, 200, 255); // Light gray
     }
 
     /// <summary>
@@ -141,7 +151,20 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void LevelSelect()
     {
-        SceneManager.LoadScene("LevelSelect");
+        if (text != null)
+            text.color = new Color32(255, 255, 255, 255); // White
+    }
+
+    private void PlayClickSound()
+    {
+        if (audioSource && clickSound)
+            audioSource.PlayOneShot(clickSound);
+    }
+
+    private IEnumerator LoadSceneDelayed(string sceneName)
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(sceneName);
     }
 
     /// <summary>
