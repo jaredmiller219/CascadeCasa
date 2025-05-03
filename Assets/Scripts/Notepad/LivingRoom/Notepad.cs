@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class Notepad : MonoBehaviour
 {
     private GlobalCursorManager _cursorManager;
-    private DraggableImage selectedImage;
 
     private ChallengeImage selectedImage; // Reference to the selected image
 
@@ -93,7 +92,7 @@ public class Notepad : MonoBehaviour
         {
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
-        
+
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
     }
