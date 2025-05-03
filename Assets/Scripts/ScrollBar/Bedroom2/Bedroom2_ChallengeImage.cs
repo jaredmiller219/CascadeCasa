@@ -17,7 +17,7 @@ public class Bedroom2_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Reference to the horizontal scroll bar.
     /// </summary>
-    private HorizontalScrollBar _scrollBar;
+    private Bedroom2_HorizontalScrollBar _scrollBar;
 
     /// <summary>
     /// The index of the button in the scroll area.
@@ -44,7 +44,7 @@ public class Bedroom2_ChallengeImage : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         _originalParent = transform.parent;
-        _scrollBar = _originalParent.GetComponentInParent<HorizontalScrollBar>();
+        _scrollBar = _originalParent.GetComponentInParent<Bedroom2_HorizontalScrollBar>();
 
         notepad = FindFirstObjectByType<Notepad>();
         if (notepad == null)
@@ -61,7 +61,7 @@ public class Bedroom2_ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         _buttonIndex = transform.GetSiblingIndex();
         notepad.buttonindex = _buttonIndex;
-        ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+        Bedroom2_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         string imageName = clickedImage.GetComponent<Image>().sprite.name;
         Debug.Log($"Image: {imageName}, Index: {_buttonIndex}");
 
