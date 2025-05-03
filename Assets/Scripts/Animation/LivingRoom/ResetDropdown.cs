@@ -17,8 +17,6 @@ public class ResetPopup : MonoBehaviour
     /// </summary>
     private Animator _animator;
 
-    public AudioSource audioSource; // $$$$
-    public AudioClip popupSound; // $$$$
     /// <summary>
     /// Reference to the Notepad component that is used to check if there is any text in the notepad.
     /// This is used to determine whether to play the animation or not.
@@ -33,6 +31,7 @@ public class ResetPopup : MonoBehaviour
         // Get the Notepad component attached to the same GameObject
         notepad = FindFirstObjectByType<Notepad>();
     }
+
 
     /// <summary>
     /// Plays the "Pull" animation on the resetPopup GameObject.
@@ -81,13 +80,6 @@ public class ResetPopup : MonoBehaviour
         // Wait for the animation to finish
         yield return new WaitForSeconds(animationLength);
 
-        if (audioSource && popupSound) // $$$$
-        { // $$$$
-            audioSource.PlayOneShot(popupSound); // $$$$
-        } // $$$$
-
-        // Play the "Pull" animation from the Animator, starting at the beginning (time 0f)
-        _animator.Play("Pull", 0, 0f);
         // Now deactivate the popup
         resetPopup.SetActive(false);
     }

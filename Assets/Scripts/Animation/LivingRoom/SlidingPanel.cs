@@ -30,10 +30,6 @@ public class SlidePanelController : MonoBehaviour
     [SerializeField]
     private GameObject btnImage;
 
-    // $$$$ Audio fields for panel toggle
-    public AudioSource audioSource; // $$$$
-    public AudioClip toggleSound;   // $$$$
-
     // Unity's Start method is called before the first frame update
     private void Start()
     {
@@ -53,12 +49,6 @@ public class SlidePanelController : MonoBehaviour
     /// </remarks>
     public void TogglePanel()
     {
-        // $$$$ Play panel toggle sound
-        if (audioSource && toggleSound) // $$$$
-        {
-            audioSource.PlayOneShot(toggleSound); // $$$$
-        }
-
         // Get the current value of the "open" parameter in the Animator
         var isOpen = _animator.GetBool(Open);
 

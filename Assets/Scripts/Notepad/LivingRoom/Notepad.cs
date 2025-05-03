@@ -1,13 +1,20 @@
+// NotepadManager.cs
+
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages a CSS learning game where players fix full CSS snippets.
+/// </summary>
 public class Notepad : MonoBehaviour
 {
+    /// <summary>
+    /// Reference to the global cursor manager for handling cursor changes
+    /// </summary>
     private GlobalCursorManager _cursorManager;
-    private DraggableImage selectedImage;
 
     private ChallengeImage selectedImage; // Reference to the selected image
 
@@ -18,21 +25,36 @@ public class Notepad : MonoBehaviour
     [Header("Notepad")]
     public GameObject inputField;
 
+    /// <summary>
+    /// The text area used to display feedback messages to the user
+    /// </summary>
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
     public GameObject feedbackText;
 
+    /// <summary>
+    /// The button that users click to submit their CSS solution for validation
+    /// </summary>
     [Tooltip("The submit button for checking CSS code")]
     [Header("Buttons")]
     public GameObject submitBtn;
 
+    /// <summary>
+    /// The button that resets the current challenge to its initial state
+    /// </summary>
     [Tooltip("The reset button for restarting the challenge")]
     public GameObject resetBtn;
 
+    /// <summary>
+    /// The popup text displayed when the reset button is clicked
+    /// </summary>
     [Tooltip("The text that appears when the reset button is clicked")]
     [Header("Reset Text")]
     public GameObject resetPopup;
 
+    /// <summary>
+    /// The index of the current challenge being solved by the user
+    /// </summary>
     [Tooltip("The index of the current challenge")]
     [Header("Challenge Index")]
     public int currentChallengeIndex;
@@ -46,11 +68,29 @@ public class Notepad : MonoBehaviour
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
+
+    /// <summary>
+    /// The text area used to display hints for the current challenge
+    /// </summary>
     [Header("Hint Section")]
     public GameObject hintText;
 
+    /// <summary>
+    /// The path where the progress of the game is saved
+    /// </summary>
     private readonly string saveFilePath;
 
+    /// <summary>
+    /// List of CSS challenges with incorrect and correct snippets.
+    ///
+    /// <para>
+    /// - Key: The incorrect CSS with syntax errors to fix
+    /// </para>
+    /// <para>
+    /// - Value: The correct CSS with proper syntax
+    /// </para>
+    ///
+    /// </summary>
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
         new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
@@ -62,6 +102,9 @@ public class Notepad : MonoBehaviour
         new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
     };
 
+    /// <summary>
+    /// List of hints to assist the user in fixing CSS syntax errors
+    /// </summary>
     private readonly List<string> _cssHints = new()
     {
         "CSS lets you style HTML elements by changing things like size and color." +
@@ -70,30 +113,40 @@ public class Notepad : MonoBehaviour
 
         "Look for missing colons in the font size and text align properties.",
 
-        "Ensure the border and margin top properties have colons."
+        "Ensure the border and margin top properties have colons." // Hint for challenge 3
+        // etc...
     };
 
     private int _previousCursorIndex;
 
-    public AudioSource audioSource; // $$$$
-    public AudioClip clickSound; // $$$$
 
+    /// <summary>
+    /// Initializes the game state and sets up event listeners
+    /// </summary>
     private void Start()
     {
+        // Attach the CheckCssInput method to the submit button's click event
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
+
+        // Attach the ResetCurrentChallenge method to the reset button's click event
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
 
+        // saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
+
+        // Ensure the reset popup is hidden at the start
         resetPopup.SetActive(false);
 
+        // Set the scroll sensitivity for the input field to allow smooth scrolling
         const float scrollSensitivity = 0.01f;
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
+        // Initialize the cursor manager
         _cursorManager = GlobalCursorManager.Instance;
         if (_cursorManager != null)
         {
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
-        
+
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
     }
@@ -109,14 +162,19 @@ public class Notepad : MonoBehaviour
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
+
     public void OnInputFieldEnter()
     {
+        // Save the current cursor before switching
         _previousCursorIndex = _cursorManager.GetSelectedCursor();
+
+        // Set the cursor to the I-beam cursor for text input
         _cursorManager.SetCursor(3);
     }
 
     public void OnInputFieldExit()
     {
+        // Restore the previous cursor when exiting the input field
         _cursorManager.SetCursor(_previousCursorIndex);
     }
 
@@ -167,17 +225,19 @@ public class Notepad : MonoBehaviour
     /// </summary>
     private void CheckCssInput()
     {
-        if (audioSource && clickSound) // $$$$
-        { // $$$$
-            audioSource.PlayOneShot(clickSound); // $$$$
-        } // $$$$
-
+        // Retrieve the user's input from the input field and normalize it
         var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+
+        // Retrieve the correct CSS snippet for the current challenge and normalize it
         var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
 
+        // Normalize the user's input by removing unnecessary spaces and line breaks
         var normalizedUserInput = NormalizeCss(userInput);
+
+        // Normalize the correct CSS snippet for comparison
         var normalizedCorrectCss = NormalizeCss(correctCss);
 
+        // Compare the normalized user input with the normalized correct CSS
         if (normalizedUserInput == normalizedCorrectCss)
         {
             // SubmitCSS(userInput);
@@ -194,15 +254,25 @@ public class Notepad : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if all challenges have been completed
+    /// </summary>
+    /// <returns>True if all challenges are completed, otherwise false</returns>
     private bool IsLevelComplete()
     {
+        // Return true if the current challenge index exceeds the total number of challenges
         return currentChallengeIndex >= _cssChallenges.Count;
     }
 
+    /// <summary>
+    /// Advances to the next challenge or completes the game
+    /// </summary>
     private void NextChallenge()
     {
+        // Increment the current challenge index to move to the next challenge
         currentChallengeIndex++;
 
+        // Check if all challenges have been completed
         if (IsLevelComplete())
         {
             // Display a completion message to the user
@@ -215,14 +285,22 @@ public class Notepad : MonoBehaviour
             SetButtonInteractable(submitBtn, false);
             SetButtonInteractable(resetBtn, false);
 
+            // Show the challenge completion popup
             challengeComplete.SetActive(true);
         }
         else
         {
+            // Load the next challenge if there are more challenges remaining
             LoadChallenge();
+
+            // Save
+            // SaveProgress();
         }
     }
 
+    /// <summary>
+    /// Loads the current challenge with an incorrect CSS snippet
+    /// </summary>
     private void LoadChallenge()
     {
         // if the image exists, then we can set the text in the notepad
@@ -252,22 +330,38 @@ public class Notepad : MonoBehaviour
         return;
     }
 
+    /// <summary>
+    /// Resets the current challenge back to its original incorrect CSS snippet
+    /// </summary>
     private void ResetCurrentChallenge()
     {
+        // Reload the current challenge to reset the input field
         LoadChallenge();
     }
 
+    /// <summary>
+    /// Normalizes CSS input by removing excess spaces and line breaks
+    /// </summary>
+    /// <param name="input">The CSS string to normalize</param>
+    /// <returns>A normalized CSS string</returns>
     private static string NormalizeCss(string input)
     {
+        // Replace newlines with empty strings, remove double spaces, and trim the result
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
 
+    /// <summary>
+    /// Saves the current challenge index to a file
+    /// </summary>
     public void SaveProgress()
     {
         File.WriteAllText(saveFilePath, currentChallengeIndex.ToString());
         Debug.Log("Progress saved!");
     }
 
+    /// <summary>
+    /// Loads the saved challenge index from file and resumes progress
+    /// </summary>
     private void LoadProgress()
     {
         if (File.Exists(saveFilePath))
