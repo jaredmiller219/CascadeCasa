@@ -12,19 +12,6 @@ using TMPro;
 public class CursorType : MonoBehaviour
 {
     /// <summary>
-    /// The key used to save the selected cursor index in PlayerPrefs.
-    /// This allows the selected cursor to persist between game sessions.
-    /// The index is saved as an integer, and the default value is set to 0 (black cursor).
-    /// </summary>
-    private const string CursorPrefKey = "SelectedCursorIndex";
-
-    /// <summary>
-    /// The default cursor index used when no cursor is selected or saved.
-    /// This is set to 0, which corresponds to the black cursor.
-    /// </summary>
-    private const int DefaultCursor = 0;
-
-    /// <summary>
     /// The blank cursor reference
     /// </summary>
     [Tooltip("The cursor texture for the blank cursor")]
@@ -42,6 +29,19 @@ public class CursorType : MonoBehaviour
     /// </summary>
     [Tooltip("The cursor texture for the yellow cursor")]
     public Texture2D yellowCursor; // Texture for the yellow cursor
+
+    /// <summary>
+    /// The key used to save the selected cursor index in PlayerPrefs.
+    /// This allows the selected cursor to persist between game sessions.
+    /// The index is saved as an integer, and the default value is set to 0 (black cursor).
+    /// </summary>
+    private const string CursorPrefKey = "SelectedCursorIndex";
+
+    /// <summary>
+    /// The default cursor index used when no cursor is selected or saved.
+    /// This is set to 0, which corresponds to the black cursor.
+    /// </summary>
+    private const int DefaultCursor = 0;
 
     /// <summary>
     /// Reference to the TMP_Dropdown component

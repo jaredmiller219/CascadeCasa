@@ -3,13 +3,17 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class Notepad : MonoBehaviour
 {
     private GlobalCursorManager _cursorManager;
     private DraggableImage selectedImage;
 
+    private ChallengeImage selectedImage; // Reference to the selected image
+
+    /// <summary>
+    /// The input field where users type their CSS solutions
+    /// </summary>
     [Tooltip("The notepad input field for CSS code")]
     [Header("Notepad")]
     public GameObject inputField;
@@ -33,6 +37,12 @@ public class Notepad : MonoBehaviour
     [Header("Challenge Index")]
     public int currentChallengeIndex;
 
+    [HideInInspector]
+    public int buttonindex;
+
+    /// <summary>
+    /// The popup displayed when all challenges are completed
+    /// </summary>
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
@@ -43,18 +53,13 @@ public class Notepad : MonoBehaviour
 
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
-        new KeyValuePair<string, string>(
-            "div {\n    background color blue;\n    width: 100px;\n}",
-            "div {\n    background-color: blue;\n    width: 100px;\n}"
-        ),
-        new KeyValuePair<string, string>(
-            "p {\n    font size 20px;\n    text align center;\n}",
-            "p {\n    font-size: 20px;\n    text-align: center;\n}"
-        ),
-        new KeyValuePair<string, string>(
-            ".box {\n    border 2px solid black;\n    margin top 10px;\n}",
-            ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"
-        )
+        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
+        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
+        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
+        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
+        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
+        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
+        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
     };
 
     private readonly List<string> _cssHints = new()
@@ -88,31 +93,20 @@ public class Notepad : MonoBehaviour
         {
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
-
-        LoadChallenge();
+        
+        // dont load anything at the start, but load the first challenge when the user clicks on an image
+        // LoadChallenge();
     }
 
-    public Notepad()
-    {
-        selectedImage = null;
-    }
+    // public Notepad()
+    // {
+    //     selectedImage = null; // Initially no image selected
+    // }
 
-    public void SelectImage(DraggableImage image)
+    public void SetCssText(string css)
     {
-        this.selectedImage = image;
-        Console.WriteLine("Image selected for editing.");
-    }
-
-    public void SubmitCSS(string cssText)
-    {
-        if (selectedImage != null)
-        {
-            selectedImage.ApplyCSS(cssText);
-        }
-        else
-        {
-            Console.WriteLine("No image selected to apply CSS to.");
-        }
+        // inputField.GetComponent<TMP_InputField>().text = css;
+        SetTextOfComponent(inputField, css, Color.black, true);
     }
 
     public void OnInputFieldEnter()
@@ -126,6 +120,51 @@ public class Notepad : MonoBehaviour
         _cursorManager.SetCursor(_previousCursorIndex);
     }
 
+    private void SetButtonInteractable(GameObject button, bool isInteractable)
+    {
+        // Set the button to be interactable or not
+        button.GetComponent<Button>().interactable = isInteractable;
+    }
+
+    /// <summary>
+    /// Sets the feedback text and color for the user
+    /// </summary>
+    /// <param name="textObject">The GameObject containing the text</param>
+    /// <param name="text">The text to display</param>
+    /// <param name="color">The color of the text</param>
+    /// <param name="isInteractable">Whether it is interactable</param>
+    private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
+    {
+        if (textObject == null)
+        {
+            Debug.LogWarning("Text object is null!");
+            return;
+        }
+
+        TMP_Text tmpText = textObject.GetComponent<TMP_Text>();
+
+        if (textObject.TryGetComponent<TMP_InputField>(out var inputField))
+        {
+            // Set text and color for TMP_InputField
+            inputField.text = text;
+            inputField.textComponent.color = color;
+            inputField.interactable = isInteractable;
+        }
+        else if (tmpText != null)
+        {
+            // Set text and color for TMP_Text
+            tmpText.text = text;
+            tmpText.color = color;
+        }
+        else
+        {
+            Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
+        }
+    }
+
+    /// <summary>
+    /// Validates user input against the current challenge's correct CSS snippet
+    /// </summary>
     private void CheckCssInput()
     {
         if (audioSource && clickSound) // $$$$
@@ -141,14 +180,17 @@ public class Notepad : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
-            feedbackText.GetComponent<TMP_Text>().color = Color.green;
-            Invoke(nameof(NextChallenge), 1.5f);
+            // SubmitCSS(userInput);
+
+            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+
+            // Load the next challenge after a delay
+            // Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, and syntax!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.red;
+            // If the input is incorrect, display error feedback
+            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
         }
     }
 
@@ -163,14 +205,15 @@ public class Notepad : MonoBehaviour
 
         if (IsLevelComplete())
         {
-            feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
+            // Display a completion message to the user
+            SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
 
-            inputField.GetComponent<TMP_InputField>().text = "";
-            inputField.GetComponent<TMP_InputField>().interactable = false;
+            // Clear the input field and make it non-interactable
+            SetTextOfComponent(inputField, "", Color.clear, false);
 
-            submitBtn.GetComponent<Button>().interactable = false;
-            resetBtn.GetComponent<Button>().interactable = false;
+            // Disable the submit and reset buttons
+            SetButtonInteractable(submitBtn, false);
+            SetButtonInteractable(resetBtn, false);
 
             challengeComplete.SetActive(true);
         }
@@ -182,10 +225,31 @@ public class Notepad : MonoBehaviour
 
     private void LoadChallenge()
     {
-        inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
-        hintText.GetComponent<TMP_Text>().text = _cssHints[currentChallengeIndex];
-        feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
-        feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
+        // if the image exists, then we can set the text in the notepad
+        if (selectedImage != null)
+        {
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // update the current challenge index to the selected image's button index
+            currentChallengeIndex = selectedImage.GetComponent<ChallengeImage>()._buttonIndex;
+
+            // Set the hint text for the current challenge
+            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
+
+            // Display a message prompting the user to fix the syntax
+            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
+        }
+
+        if (inputField.GetComponent<TMP_InputField>().text != "")
+        {
+            // If the input field is not empty, set the current challenge index to the button index
+            currentChallengeIndex = buttonindex;
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+        }
+
+        // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
+        return;
     }
 
     private void ResetCurrentChallenge()

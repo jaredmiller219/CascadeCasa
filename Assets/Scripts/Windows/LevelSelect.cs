@@ -1,27 +1,47 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; 
-using System.Collections; // Needed for IEnumerator
+using System.Collections;
+using UnityEngine.UI;
 
-public class SelectTemp : MonoBehaviour
+public class LevelSelect : MonoBehaviour
 {
-    public AudioSource audioSource; // $$$$
-    public AudioClip clickSound; // $$$$
+    /// <summary>
+    /// The button to go to the living room scene
+    /// </summary>
+    [Header("Rooms")]
+    [Tooltip("The button to go to the living room scene")]
+    [InspectorName("Living Room")]
+    public GameObject livingRoomBtn;
+    
+    public AudioSource audioSource;
+    public AudioClip clickSound;
 
-    public void Css()
+    public void Start()
     {
-        PlayClickSound(); // $$$$
-        StartCoroutine(LoadLivingRoom()); // $$$$
+        // dont detect that we are clicking the image
+        // unless we are over the image itself
+        // rather than the bounding box
+        livingRoomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
-
-    private void PlayClickSound() // $$$$
+    
+    private void PlayClickSound()
     {
         if (audioSource && clickSound)
             audioSource.PlayOneShot(clickSound);
     }
-
-    private IEnumerator LoadLivingRoom() // $$$$
+    
+    public void LivingRoom()
     {
-        yield return new WaitForSeconds(1f); // $$$$
-        SceneManager.LoadScene("Living Room"); // $$$$
+        PlayClickSound();
+        StartCoroutine(LoadLivingRoom());
+    }
+
+    /// <summary>
+    /// This method is called when the script instance is being loaded.
+    /// </summary>
+    public void LoadLivingRoom()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Living Room");
     }
 }

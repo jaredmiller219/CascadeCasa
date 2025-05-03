@@ -62,11 +62,7 @@ public class FurnitureDropdown : MonoBehaviour
     public void PullBarDown()
     {
         // Check if the furnitureDropdown or Animator reference is missing
-        if (furnitureDropdown == null || _animator == null)
-        {
-            // If either is missing, exit the method
-            return;
-        }
+        if (furnitureDropdown == null || _animator == null) return;
 
         if (audioSource && dropdownSound) // $$$$
         {

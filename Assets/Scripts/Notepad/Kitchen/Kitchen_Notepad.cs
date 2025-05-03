@@ -1,18 +1,20 @@
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
 /// </summary>
-public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class KitchenNotepad : MonoBehaviour
 {
     /// <summary>
     /// Reference to the global cursor manager for handling cursor changes
     /// </summary>
-    private readonly GlobalCursorManager _cursorManager;
+    private GlobalCursorManager _cursorManager;
+
+    private ChallengeImage selectedImage; // Reference to the selected image
 
     /// <summary>
     /// The input field where users type their CSS solutions
@@ -55,6 +57,9 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [Header("Challenge Index")]
     public int currentChallengeIndex;
 
+    [HideInInspector]
+    public int buttonindex;
+
     /// <summary>
     /// The popup displayed when all challenges are completed
     /// </summary>
@@ -67,24 +72,51 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public AudioClip clickSound; // $$$$
 
     /// <summary>
+    /// The text area used to display hints for the current challenge
+    /// </summary>
+    [Header("Hint Section")]
+    public GameObject hintText;
+
+    /// <summary>
+    /// The path where the progress of the game is saved
+    /// </summary>
+    private readonly string saveFilePath;
+
+    /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
     /// </summary>
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
-        new KeyValuePair<string, string>(
-            "div {\n    background color blue;\n    width: 100px;\n}",
-            "div {\n    background-color: blue;\n    width: 100px;\n}"
-        ),
-        new KeyValuePair<string, string>(
-            "p {\n    font size 20px;\n    text align center;\n}",
-            "p {\n    font-size: 20px;\n    text-align: center;\n}"
-        ),
-        new KeyValuePair<string, string>(
-            ".box {\n    border 2px solid black;\n    margin top 10px;\n}",
-            ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"
-        )
+        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
+        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
+        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
+        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
+        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
+        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
+        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
     };
 
+    /// <summary>
+    /// List of hints to assist the user in fixing CSS syntax errors
+    /// </summary>
+    private readonly List<string> _cssHints = new()
+    {
+        "CSS lets you style HTML elements by changing things like size and color." +
+        "For example, you can use width to set how wide something is, " +
+        "and background-color to set its background color.",
+
+        "Look for missing colons in the font size and text align properties.",
+
+        "Ensure the border and margin top properties have colons." // Hint for challenge 3
+        // etc...
+    };
+
+    private int _previousCursorIndex;
+
+
+    /// <summary>
+    /// Initializes the game state and sets up event listeners
+    /// </summary>
     private void Start()
     {
         // Attach the CheckCssInput method to the submit button's click event
@@ -93,6 +125,8 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         // Attach the ResetCurrentChallenge method to the reset button's click event
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
 
+        // saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
+
         // Ensure the reset popup is hidden at the start
         resetPopup.SetActive(false);
 
@@ -100,31 +134,83 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         const float scrollSensitivity = 0.01f;
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
-        // Load the first challenge
-        LoadChallenge();
-    }
-
-    /// <summary>
-    /// Handles pointer entering the input field area
-    /// </summary>
-    /// <param name="eventData">Data related to the pointer event</param>
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (_cursorManager != null && eventData.pointerCurrentRaycast.gameObject == inputField)
+        // Initialize the cursor manager
+        _cursorManager = GlobalCursorManager.Instance;
+        if (_cursorManager != null)
         {
-            _cursorManager.SetCursor(3);
+            _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
+
+        // dont load anything at the start, but load the first challenge when the user clicks on an image
+        // LoadChallenge();
+    }
+
+    // public Notepad()
+    // {
+    //     selectedImage = null; // Initially no image selected
+    // }
+
+    public void SetCssText(string css)
+    {
+        // inputField.GetComponent<TMP_InputField>().text = css;
+        SetTextOfComponent(inputField, css, Color.black, true);
+    }
+
+
+    public void OnInputFieldEnter()
+    {
+        // Save the current cursor before switching
+        _previousCursorIndex = _cursorManager.GetSelectedCursor();
+
+        // Set the cursor to the I-beam cursor for text input
+        _cursorManager.SetCursor(3);
+    }
+
+    public void OnInputFieldExit()
+    {
+        // Restore the previous cursor when exiting the input field
+        _cursorManager.SetCursor(_previousCursorIndex);
+    }
+
+    private void SetButtonInteractable(GameObject button, bool isInteractable)
+    {
+        // Set the button to be interactable or not
+        button.GetComponent<Button>().interactable = isInteractable;
     }
 
     /// <summary>
-    /// Handles pointer exiting the input field area
+    /// Sets the feedback text and color for the user
     /// </summary>
-    /// <param name="eventData">Data related to the pointer event</param>
-    public void OnPointerExit(PointerEventData eventData)
+    /// <param name="textObject">The GameObject containing the text</param>
+    /// <param name="text">The text to display</param>
+    /// <param name="color">The color of the text</param>
+    /// <param name="isInteractable">Whether it is interactable</param>
+    private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
     {
-        if (_cursorManager != null && eventData.pointerCurrentRaycast.gameObject != inputField)
+        if (textObject == null)
         {
-            _cursorManager.SetCursor(_cursorManager.GetSelectedCursor());
+            Debug.LogWarning("Text object is null!");
+            return;
+        }
+
+        TMP_Text tmpText = textObject.GetComponent<TMP_Text>();
+
+        if (textObject.TryGetComponent<TMP_InputField>(out var inputField))
+        {
+            // Set text and color for TMP_InputField
+            inputField.text = text;
+            inputField.textComponent.color = color;
+            inputField.interactable = isInteractable;
+        }
+        else if (tmpText != null)
+        {
+            // Set text and color for TMP_Text
+            tmpText.text = text;
+            tmpText.color = color;
+        }
+        else
+        {
+            Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
         }
     }
 
@@ -143,14 +229,17 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Correct!\nLoading next challenge...";
-            feedbackText.GetComponent<TMP_Text>().color = Color.green;
-            Invoke(nameof(NextChallenge), 1.5f);
+            // SubmitCSS(userInput);
+
+            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+
+            // Load the next challenge after a delay
+            // Invoke(nameof(NextChallenge), 1.5f);
         }
         else
         {
-            feedbackText.GetComponent<TMP_Text>().text = "Check colons, semicolons, and syntax!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.red;
+            // If the input is incorrect, display error feedback
+            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
         }
     }
 
@@ -172,20 +261,24 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         if (IsLevelComplete())
         {
-            feedbackText.GetComponent<TMP_Text>().text = "All challenges completed!";
-            feedbackText.GetComponent<TMP_Text>().color = Color.cyan;
+            // Display a completion message to the user
+            SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
 
-            inputField.GetComponent<TMP_InputField>().text = "";
-            inputField.GetComponent<TMP_InputField>().interactable = false;
+            // Clear the input field and make it non-interactable
+            SetTextOfComponent(inputField, "", Color.clear, false);
 
-            submitBtn.GetComponent<Button>().interactable = false;
-            resetBtn.GetComponent<Button>().interactable = false;
+            // Disable the submit and reset buttons
+            SetButtonInteractable(submitBtn, false);
+            SetButtonInteractable(resetBtn, false);
 
             challengeComplete.SetActive(true);
         }
         else
         {
             LoadChallenge();
+
+            // Save
+            // SaveProgress();
         }
     }
 
@@ -194,9 +287,31 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// </summary>
     private void LoadChallenge()
     {
-        inputField.GetComponent<TMP_InputField>().text = _cssChallenges[currentChallengeIndex].Key;
-        feedbackText.GetComponent<TMP_Text>().text = "Fix the syntax!";
-        feedbackText.GetComponent<TMP_Text>().color = Color.yellow;
+        // if the image exists, then we can set the text in the notepad
+        if (selectedImage != null)
+        {
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // update the current challenge index to the selected image's button index
+            currentChallengeIndex = selectedImage.GetComponent<ChallengeImage>()._buttonIndex;
+
+            // Set the hint text for the current challenge
+            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
+
+            // Display a message prompting the user to fix the syntax
+            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
+        }
+
+        if (inputField.GetComponent<TMP_InputField>().text != "")
+        {
+            // If the input field is not empty, set the current challenge index to the button index
+            currentChallengeIndex = buttonindex;
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+        }
+
+        // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
+        return;
     }
 
     /// <summary>
@@ -226,4 +341,27 @@ public class KitchenNotepad : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (audioSource && clickSound) // $$$$
             audioSource.PlayOneShot(clickSound); // $$$$
     } // $$$$
+    /// Saves the current challenge index to a file
+    /// </summary>
+    public void SaveProgress()
+    {
+        File.WriteAllText(saveFilePath, currentChallengeIndex.ToString());
+        Debug.Log("Progress saved!");
+    }
+
+    /// <summary>
+    /// Loads the saved challenge index from file and resumes progress
+    /// </summary>
+    private void LoadProgress()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            string savedIndex = File.ReadAllText(saveFilePath);
+            if (int.TryParse(savedIndex, out int index) && index < _cssChallenges.Count)
+            {
+                currentChallengeIndex = index;
+            }
+        }
+        LoadChallenge();
+    }
 }

@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 0da640ce1111e46c3bc837103e56de14
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8987429908159643405
+    second: CC C ROOMS OUTLINE_0
+  - first:
+      213: -9141517544349115103
+    second: CC C ROOMS OUTLINE_1
+  - first:
+      213: -7836071693426030954
+    second: CC C ROOMS OUTLINE_2
+  - first:
+      213: 6712658564820960472
+    second: CC C ROOMS OUTLINE_3
+  - first:
+      213: -2449664060721588241
+    second: CC C ROOMS OUTLINE_4
+  - first:
+      213: 5285483800677824247
+    second: CC C ROOMS OUTLINE_5
+  - first:
+      213: 6445505405149247011
+    second: CC C ROOMS OUTLINE_6
+  - first:
+      213: -301391380372441537
+    second: CC C ROOMS OUTLINE_7
+  - first:
+      213: 3270845695030243278
+    second: CC C ROOMS OUTLINE_8
+  - first:
+      213: -5157671513850083589
+    second: CC C ROOMS OUTLINE_9
+  - first:
+      213: 2010125733289953693
+    second: CC C ROOMS OUTLINE_10
+  - first:
+      213: 31354403132351345
+    second: CC C ROOMS OUTLINE_11
+  - first:
+      213: 5320957830172961404
+    second: CC C ROOMS OUTLINE_12
+  - first:
+      213: -7197859638089688322
+    second: CC C ROOMS OUTLINE_13
+  - first:
+      213: 8486252301214775375
+    second: CC C ROOMS OUTLINE_14
+  - first:
+      213: -1094838423366768921
+    second: CC C ROOMS OUTLINE_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 50
+        width: 1229
+        height: 802
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0fb39f42e3c9bc70800000000000000
+      internalID: 8987429908159643405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_1
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 741
+        width: 62
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12dd11d2a3ec22180800000000000000
+      internalID: -9141517544349115103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_2
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 741
+        width: 52
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69609d6ef4ea04390800000000000000
+      internalID: -7836071693426030954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_3
+      rect:
+        serializedVersion: 2
+        x: 1295
+        y: 741
+        width: 36
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d403a64667282d50800000000000000
+      internalID: 6712658564820960472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_4
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 710
+        width: 33
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe716a1048b010ed0800000000000000
+      internalID: -2449664060721588241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_5
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 640
+        width: 9
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f6bb75538fc95940800000000000000
+      internalID: 5285483800677824247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_6
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 581
+        width: 9
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 326f7c72409037950800000000000000
+      internalID: 6445505405149247011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_7
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 519
+        width: 9
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f36398ae22e31dbf0800000000000000
+      internalID: -301391380372441537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_8
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 444
+        width: 9
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecfa46774d0646d20800000000000000
+      internalID: 3270845695030243278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_9
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 381
+        width: 9
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf680dca5154c68b0800000000000000
+      internalID: -5157671513850083589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_10
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 321
+        width: 9
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d998e9e44b665eb10800000000000000
+      internalID: 2010125733289953693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_11
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 280
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17329dcd9a46f6000800000000000000
+      internalID: 31354403132351345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_12
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 248
+        width: 33
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7aea4474f6d7d940800000000000000
+      internalID: 5320957830172961404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_13
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 248
+        width: 51
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efada888bc01c1c90800000000000000
+      internalID: -7197859638089688322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_14
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 248
+        width: 32
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f487f30818935c570800000000000000
+      internalID: 8486252301214775375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CC C ROOMS OUTLINE_15
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 248
+        width: 31
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e666c0314a5ec0f0800000000000000
+      internalID: -1094838423366768921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CC C ROOMS OUTLINE_0: 8987429908159643405
+      CC C ROOMS OUTLINE_1: -9141517544349115103
+      CC C ROOMS OUTLINE_10: 2010125733289953693
+      CC C ROOMS OUTLINE_11: 31354403132351345
+      CC C ROOMS OUTLINE_12: 5320957830172961404
+      CC C ROOMS OUTLINE_13: -7197859638089688322
+      CC C ROOMS OUTLINE_14: 8486252301214775375
+      CC C ROOMS OUTLINE_15: -1094838423366768921
+      CC C ROOMS OUTLINE_2: -7836071693426030954
+      CC C ROOMS OUTLINE_3: 6712658564820960472
+      CC C ROOMS OUTLINE_4: -2449664060721588241
+      CC C ROOMS OUTLINE_5: 5285483800677824247
+      CC C ROOMS OUTLINE_6: 6445505405149247011
+      CC C ROOMS OUTLINE_7: -301391380372441537
+      CC C ROOMS OUTLINE_8: 3270845695030243278
+      CC C ROOMS OUTLINE_9: -5157671513850083589
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
