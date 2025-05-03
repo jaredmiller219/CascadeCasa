@@ -1,14 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelSelect : MonoBehaviour // Defining a public class named SelectTemp that inherits from MonoBehaviour.
+public class LevelSelect : MonoBehaviour
 {
-
-    public GameObject livingroombtn;
+    /// <summary>
+    /// The button to go to the living room scene
+    /// </summary>
+    [Header("Rooms")]
+    [Tooltip("The button to go to the living room scene")]
+    [InspectorName("Living Room")]
+    public GameObject livingRoomBtn;
 
     public void Start()
     {
-        livingroombtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+        // dont detect that we are clicking the image
+        // unless we are over the image itself
+        // rather than the bounding box
+        livingRoomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
     /// <summary>
@@ -16,8 +24,6 @@ public class LevelSelect : MonoBehaviour // Defining a public class named Select
     /// </summary>
     public void LivingRoom()
     {
-        // Using the SceneManager from UnityEngine.SceneManagement to load a scene named "Living Room".
-        // This will switch the current scene to the one named "Living Room".
         UnityEngine.SceneManagement.SceneManager.LoadScene("Living Room");
     }
 }
