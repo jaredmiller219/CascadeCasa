@@ -6,10 +6,6 @@ using UnityEngine.UI;
 
 public class Notepad : MonoBehaviour
 {
-    private GlobalCursorManager _cursorManager;
-
-    private ChallengeImage selectedImage; // Reference to the selected image
-
     /// <summary>
     /// The input field where users type their CSS solutions
     /// </summary>
@@ -52,7 +48,17 @@ public class Notepad : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip clickSound;
 
+    /// <summary>
+    /// whether or not you can click the reset button
+    /// </summary>
+    [HideInInspector]
+    public bool canReset;
+
     private readonly string saveFilePath;
+
+    private GlobalCursorManager _cursorManager;
+
+    private ChallengeImage selectedImage;
 
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
@@ -93,6 +99,8 @@ public class Notepad : MonoBehaviour
         {
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
+
+        canReset = false;
 
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
@@ -167,10 +175,10 @@ public class Notepad : MonoBehaviour
     /// </summary>
     private void CheckCssInput()
     {
-        if (audioSource && clickSound) // $$$$
-        { // $$$$
-            audioSource.PlayOneShot(clickSound); // $$$$
-        } // $$$$
+        if (audioSource && clickSound)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
 
         var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
         var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
@@ -241,7 +249,7 @@ public class Notepad : MonoBehaviour
             SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
         }
 
-        if (inputField.GetComponent<TMP_InputField>().text != "")
+        if (inputField.GetComponent<TMP_InputField>().text != "" && canReset)
         {
             // If the input field is not empty, set the current challenge index to the button index
             currentChallengeIndex = buttonindex;
