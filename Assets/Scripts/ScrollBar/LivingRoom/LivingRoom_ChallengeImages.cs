@@ -7,8 +7,28 @@ using System;
 /// This class allows an image to be draggable within a UI canvas and provides functionality
 /// for inserting the dragged image into a horizontal scroll bar at a specific position.
 /// </summary>
-public class Bedroom1_ChallengeImage : MonoBehaviour, IPointerClickHandler
+public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
+    /// <summary>
+    /// The index of the button in the scroll area.
+    /// </summary>
+    public int _buttonIndex;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public string AssociatedCss { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    public static event Action<string> OnAnyImageClicked;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public int AssociatedIndex;
+
     /// <summary>
     /// The original parent of the image.
     /// </summary>
@@ -17,22 +37,19 @@ public class Bedroom1_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Reference to the horizontal scroll bar.
     /// </summary>
-    private Bedroom1_HorizontalScrollBar _scrollBar;
+    private LivingRoom_HorizontalScrollBar _scrollBar;
 
     /// <summary>
-    /// The index of the button in the scroll area.
+    ///
     /// </summary>
-    public int _buttonIndex;
+    private Notepad notepad;
 
-    private Bedroom1Notepad notepad;
-
-    public string AssociatedCss { get; set; }
-
-    public static event Action<string> OnAnyImageClicked;
-
-    public int AssociatedIndex;
-
-    public Bedroom1_ChallengeImage(GameObject image, string associatedCss) : base()
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="image"></param>
+    /// <param name="associatedCss"></param>
+    public void Init(GameObject image, string associatedCss)
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
@@ -44,9 +61,9 @@ public class Bedroom1_ChallengeImage : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         _originalParent = transform.parent;
-        _scrollBar = _originalParent.GetComponentInParent<Bedroom1_HorizontalScrollBar>();
+        _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
 
-        notepad = FindFirstObjectByType<Bedroom1Notepad>();
+        notepad = FindFirstObjectByType<Notepad>();
         if (notepad == null)
         {
             OnAnyImageClicked += notepad.SetCssText;
@@ -61,11 +78,15 @@ public class Bedroom1_ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         _buttonIndex = transform.GetSiblingIndex();
         notepad.buttonindex = _buttonIndex;
-        Bedroom1_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+
+        // ---------------- For debug only --------------------------
+        LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         string imageName = clickedImage.GetComponent<Image>().sprite.name;
-        Debug.Log($"Image: {imageName}, Index: {_buttonIndex}");
+        Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+        // ----------------------------------------------------------
 
         OnAnyImageClicked?.Invoke(AssociatedCss);
+        notepad.canReset = true;
     }
 
     /// <summary>

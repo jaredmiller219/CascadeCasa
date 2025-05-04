@@ -58,7 +58,7 @@ public class Notepad : MonoBehaviour
 
     private GlobalCursorManager _cursorManager;
 
-    private ChallengeImage selectedImage;
+    private LivingRoom_ChallengeImage selectedImage;
 
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
@@ -240,7 +240,7 @@ public class Notepad : MonoBehaviour
             SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // update the current challenge index to the selected image's button index
-            currentChallengeIndex = selectedImage.GetComponent<ChallengeImage>()._buttonIndex;
+            currentChallengeIndex = selectedImage.GetComponent<LivingRoom_ChallengeImage>()._buttonIndex;
 
             // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);

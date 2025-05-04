@@ -7,14 +7,14 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
 /// </summary>
-public class KitchenNotepad : MonoBehaviour
+public class Kitchen_Notepad : MonoBehaviour
 {
     /// <summary>
     /// Reference to the global cursor manager for handling cursor changes
     /// </summary>
     private GlobalCursorManager _cursorManager;
 
-    private ChallengeImage selectedImage; // Reference to the selected image
+    private Kitchen_ChallengeImage selectedImage;
 
     /// <summary>
     /// The input field where users type their CSS solutions
@@ -66,10 +66,17 @@ public class KitchenNotepad : MonoBehaviour
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
-    // $$$$ Click sound fields
-    [Header("Audio")] // $$$$
-    public AudioSource audioSource; // $$$$
-    public AudioClip clickSound; // $$$$
+    // Click sound fields
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+
+
+    /// <summary>
+    /// whether or not you can click the reset button
+    /// </summary>
+    [HideInInspector]
+    public bool canReset;
 
     /// <summary>
     /// The text area used to display hints for the current challenge
@@ -140,6 +147,8 @@ public class KitchenNotepad : MonoBehaviour
         {
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
+
+        canReset = false;
 
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
@@ -219,7 +228,7 @@ public class KitchenNotepad : MonoBehaviour
     /// </summary>
     private void CheckCssInput()
     {
-        PlayClickSound(); // $$$$
+        PlayClickSound();
 
         var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
         var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
@@ -294,7 +303,7 @@ public class KitchenNotepad : MonoBehaviour
             SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // update the current challenge index to the selected image's button index
-            currentChallengeIndex = selectedImage.GetComponent<ChallengeImage>()._buttonIndex;
+            currentChallengeIndex = selectedImage.GetComponent<Kitchen_ChallengeImage>()._buttonIndex;
 
             // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
@@ -303,7 +312,7 @@ public class KitchenNotepad : MonoBehaviour
             SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
         }
 
-        if (inputField.GetComponent<TMP_InputField>().text != "")
+        if (inputField.GetComponent<TMP_InputField>().text != "" && canReset)
         {
             // If the input field is not empty, set the current challenge index to the button index
             currentChallengeIndex = buttonindex;
@@ -319,7 +328,7 @@ public class KitchenNotepad : MonoBehaviour
     /// </summary>
     private void ResetCurrentChallenge()
     {
-        PlayClickSound(); // $$$$
+        PlayClickSound();
         LoadChallenge();
     }
 
@@ -336,11 +345,12 @@ public class KitchenNotepad : MonoBehaviour
     /// <summary>
     /// Plays the UI click sound if available
     /// </summary>
-    private void PlayClickSound() // $$$$
-    { // $$$$
-        if (audioSource && clickSound) // $$$$
-            audioSource.PlayOneShot(clickSound); // $$$$
-    } // $$$$
+    private void PlayClickSound()
+    {
+        if (audioSource && clickSound)
+            audioSource.PlayOneShot(clickSound);
+    }
+
     /// Saves the current challenge index to a file
     /// </summary>
     public void SaveProgress()

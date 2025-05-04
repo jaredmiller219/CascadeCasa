@@ -16,7 +16,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     [Header("Images")]
     public Sprite[] imageSprites;
 
-    [SerializeField] private Bedroom1Notepad notepad;
+    [SerializeField] private Bedroom1_Notepad notepad;
 
     private readonly List<Image> _scrollImages = new();
 
@@ -35,7 +35,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     {
         if (notepad == null)
         {
-            notepad = FindFirstObjectByType<Bedroom1Notepad>();
+            notepad = FindFirstObjectByType<Bedroom1_Notepad>();
             if (notepad == null)
             {
                 Debug.LogError("Notepad not found in scene!");
