@@ -65,7 +65,14 @@ public class DropdownActionMenu : MonoBehaviour
                 break;
 
             case 3:
-                // Option 3 is Quit
+                // Option 3 is Settings
+
+                // Load settings scene
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+                break;
+
+            case 4:
+                // Option 4 is Quit
 
                 // Quit the game
                 // If in editor, stop playing. If in build, quit application
