@@ -16,7 +16,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     [Header("Images")]
     public Sprite[] imageSprites;
 
-    [SerializeField] private Bedroom1Notepad notepad;
+    [SerializeField] private Bedroom1_Notepad notepad;
 
     private readonly List<Image> _scrollImages = new();
 
