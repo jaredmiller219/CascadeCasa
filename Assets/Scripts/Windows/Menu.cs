@@ -122,7 +122,8 @@ public class Menu : MonoBehaviour
     private void SetDefaultColor(TMP_Text text)
     {
         PlayClickSound();
-        StartCoroutine(LoadSceneDelayed("Settings"));
+        if (text != null)
+            text.color = new Color32(255, 255, 255, 255); // White
     }
 
     /// <summary>
@@ -135,24 +136,6 @@ public class Menu : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    public void Instructions()
-    {
-        if (instructionsText != null)
-            instructionsText.color = new Color32(200, 200, 200, 255); // Light gray
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    public void LevelSelect()
-    {
-        if (levelSelectText != null)
-            levelSelectText.color = new Color32(255, 255, 255, 255); // White
     }
 
     private void PlayClickSound()
