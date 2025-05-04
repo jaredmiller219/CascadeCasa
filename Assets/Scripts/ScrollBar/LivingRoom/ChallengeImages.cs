@@ -86,6 +86,7 @@ public class ChallengeImage : MonoBehaviour, IPointerClickHandler
         // ----------------------------------------------------------
 
         OnAnyImageClicked?.Invoke(AssociatedCss);
+        notepad.canReset = true;
     }
 
     /// <summary>
