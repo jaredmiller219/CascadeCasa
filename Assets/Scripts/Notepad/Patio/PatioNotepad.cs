@@ -63,7 +63,7 @@ public class PatioNotepad : MonoBehaviour
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
         new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
+        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n   font-size: 20px;\n  text-align: center;\n}"),
         new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
         new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
         new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
