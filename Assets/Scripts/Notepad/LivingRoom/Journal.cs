@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,12 +31,6 @@ public class Journal : MonoBehaviour
     /// Toggles the visibility of the journal popup.
     /// This method is called when the journal button is clicked.
     /// It checks if the journal popup is currently active and toggles its state accordingly.
-    /// <example>
-    /// <code>
-    /// // Example usage:
-    /// journal.ToggleJournal();
-    /// </code>
-    /// </example>
     /// </summary>
     /// <remarks>
     /// This method uses the SetActive method to show or hide the journal popup.
@@ -52,17 +45,9 @@ public class Journal : MonoBehaviour
 
     /// <summary>
     /// Sets the hover state of the journal button.
-    /// This method is called to indicate whether the mouse is hovering over the button.
-    /// <example>
-    /// <code>
-    /// // Example usage:
-    /// journal.SetHover(true); // Set hover state to true
-    /// journal.SetHover(false); // Set hover state to false
-    /// </code>
-    /// </example>
     /// </summary>
     /// <remarks>
-    /// This method uses an animator to set the hover state of the button.
+    /// This method uses an animator to set the hover state of the button.<br/>
     /// It assumes that the animator has a parameter named "hover" to control the hover animation.
     /// </remarks>
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>

@@ -17,12 +17,30 @@ public class ResetPopup : MonoBehaviour
     /// </summary>
     private Animator _animator;
 
+    /// <summary>
+    ///
+    /// </summary>
+    public AudioSource audioSource;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public AudioClip popupSound;
+
+    /// <summary>
+    /// Reference to the Notepad component that is used to check if there is any text in the notepad.
+    /// This is used to determine whether to play the animation or not.
+    /// </summary>
+    private Notepad notepad;
+
     private void Start()
     {
         // Get the Animator component attached to the resetPopup GameObject
         _animator = resetPopup.GetComponent<Animator>();
-    }
 
+        // Get the Notepad component attached to the same GameObject
+        notepad = FindFirstObjectByType<Notepad>();
+    }
 
     /// <summary>
     /// Plays the "Pull" animation on the resetPopup GameObject.
@@ -35,17 +53,26 @@ public class ResetPopup : MonoBehaviour
     /// </remarks>
     public void Animate()
     {
+        if (audioSource && popupSound)
+        {
+            audioSource.PlayOneShot(popupSound);
+        }
+
         // Check if the resetPopup GameObject or the Animator component is null
-        if (resetPopup == null || _animator == null) return;
+        if (resetPopup == null || _animator == null || notepad == null) return;
 
-        // Ensure the resetPopup GameObject is active in the scene
-        resetPopup.SetActive(true);
+        // the there is nothing in the notepad aka no text is set, then dont play the animation
+        if (notepad.inputField.GetComponent<TMPro.TMP_InputField>().text != "")
+        {
+            // Ensure the resetPopup GameObject is active in the scene
+            resetPopup.SetActive(true);
 
-        // Play the "Pull" animation from the Animator, starting at the beginning (time 0f)
-        _animator.Play("Pull", 0, 0f);
+            // Play the "Pull" animation from the Animator, starting at the beginning (time 0f)
+            _animator.Play("Pull", 0, 0f);
 
-        // Start a coroutine to wait for the animation to finish
-        StartCoroutine(WaitForAnimationToEnd());
+            // Start a coroutine to wait for the animation to finish
+            StartCoroutine(WaitForAnimationToEnd());
+        }
     }
 
     /// <summary>
@@ -66,6 +93,9 @@ public class ResetPopup : MonoBehaviour
 
         // Wait for the animation to finish
         yield return new WaitForSeconds(animationLength);
+
+        // Play the "Pull" animation from the Animator, starting at the beginning (time 0f)
+        _animator.Play("Pull", 0, 0f);
 
         // Now deactivate the popup
         resetPopup.SetActive(false);

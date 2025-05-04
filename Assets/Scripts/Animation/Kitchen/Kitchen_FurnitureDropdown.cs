@@ -27,6 +27,10 @@ public class KitchenFurnitureDropdown : MonoBehaviour
     /// </summary>
     private Animator _animator;
 
+    // $$$$ Audio fields for dropdown sound
+    public AudioSource audioSource; // $$$$
+    public AudioClip dropdownSound; // $$$$
+
     private void Start()
     {
         // Get the Animator component attached to the furnitureDropdown GameObject
@@ -50,7 +54,6 @@ public class KitchenFurnitureDropdown : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Toggles the dropdown panel's visibility and animates the button image.
     /// This method is called to pull the bar down and show/hide the dropdown panel.
@@ -67,6 +70,12 @@ public class KitchenFurnitureDropdown : MonoBehaviour
         {
             // If either is missing, exit the method
             return;
+        }
+
+        // $$$$ Play dropdown click sound
+        if (audioSource && dropdownSound) // $$$$
+        {
+            audioSource.PlayOneShot(dropdownSound); // $$$$
         }
 
         // Get the current value of the "open" parameter in the Animator
