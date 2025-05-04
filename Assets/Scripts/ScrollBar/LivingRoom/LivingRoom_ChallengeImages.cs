@@ -7,7 +7,7 @@ using System;
 /// This class allows an image to be draggable within a UI canvas and provides functionality
 /// for inserting the dragged image into a horizontal scroll bar at a specific position.
 /// </summary>
-public class ChallengeImage : MonoBehaviour, IPointerClickHandler
+public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
     /// The index of the button in the scroll area.
@@ -37,7 +37,7 @@ public class ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Reference to the horizontal scroll bar.
     /// </summary>
-    private HorizontalScrollBar _scrollBar;
+    private LivingRoom_HorizontalScrollBar _scrollBar;
 
     /// <summary>
     ///
@@ -61,7 +61,7 @@ public class ChallengeImage : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         _originalParent = transform.parent;
-        _scrollBar = _originalParent.GetComponentInParent<HorizontalScrollBar>();
+        _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
 
         notepad = FindFirstObjectByType<Notepad>();
         if (notepad == null)
@@ -80,7 +80,7 @@ public class ChallengeImage : MonoBehaviour, IPointerClickHandler
         notepad.buttonindex = _buttonIndex;
 
         // ---------------- For debug only --------------------------
-        ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+        LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         string imageName = clickedImage.GetComponent<Image>().sprite.name;
         Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
         // ----------------------------------------------------------

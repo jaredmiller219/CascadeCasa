@@ -5,10 +5,6 @@
 TODO: Make buttons on instructions panel show a dropdown pane with the text for that action
 TODO: Make the options panel on the side show a different panel based on the clicked button
 
-## KITCHEN
+## Furniature
 
-TODO: Add the rest of the functionalities from the living room scene to the kitchen scene
-
-
-//For furniture
-TODO: furniture is locked until players fix syntax, then players can drag and drop the furniture
+IDEA: each furniture is locked until players fix syntax of previous ones...? maybe...

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HorizontalScrollBar : MonoBehaviour
+public class LivingRoom_HorizontalScrollBar : MonoBehaviour
 {
 
     // ---------------- Public Variables --------------------------
@@ -75,8 +75,8 @@ public class HorizontalScrollBar : MonoBehaviour
             return;
         }
 
-        ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
-        ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
+        LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+        LivingRoom_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
 
         SetupLayout();
         StartCoroutine(DelayedLoad());
@@ -183,7 +183,7 @@ public class HorizontalScrollBar : MonoBehaviour
         if (imgObj.TryGetComponent<LayoutElement>(out var layout))
             DestroyImmediate(layout);
 
-        var image = imgObj.AddComponent<ChallengeImage>();
+        var image = imgObj.AddComponent<LivingRoom_ChallengeImage>();
         int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
         image.AssociatedCss = _cssChallenges[index].Key;
     }
@@ -242,7 +242,7 @@ public class HorizontalScrollBar : MonoBehaviour
     /// A <see cref="ChallengeImage"/> if the index is valid; otherwise, <c>null</c>
     /// if the image doesn't exist or index is out of range.
     /// </returns>
-    public ChallengeImage GetImageAtIndex(int index)
+    public LivingRoom_ChallengeImage GetImageAtIndex(int index)
     {
         if (index < 0 || index >= _scrollImages.Count)
         {
@@ -250,6 +250,6 @@ public class HorizontalScrollBar : MonoBehaviour
             return null;
         }
 
-        return _scrollImages[index].GetComponent<ChallengeImage>();
+        return _scrollImages[index].GetComponent<LivingRoom_ChallengeImage>();
     }
 }
