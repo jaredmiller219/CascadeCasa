@@ -10,25 +10,24 @@ public class LevelSelect : MonoBehaviour
     /// </summary>
     [Header("Rooms")]
     [Tooltip("The button to go to the living room scene \n lvl 1")]
-    [InspectorName("Living Room")]
+    [InspectorName("Living Button")]
     public GameObject livingRoomBtn;
+
+    [InspectorName("Pation Button")]
+    [Tooltip("The button to go to the patio scene \n lvl 7")]
     public GameObject patioBtn;
 
-
+    [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip clickSound;
 
     public void Start()
     {
-        // dont detect that we are clicking the image
-        // unless we are over the image itself
-        // rather than the bounding box
-
+        // Only detect the image and not the bounding box for click
         livingRoomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-        patioBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-        
-        
 
+        // Only detect the image and not the bounding box for click
+        patioBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
     private void PlayClickSound()
