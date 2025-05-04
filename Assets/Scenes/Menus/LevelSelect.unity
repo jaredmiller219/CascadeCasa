@@ -689,11 +689,9 @@ GameObject:
   - component: {fileID: 757312953}
   - component: {fileID: 757312952}
   - component: {fileID: 757312951}
-  - component: {fileID: 757312950}
   - component: {fileID: 757312949}
-  - component: {fileID: 757312954}
   m_Layer: 5
-  m_Name: Btn_SelectLevel (1)
+  m_Name: Btn_Patio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -816,21 +814,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &757312950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757312947}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8bbc8cc8a6a842b793575b42a9d63e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  livingRoomBtn: {fileID: 757312947}
-  audioSource: {fileID: 757312949}
-  clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
 --- !u!114 &757312951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,8 +858,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 757312954}
-        m_TargetAssemblyTypeName: LevelSelectPatio, Assembly-CSharp
+      - m_Target: {fileID: 1921310089}
+        m_TargetAssemblyTypeName: LevelSelect, Assembly-CSharp
         m_MethodName: Patio
         m_Mode: 1
         m_Arguments:
@@ -925,21 +908,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 757312947}
   m_CullTransparentMesh: 1
---- !u!114 &757312954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757312947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f005c77bb8852da4e90daa79e01cc839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patioBtn: {fileID: 757312947}
-  audioSource: {fileID: 757312949}
-  clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
 --- !u!1 &953402473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   livingRoomBtn: {fileID: 1691568962}
+  patioBtn: {fileID: 0}
   audioSource: {fileID: 1343642870}
   clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
 --- !u!4 &1343642872
@@ -1532,7 +1501,6 @@ GameObject:
   - component: {fileID: 1691568966}
   - component: {fileID: 1691568965}
   - component: {fileID: 1691568964}
-  - component: {fileID: 1691568967}
   - component: {fileID: 1691568968}
   m_Layer: 5
   m_Name: Btn_SelectLevel
@@ -1605,7 +1573,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1691568967}
+      - m_Target: {fileID: 1921310089}
         m_TargetAssemblyTypeName: LevelSelect, Assembly-CSharp
         m_MethodName: LivingRoom
         m_Mode: 1
@@ -1655,21 +1623,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691568962}
   m_CullTransparentMesh: 1
---- !u!114 &1691568967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691568962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8bbc8cc8a6a842b793575b42a9d63e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  livingRoomBtn: {fileID: 1691568962}
-  audioSource: {fileID: 1691568968}
-  clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
 --- !u!82 &1691568968
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1855,6 +1808,7 @@ GameObject:
   - component: {fileID: 1921310085}
   - component: {fileID: 1921310084}
   - component: {fileID: 1921310088}
+  - component: {fileID: 1921310089}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1939,8 +1893,8 @@ RectTransform:
   m_Children:
   - {fileID: 1899286391}
   - {fileID: 1691568963}
-  - {fileID: 757312948}
   - {fileID: 286038018}
+  - {fileID: 757312948}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2045,6 +1999,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1921310089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921310083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8bbc8cc8a6a842b793575b42a9d63e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  livingRoomBtn: {fileID: 1691568962}
+  patioBtn: {fileID: 757312947}
+  audioSource: {fileID: 1691568968}
+  clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

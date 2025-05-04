@@ -9,9 +9,10 @@ public class LevelSelect : MonoBehaviour
     /// The button to go to the living room scene
     /// </summary>
     [Header("Rooms")]
-    [Tooltip("The button to go to the living room scene")]
-    [InspectorName("Living Room \n Lvl 1")]
+    [Tooltip("The button to go to the living room scene \n lvl 1")]
+    [InspectorName("Living Room")]
     public GameObject livingRoomBtn;
+    public GameObject patioBtn;
 
 
     public AudioSource audioSource;
@@ -24,6 +25,7 @@ public class LevelSelect : MonoBehaviour
         // rather than the bounding box
 
         livingRoomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+        patioBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
         
         
 
@@ -41,6 +43,12 @@ public class LevelSelect : MonoBehaviour
         StartCoroutine(LoadLivingRoom());
     }
 
+    public void Patio()
+    {
+        PlayClickSound();
+        StartCoroutine(LoadPatio());
+    }
+
     /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
@@ -48,5 +56,11 @@ public class LevelSelect : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("Living Room");
+    }
+
+    public IEnumerator LoadPatio()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Patio");
     }
 }
