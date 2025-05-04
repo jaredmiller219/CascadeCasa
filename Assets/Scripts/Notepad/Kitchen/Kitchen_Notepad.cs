@@ -66,10 +66,10 @@ public class Kitchen_Notepad : MonoBehaviour
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
-    // $$$$ Click sound fields
-    [Header("Audio")] // $$$$
-    public AudioSource audioSource; // $$$$
-    public AudioClip clickSound; // $$$$
+    // Click sound fields
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip clickSound;
 
 
     /// <summary>
@@ -228,7 +228,7 @@ public class Kitchen_Notepad : MonoBehaviour
     /// </summary>
     private void CheckCssInput()
     {
-        PlayClickSound(); // $$$$
+        PlayClickSound();
 
         var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
         var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
@@ -328,7 +328,7 @@ public class Kitchen_Notepad : MonoBehaviour
     /// </summary>
     private void ResetCurrentChallenge()
     {
-        PlayClickSound(); // $$$$
+        PlayClickSound();
         LoadChallenge();
     }
 
@@ -345,11 +345,12 @@ public class Kitchen_Notepad : MonoBehaviour
     /// <summary>
     /// Plays the UI click sound if available
     /// </summary>
-    private void PlayClickSound() // $$$$
-    { // $$$$
-        if (audioSource && clickSound) // $$$$
-            audioSource.PlayOneShot(clickSound); // $$$$
-    } // $$$$
+    private void PlayClickSound()
+    {
+        if (audioSource && clickSound)
+            audioSource.PlayOneShot(clickSound);
+    }
+
     /// Saves the current challenge index to a file
     /// </summary>
     public void SaveProgress()

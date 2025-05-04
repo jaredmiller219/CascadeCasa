@@ -8,9 +8,8 @@ public class KitchenJournal : MonoBehaviour
     [SerializeField] private Button journalButton;
     private Animator animator;
 
-    // $$$$ Sound variables
-    public AudioSource audioSource; // $$$$
-    public AudioClip pageFlipSound; // $$$$
+    public AudioSource audioSource;
+    public AudioClip pageFlipSound;
 
     private void Start()
     {
@@ -23,9 +22,9 @@ public class KitchenJournal : MonoBehaviour
 
     public void ToggleJournal()
     {
-        // $$$$ Play sound when toggled
-        if (audioSource && pageFlipSound) // $$$$
-            audioSource.PlayOneShot(pageFlipSound); // $$$$
+        // Play sound when toggled
+        if (audioSource && pageFlipSound)
+            audioSource.PlayOneShot(pageFlipSound);
 
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
