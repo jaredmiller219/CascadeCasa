@@ -24,7 +24,7 @@ public class Bedroom1_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public int _buttonIndex;
 
-    private Bedroom1Notepad notepad;
+    private Bedroom1_Notepad notepad;
 
     public string AssociatedCss { get; set; }
 
