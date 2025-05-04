@@ -35,7 +35,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     {
         if (notepad == null)
         {
-            notepad = FindFirstObjectByType<Bedroom1Notepad>();
+            notepad = FindFirstObjectByType<Bedroom1_Notepad>();
             if (notepad == null)
             {
                 Debug.LogError("Notepad not found in scene!");
