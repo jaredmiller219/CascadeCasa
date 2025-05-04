@@ -3,16 +3,16 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 
-public class LevelSelect : MonoBehaviour
+public class LevelSelectPatio : MonoBehaviour
 {
     /// <summary>
     /// The button to go to the living room scene
     /// </summary>
     [Header("Rooms")]
-    [Tooltip("The button to go to the living room scene")]
-    [InspectorName("Living Room \n Lvl 1")]
-    public GameObject livingRoomBtn;
-
+    [Tooltip("The button to go to the patio scene")]
+    [InspectorName("Patio \n Lvl 7")]
+    
+    public GameObject patioBtn;
 
     public AudioSource audioSource;
     public AudioClip clickSound;
@@ -22,9 +22,8 @@ public class LevelSelect : MonoBehaviour
         // dont detect that we are clicking the image
         // unless we are over the image itself
         // rather than the bounding box
-
-        livingRoomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
         
+        patioBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
         
 
     }
@@ -35,18 +34,20 @@ public class LevelSelect : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
     }
 
-    public void LivingRoom()
-    {
-        PlayClickSound();
-        StartCoroutine(LoadLivingRoom());
-    }
 
     /// <summary>
     /// This method is called when the script instance is being loaded.
     /// </summary>
-    public IEnumerator LoadLivingRoom()
+
+
+    public void Patio()
+    {
+        PlayClickSound();
+        StartCoroutine(LoadPatio());
+    }
+    public IEnumerator LoadPatio()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Living Room");
+        SceneManager.LoadScene("Patio");
     }
 }
