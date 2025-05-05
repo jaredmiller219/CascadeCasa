@@ -37,6 +37,12 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     [Header("Images")]
     public Sprite[] imageSprites;
+
+    /// <summary>
+    /// The sprite for when the challenge is complete
+    /// </summary>
+    [Header("Overlays")]
+    public Sprite checkmarkSprite;
     // --------------------------------------------------------------
 
 
@@ -251,5 +257,30 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
         }
 
         return _scrollImages[index].GetComponent<LivingRoom_ChallengeImage>();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="index"></param>
+    public void MarkChallengeCompleted(int index)
+    {
+        if (index < 0 || index >= _scrollImages.Count)
+        {
+            Debug.LogWarning($"Invalid index {index} for marking challenge as complete.");
+            return;
+        }
+
+        GameObject button = _scrollImages[index].gameObject;
+        Transform checkmark = button.transform.Find("Checkmark");
+
+        if (checkmark != null)
+        {
+            checkmark.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Checkmark object not found under button!");
+        }
     }
 }
