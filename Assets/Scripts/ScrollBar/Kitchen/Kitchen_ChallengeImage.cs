@@ -82,7 +82,7 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
         // ---------------- For debug only --------------------------
         Kitchen_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         string imageName = clickedImage.GetComponent<Image>().sprite.name;
-        Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+        // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
         // ----------------------------------------------------------
 
         OnAnyImageClicked?.Invoke(AssociatedCss);

@@ -63,7 +63,7 @@ public class Bedroom2_ChallengeImage : MonoBehaviour, IPointerClickHandler
         notepad.buttonindex = _buttonIndex;
         Bedroom2_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         string imageName = clickedImage.GetComponent<Image>().sprite.name;
-        Debug.Log($"Image: {imageName}, Index: {_buttonIndex}");
+        // Debug.Log($"Image: {imageName}, Index: {_buttonIndex}");
 
         OnAnyImageClicked?.Invoke(AssociatedCss);
     }
