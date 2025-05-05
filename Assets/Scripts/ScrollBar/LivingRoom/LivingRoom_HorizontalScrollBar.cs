@@ -277,6 +277,12 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
         if (checkmark != null)
         {
             checkmark.gameObject.SetActive(true);
+            var challengeImage = button.GetComponent<LivingRoom_ChallengeImage>();
+            if (challengeImage != null)
+            {
+                challengeImage.completed = true;
+            }
+            // Debug.Log($"Completed = {challengeImage.completed}");
         }
         else
         {
