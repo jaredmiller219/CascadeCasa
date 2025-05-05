@@ -64,7 +64,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
 
         notepad = FindFirstObjectByType<Notepad>();
-        if (notepad == null)
+        if (notepad != null)
         {
             OnAnyImageClicked += notepad.SetCssText;
         }
