@@ -1482,7 +1482,7 @@ GameObject:
   - component: {fileID: 615742656}
   - component: {fileID: 615742655}
   - component: {fileID: 615742654}
-  - component: {fileID: 615742653}
+  - component: {fileID: 615742657}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -1511,29 +1511,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &615742653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615742651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6a2316760014a85a5b93ee718179fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 1836155944}
-  imagePrefab: {fileID: 6493582166146260891, guid: 1aec1cbf72fce4114bc4803c86c58eeb, type: 3}
-  spacing: 50
-  imageSize: {x: 70, y: 70}
-  imageSprites:
-  - {fileID: -8938819534478884857, guid: 6002686c31fc2402b90009d8bc47666c, type: 3}
-  - {fileID: -271153395187383962, guid: 1e009b283cc6f41a699328afcfaea24c, type: 3}
-  - {fileID: 4992453765389984465, guid: ec9c600bdcc2140269ec2cf0559354f7, type: 3}
-  - {fileID: -5649470061204452833, guid: bb8f42a0bf9df451d8e3b50e2296b00f, type: 3}
-  - {fileID: -3302215156215320260, guid: 390404bca98f542fe9a0a2778ee8c910, type: 3}
-  - {fileID: -5696803668876324512, guid: 043b5137423644e619b837108c463256, type: 3}
 --- !u!114 &615742654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1602,6 +1579,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615742651}
   m_CullTransparentMesh: 1
+--- !u!114 &615742657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615742651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: affc0dcd662a14752879dcaef00d980e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 1836155944}
+  imagePrefab: {fileID: 6493582166146260891, guid: 1aec1cbf72fce4114bc4803c86c58eeb, type: 3}
+  spacing: 50
+  imageSize: {x: 70, y: 70}
+  imageSprites: []
+  notepad: {fileID: 1044200187}
 --- !u!1 &640297243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,7 +1706,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
+  m_AnchoredPosition: {x: 0, y: -0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &658410679
@@ -1920,7 +1915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000076293945, y: 221.40002}
+  m_AnchoredPosition: {x: 0.000076293945, y: 221.40005}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &847895526
@@ -1976,6 +1971,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resetPopup: {fileID: 576404817}
+  audioSource: {fileID: 0}
+  popupSound: {fileID: 0}
 --- !u!114 &847895529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2533,8 +2530,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 289819167}
   m_HandleRect: {fileID: 289819166}
   m_Direction: 3
-  m_Value: 0.00000010337933
-  m_Size: 0
+  m_Value: -0.00000013783912
+  m_Size: 0.26200002
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2787,9 +2784,12 @@ MonoBehaviour:
   resetBtn: {fileID: 847895526}
   resetPopup: {fileID: 576404817}
   currentChallengeIndex: 0
+  buttonindex: 0
   challengeComplete: {fileID: 464430187}
   audioSource: {fileID: 1044200188}
   clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
+  canReset: 0
+  hintText: {fileID: 1678743291}
 --- !u!82 &1044200188
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3962,7 +3962,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1661657832}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1044200179}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1661657832
 MonoBehaviour:
   m_ObjectHideFlags: 0
