@@ -64,7 +64,7 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _scrollBar = _originalParent.GetComponentInParent<Kitchen_HorizontalScrollBar>();
 
         notepad = FindFirstObjectByType<Kitchen_Notepad>();
-        if (notepad == null)
+        if (notepad != null)
         {
             OnAnyImageClicked += notepad.SetCssText;
         }

@@ -34,11 +34,11 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
     private void Start()
     {
         notepad = FindFirstObjectByType<Bedroom2_Notepad>();
-        if (notepad == null)
-        {
-            Debug.LogError("Notepad not found in scene!");
-            return;
-        }
+        // if (notepad == null)
+        // {
+        //     Debug.LogError("Notepad not found in scene!");
+        //     return;
+        // }
 
         Bedroom2_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
         Bedroom2_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;

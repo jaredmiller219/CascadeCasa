@@ -1534,6 +1534,7 @@ MonoBehaviour:
   - {fileID: -5649470061204452833, guid: bb8f42a0bf9df451d8e3b50e2296b00f, type: 3}
   - {fileID: -3302215156215320260, guid: 390404bca98f542fe9a0a2778ee8c910, type: 3}
   - {fileID: -5696803668876324512, guid: 043b5137423644e619b837108c463256, type: 3}
+  notepad: {fileID: 0}
 --- !u!114 &615742654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1920,7 +1921,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000076293945, y: 221.40002}
+  m_AnchoredPosition: {x: 0.000076293945, y: 221.40005}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &847895526
@@ -1976,6 +1977,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resetPopup: {fileID: 576404817}
+  audioSource: {fileID: 0}
+  popupSound: {fileID: 0}
 --- !u!114 &847895529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2533,8 +2536,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 289819167}
   m_HandleRect: {fileID: 289819166}
   m_Direction: 3
-  m_Value: 0.00000010337933
-  m_Size: 0
+  m_Value: -0.00000013783912
+  m_Size: 0.00000035603844
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2787,9 +2790,12 @@ MonoBehaviour:
   resetBtn: {fileID: 847895526}
   resetPopup: {fileID: 576404817}
   currentChallengeIndex: 0
+  buttonindex: 0
   challengeComplete: {fileID: 464430187}
   audioSource: {fileID: 1044200188}
   clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
+  canReset: 0
+  hintText: {fileID: 1417327722}
 --- !u!82 &1044200188
 AudioSource:
   m_ObjectHideFlags: 0
