@@ -62,18 +62,18 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
         new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
         new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
         new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
+        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
     };
     // --------------------------------------------------------------
 
     private void Start()
     {
         notepad = FindFirstObjectByType<Notepad>();
-        // if (notepad == null)
-        // {
-        //     Debug.LogError("Notepad not found in scene!");
-        //     return;
-        // }
+        if (notepad == null)
+        {
+            Debug.LogError("Notepad not found in scene!");
+            return;
+        }
 
         LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
         LivingRoom_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;

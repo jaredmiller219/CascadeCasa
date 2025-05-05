@@ -24,7 +24,7 @@ public class Bedroom2_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public int _buttonIndex;
 
-    private Notepad notepad;
+    private Bedroom2_Notepad notepad;
 
     public string AssociatedCss { get; set; }
 
@@ -46,7 +46,7 @@ public class Bedroom2_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _originalParent = transform.parent;
         _scrollBar = _originalParent.GetComponentInParent<Bedroom2_HorizontalScrollBar>();
 
-        notepad = FindFirstObjectByType<Notepad>();
+        notepad = FindFirstObjectByType<Bedroom2_Notepad>();
         if (notepad == null)
         {
             OnAnyImageClicked += notepad.SetCssText;
