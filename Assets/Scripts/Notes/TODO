@@ -22,3 +22,5 @@ TODO: Make a checkmark over the challenges that have been completed,
 TODO: Make sure when you click the challanege buttons, that it saves its previous syntax, when you swap to a different button. rather than set back to the one it is initialized as. (it should reset it if you click the reset button though (it already does that part))
 
 TODO: Dont show the reset popup when you havent selected a button(challenge) yet
+
+TODO: make sure the level end screen shows up when you finish the entire level (once all items in the scroll bar have been completed)
