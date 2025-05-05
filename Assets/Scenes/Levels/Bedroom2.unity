@@ -1299,7 +1299,6 @@ GameObject:
   - component: {fileID: 264586023}
   - component: {fileID: 264586022}
   - component: {fileID: 264586021}
-  - component: {fileID: 264586020}
   - component: {fileID: 264586024}
   m_Layer: 5
   m_Name: Scroll View
@@ -1329,51 +1328,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &264586020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264586018}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6a2316760014a85a5b93ee718179fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 1796240890}
-  imagePrefab: {fileID: 6493582166146260891, guid: 1aec1cbf72fce4114bc4803c86c58eeb, type: 3}
-  spacing: 50
-  imageSize: {x: 70, y: 70}
-  imageSprites:
-  - {fileID: -7209445605734529269, guid: 40b947c09949547859b9edb570a7d238, type: 3}
-  - {fileID: -7232521027535748977, guid: a0106ec4a4e5f4e9da221c181fa391ba, type: 3}
-  - {fileID: -630575523452681867, guid: 50920256ca93c48a1a8313e06161d499, type: 3}
-  - {fileID: 7846264558819029613, guid: b2e41a61027614859b7e6164426458e2, type: 3}
-  - {fileID: 2651853065406761059, guid: e8298e06e947446569adef9ecf0e1b4e, type: 3}
-  - {fileID: -2973770882177412566, guid: 0d3ea2d51d8a74b0e9790edb16169a29, type: 3}
-  - {fileID: -6688700618123902142, guid: 80a9913c8eee44161af8a1b03fcca054, type: 3}
-  - {fileID: -8882357285226239191, guid: 97dad21008f7540878c77124969a2c12, type: 3}
-  - {fileID: 7553027904171652940, guid: 7ec74848bdfb34cd4be3b2d67baf4c42, type: 3}
-  - {fileID: -1555911350213759836, guid: 530a2d7d0f943406fa7add9838890406, type: 3}
-  - {fileID: 211713144629897761, guid: 530a2d7d0f943406fa7add9838890406, type: 3}
-  - {fileID: 3670646356438224778, guid: 530a2d7d0f943406fa7add9838890406, type: 3}
-  - {fileID: 1932116897343216958, guid: 530a2d7d0f943406fa7add9838890406, type: 3}
-  - {fileID: 3709000229250067790, guid: 9aaf479ec918a455abc108c09a8cb849, type: 3}
-  - {fileID: 9045208880589451659, guid: 0b0d19e245d7f4af78424aa6d3cc26d3, type: 3}
-  - {fileID: -6595189503685875772, guid: 966c97f2f00eb4b8f866398456723c53, type: 3}
-  - {fileID: 904467551136598371, guid: 87dee809034e844899e96444b5ec072e, type: 3}
-  - {fileID: 6201100504904077345, guid: 515498caf893a426296c255b5f6149ad, type: 3}
-  - {fileID: -3767114249935266150, guid: e988e5fe8da8843c18d025ef0bb65768, type: 3}
-  - {fileID: 5795814407860715475, guid: 990e0b7b27a774aaf9c450507b47a8e6, type: 3}
-  - {fileID: 8205129164779952402, guid: 990e0b7b27a774aaf9c450507b47a8e6, type: 3}
-  - {fileID: 6985810002543488068, guid: b4616b855b3ab4ce1824b936b2aed0de, type: 3}
-  - {fileID: 3402242752186918546, guid: d1f6605642a07498b99a0474039f61da, type: 3}
-  - {fileID: 1365539031471768751, guid: 946a0bc9556114806b130b92fda4eae2, type: 3}
-  - {fileID: 8033975403568566451, guid: 6fb79484c0ea04680a7ce5f903a488bb, type: 3}
-  - {fileID: 8033975403568566451, guid: 6fb79484c0ea04680a7ce5f903a488bb, type: 3}
-  - {fileID: 8033975403568566451, guid: 6fb79484c0ea04680a7ce5f903a488bb, type: 3}
-  notepad: {fileID: 0}
 --- !u!114 &264586021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2481,7 +2435,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 151048660}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3083,6 +3037,7 @@ GameObject:
   - component: {fileID: 1267334712}
   - component: {fileID: 1267334711}
   - component: {fileID: 1267334710}
+  - component: {fileID: 1267334715}
   m_Layer: 5
   m_Name: ResetBtn
   m_TagString: Untagged
@@ -3097,7 +3052,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1267334709}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1306f3dedd54451985eef3697847758, type: 3}
   m_Name: 
@@ -3217,6 +3172,19 @@ RectTransform:
   m_AnchoredPosition: {x: -117.50006, y: 10.799988}
   m_SizeDelta: {x: 140, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1267334715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267334709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593e3c0a2be5f44a0a79ad8b7d95ddd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetPopup: {fileID: 1569367237}
 --- !u!1 &1319052254
 GameObject:
   m_ObjectHideFlags: 0
@@ -3326,7 +3294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000009233842}
+  m_AnchoredPosition: {x: 0, y: -0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1497931829
@@ -4082,8 +4050,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1923951025}
   m_HandleRect: {fileID: 1923951024}
   m_Direction: 3
-  m_Value: 0.00000013783911
-  m_Size: 0.00000030517577
+  m_Value: 0
+  m_Size: 0.00000015258789
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4210,7 +4178,7 @@ GameObject:
   - component: {fileID: 1876015331}
   - component: {fileID: 1876015330}
   - component: {fileID: 1876015329}
-  - component: {fileID: 1876015328}
+  - component: {fileID: 1876015332}
   m_Layer: 5
   m_Name: PullDownBtn
   m_TagString: Untagged
@@ -4238,20 +4206,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -200}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1876015328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876015326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017b97aca39524bc3a9409ab9bf5b1cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  furnitureDropdown: {fileID: 106003346}
-  btnImage: {fileID: 126270058}
 --- !u!114 &1876015329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4296,8 +4250,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1876015328}
-        m_TargetAssemblyTypeName: KitchenFurnitureDropdown, Assembly-CSharp
+      - m_Target: {fileID: 1876015332}
+        m_TargetAssemblyTypeName: Bedroom2_FurnitureDropdown, Assembly-CSharp
         m_MethodName: PullBarDown
         m_Mode: 1
         m_Arguments:
@@ -4346,6 +4300,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876015326}
   m_CullTransparentMesh: 1
+--- !u!114 &1876015332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876015326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2150212bd9b24c649c2598cea9fe150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnitureDropdown: {fileID: 106003346}
+  btnImage: {fileID: 126270058}
 --- !u!1 &1923951023
 GameObject:
   m_ObjectHideFlags: 0
