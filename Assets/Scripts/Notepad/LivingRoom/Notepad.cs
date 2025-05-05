@@ -192,6 +192,12 @@ public class Notepad : MonoBehaviour
 
             SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
 
+            var scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
+            if (scrollBar != null)
+            {
+                scrollBar.MarkChallengeCompleted(buttonindex);
+            }
+
             // Load the next challenge after a delay
             // Invoke(nameof(NextChallenge), 1.5f);
         }
