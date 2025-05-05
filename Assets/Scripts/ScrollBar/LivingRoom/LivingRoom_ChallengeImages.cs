@@ -30,6 +30,11 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     public int AssociatedIndex;
 
     /// <summary>
+    /// if the challenge was completed
+    /// </summary>
+    public bool completed { get; set; }
+
+    /// <summary>
     /// The original parent of the image.
     /// </summary>
     private Transform _originalParent;
@@ -53,6 +58,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
+        // completed = false;
     }
 
     /// <summary>
@@ -68,6 +74,8 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         {
             OnAnyImageClicked += notepad.SetCssText;
         }
+
+        completed = false;
     }
 
     /// <summary>
@@ -76,18 +84,21 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        _buttonIndex = transform.GetSiblingIndex();
-        notepad.buttonindex = _buttonIndex;
+        if (!completed)
+        {
+            _buttonIndex = transform.GetSiblingIndex();
+            notepad.buttonindex = _buttonIndex;
 
-        // ---------------- For debug only --------------------------
-        LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-        string imageName = clickedImage.GetComponent<Image>().sprite.name;
-        // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
-        // ----------------------------------------------------------
+            // ---------------- For debug only --------------------------
+            LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            string imageName = clickedImage.GetComponent<Image>().sprite.name;
+            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+            // ----------------------------------------------------------
 
-        OnAnyImageClicked?.Invoke(AssociatedCss);
-        notepad.canReset = true;
-        notepad.LoadChallenge();
+            OnAnyImageClicked?.Invoke(AssociatedCss);
+            notepad.canReset = true;
+            notepad.LoadChallenge();
+        }
     }
 
     /// <summary>
