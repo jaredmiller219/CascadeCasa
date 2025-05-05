@@ -8,3 +8,15 @@ TODO: Make the options panel on the side show a different panel based on the cli
 ## Furniature
 
 IDEA: each furniture is locked until players fix syntax of previous ones...? maybe...
+
+## BugFixes
+
+BUGFIXES
+BUG: When you start the game, it starts without the correct cursor unless you open the settings panel
+(It somehow does it correctly when you play in the unity editor from the menu screen)
+
+## All
+
+TODO: Make a checkmark over the challenges that have been completed,
+
+TODO: Make sure when you click the challanege buttons, that it saves its previous syntax, when you swap to a different button. rather than set back to the one it is initialized as. (it should reset it if you click the reset button though (it already does that part))
