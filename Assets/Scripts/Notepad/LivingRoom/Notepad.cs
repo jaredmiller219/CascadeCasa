@@ -231,7 +231,7 @@ public class Notepad : MonoBehaviour
         }
     }
 
-    private void LoadChallenge()
+    public void LoadChallenge()
     {
         // if the image exists, then we can set the text in the notepad
         if (selectedImage != null)
