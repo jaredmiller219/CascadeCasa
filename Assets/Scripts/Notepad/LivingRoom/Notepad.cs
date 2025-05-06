@@ -269,8 +269,14 @@ public class Notepad : MonoBehaviour
         {
             // If the input field is not empty, set the current challenge index to the button index
             currentChallengeIndex = buttonindex;
+
+            // Set the input field text to the incorrect CSS snippet for the current challenge
             SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
+
+            // Display a message prompting the user to fix the syntax
             SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
         }
 
