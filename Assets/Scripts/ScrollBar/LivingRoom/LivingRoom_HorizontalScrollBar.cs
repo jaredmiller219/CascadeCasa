@@ -272,17 +272,19 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
         }
 
         GameObject button = _scrollImages[index].gameObject;
-        Transform checkmark = button.transform.Find("Checkmark");
 
-        if (checkmark != null)
+        Transform Checkmark = button.transform.Find("Checkmark");
+        Transform Lock = button.transform.Find("Lock");
+
+        if (Checkmark != null && Lock != null)
         {
-            checkmark.gameObject.SetActive(true);
-            var challengeImage = button.GetComponent<LivingRoom_ChallengeImage>();
-            if (challengeImage != null)
+            Checkmark.gameObject.SetActive(true);
+            Lock.gameObject.SetActive(false);
+            if (button.TryGetComponent<LivingRoom_ChallengeImage>(out var challengeImage))
             {
-                challengeImage.completed = true;
+                challengeImage.Completed = true;
+                challengeImage.Locked = false;
             }
-            // Debug.Log($"Completed = {challengeImage.completed}");
         }
         else
         {
