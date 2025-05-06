@@ -90,6 +90,10 @@ public class Notepad : MonoBehaviour
 
     private int _previousCursorIndex;
 
+    // Dictionary to store each challenge's user input by its index
+    private Dictionary<int, string> challengeInputs = new();
+
+
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
@@ -249,9 +253,19 @@ public class Notepad : MonoBehaviour
         {
             // update the current challenge index to the selected image's button index
             currentChallengeIndex = selectedImage.GetComponent<LivingRoom_ChallengeImage>()._buttonIndex;
-
+            // Check if there is user input for the current challenge
+            if (challengeInputs.ContainsKey(currentChallengeIndex))
+            {
+                // Load the user's previous input for this specific challenge
+                SetTextOfComponent(inputField, challengeInputs[currentChallengeIndex], Color.black, true);
+            }
+            else
+            {
+                // No user input saved, so load the default incorrect CSS for the current challenge
+                SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+            }
             // Set the input field text to the incorrect CSS snippet for the current challenge
-            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+            // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
@@ -281,6 +295,8 @@ public class Notepad : MonoBehaviour
 
     private void ResetCurrentChallenge()
     {
+        // Reset the user's input for the current challenge to the original incorrect syntax
+        challengeInputs[currentChallengeIndex] = "";
         LoadChallenge();
     }
 
