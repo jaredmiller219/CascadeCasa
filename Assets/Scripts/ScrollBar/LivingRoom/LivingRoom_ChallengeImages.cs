@@ -97,6 +97,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
 
             OnAnyImageClicked?.Invoke(AssociatedCss);
             notepad.canReset = true;
+            notepad.canSubmit = true;
             notepad.LoadChallenge();
         }
     }
