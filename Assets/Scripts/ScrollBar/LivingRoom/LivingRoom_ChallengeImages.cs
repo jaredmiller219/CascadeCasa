@@ -32,7 +32,9 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// if the challenge was completed
     /// </summary>
-    public bool completed { get; set; }
+    public bool Completed { get; set; }
+
+    public bool Locked { get; set; }
 
     /// <summary>
     /// The original parent of the image.
@@ -58,7 +60,6 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
-        // completed = false;
     }
 
     /// <summary>
@@ -75,7 +76,8 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
             OnAnyImageClicked += notepad.SetCssText;
         }
 
-        completed = false;
+        Completed = false;
+        Locked = true;
     }
 
     /// <summary>
@@ -84,7 +86,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!completed)
+        if (!Completed)
         {
             _buttonIndex = transform.GetSiblingIndex();
             notepad.buttonindex = _buttonIndex;
