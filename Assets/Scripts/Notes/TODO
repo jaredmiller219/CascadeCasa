@@ -12,8 +12,7 @@ IDEA: each furniture is locked until players fix syntax of previous ones...? may
 ## BugFixes
 
 BUGFIXES
-BUG: When you start the game, it starts without the correct cursor unless you open the settings panel
-(It somehow does it correctly when you play in the unity editor from the menu screen)
+BUG: When the challenge is correct and you click the next item, you need to reset the challenge text above the buttons
 
 ## All
 
