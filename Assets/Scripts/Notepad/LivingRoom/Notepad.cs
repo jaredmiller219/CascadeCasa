@@ -252,11 +252,11 @@ public class Notepad : MonoBehaviour
         // if the image exists, then we can set the text in the notepad
         if (selectedImage != null)
         {
-            // Set the input field text to the incorrect CSS snippet for the current challenge
-            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-
             // update the current challenge index to the selected image's button index
             currentChallengeIndex = selectedImage.GetComponent<LivingRoom_ChallengeImage>()._buttonIndex;
+
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
@@ -270,6 +270,8 @@ public class Notepad : MonoBehaviour
             // If the input field is not empty, set the current challenge index to the button index
             currentChallengeIndex = buttonindex;
             SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
+            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
         }
 
         // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
