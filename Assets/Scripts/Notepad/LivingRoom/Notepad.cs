@@ -54,6 +54,12 @@ public class Notepad : MonoBehaviour
     [HideInInspector]
     public bool canReset;
 
+    /// <summary>
+    /// whether or not you can click the submit button
+    /// </summary>
+    [HideInInspector]
+    public bool canSubmit;
+
     private readonly string saveFilePath;
 
     private GlobalCursorManager _cursorManager;
@@ -101,6 +107,7 @@ public class Notepad : MonoBehaviour
         }
 
         canReset = false;
+        canSubmit = false;
 
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
@@ -180,31 +187,34 @@ public class Notepad : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
         }
 
-        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
-        var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
-
-        var normalizedUserInput = NormalizeCss(userInput);
-        var normalizedCorrectCss = NormalizeCss(correctCss);
-
-        if (normalizedUserInput == normalizedCorrectCss)
+        if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
-            // SubmitCSS(userInput);
+            var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+            var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
 
-            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+            var normalizedUserInput = NormalizeCss(userInput);
+            var normalizedCorrectCss = NormalizeCss(correctCss);
 
-            var scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
-            if (scrollBar != null)
+            if (normalizedUserInput == normalizedCorrectCss)
             {
-                scrollBar.MarkChallengeCompleted(buttonindex);
-            }
+                // SubmitCSS(userInput);
 
-            // Load the next challenge after a delay
-            // Invoke(nameof(NextChallenge), 1.5f);
-        }
-        else
-        {
-            // If the input is incorrect, display error feedback
-            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+                SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+
+                var scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
+                if (scrollBar != null)
+                {
+                    scrollBar.MarkChallengeCompleted(buttonindex);
+                }
+
+                // Load the next challenge after a delay
+                // Invoke(nameof(NextChallenge), 1.5f);
+            }
+            else
+            {
+                // If the input is incorrect, display error feedback
+                SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+            }
         }
     }
 
