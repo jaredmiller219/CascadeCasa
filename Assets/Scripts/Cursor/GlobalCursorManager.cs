@@ -72,7 +72,7 @@ public class GlobalCursorManager : MonoBehaviour
             InitializeCursorTextures();
 
             // Load the saved cursor preference and apply it
-            LoadSavedCursor();
+            // LoadSavedCursor();
 
             // Prevent this GameObject from being destroyed when loading new scenes
             DontDestroyOnLoad(gameObject);
@@ -83,6 +83,12 @@ public class GlobalCursorManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
+
+
+    private void Start()
+    {
+        LoadSavedCursor(); // Now moved here instead of Awake()
     }
 
     /// <summary>
