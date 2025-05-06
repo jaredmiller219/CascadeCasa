@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -176,6 +177,12 @@ public class Notepad : MonoBehaviour
         }
     }
 
+    private IEnumerator HandleCorrectInput()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SetTextOfComponent(feedbackText, "Select a new furniture", Color.green, false);
+    }
+
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
     /// </summary>
@@ -205,6 +212,9 @@ public class Notepad : MonoBehaviour
                 {
                     scrollBar.MarkChallengeCompleted(buttonindex);
                 }
+                SetTextOfComponent(inputField, "", Color.clear, false);
+
+                StartCoroutine(HandleCorrectInput());
 
                 // Load the next challenge after a delay
                 // Invoke(nameof(NextChallenge), 1.5f);
@@ -279,8 +289,20 @@ public class Notepad : MonoBehaviour
             // If the input field is not empty, set the current challenge index to the button index
             currentChallengeIndex = buttonindex;
 
+            // Check if there is user input for the current challenge
+            if (challengeInputs.ContainsKey(currentChallengeIndex))
+            {
+                // Load the user's previous input for this specific challenge
+                SetTextOfComponent(inputField, challengeInputs[currentChallengeIndex], Color.black, true);
+            }
+            else
+            {
+                // No user input saved, so load the default incorrect CSS for the current challenge
+                SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+            }
+
             // Set the input field text to the incorrect CSS snippet for the current challenge
-            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+            // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
