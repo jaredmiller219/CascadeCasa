@@ -113,11 +113,6 @@ public class Notepad : MonoBehaviour
         // LoadChallenge();
     }
 
-    // public Notepad()
-    // {
-    //     selectedImage = null; // Initially no image selected
-    // }
-
     public void SetCssText(string css)
     {
         // inputField.GetComponent<TMP_InputField>().text = css;
