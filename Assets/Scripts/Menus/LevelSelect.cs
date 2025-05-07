@@ -25,6 +25,21 @@ public class LevelSelect : MonoBehaviour
     [Tooltip("The button to go to the bathroom \n lvl _")]
     public GameObject bathroomBtn;
 
+    [InspectorName("Porch Button")]
+    [Tooltip("The button to go to the porch \n lvl _")]
+    public GameObject porchBtn;
+
+    [InspectorName("Bedroom _ Button")]
+    [Tooltip("The button to go to bedroom _ \n lvl _")]
+    public GameObject bedroomxBtn;
+
+    [InspectorName("Bedroom _ Button")]
+    [Tooltip("The button to go to bedroom _ \n lvl _")]
+    public GameObject bedroomx1Btn;
+
+    [InspectorName("Garden Button")]
+    [Tooltip("The button to go to garden _ \n lvl _")]
+    public GameObject gardenBtn;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -43,63 +58,63 @@ public class LevelSelect : MonoBehaviour
 
         // Only detect the image and not the bounding box for click
         bathroomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+
+        // Only detect the image and not the bounding box for click
+        porchBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+
+        // Only detect the image and not the bounding box for click
+        bedroomxBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+
+        // Only detect the image and not the bounding box for click
+        bedroomx1Btn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+
+        // Only detect the image and not the bounding box for click
+        gardenBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
-    private void PlayClickSound()
+    public void LoadRoom(string roomName)
     {
-        if (audioSource && clickSound)
-            audioSource.PlayOneShot(clickSound);
+        string sceneToLoad;
+
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
+
+        switch (roomName)
+        {
+            case "LivingRoom" or "Living Room":
+                sceneToLoad = "Living Room";
+                break;
+            case "Patio":
+                sceneToLoad = "Patio";
+                break;
+            case "Kitchen":
+                sceneToLoad = "Kitchen";
+                break;
+            case "Bathroom":
+                sceneToLoad = "Bathroom";
+                break;
+            case "Porch":
+                sceneToLoad = "Porch";
+                break;
+            case "Bedroom1" or "Bedroom 1":
+                sceneToLoad = "Bedroom 1";
+                break;
+            case "Bedroom2" or "Bedroom 2":
+                sceneToLoad = "Bedroom 2";
+                break;
+            case "Garden":
+                sceneToLoad = "Garden";
+                break;
+            default:
+                Debug.LogWarning("Unknown room: " + roomName);
+                return;
+        }
+
+        StartCoroutine(LoadSceneWithDelay(sceneToLoad));
     }
 
-    public void LivingRoom()
-    {
-        PlayClickSound();
-        StartCoroutine(LoadLivingRoom());
-    }
-
-    public void Patio()
-    {
-        PlayClickSound();
-        StartCoroutine(LoadPatio());
-    }
-
-
-    public void Bathroom()
-    {
-        PlayClickSound();
-        StartCoroutine(LoadBathroom());
-    }
-
-    public void Kitchen()
-    {
-        PlayClickSound();
-        StartCoroutine(LoadKitchen());
-    }
-
-    /// <summary>
-    /// This method is called when the script instance is being loaded.
-    /// </summary>
-    public IEnumerator LoadLivingRoom()
+    private IEnumerator LoadSceneWithDelay(string sceneName)
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Living Room");
-    }
-
-    public IEnumerator LoadPatio()
-    {
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Patio");
-    }
-
-    public IEnumerator LoadKitchen()
-    {
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Kitchen");
-    }
-
-    public IEnumerator LoadBathroom()
-    {
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Bathroom");
+        SceneManager.LoadScene(sceneName);
     }
 }
