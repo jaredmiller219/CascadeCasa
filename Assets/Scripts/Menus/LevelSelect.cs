@@ -41,6 +41,8 @@ public class LevelSelect : MonoBehaviour
     [Tooltip("The button to go to garden _ \n lvl _")]
     public GameObject gardenBtn;
 
+    public GameObject outlineOverlay;
+
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip clickSound;

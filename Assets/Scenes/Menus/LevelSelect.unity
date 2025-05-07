@@ -2571,7 +2571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2868,6 +2868,7 @@ MonoBehaviour:
   bedroomxBtn: {fileID: 0}
   bedroomx1Btn: {fileID: 0}
   gardenBtn: {fileID: 0}
+  outlineOverlay: {fileID: 0}
   audioSource: {fileID: 1343642870}
   clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
 --- !u!4 &1343642872
@@ -4135,6 +4136,7 @@ MonoBehaviour:
   bedroomxBtn: {fileID: 694910221}
   bedroomx1Btn: {fileID: 1616440729}
   gardenBtn: {fileID: 968479639}
+  outlineOverlay: {fileID: 0}
   audioSource: {fileID: 1691568968}
   clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
 --- !u!1 &2110149974
