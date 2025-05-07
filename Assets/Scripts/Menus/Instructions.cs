@@ -14,10 +14,6 @@ public class Instructions : MonoBehaviour
 
     public GameObject action4;
 
-    // public GameObject action5;
-
-    // public GameObject action6;
-
     private readonly List<string> _instructions = new()
     {
         "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
