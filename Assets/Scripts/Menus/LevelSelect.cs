@@ -47,37 +47,33 @@ public class LevelSelect : MonoBehaviour
 
     public void Start()
     {
-        // Only detect the image and not the bounding box for click
-        livingRoomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+        SetAlphaHitTest(livingRoomBtn);
+        SetAlphaHitTest(patioBtn);
+        SetAlphaHitTest(kitchenBtn);
+        SetAlphaHitTest(bathroomBtn);
+        SetAlphaHitTest(porchBtn);
+        SetAlphaHitTest(bedroomxBtn);
+        SetAlphaHitTest(bedroomx1Btn);
+        SetAlphaHitTest(gardenBtn);
+    }
 
-        // Only detect the image and not the bounding box for click
-        patioBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-
-        // Only detect the image and not the bounding box for click
-        kitchenBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-
-        // Only detect the image and not the bounding box for click
-        bathroomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-
-        // Only detect the image and not the bounding box for click
-        porchBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-
-        // Only detect the image and not the bounding box for click
-        bedroomxBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-
-        // Only detect the image and not the bounding box for click
-        bedroomx1Btn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
-
-        // Only detect the image and not the bounding box for click
-        gardenBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+    public void SetAlphaHitTest(GameObject btn)
+    {
+        if (btn.TryGetComponent<Image>(out var img))
+        {
+            // Only detect the image and not the bounding box for click
+            img.alphaHitTestMinimumThreshold = 0.5f;
+        }
     }
 
     public void LoadRoom(string roomName)
     {
+        if (audioSource && clickSound)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
+
         string sceneToLoad;
-
-        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
-
         switch (roomName)
         {
             case "LivingRoom" or "Living Room":
