@@ -1,8 +1,14 @@
 using UnityEngine;
+using TMPro;
 
 public class Instructions : MonoBehaviour
 {
     public GameObject instructionText;
+
+    public void Start()
+    {
+        instructionText.GetComponent<TMP_Text>().text = "";
+    }
 
     public void BackToMenu()
     {
@@ -12,6 +18,6 @@ public class Instructions : MonoBehaviour
 
     public void SetText(string newText)
     {
-        instructionText.GetComponent<TMPro.TMP_Text>().text = newText;
+        instructionText.GetComponent<TMP_Text>().text = newText;
     }
 }
