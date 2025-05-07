@@ -12,7 +12,7 @@ public class Instructions : MonoBehaviour
 
     public GameObject action3;
 
-    // public GameObject action4;
+    public GameObject action4;
 
     // public GameObject action5;
 
