@@ -21,6 +21,10 @@ public class LevelSelect : MonoBehaviour
     [Tooltip("The button to go to the kitchen scene \n lvl _")]
     public GameObject kitchenBtn;
 
+    [InspectorName("Bathroom Button")]
+    [Tooltip("The button to go to the bathroom \n lvl _")]
+    public GameObject bathroomBtn;
+
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -36,6 +40,9 @@ public class LevelSelect : MonoBehaviour
 
         // Only detect the image and not the bounding box for click
         kitchenBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
+
+        // Only detect the image and not the bounding box for click
+        bathroomBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
     private void PlayClickSound()
@@ -54,6 +61,13 @@ public class LevelSelect : MonoBehaviour
     {
         PlayClickSound();
         StartCoroutine(LoadPatio());
+    }
+
+
+    public void Bathroom()
+    {
+        PlayClickSound();
+        StartCoroutine(LoadBathroom());
     }
 
     public void Kitchen()
@@ -77,12 +91,15 @@ public class LevelSelect : MonoBehaviour
         SceneManager.LoadScene("Patio");
     }
 
-    /// <summary>
-    /// This method is called when the script instance is being loaded.
-    /// </summary>
     public IEnumerator LoadKitchen()
     {
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("Kitchen");
+    }
+
+    public IEnumerator LoadBathroom()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Bathroom");
     }
 }
