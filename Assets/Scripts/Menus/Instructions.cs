@@ -6,7 +6,17 @@ public class Instructions : MonoBehaviour
 {
     public GameObject instructionText;
 
-    public GameObject option1Btn;
+    public GameObject action1;
+
+    public GameObject action2;
+
+    public GameObject action3;
+
+    // public GameObject action4;
+
+    // public GameObject action5;
+
+    // public GameObject action6;
 
     private readonly List<string> _instructions = new()
     {
