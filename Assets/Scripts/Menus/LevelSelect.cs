@@ -80,7 +80,7 @@ public class LevelSelect : MonoBehaviour
 
         switch (roomName)
         {
-            case "LivingRoom":
+            case "LivingRoom" or "Living Room":
                 sceneToLoad = "Living Room";
                 break;
             case "Patio":
@@ -95,9 +95,11 @@ public class LevelSelect : MonoBehaviour
             case "Porch":
                 sceneToLoad = "Porch";
                 break;
-            case "Bedroomx":
-            case "Bedroomx1":
-                sceneToLoad = "Bedroom _"; // Same scene for both
+            case "Bedroom1" or "Bedroom 1":
+                sceneToLoad = "Bedroom 1";
+                break;
+            case "Bedroom2" or "Bedroom 2":
+                sceneToLoad = "Bedroom 2";
                 break;
             case "Garden":
                 sceneToLoad = "Garden";
