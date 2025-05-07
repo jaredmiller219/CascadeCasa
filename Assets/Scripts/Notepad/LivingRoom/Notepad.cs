@@ -80,19 +80,19 @@ public class Notepad : MonoBehaviour
 
     private readonly List<string> _cssHints = new()
     {
-        "CSS lets you style HTML elements by changing things like size and color." +
-        "For example, you can use width to set how wide something is, " +
-        "and background-color to set its background color.",
-
+        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
         "Look for missing colons in the font size and text align properties.",
-
-        "Ensure the border and margin top properties have colons."
+        "Ensure the border and margin top properties have colons.",
+        "Use a colon after color and font weight properties.",
+        "List style type and padding need colons and values.",
+        "Colons are required after text decoration and color.",
+        "Don't forget colons after width and height."
     };
 
     private int _previousCursorIndex;
 
     // Dictionary to store each challenge's user input by its index
-    private Dictionary<int, string> challengeInputs = new();
+    // private Dictionary<int, string> challengeInputs = new();
 
 
     private void Start()
@@ -263,17 +263,10 @@ public class Notepad : MonoBehaviour
         {
             // update the current challenge index to the selected image's button index
             currentChallengeIndex = selectedImage.GetComponent<LivingRoom_ChallengeImage>()._buttonIndex;
-            // Check if there is user input for the current challenge
-            if (challengeInputs.ContainsKey(currentChallengeIndex))
-            {
-                // Load the user's previous input for this specific challenge
-                SetTextOfComponent(inputField, challengeInputs[currentChallengeIndex], Color.black, true);
-            }
-            else
-            {
-                // No user input saved, so load the default incorrect CSS for the current challenge
-                SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-            }
+
+            // No user input saved, so load the default incorrect CSS for the current challenge
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
             // Set the input field text to the incorrect CSS snippet for the current challenge
             // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
@@ -289,17 +282,8 @@ public class Notepad : MonoBehaviour
             // If the input field is not empty, set the current challenge index to the button index
             currentChallengeIndex = buttonindex;
 
-            // Check if there is user input for the current challenge
-            if (challengeInputs.ContainsKey(currentChallengeIndex))
-            {
-                // Load the user's previous input for this specific challenge
-                SetTextOfComponent(inputField, challengeInputs[currentChallengeIndex], Color.black, true);
-            }
-            else
-            {
-                // No user input saved, so load the default incorrect CSS for the current challenge
-                SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-            }
+            // No user input saved, so load the default incorrect CSS for the current challenge
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // Set the input field text to the incorrect CSS snippet for the current challenge
             // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
@@ -318,7 +302,6 @@ public class Notepad : MonoBehaviour
     private void ResetCurrentChallenge()
     {
         // Reset the user's input for the current challenge to the original incorrect syntax
-        challengeInputs[currentChallengeIndex] = "";
         LoadChallenge();
     }
 
