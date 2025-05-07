@@ -72,17 +72,11 @@ public class LevelSelect : MonoBehaviour
         gardenBtn.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 
-    private void PlayClickSound()
-    {
-        if (audioSource && clickSound)
-            audioSource.PlayOneShot(clickSound);
-    }
-
     public void LoadRoom(string roomName)
     {
-        PlayClickSound();
-
         string sceneToLoad;
+
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
 
         switch (roomName)
         {
