@@ -10,8 +10,8 @@ public class Instructions : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 
-    public void SetText(TMPro.TMP_Text newText)
+    public void SetText(string newText)
     {
-        instructionText.GetComponent<TMPro.TMP_Text>().text = newText.ToString();
+        instructionText.GetComponent<TMPro.TMP_Text>().text = newText;
     }
 }
