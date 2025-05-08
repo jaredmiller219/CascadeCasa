@@ -6,24 +6,24 @@ using UnityEngine.UI;
 public class Instructions : MonoBehaviour
 {
     /// <summary>
-    ///
+    /// The button itself to instantiate
     /// </summary>
     public GameObject buttonPrefab;
 
     /// <summary>
-    ///
+    /// The content area of the buttons
     /// </summary>
     public Transform buttonContainer;
 
     /// <summary>
-    ///
+    /// The text component for each instruction
     /// </summary>
     public GameObject instructionText;
 
     /// <summary>
-    ///
+    /// The size of each button
     /// </summary>
-    public Vector2 buttonSize = new(); // Width x Height
+    public Vector2 buttonSize = new();
 
     private readonly List<string> _instructions = new()
     {
@@ -43,24 +43,12 @@ public class Instructions : MonoBehaviour
     {
         instructionText.GetComponent<TMP_Text>().text = "";
 
-        float startY = 0f;
+        float currentY = 0f;
 
         for (int i = 0; i < _instructions.Count; i++)
         {
-            int index = i;
-
-            GameObject buttonObj = Instantiate(buttonPrefab, buttonContainer);
-
-            // Set size manually
-            RectTransform rect = buttonObj.GetComponent<RectTransform>();
-            rect.sizeDelta = buttonSize;
-
-            // Set position manually
-            rect.anchoredPosition = new Vector2(0f, startY);
-            startY -= buttonSize.y + 10f;
-
-            buttonObj.GetComponentInChildren<TMP_Text>().text = $"Button {i + 1}";
-            buttonObj.GetComponent<Button>().onClick.AddListener(() => SetText(index));
+            CreateButtonInstatiation(i, currentY);
+            currentY -= buttonSize.y + 10f; // Add spacing between buttons
         }
     }
 
@@ -82,38 +70,17 @@ public class Instructions : MonoBehaviour
         }
     }
 
-    // public void SetText(int index)
-    // {
-    //     string newText;
+    private void CreateButtonInstatiation(int index, float yPosition)
+    {
+        GameObject buttonObj = Instantiate(buttonPrefab, buttonContainer);
 
-    //     switch (index)
-    //     {
-    //         case 0:
-    //             newText = _instructions[0];
-    //             break;
-    //         case 1:
-    //             newText = _instructions[1];
-    //             break;
-    //         case 2:
-    //             newText = _instructions[2];
-    //             break;
-    //         case 3:
-    //             newText = _instructions[3];
-    //             break;
-    //         case 4:
-    //             newText = _instructions[4];
-    //             break;
-    //         case 5:
-    //             newText = _instructions[5];
-    //             break;
-    //         case 6:
-    //             newText = _instructions[6];
-    //             break;
-    //         default:
-    //             newText = "Instruction not found.";
-    //             break;
-    //     }
+        // Configure RectTransform
+        RectTransform rect = buttonObj.GetComponent<RectTransform>();
+        rect.sizeDelta = buttonSize;
+        rect.anchoredPosition = new Vector2(0f, yPosition);
 
-    //     instructionText.GetComponent<TMP_Text>().text = newText;
-    // }
+        // Set button text and click behavior
+        buttonObj.GetComponentInChildren<TMP_Text>().text = $"Button {index + 1}";
+        buttonObj.GetComponent<Button>().onClick.AddListener(() => SetText(index));
+    }
 }
