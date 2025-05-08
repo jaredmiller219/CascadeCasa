@@ -48,7 +48,7 @@ public class Instructions : MonoBehaviour
         for (int i = 0; i < _instructions.Count; i++)
         {
             CreateButtonInstatiation(i, currentY);
-            currentY -= buttonSize.y + 10f; // Add spacing between buttons
+            currentY -= buttonSize.y + 10f;
         }
     }
 
