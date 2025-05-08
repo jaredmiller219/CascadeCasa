@@ -13,7 +13,7 @@ public class PatioDropdownActionMenu : MonoBehaviour
     /// <summary>
     /// Reference to the Notepad script, which manages the game's challenges.
     /// </summary>
-    private PatioNotepad notepad;
+    private Patio_Notepad notepad;
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class PatioDropdownActionMenu : MonoBehaviour
             dropdown.onValueChanged.AddListener(OnOptionSelected);
         }
 
-        notepad = GetComponentInChildren<PatioNotepad>();
+        notepad = GetComponentInChildren<Patio_Notepad>();
     }
 
     /// <summary>

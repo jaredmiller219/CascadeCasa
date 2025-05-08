@@ -24,14 +24,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Patio.unity
     guid: b9efc4e3952e0374581b938f8d78529b
   - enabled: 1
-    path: Assets/Scenes/Levels/Kitchen.unity
-    guid: 4cef367f41e874e5d99a845a842797c6
-  - enabled: 1
     path: Assets/Scenes/Levels/Bedroom2.unity
     guid: ef9b303b8affa433aba98683ecc1ab39
   - enabled: 1
     path: Assets/Scenes/Levels/Bathroom.unity
     guid: c3364b44ab1614b6ba4723a2ac149ee3
+  - enabled: 1
+    path: Assets/Scenes/Levels/Kitchen.unity
+    guid: 6b3ef44908e654bb38a4d52516205a25
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
