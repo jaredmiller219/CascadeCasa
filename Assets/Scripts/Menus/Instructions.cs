@@ -12,7 +12,7 @@ public class Instructions : MonoBehaviour
 
     public GameObject instructionText;
 
-    public Vector2 buttonSize = new(650f, 100f); // Width x Height
+    public Vector2 buttonSize = new(); // Width x Height
 
     // public GameObject action1;
 
