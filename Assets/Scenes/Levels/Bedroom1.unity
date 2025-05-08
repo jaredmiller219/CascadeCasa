@@ -819,7 +819,7 @@ GameObject:
   - component: {fileID: 334542708}
   - component: {fileID: 334542707}
   - component: {fileID: 334542706}
-  - component: {fileID: 334542705}
+  - component: {fileID: 334542709}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -848,30 +848,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &334542705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334542703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6a2316760014a85a5b93ee718179fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 932930234}
-  imagePrefab: {fileID: 6493582166146260891, guid: 1aec1cbf72fce4114bc4803c86c58eeb, type: 3}
-  spacing: 50
-  imageSize: {x: 70, y: 70}
-  imageSprites:
-  - {fileID: -8938819534478884857, guid: 6002686c31fc2402b90009d8bc47666c, type: 3}
-  - {fileID: -271153395187383962, guid: 1e009b283cc6f41a699328afcfaea24c, type: 3}
-  - {fileID: 4992453765389984465, guid: ec9c600bdcc2140269ec2cf0559354f7, type: 3}
-  - {fileID: -5649470061204452833, guid: bb8f42a0bf9df451d8e3b50e2296b00f, type: 3}
-  - {fileID: -3302215156215320260, guid: 390404bca98f542fe9a0a2778ee8c910, type: 3}
-  - {fileID: -5696803668876324512, guid: 043b5137423644e619b837108c463256, type: 3}
-  notepad: {fileID: 0}
 --- !u!114 &334542706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,6 +916,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334542703}
   m_CullTransparentMesh: 1
+--- !u!114 &334542709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334542703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63968d150af714b3d962fbd0dca969d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 932930234}
+  imagePrefab: {fileID: 6493582166146260891, guid: 1aec1cbf72fce4114bc4803c86c58eeb, type: 3}
+  spacing: 50
+  imageSize: {x: 70, y: 70}
+  imageSprites:
+  - {fileID: -8938819534478884857, guid: 6002686c31fc2402b90009d8bc47666c, type: 3}
+  - {fileID: -271153395187383962, guid: 1e009b283cc6f41a699328afcfaea24c, type: 3}
+  - {fileID: 4992453765389984465, guid: ec9c600bdcc2140269ec2cf0559354f7, type: 3}
+  - {fileID: -5649470061204452833, guid: bb8f42a0bf9df451d8e3b50e2296b00f, type: 3}
+  - {fileID: -3302215156215320260, guid: 390404bca98f542fe9a0a2778ee8c910, type: 3}
+  - {fileID: -5696803668876324512, guid: 043b5137423644e619b837108c463256, type: 3}
+  notepad: {fileID: 339237560}
 --- !u!1 &339237553
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,8 +952,8 @@ GameObject:
   - component: {fileID: 339237558}
   - component: {fileID: 339237557}
   - component: {fileID: 339237556}
-  - component: {fileID: 339237555}
-  - component: {fileID: 339237554}
+  - component: {fileID: 339237561}
+  - component: {fileID: 339237560}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -961,39 +961,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &339237554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339237553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec93963d32af4daa87d2d38ea6295f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputField: {fileID: 672375354}
-  feedbackText: {fileID: 1712840793}
-  submitBtn: {fileID: 218595786}
-  resetBtn: {fileID: 1412667881}
-  resetPopup: {fileID: 1358508958}
-  currentChallengeIndex: 0
-  challengeComplete: {fileID: 1351032930}
---- !u!114 &339237555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339237553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c38987e94adf4596b32dc6c0f2d46c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  journalPopup: {fileID: 925838501}
-  journalButton: {fileID: 1830458600}
 --- !u!114 &339237556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1084,6 +1051,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &339237560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339237553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424742743b210443292f6f41636cc9f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 672375354}
+  feedbackText: {fileID: 1712840793}
+  submitBtn: {fileID: 218595786}
+  resetBtn: {fileID: 1412667881}
+  resetPopup: {fileID: 1358508958}
+  currentChallengeIndex: 0
+  buttonindex: 0
+  challengeComplete: {fileID: 1351032930}
+  hintText: {fileID: 165478431}
+--- !u!114 &339237561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339237553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d50774292bbd4376be0173c2af0765c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  journalPopup: {fileID: 925838501}
+  journalButton: {fileID: 1830458600}
 --- !u!1 &421190635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1098,6 @@ GameObject:
   - component: {fileID: 421190640}
   - component: {fileID: 421190639}
   - component: {fileID: 421190638}
-  - component: {fileID: 421190637}
   m_Layer: 5
   m_Name: PullDownBtn
   m_TagString: Untagged
@@ -1124,20 +1125,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -200}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &421190637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421190635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017b97aca39524bc3a9409ab9bf5b1cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  furnitureDropdown: {fileID: 2043062229}
-  btnImage: {fileID: 1979244871}
 --- !u!114 &421190638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1182,9 +1169,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 421190637}
+      - m_Target: {fileID: 421190635}
         m_TargetAssemblyTypeName: KitchenFurnitureDropdown, Assembly-CSharp
-        m_MethodName: PullBarDown
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1493,7 +1480,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 832466089}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1590,6 +1577,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1203441874}
   btnImage: {fileID: 99514282}
+  audioSource: {fileID: 0}
+  toggleSound: {fileID: 0}
 --- !u!114 &811140962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2344,8 +2333,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2145569370}
   m_HandleRect: {fileID: 2145569369}
   m_Direction: 3
-  m_Value: 0.00000013783911
-  m_Size: 0.00000030517577
+  m_Value: -0.00000013783912
+  m_Size: 0.00000035603844
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2786,6 +2775,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resetPopup: {fileID: 1358508958}
+  audioSource: {fileID: 0}
+  popupSound: {fileID: 0}
 --- !u!114 &1412667883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3281,7 +3272,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000009233842}
+  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564313535
@@ -3415,7 +3406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000076293945, y: 221.40002}
+  m_AnchoredPosition: {x: 0.000076293945, y: 221.40005}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1574640176
@@ -4195,8 +4186,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 339237555}
-        m_TargetAssemblyTypeName: KitchenJournal, Assembly-CSharp
+      - m_Target: {fileID: 1830458606}
+        m_TargetAssemblyTypeName: Bedroom1Journal, Assembly-CSharp
         m_MethodName: ToggleJournal
         m_Mode: 1
         m_Arguments:
@@ -4299,7 +4290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d50774292bbd4376be0173c2af0765c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  journalPopup: {fileID: 0}
+  journalPopup: {fileID: 925838501}
   journalButton: {fileID: 1830458600}
 --- !u!1 &1864055885
 GameObject:
