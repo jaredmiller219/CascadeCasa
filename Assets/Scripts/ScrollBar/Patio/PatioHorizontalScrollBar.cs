@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PatioHorizontalScrollBar : MonoBehaviour
+public class Patio_HorizontalScrollBar : MonoBehaviour
 {
 
     // ---------------- Public Variables --------------------------
@@ -37,6 +37,12 @@ public class PatioHorizontalScrollBar : MonoBehaviour
     /// </summary>
     [Header("Images")]
     public Sprite[] imageSprites;
+
+    /// <summary>
+    /// The sprite for when the challenge is complete
+    /// </summary>
+    [Header("Overlays")]
+    public Sprite checkmarkSprite;
     // --------------------------------------------------------------
 
 
@@ -44,7 +50,7 @@ public class PatioHorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// a reference to the notepad script
     /// </summary>
-    [SerializeField] private PatioNotepad notepad;
+    [SerializeField] private Patio_Notepad notepad;
 
     /// <summary>
     /// The list of images in the scroll bar
@@ -62,21 +68,21 @@ public class PatioHorizontalScrollBar : MonoBehaviour
         new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
         new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
         new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
+        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
     };
     // --------------------------------------------------------------
 
     private void Start()
     {
-        notepad = FindFirstObjectByType<PatioNotepad>();
+        notepad = FindFirstObjectByType<Patio_Notepad>();
         if (notepad == null)
         {
             Debug.LogError("Notepad not found in scene!");
             return;
         }
 
-        PatioChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
-        PatioChallengeImage.OnAnyImageClicked += notepad.SetCssText;
+        Patio_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+        Patio_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
 
         SetupLayout();
         StartCoroutine(DelayedLoad());
@@ -183,7 +189,7 @@ public class PatioHorizontalScrollBar : MonoBehaviour
         if (imgObj.TryGetComponent<LayoutElement>(out var layout))
             DestroyImmediate(layout);
 
-        var image = imgObj.AddComponent<PatioChallengeImage>();
+        var image = imgObj.AddComponent<Patio_ChallengeImage>();
         int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
         image.AssociatedCss = _cssChallenges[index].Key;
     }
@@ -239,10 +245,10 @@ public class PatioHorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="index">The index of the image to find.</param>
     /// <returns>
-    /// A <see cref="PatioChallengeImage"/> if the index is valid; otherwise, <c>null</c>
+    /// A <see cref="ChallengeImage"/> if the index is valid; otherwise, <c>null</c>
     /// if the image doesn't exist or index is out of range.
     /// </returns>
-    public PatioChallengeImage GetImageAtIndex(int index)
+    public Patio_ChallengeImage GetImageAtIndex(int index)
     {
         if (index < 0 || index >= _scrollImages.Count)
         {
@@ -250,6 +256,39 @@ public class PatioHorizontalScrollBar : MonoBehaviour
             return null;
         }
 
-        return _scrollImages[index].GetComponent<PatioChallengeImage>();
+        return _scrollImages[index].GetComponent<Patio_ChallengeImage>();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="index"></param>
+    public void MarkChallengeCompleted(int index)
+    {
+        if (index < 0 || index >= _scrollImages.Count)
+        {
+            Debug.LogWarning($"Invalid index {index} for marking challenge as complete.");
+            return;
+        }
+
+        GameObject button = _scrollImages[index].gameObject;
+
+        Transform Checkmark = button.transform.Find("Checkmark");
+        Transform Lock = button.transform.Find("Lock");
+
+        if (Checkmark != null && Lock != null)
+        {
+            Checkmark.gameObject.SetActive(true);
+            Lock.gameObject.SetActive(false);
+            if (button.TryGetComponent<Patio_ChallengeImage>(out var challengeImage))
+            {
+                challengeImage.Completed = true;
+                challengeImage.Locked = false;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Checkmark object not found under button!");
+        }
     }
 }

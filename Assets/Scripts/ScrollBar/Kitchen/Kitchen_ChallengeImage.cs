@@ -30,6 +30,13 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
     public int AssociatedIndex;
 
     /// <summary>
+    /// if the challenge was completed
+    /// </summary>
+    public bool Completed { get; set; }
+
+    public bool Locked { get; set; }
+
+    /// <summary>
     /// The original parent of the image.
     /// </summary>
     private Transform _originalParent;
@@ -68,6 +75,9 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
         {
             OnAnyImageClicked += notepad.SetCssText;
         }
+
+        Completed = false;
+        Locked = true;
     }
 
     /// <summary>
@@ -76,17 +86,22 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        _buttonIndex = transform.GetSiblingIndex();
-        notepad.buttonindex = _buttonIndex;
+        if (!Completed)
+        {
+            _buttonIndex = transform.GetSiblingIndex();
+            notepad.buttonindex = _buttonIndex;
 
-        // ---------------- For debug only --------------------------
-        Kitchen_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-        string imageName = clickedImage.GetComponent<Image>().sprite.name;
-        // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
-        // ----------------------------------------------------------
+            // ---------------- For debug only --------------------------
+            // Kitchen_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
+            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+            // ----------------------------------------------------------
 
-        OnAnyImageClicked?.Invoke(AssociatedCss);
-        notepad.canReset = true;
+            OnAnyImageClicked?.Invoke(AssociatedCss);
+            notepad.canReset = true;
+            notepad.canSubmit = true;
+            notepad.LoadChallenge();
+        }
     }
 
     /// <summary>

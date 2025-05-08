@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -54,6 +55,12 @@ public class Bedroom2_Notepad : MonoBehaviour
     [HideInInspector]
     public bool canReset;
 
+    /// <summary>
+    /// whether or not you can click the submit button
+    /// </summary>
+    [HideInInspector]
+    public bool canSubmit;
+
     private readonly string saveFilePath;
 
     private GlobalCursorManager _cursorManager;
@@ -73,16 +80,20 @@ public class Bedroom2_Notepad : MonoBehaviour
 
     private readonly List<string> _cssHints = new()
     {
-        "CSS lets you style HTML elements by changing things like size and color." +
-        "For example, you can use width to set how wide something is, " +
-        "and background-color to set its background color.",
-
+        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
         "Look for missing colons in the font size and text align properties.",
-
-        "Ensure the border and margin top properties have colons."
+        "Ensure the border and margin top properties have colons.",
+        "Use a colon after color and font weight properties.",
+        "List style type and padding need colons and values.",
+        "Colons are required after text decoration and color.",
+        "Don't forget colons after width and height."
     };
 
     private int _previousCursorIndex;
+
+    // Dictionary to store each challenge's user input by its index
+    // private Dictionary<int, string> challengeInputs = new();
+
 
     private void Start()
     {
@@ -101,15 +112,11 @@ public class Bedroom2_Notepad : MonoBehaviour
         }
 
         canReset = false;
+        canSubmit = false;
 
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
     }
-
-    // public Notepad()
-    // {
-    //     selectedImage = null; // Initially no image selected
-    // }
 
     public void SetCssText(string css)
     {
@@ -170,6 +177,12 @@ public class Bedroom2_Notepad : MonoBehaviour
         }
     }
 
+    private IEnumerator HandleCorrectInput()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SetTextOfComponent(feedbackText, "Select a new furniture", Color.green, false);
+    }
+
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
     /// </summary>
@@ -180,25 +193,37 @@ public class Bedroom2_Notepad : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
         }
 
-        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
-        var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
-
-        var normalizedUserInput = NormalizeCss(userInput);
-        var normalizedCorrectCss = NormalizeCss(correctCss);
-
-        if (normalizedUserInput == normalizedCorrectCss)
+        if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
-            // SubmitCSS(userInput);
+            var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+            var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
 
-            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+            var normalizedUserInput = NormalizeCss(userInput);
+            var normalizedCorrectCss = NormalizeCss(correctCss);
 
-            // Load the next challenge after a delay
-            // Invoke(nameof(NextChallenge), 1.5f);
-        }
-        else
-        {
-            // If the input is incorrect, display error feedback
-            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+            if (normalizedUserInput == normalizedCorrectCss)
+            {
+                // SubmitCSS(userInput);
+
+                SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+
+                var scrollBar = FindFirstObjectByType<Bedroom2_HorizontalScrollBar>();
+                if (scrollBar != null)
+                {
+                    scrollBar.MarkChallengeCompleted(buttonindex);
+                }
+                SetTextOfComponent(inputField, "", Color.clear, false);
+
+                StartCoroutine(HandleCorrectInput());
+
+                // Load the next challenge after a delay
+                // Invoke(nameof(NextChallenge), 1.5f);
+            }
+            else
+            {
+                // If the input is incorrect, display error feedback
+                SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+            }
         }
     }
 
@@ -231,16 +256,19 @@ public class Bedroom2_Notepad : MonoBehaviour
         }
     }
 
-    private void LoadChallenge()
+    public void LoadChallenge()
     {
         // if the image exists, then we can set the text in the notepad
         if (selectedImage != null)
         {
-            // Set the input field text to the incorrect CSS snippet for the current challenge
-            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-
             // update the current challenge index to the selected image's button index
             currentChallengeIndex = selectedImage.GetComponent<Bedroom2_ChallengeImage>()._buttonIndex;
+
+            // No user input saved, so load the default incorrect CSS for the current challenge
+            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
@@ -253,7 +281,18 @@ public class Bedroom2_Notepad : MonoBehaviour
         {
             // If the input field is not empty, set the current challenge index to the button index
             currentChallengeIndex = buttonindex;
+
+            // No user input saved, so load the default incorrect CSS for the current challenge
             SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // Set the hint text for the current challenge
+            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
+
+            // Display a message prompting the user to fix the syntax
+            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
         }
 
         // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
@@ -262,6 +301,7 @@ public class Bedroom2_Notepad : MonoBehaviour
 
     private void ResetCurrentChallenge()
     {
+        // Reset the user's input for the current challenge to the original incorrect syntax
         LoadChallenge();
     }
 

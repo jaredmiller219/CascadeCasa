@@ -37,6 +37,12 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     [Header("Images")]
     public Sprite[] imageSprites;
+
+    /// <summary>
+    /// The sprite for when the challenge is complete
+    /// </summary>
+    [Header("Overlays")]
+    public Sprite checkmarkSprite;
     // --------------------------------------------------------------
 
 
@@ -62,7 +68,7 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
         new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
         new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
         new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
+        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
     };
     // --------------------------------------------------------------
 
@@ -251,5 +257,38 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
         }
 
         return _scrollImages[index].GetComponent<Kitchen_ChallengeImage>();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="index"></param>
+    public void MarkChallengeCompleted(int index)
+    {
+        if (index < 0 || index >= _scrollImages.Count)
+        {
+            Debug.LogWarning($"Invalid index {index} for marking challenge as complete.");
+            return;
+        }
+
+        GameObject button = _scrollImages[index].gameObject;
+
+        Transform Checkmark = button.transform.Find("Checkmark");
+        Transform Lock = button.transform.Find("Lock");
+
+        if (Checkmark != null && Lock != null)
+        {
+            Checkmark.gameObject.SetActive(true);
+            Lock.gameObject.SetActive(false);
+            if (button.TryGetComponent<Kitchen_ChallengeImage>(out var challengeImage))
+            {
+                challengeImage.Completed = true;
+                challengeImage.Locked = false;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Checkmark object not found under button!");
+        }
     }
 }
