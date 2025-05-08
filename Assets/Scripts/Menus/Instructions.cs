@@ -5,22 +5,25 @@ using UnityEngine.UI;
 
 public class Instructions : MonoBehaviour
 {
+    /// <summary>
+    ///
+    /// </summary>
+    public GameObject buttonPrefab;
 
-    // public GameObject instructionText; // Text display area
-    public GameObject buttonPrefab;    // Assign your button prefab in the Inspector
-    public Transform buttonContainer;  // A UI parent object (e.g., Vertical Layout Group)
+    /// <summary>
+    ///
+    /// </summary>
+    public Transform buttonContainer;
 
+    /// <summary>
+    ///
+    /// </summary>
     public GameObject instructionText;
 
+    /// <summary>
+    ///
+    /// </summary>
     public Vector2 buttonSize = new(); // Width x Height
-
-    // public GameObject action1;
-
-    // public GameObject action2;
-
-    // public GameObject action3;
-
-    // public GameObject action4;
 
     private readonly List<string> _instructions = new()
     {
