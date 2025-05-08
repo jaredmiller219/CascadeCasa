@@ -115,4 +115,9 @@ public class LevelSelect : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);
     }
+
+    public void Back()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }
