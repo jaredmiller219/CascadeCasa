@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
-using System.Collections.Generic;
-using UnityEngine.UI;
 
 /// <summary>
 /// This class allows an image to be draggable within a UI canvas and provides functionality
@@ -56,9 +54,6 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private Notepad notepad;
 
-    // private Dictionary<Button, string> buttonTexts = new Dictionary<Button, string>();
-    // private Button currentButton = null;
-
     /// <summary>
     ///
     /// </summary>
@@ -70,23 +65,6 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         AssociatedCss = associatedCss;
     }
 
-    /// <summary>
-    /// Called when the script is initialized. Caches references and sets up the insertion preview.
-    /// </summary>
-    private void Awake()
-    {
-        _originalParent = transform.parent;
-        _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
-
-        notepad = FindFirstObjectByType<Notepad>();
-        if (notepad != null)
-        {
-            OnAnyImageClicked += notepad.SetCssText;
-        }
-
-        Completed = false;
-        Locked = true;
-    }
 
     public void NotifyImageClicked(string css)
     {
@@ -122,13 +100,28 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
+    /// Called when the script is initialized. Caches references and sets up the insertion preview.
+    /// </summary>
+    private void Awake()
+    {
+        _originalParent = transform.parent;
+        _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
+
+        notepad = FindFirstObjectByType<Notepad>();
+        if (notepad != null)
+        {
+            OnAnyImageClicked += notepad.SetCssText;
+        }
+
+        Completed = false;
+        Locked = true;
+    }
+
+    /// <summary>
     /// Called when the object is destroyed. Cleans up resources.
     /// </summary>
     private void OnDestroy()
     {
-        if (notepad != null)
-        {
-            OnAnyImageClicked -= notepad.SetCssText;
-        }
+        if (notepad != null) OnAnyImageClicked -= notepad.SetCssText;
     }
 }
