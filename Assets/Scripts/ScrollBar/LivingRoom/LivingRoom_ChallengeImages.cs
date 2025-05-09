@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 /// <summary>
 /// This class allows an image to be draggable within a UI canvas and provides functionality
@@ -17,6 +19,8 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     ///
     /// </summary>
     public string AssociatedCss { get; set; }
+
+    public string CurrentCss { get; set; }
 
     /// <summary>
     ///
@@ -49,6 +53,9 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     ///
     /// </summary>
     private Notepad notepad;
+
+    // private Dictionary<Button, string> buttonTexts = new Dictionary<Button, string>();
+    // private Button currentButton = null;
 
     /// <summary>
     ///
@@ -87,6 +94,13 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         if (!Completed)
         {
+
+            // Save current notepad text for previously selected index
+            if (notepad.buttonindex >= 0)
+            {
+                notepad.SaveTextForIndex(notepad.buttonindex);
+            }
+
             _buttonIndex = transform.GetSiblingIndex();
             notepad.buttonindex = _buttonIndex;
 
@@ -96,11 +110,13 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
             // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
             // ----------------------------------------------------------
 
-            OnAnyImageClicked?.Invoke(AssociatedCss);
+            // OnAnyImageClicked?.Invoke(AssociatedCss);
+            OnAnyImageClicked?.Invoke(CurrentCss ?? AssociatedCss);
             notepad.canReset = true;
             notepad.canSubmit = true;
             notepad.LoadChallenge();
         }
+
     }
 
     /// <summary>
