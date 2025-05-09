@@ -80,10 +80,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         if (!Completed && _scrollBar != null)
         {
             // Save the current input
-            if (notepad.buttonindex >= 0)
-            {
-                notepad.SaveTextForIndex(notepad.buttonindex);
-            }
+            if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
 
             // ---------------- For debug only --------------------------
             // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
@@ -108,10 +105,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
 
         notepad = FindFirstObjectByType<Notepad>();
-        if (notepad != null)
-        {
-            OnAnyImageClicked += notepad.SetCssText;
-        }
+        if (notepad != null) OnAnyImageClicked += notepad.SetCssText;
 
         Completed = false;
         Locked = true;
