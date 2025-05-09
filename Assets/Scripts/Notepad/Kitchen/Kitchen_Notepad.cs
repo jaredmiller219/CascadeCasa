@@ -1,21 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Manages a CSS learning game where players fix full CSS snippets.
-/// </summary>
-public class KitchenNotepad : MonoBehaviour
+public class Kitchen_Notepad : MonoBehaviour
 {
-    /// <summary>
-    /// Reference to the global cursor manager for handling cursor changes
-    /// </summary>
-    private GlobalCursorManager _cursorManager;
-
-    private ChallengeImage selectedImage; // Reference to the selected image
-
     /// <summary>
     /// The input field where users type their CSS solutions
     /// </summary>
@@ -23,36 +14,21 @@ public class KitchenNotepad : MonoBehaviour
     [Header("Notepad")]
     public GameObject inputField;
 
-    /// <summary>
-    /// The text area used to display feedback messages to the user
-    /// </summary>
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
     public GameObject feedbackText;
 
-    /// <summary>
-    /// The button that users click to submit their CSS solution for validation
-    /// </summary>
     [Tooltip("The submit button for checking CSS code")]
     [Header("Buttons")]
     public GameObject submitBtn;
 
-    /// <summary>
-    /// The button that resets the current challenge to its initial state
-    /// </summary>
     [Tooltip("The reset button for restarting the challenge")]
     public GameObject resetBtn;
 
-    /// <summary>
-    /// The popup text displayed when the reset button is clicked
-    /// </summary>
     [Tooltip("The text that appears when the reset button is clicked")]
     [Header("Reset Text")]
     public GameObject resetPopup;
 
-    /// <summary>
-    /// The index of the current challenge being solved by the user
-    /// </summary>
     [Tooltip("The index of the current challenge")]
     [Header("Challenge Index")]
     public int currentChallengeIndex;
@@ -66,25 +42,31 @@ public class KitchenNotepad : MonoBehaviour
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
 
-    // $$$$ Click sound fields
-    [Header("Audio")] // $$$$
-    public AudioSource audioSource; // $$$$
-    public AudioClip clickSound; // $$$$
-
-    /// <summary>
-    /// The text area used to display hints for the current challenge
-    /// </summary>
     [Header("Hint Section")]
     public GameObject hintText;
 
-    /// <summary>
-    /// The path where the progress of the game is saved
-    /// </summary>
-    private readonly string saveFilePath;
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip clickSound;
 
     /// <summary>
-    /// List of CSS challenges with incorrect and correct snippets.
+    /// whether or not you can click the reset button
     /// </summary>
+    [HideInInspector]
+    public bool canReset;
+
+    /// <summary>
+    /// whether or not you can click the submit button
+    /// </summary>
+    [HideInInspector]
+    public bool canSubmit;
+
+    private readonly string saveFilePath;
+
+    private GlobalCursorManager _cursorManager;
+
+    private Kitchen_ChallengeImage selectedImage;
+
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
         new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
@@ -96,59 +78,45 @@ public class KitchenNotepad : MonoBehaviour
         new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
     };
 
-    /// <summary>
-    /// List of hints to assist the user in fixing CSS syntax errors
-    /// </summary>
     private readonly List<string> _cssHints = new()
     {
-        "CSS lets you style HTML elements by changing things like size and color." +
-        "For example, you can use width to set how wide something is, " +
-        "and background-color to set its background color.",
-
+        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
         "Look for missing colons in the font size and text align properties.",
-
-        "Ensure the border and margin top properties have colons." // Hint for challenge 3
-        // etc...
+        "Ensure the border and margin top properties have colons.",
+        "Use a colon after color and font weight properties.",
+        "List style type and padding need colons and values.",
+        "Colons are required after text decoration and color.",
+        "Don't forget colons after width and height."
     };
 
     private int _previousCursorIndex;
 
+    // Dictionary to store each challenge's user input by its index
+    // private Dictionary<int, string> challengeInputs = new();
 
-    /// <summary>
-    /// Initializes the game state and sets up event listeners
-    /// </summary>
+
     private void Start()
     {
-        // Attach the CheckCssInput method to the submit button's click event
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
-
-        // Attach the ResetCurrentChallenge method to the reset button's click event
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
 
-        // saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
-
-        // Ensure the reset popup is hidden at the start
         resetPopup.SetActive(false);
 
-        // Set the scroll sensitivity for the input field to allow smooth scrolling
         const float scrollSensitivity = 0.01f;
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
-        // Initialize the cursor manager
         _cursorManager = GlobalCursorManager.Instance;
         if (_cursorManager != null)
         {
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
 
+        canReset = false;
+        canSubmit = false;
+
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
     }
-
-    // public Notepad()
-    // {
-    //     selectedImage = null; // Initially no image selected
-    // }
 
     public void SetCssText(string css)
     {
@@ -156,19 +124,14 @@ public class KitchenNotepad : MonoBehaviour
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
-
     public void OnInputFieldEnter()
     {
-        // Save the current cursor before switching
         _previousCursorIndex = _cursorManager.GetSelectedCursor();
-
-        // Set the cursor to the I-beam cursor for text input
         _cursorManager.SetCursor(3);
     }
 
     public void OnInputFieldExit()
     {
-        // Restore the previous cursor when exiting the input field
         _cursorManager.SetCursor(_previousCursorIndex);
     }
 
@@ -214,47 +177,61 @@ public class KitchenNotepad : MonoBehaviour
         }
     }
 
+    private IEnumerator HandleCorrectInput()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SetTextOfComponent(feedbackText, "Select a new furniture", Color.green, false);
+    }
+
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
     /// </summary>
     private void CheckCssInput()
     {
-        PlayClickSound(); // $$$$
-
-        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
-        var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
-
-        var normalizedUserInput = NormalizeCss(userInput);
-        var normalizedCorrectCss = NormalizeCss(correctCss);
-
-        if (normalizedUserInput == normalizedCorrectCss)
+        if (audioSource && clickSound)
         {
-            // SubmitCSS(userInput);
-
-            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
-
-            // Load the next challenge after a delay
-            // Invoke(nameof(NextChallenge), 1.5f);
+            audioSource.PlayOneShot(clickSound);
         }
-        else
+
+        if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
-            // If the input is incorrect, display error feedback
-            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+            var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+            var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
+
+            var normalizedUserInput = NormalizeCss(userInput);
+            var normalizedCorrectCss = NormalizeCss(correctCss);
+
+            if (normalizedUserInput == normalizedCorrectCss)
+            {
+                // SubmitCSS(userInput);
+
+                SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+
+                var scrollBar = FindFirstObjectByType<Kitchen_HorizontalScrollBar>();
+                if (scrollBar != null)
+                {
+                    scrollBar.MarkChallengeCompleted(buttonindex);
+                }
+                SetTextOfComponent(inputField, "", Color.clear, false);
+
+                StartCoroutine(HandleCorrectInput());
+
+                // Load the next challenge after a delay
+                // Invoke(nameof(NextChallenge), 1.5f);
+            }
+            else
+            {
+                // If the input is incorrect, display error feedback
+                SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+            }
         }
     }
 
-    /// <summary>
-    /// Checks if all challenges have been completed
-    /// </summary>
-    /// <returns>True if all challenges are completed, otherwise false</returns>
     private bool IsLevelComplete()
     {
         return currentChallengeIndex >= _cssChallenges.Count;
     }
 
-    /// <summary>
-    /// Advances to the next challenge or completes the game
-    /// </summary>
     private void NextChallenge()
     {
         currentChallengeIndex++;
@@ -276,25 +253,22 @@ public class KitchenNotepad : MonoBehaviour
         else
         {
             LoadChallenge();
-
-            // Save
-            // SaveProgress();
         }
     }
 
-    /// <summary>
-    /// Loads the current challenge with an incorrect CSS snippet
-    /// </summary>
-    private void LoadChallenge()
+    public void LoadChallenge()
     {
         // if the image exists, then we can set the text in the notepad
         if (selectedImage != null)
         {
-            // Set the input field text to the incorrect CSS snippet for the current challenge
+            // update the current challenge index to the selected image's button index
+            currentChallengeIndex = selectedImage.GetComponent<Kitchen_ChallengeImage>()._buttonIndex;
+
+            // No user input saved, so load the default incorrect CSS for the current challenge
             SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
-            // update the current challenge index to the selected image's button index
-            currentChallengeIndex = selectedImage.GetComponent<ChallengeImage>()._buttonIndex;
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
 
             // Set the hint text for the current challenge
             SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
@@ -303,55 +277,45 @@ public class KitchenNotepad : MonoBehaviour
             SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
         }
 
-        if (inputField.GetComponent<TMP_InputField>().text != "")
+        if (inputField.GetComponent<TMP_InputField>().text != "" && canReset)
         {
             // If the input field is not empty, set the current challenge index to the button index
             currentChallengeIndex = buttonindex;
+
+            // No user input saved, so load the default incorrect CSS for the current challenge
             SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // Set the input field text to the incorrect CSS snippet for the current challenge
+            // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+
+            // Set the hint text for the current challenge
+            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
+
+            // Display a message prompting the user to fix the syntax
+            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
         }
 
         // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
         return;
     }
 
-    /// <summary>
-    /// Resets the current challenge back to its original incorrect CSS snippet
-    /// </summary>
     private void ResetCurrentChallenge()
     {
-        PlayClickSound(); // $$$$
+        // Reset the user's input for the current challenge to the original incorrect syntax
         LoadChallenge();
     }
 
-    /// <summary>
-    /// Normalizes CSS input by removing excess spaces and line breaks
-    /// </summary>
-    /// <param name="input">The CSS string to normalize</param>
-    /// <returns>A normalized CSS string</returns>
     private static string NormalizeCss(string input)
     {
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
 
-    /// <summary>
-    /// Plays the UI click sound if available
-    /// </summary>
-    private void PlayClickSound() // $$$$
-    { // $$$$
-        if (audioSource && clickSound) // $$$$
-            audioSource.PlayOneShot(clickSound); // $$$$
-    } // $$$$
-    /// Saves the current challenge index to a file
-    /// </summary>
     public void SaveProgress()
     {
         File.WriteAllText(saveFilePath, currentChallengeIndex.ToString());
         Debug.Log("Progress saved!");
     }
 
-    /// <summary>
-    /// Loads the saved challenge index from file and resumes progress
-    /// </summary>
     private void LoadProgress()
     {
         if (File.Exists(saveFilePath))

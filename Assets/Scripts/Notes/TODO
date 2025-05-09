@@ -1,14 +1,3 @@
 # TODO
 
-## INSTRUCTIONS
-
-TODO: Make buttons on instructions panel show a dropdown pane with the text for that action
-TODO: Make the options panel on the side show a different panel based on the clicked button
-
-## KITCHEN
-
-TODO: Add the rest of the functionalities from the living room scene to the kitchen scene
-
-
-//For furniture
-TODO: furniture is locked until players fix syntax, then players can drag and drop the furniture
+TODO: make sure the level end screen shows up when you finish the entire level (once all items in the scroll bar have been completed)

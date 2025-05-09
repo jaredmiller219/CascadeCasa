@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KitchenFurnitureDropdown : MonoBehaviour
+public class Kitchen_FurnitureDropdown : MonoBehaviour
 {
     /// <summary>
     /// This class handles the behavior of a dropdown panel in the kitchen furniture UI.

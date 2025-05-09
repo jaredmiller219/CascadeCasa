@@ -71,9 +71,6 @@ public class GlobalCursorManager : MonoBehaviour
             // Initialize the array of cursor textures
             InitializeCursorTextures();
 
-            // Load the saved cursor preference and apply it
-            LoadSavedCursor();
-
             // Prevent this GameObject from being destroyed when loading new scenes
             DontDestroyOnLoad(gameObject);
         }
@@ -83,6 +80,13 @@ public class GlobalCursorManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
+
+
+    private void Start()
+    {
+        // Load the saved cursor preference and apply it
+        LoadSavedCursor();
     }
 
     /// <summary>

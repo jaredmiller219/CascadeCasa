@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
@@ -7,7 +6,7 @@ using System;
 /// This class allows an image to be draggable within a UI canvas and provides functionality
 /// for inserting the dragged image into a horizontal scroll bar at a specific position.
 /// </summary>
-public class PatioChallengeImage : MonoBehaviour, IPointerClickHandler
+public class Patio_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
     /// The index of the button in the scroll area.
@@ -30,6 +29,13 @@ public class PatioChallengeImage : MonoBehaviour, IPointerClickHandler
     public int AssociatedIndex;
 
     /// <summary>
+    /// if the challenge was completed
+    /// </summary>
+    public bool Completed { get; set; }
+
+    public bool Locked { get; set; }
+
+    /// <summary>
     /// The original parent of the image.
     /// </summary>
     private Transform _originalParent;
@@ -37,12 +43,12 @@ public class PatioChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Reference to the horizontal scroll bar.
     /// </summary>
-    private PatioHorizontalScrollBar _scrollBar;
+    private Patio_HorizontalScrollBar _scrollBar;
 
     /// <summary>
     ///
     /// </summary>
-    private PatioNotepad notepad;
+    private Patio_Notepad notepad;
 
     /// <summary>
     ///
@@ -61,13 +67,16 @@ public class PatioChallengeImage : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         _originalParent = transform.parent;
-        _scrollBar = _originalParent.GetComponentInParent<PatioHorizontalScrollBar>();
+        _scrollBar = _originalParent.GetComponentInParent<Patio_HorizontalScrollBar>();
 
-        notepad = FindFirstObjectByType<PatioNotepad>();
-        if (notepad == null)
+        notepad = FindFirstObjectByType<Patio_Notepad>();
+        if (notepad != null)
         {
             OnAnyImageClicked += notepad.SetCssText;
         }
+
+        Completed = false;
+        Locked = true;
     }
 
     /// <summary>
@@ -76,17 +85,22 @@ public class PatioChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        _buttonIndex = transform.GetSiblingIndex();
-        notepad.buttonindex = _buttonIndex;
+        if (!Completed)
+        {
+            _buttonIndex = transform.GetSiblingIndex();
+            notepad.buttonindex = _buttonIndex;
 
-        // ---------------- For debug only --------------------------
-        PatioChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-        string imageName = clickedImage.GetComponent<Image>().sprite.name;
-        Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
-        // ----------------------------------------------------------
+            // ---------------- For debug only --------------------------
+            // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
+            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+            // ----------------------------------------------------------
 
-        OnAnyImageClicked?.Invoke(AssociatedCss);
-        notepad.canReset = true;
+            OnAnyImageClicked?.Invoke(AssociatedCss);
+            notepad.canReset = true;
+            notepad.canSubmit = true;
+            notepad.LoadChallenge();
+        }
     }
 
     /// <summary>

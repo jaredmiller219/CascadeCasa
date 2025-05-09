@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Manages a CSS learning game where players fix full CSS snippets.
 /// </summary>
-public class Bedroom1Notepad : MonoBehaviour
+public class Bedroom1_Notepad : MonoBehaviour
 {
     /// <summary>
     /// Reference to the global cursor manager for handling cursor changes
