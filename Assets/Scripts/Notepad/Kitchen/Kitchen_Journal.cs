@@ -6,7 +6,7 @@ public class Kitchen_Journal : MonoBehaviour
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.
     /// </summary>
-    [SerializeField] private GameObject journalPopup;
+    [SerializeField] public GameObject journalPopup;
 
     /// <summary>
     /// Reference to the journal button GameObject.
@@ -39,7 +39,6 @@ public class Kitchen_Journal : MonoBehaviour
     /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
     {
-        // if (!canToggle) return;
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
 

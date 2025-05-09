@@ -6,7 +6,7 @@ public class PatioJournal : MonoBehaviour
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.
     /// </summary>
-    [SerializeField] private GameObject journalPopup;
+    public GameObject journalPopup;
 
     /// <summary>
     /// Reference to the journal button GameObject.
