@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LivingRoom_HorizontalScrollBar : MonoBehaviour
 {
-
     // ---------------- Public Variables --------------------------
 
     /// <summary>
