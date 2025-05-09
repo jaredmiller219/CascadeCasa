@@ -43,6 +43,8 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     [Header("Overlays")]
     public Sprite checkmarkSprite;
+
+    [HideInInspector] public Journal journal;
     // --------------------------------------------------------------
 
 
@@ -51,6 +53,11 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     /// a reference to the notepad script
     /// </summary>
     [SerializeField] private Notepad notepad;
+
+    /// <summary>
+    ///
+    /// </summary>
+    private int previousButtonIndex = -1;
 
     /// <summary>
     /// The list of images in the scroll bar
@@ -79,6 +86,12 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
         {
             Debug.LogError("Notepad not found in scene!");
             return;
+        }
+
+        journal = FindFirstObjectByType<Journal>();
+        if (journal == null)
+        {
+            Debug.Log("journal not initialized");
         }
 
         LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
@@ -290,5 +303,73 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
         {
             Debug.LogWarning("Checkmark object not found under button!");
         }
+    }
+
+    /// <summary>
+    /// Check if the button clicked is the same
+    /// as the previous button that was clicked
+    /// </summary>
+    /// <param name="clickedIndex"></param>
+    /// <param name="previousButtonIndex"></param>
+    /// <returns>boolean representing whether same button was clicked or not</returns>
+    private bool IsSameButton(int clickedIndex, int previousButtonIndex)
+    {
+        bool result = false;
+        if (clickedIndex == previousButtonIndex)
+        {
+            result = true;
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Checks if the journal is open.
+    /// </summary>
+    /// <param name="journal"></param>
+    /// <returns></returns>
+    private bool IsJournalOpen(Journal journal)
+    {
+        if (journal == null) Debug.LogError("journal is null");
+        return journal.journalPopup.activeSelf;
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="clickedIndex"></param>
+    /// <param name="css"></param>
+    public void HandleImageClick(int clickedIndex, string css)
+    {
+        // bool sameButton = clickedIndex == _previousButtonIndex;
+        bool journalOpen =
+        journal != null && journal.journalPopup.activeSelf;
+
+        LivingRoom_ChallengeImage clickedImage = GetImageAtIndex(clickedIndex);
+        if (clickedImage != null)
+        {
+            clickedImage.NotifyImageClicked(css);
+        }
+
+        notepad.buttonindex = clickedIndex;
+        notepad.canReset = true;
+        notepad.canSubmit = true;
+        notepad.LoadChallenge();
+
+        if (IsSameButton(clickedIndex, previousButtonIndex))
+        {
+            Debug.Log("Same button clicked");
+            journal.ToggleJournal(); // toggle regardless of open/closed
+        }
+        else
+        {
+            Debug.Log("New button clicked");
+            if (!journalOpen)
+            {
+                journal.ToggleJournal(); // only open if it's not already open
+                Debug.Log("Journal opened due to new button");
+            }
+        }
+
+        previousButtonIndex = clickedIndex;
     }
 }

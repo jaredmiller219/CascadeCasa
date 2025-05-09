@@ -15,6 +15,8 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public int _buttonIndex;
 
+    public int _previousbuttonindex = -1; // Ensure it's clearly uninitialized at start
+
     /// <summary>
     ///
     /// </summary>
@@ -86,23 +88,24 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         Locked = true;
     }
 
+    public void NotifyImageClicked(string css)
+    {
+        OnAnyImageClicked?.Invoke(css);
+    }
+
     /// <summary>
     /// Handles pointer click events on the draggable image.
     /// </summary>
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!Completed)
+        if (!Completed && _scrollBar != null)
         {
-
-            // Save current notepad text for previously selected index
+            // Save the current input
             if (notepad.buttonindex >= 0)
             {
                 notepad.SaveTextForIndex(notepad.buttonindex);
             }
-
-            _buttonIndex = transform.GetSiblingIndex();
-            notepad.buttonindex = _buttonIndex;
 
             // ---------------- For debug only --------------------------
             // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
@@ -110,13 +113,12 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
             // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
             // ----------------------------------------------------------
 
-            // OnAnyImageClicked?.Invoke(AssociatedCss);
-            OnAnyImageClicked?.Invoke(CurrentCss ?? AssociatedCss);
-            notepad.canReset = true;
-            notepad.canSubmit = true;
-            notepad.LoadChallenge();
-        }
+            int clickedIndex = transform.GetSiblingIndex();
+            _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
 
+            // Update after the check
+            _previousbuttonindex = _buttonIndex;
+        }
     }
 
     /// <summary>
