@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
-using System.Collections.Generic;
-using UnityEngine.UI;
 
 /// <summary>
 /// This class allows an image to be draggable within a UI canvas and provides functionality
@@ -14,6 +12,8 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// The index of the button in the scroll area.
     /// </summary>
     public int _buttonIndex;
+
+    public int _previousbuttonindex = -1; // Ensure it's clearly uninitialized at start
 
     /// <summary>
     ///
@@ -54,9 +54,6 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private Notepad notepad;
 
-    // private Dictionary<Button, string> buttonTexts = new Dictionary<Button, string>();
-    // private Button currentButton = null;
-
     /// <summary>
     ///
     /// </summary>
@@ -66,6 +63,40 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
+    }
+
+
+    public void NotifyImageClicked(string css)
+    {
+        OnAnyImageClicked?.Invoke(css);
+    }
+
+    /// <summary>
+    /// Handles pointer click events on the draggable image.
+    /// </summary>
+    /// <param name="eventData">Pointer event data containing information about the click.</param>
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!Completed && _scrollBar != null)
+        {
+            // Save the current input
+            if (notepad.buttonindex >= 0)
+            {
+                notepad.SaveTextForIndex(notepad.buttonindex);
+            }
+
+            // ---------------- For debug only --------------------------
+            // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
+            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+            // ----------------------------------------------------------
+
+            int clickedIndex = transform.GetSiblingIndex();
+            _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
+
+            // Update after the check
+            _previousbuttonindex = _buttonIndex;
+        }
     }
 
     /// <summary>
@@ -87,46 +118,10 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// Handles pointer click events on the draggable image.
-    /// </summary>
-    /// <param name="eventData">Pointer event data containing information about the click.</param>
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!Completed)
-        {
-
-            // Save current notepad text for previously selected index
-            if (notepad.buttonindex >= 0)
-            {
-                notepad.SaveTextForIndex(notepad.buttonindex);
-            }
-
-            _buttonIndex = transform.GetSiblingIndex();
-            notepad.buttonindex = _buttonIndex;
-
-            // ---------------- For debug only --------------------------
-            // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
-            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
-            // ----------------------------------------------------------
-
-            // OnAnyImageClicked?.Invoke(AssociatedCss);
-            OnAnyImageClicked?.Invoke(CurrentCss ?? AssociatedCss);
-            notepad.canReset = true;
-            notepad.canSubmit = true;
-            notepad.LoadChallenge();
-        }
-
-    }
-
-    /// <summary>
     /// Called when the object is destroyed. Cleans up resources.
     /// </summary>
     private void OnDestroy()
     {
-        if (notepad != null)
-        {
-            OnAnyImageClicked -= notepad.SetCssText;
-        }
+        if (notepad != null) OnAnyImageClicked -= notepad.SetCssText;
     }
 }
