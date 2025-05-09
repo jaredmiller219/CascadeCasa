@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LivingRoom_HorizontalScrollBar : MonoBehaviour
 {
-
     // ---------------- Public Variables --------------------------
 
     /// <summary>
@@ -108,20 +107,8 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
 
         SetupNotepad(notepad, clickedIndex, true, true);
 
-        if (IsSameButton(clickedIndex, previousIndex))
-        {
-            Debug.Log("Same button clicked");
-
-            // toggle regardless of open/closed
-            journal.ToggleJournal();
-        }
-        else if (!IsJournalOpen(journal))
-        {
-            Debug.Log("New button clicked");
-
-            // only open if it's not already open
-            journal.ToggleJournal();
-        }
+        if (IsSameButton(clickedIndex, previousIndex)) journal.ToggleJournal();
+        else if (!IsJournalOpen(journal)) journal.ToggleJournal();
 
         previousIndex = clickedIndex;
     }
