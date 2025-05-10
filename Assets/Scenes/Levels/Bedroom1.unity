@@ -1098,6 +1098,7 @@ GameObject:
   - component: {fileID: 421190640}
   - component: {fileID: 421190639}
   - component: {fileID: 421190638}
+  - component: {fileID: 421190641}
   m_Layer: 5
   m_Name: PullDownBtn
   m_TagString: Untagged
@@ -1169,9 +1170,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 421190635}
-        m_TargetAssemblyTypeName: KitchenFurnitureDropdown, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 421190641}
+        m_TargetAssemblyTypeName: Bedroom1_FurnitureDropdown, Assembly-CSharp
+        m_MethodName: PullBarDown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1219,6 +1220,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421190635}
   m_CullTransparentMesh: 1
+--- !u!114 &421190641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421190635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aee0f827e21e40d4bedebdebe866c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnitureDropdown: {fileID: 2043062229}
+  btnImage: {fileID: 1979244871}
+  audioSource: {fileID: 0}
+  dropdownSound: {fileID: 0}
 --- !u!1 &672375354
 GameObject:
   m_ObjectHideFlags: 0
@@ -2333,8 +2350,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2145569370}
   m_HandleRect: {fileID: 2145569369}
   m_Direction: 3
-  m_Value: -0.00000013783912
-  m_Size: 0.00000035603844
+  m_Value: 0.00000010337933
+  m_Size: 0.262
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3406,7 +3423,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000076293945, y: 221.40005}
+  m_AnchoredPosition: {x: 0.000076293945, y: 221.40002}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1574640176
