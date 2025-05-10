@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Kitchen_Journal : MonoBehaviour
+public class Bedroom2_Journal : MonoBehaviour
 {
     /// <summary>
-    /// Reference to the journal popup GameObject that appears when the journal button is clicked.
+    /// Reference to the journal popup GameObject that appears when the journal is opened.
     /// </summary>
-    [SerializeField] public GameObject journalPopup;
+    [SerializeField] private GameObject journalPopup;
 
     /// <summary>
-    /// Reference to the journal button GameObject.
+    /// Reference to the journal button GameObject that opens the journal.
     /// </summary>
     [SerializeField] private Button journalButton;
 
@@ -25,12 +25,19 @@ public class Kitchen_Journal : MonoBehaviour
             journalPopup.SetActive(false);
         }
         animator = journalButton.GetComponent<Animator>();
+        // canToggle = false;
     }
 
     /// <summary>
     /// Toggles the visibility of the journal popup.
     /// This method is called when the journal button is clicked.
     /// It checks if the journal popup is currently active and toggles its state accordingly.
+    /// <example>
+    /// <code>
+    /// // Example usage:
+    /// journal.ToggleJournal();
+    /// </code>
+    /// </example>
     /// </summary>
     /// <remarks>
     /// This method uses the SetActive method to show or hide the journal popup.
@@ -39,14 +46,23 @@ public class Kitchen_Journal : MonoBehaviour
     /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
     {
+        // if (!canToggle) return;
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
 
     /// <summary>
     /// Sets the hover state of the journal button.
+    /// This method is called to indicate whether the mouse is hovering over the button.
+    /// <example>
+    /// <code>
+    /// // Example usage:
+    /// journal.SetHover(true); // Set hover state to true
+    /// journal.SetHover(false); // Set hover state to false
+    /// </code>
+    /// </example>
     /// </summary>
     /// <remarks>
-    /// This method uses an animator to set the hover state of the button.<br/>
+    /// This method uses an animator to set the hover state of the button.
     /// It assumes that the animator has a parameter named "hover" to control the hover animation.
     /// </remarks>
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>

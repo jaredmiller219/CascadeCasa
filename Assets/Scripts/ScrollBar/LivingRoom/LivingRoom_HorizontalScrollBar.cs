@@ -38,12 +38,6 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     [Header("Images")]
     public Sprite[] imageSprites;
 
-    /// <summary>
-    /// The sprite for when the challenge is complete
-    /// </summary>
-    [Header("Overlays")]
-    public Sprite checkmarkSprite;
-
     [HideInInspector] public Journal journal;
     // --------------------------------------------------------------
 

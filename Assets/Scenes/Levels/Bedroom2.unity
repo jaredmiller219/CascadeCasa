@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 94619544}
   - component: {fileID: 94619543}
   - component: {fileID: 94619546}
-  - component: {fileID: 94619545}
+  - component: {fileID: 94619549}
   m_Layer: 5
   m_Name: JournalOpen
   m_TagString: Untagged
@@ -377,8 +377,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 210478313}
-        m_TargetAssemblyTypeName: KitchenJournal, Assembly-CSharp
+      - m_Target: {fileID: 210478320}
+        m_TargetAssemblyTypeName: Bedroom2_Journal, Assembly-CSharp
         m_MethodName: ToggleJournal
         m_Mode: 1
         m_Arguments:
@@ -419,19 +419,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &94619545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94619542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73cbe06fa2ce54af6922766c12ceaabd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  JournalImage: {fileID: 1319052254}
 --- !u!95 &94619546
 Animator:
   serializedVersion: 7
@@ -482,6 +469,21 @@ RectTransform:
   m_AnchoredPosition: {x: -35.85, y: 37.5312}
   m_SizeDelta: {x: 73.36, y: 86.0497}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &94619549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94619542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fea000aa22684c3499b8fa074b43c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JournalImage: {fileID: 1319052254}
+  audioSource: {fileID: 0}
+  clickSound: {fileID: 0}
 --- !u!1 &106003346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,8 +1082,8 @@ GameObject:
   - component: {fileID: 210478316}
   - component: {fileID: 210478315}
   - component: {fileID: 210478314}
-  - component: {fileID: 210478313}
-  - component: {fileID: 210478312}
+  - component: {fileID: 210478320}
+  - component: {fileID: 210478319}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1089,46 +1091,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &210478312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 210478311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec93963d32af4daa87d2d38ea6295f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputField: {fileID: 284086310}
-  feedbackText: {fileID: 65565672}
-  submitBtn: {fileID: 145255407}
-  resetBtn: {fileID: 1267334709}
-  resetPopup: {fileID: 1569367237}
-  currentChallengeIndex: 0
-  buttonindex: 0
-  challengeComplete: {fileID: 544765091}
-  audioSource: {fileID: 0}
-  clickSound: {fileID: 0}
-  canReset: 0
-  hintText: {fileID: 1931810096}
---- !u!114 &210478313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 210478311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c38987e94adf4596b32dc6c0f2d46c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  journalPopup: {fileID: 1072012805}
-  journalButton: {fileID: 94619543}
-  audioSource: {fileID: 0}
-  pageFlipSound: {fileID: 0}
 --- !u!114 &210478314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,6 +1181,45 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &210478319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210478311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a256b4e4b084223a7fd449e5d42baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 284086310}
+  feedbackText: {fileID: 65565672}
+  submitBtn: {fileID: 145255407}
+  resetBtn: {fileID: 1267334709}
+  resetPopup: {fileID: 1569367237}
+  currentChallengeIndex: 0
+  buttonindex: 0
+  challengeComplete: {fileID: 544765091}
+  hintText: {fileID: 1931810096}
+  audioSource: {fileID: 0}
+  clickSound: {fileID: 0}
+  canReset: 0
+  canSubmit: 0
+--- !u!114 &210478320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210478311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24bfa97c11014304bda33090e099487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  journalPopup: {fileID: 1072012805}
+  journalButton: {fileID: 94619543}
 --- !u!1 &245923542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,6 +1428,7 @@ MonoBehaviour:
   - {fileID: 3709000229250067790, guid: 9aaf479ec918a455abc108c09a8cb849, type: 3}
   - {fileID: 1717959649996741340, guid: aec5fcc7b1d284a069d3a31d2d9c5eb7, type: 3}
   - {fileID: 1365539031471768751, guid: 946a0bc9556114806b130b92fda4eae2, type: 3}
+  checkmarkSprite: {fileID: 0}
   notepad: {fileID: 0}
 --- !u!1 &284086310
 GameObject:
