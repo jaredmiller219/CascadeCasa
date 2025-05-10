@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PatioJournal : MonoBehaviour
+public class Patio_Journal : MonoBehaviour
 {
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.
