@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FurnitureDropdown : MonoBehaviour
+public class Bathroom_FurnitureDropdown : MonoBehaviour
 {
 
     /// <summary>

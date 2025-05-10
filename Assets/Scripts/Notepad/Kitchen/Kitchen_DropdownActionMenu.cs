@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class DropdownActionMenu : MonoBehaviour
+public class Kitchen_DropdownActionMenu : MonoBehaviour
 {
     /// <summary>
     /// This class handles the behavior of a dropdown menu in the game.
@@ -13,7 +13,7 @@ public class DropdownActionMenu : MonoBehaviour
     /// <summary>
     /// Reference to the Notepad script, which manages the game's challenges.
     /// </summary>
-    private Notepad notepad;
+    private Kitchen_Notepad notepad;
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class DropdownActionMenu : MonoBehaviour
             dropdown.onValueChanged.AddListener(OnOptionSelected);
         }
 
-        notepad = GetComponentInChildren<Notepad>();
+        notepad = GetComponentInChildren<Kitchen_Notepad>();
     }
 
     /// <summary>

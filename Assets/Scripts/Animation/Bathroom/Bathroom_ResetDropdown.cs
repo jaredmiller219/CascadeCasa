@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ResetPopup : MonoBehaviour
+public class Bathroom_ResetDropdown : MonoBehaviour
 {
 
     /// <summary>
@@ -31,7 +31,7 @@ public class ResetPopup : MonoBehaviour
     /// Reference to the Notepad component that is used to check if there is any text in the notepad.
     /// This is used to determine whether to play the animation or not.
     /// </summary>
-    private Notepad notepad;
+    private Bathroom_Notepad notepad;
 
     private void Start()
     {
@@ -39,7 +39,7 @@ public class ResetPopup : MonoBehaviour
         _animator = resetPopup.GetComponent<Animator>();
 
         // Get the Notepad component attached to the same GameObject
-        notepad = FindFirstObjectByType<Notepad>();
+        notepad = FindFirstObjectByType<Bathroom_Notepad>();
     }
 
     /// <summary>

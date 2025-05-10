@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PatioResetPopup : MonoBehaviour
+public class Patio_ResetPopup : MonoBehaviour
 {
 
     /// <summary>
