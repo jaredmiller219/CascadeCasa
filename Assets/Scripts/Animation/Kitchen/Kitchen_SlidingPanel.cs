@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // This class is responsible for controlling the sliding panel's animation
-public class SlidePanelController : MonoBehaviour
+public class Kitchen_SlidePanelController : MonoBehaviour
 {
     /// <summary>
     /// Reference to the panel GameObject that will be animated.

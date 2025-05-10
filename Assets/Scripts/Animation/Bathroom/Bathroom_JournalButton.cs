@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class Bathroom_JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     /// <summary>
     /// Reference to the GameObject representing the journal image.

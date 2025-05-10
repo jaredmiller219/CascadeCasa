@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Journal : MonoBehaviour
+public class LivingRoom_Journal : MonoBehaviour
 {
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PatioFurnitureDropdown : MonoBehaviour
+public class Patio_FurnitureDropdown : MonoBehaviour
 {
 
     /// <summary>

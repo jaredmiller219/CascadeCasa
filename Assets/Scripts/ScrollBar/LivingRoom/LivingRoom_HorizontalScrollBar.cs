@@ -38,7 +38,7 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     [Header("Images")]
     public Sprite[] imageSprites;
 
-    [HideInInspector] public Journal journal;
+    [HideInInspector] public LivingRoom_Journal journal;
     // --------------------------------------------------------------
 
 
@@ -47,7 +47,7 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// a reference to the notepad script
     /// </summary>
-    [SerializeField] private Notepad notepad;
+    [SerializeField] private LivingRoom_Notepad notepad;
 
     /// <summary>
     ///
@@ -76,10 +76,10 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
 
     private void Start()
     {
-        notepad = FindFirstObjectByType<Notepad>();
+        notepad = FindFirstObjectByType<LivingRoom_Notepad>();
         if (notepad == null) { Debug.LogError("Notepad not found in scene!"); return; }
 
-        journal = FindFirstObjectByType<Journal>();
+        journal = FindFirstObjectByType<LivingRoom_Journal>();
         if (journal == null) Debug.Log("journal not initialized");
 
         LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
@@ -315,7 +315,7 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="journal"></param>
     /// <returns>boolean representing if the journal was open or not</returns>
-    private bool IsJournalOpen(Journal journal)
+    private bool IsJournalOpen(LivingRoom_Journal journal)
     {
         if (journal == null) Debug.LogError("journal is null");
         return journal.journalPopup.activeSelf;
@@ -328,7 +328,7 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     /// <param name="clickedIndex">The index of the button clicked</param>
     /// <param name="canReset">Whether the notepad is able to reset</param>
     /// <param name="canSubmit">Whether the notepad is able to submit</param>
-    private void SetupNotepad(Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
+    private void SetupNotepad(LivingRoom_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
     {
         notepad.buttonindex = clickedIndex;
         notepad.canReset = canReset;
