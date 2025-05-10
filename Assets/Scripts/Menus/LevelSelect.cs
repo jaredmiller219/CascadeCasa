@@ -29,13 +29,13 @@ public class LevelSelect : MonoBehaviour
     [Tooltip("The button to go to the porch \n lvl _")]
     public GameObject porchBtn;
 
-    [InspectorName("Bedroom _ Button")]
-    [Tooltip("The button to go to bedroom _ \n lvl _")]
-    public GameObject bedroomxBtn;
+    [InspectorName("Bedroom 1 Button")]
+    [Tooltip("The button to go to bedroom 1 \n lvl _")]
+    public GameObject bedroom1Btn;
 
-    [InspectorName("Bedroom _ Button")]
-    [Tooltip("The button to go to bedroom _ \n lvl _")]
-    public GameObject bedroomx1Btn;
+    [InspectorName("Bedroom 2 Button")]
+    [Tooltip("The button to go to bedroom 2 \n lvl _")]
+    public GameObject bedroom2Btn;
 
     [InspectorName("Garden Button")]
     [Tooltip("The button to go to garden _ \n lvl _")]
@@ -54,9 +54,10 @@ public class LevelSelect : MonoBehaviour
         SetAlphaHitTest(kitchenBtn);
         SetAlphaHitTest(bathroomBtn);
         SetAlphaHitTest(porchBtn);
-        SetAlphaHitTest(bedroomxBtn);
-        SetAlphaHitTest(bedroomx1Btn);
+        SetAlphaHitTest(bedroom1Btn);
+        SetAlphaHitTest(bedroom2Btn);
         SetAlphaHitTest(gardenBtn);
+        SetAlphaHitTest(outlineOverlay);
     }
 
     public void SetAlphaHitTest(GameObject btn)
