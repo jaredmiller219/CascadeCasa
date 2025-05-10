@@ -41,8 +41,6 @@ public class LevelSelect : MonoBehaviour
     [Tooltip("The button to go to garden _ \n lvl _")]
     public GameObject gardenBtn;
 
-    public GameObject outlineOverlay;
-
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip clickSound;
@@ -57,7 +55,6 @@ public class LevelSelect : MonoBehaviour
         SetAlphaHitTest(bedroom1Btn);
         SetAlphaHitTest(bedroom2Btn);
         SetAlphaHitTest(gardenBtn);
-        SetAlphaHitTest(outlineOverlay);
     }
 
     public void SetAlphaHitTest(GameObject btn)
@@ -95,10 +92,10 @@ public class LevelSelect : MonoBehaviour
                 sceneToLoad = "Porch";
                 break;
             case "Bedroom1" or "Bedroom 1":
-                sceneToLoad = "Bedroom 1";
+                sceneToLoad = "Bedroom1";
                 break;
             case "Bedroom2" or "Bedroom 2":
-                sceneToLoad = "Bedroom 2";
+                sceneToLoad = "Bedroom2";
                 break;
             case "Garden":
                 sceneToLoad = "Garden";
