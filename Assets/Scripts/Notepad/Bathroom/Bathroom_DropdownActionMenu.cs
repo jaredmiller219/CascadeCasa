@@ -5,8 +5,6 @@ public class Bathroom_DropdownActionMenu : MonoBehaviour
 {
     /// <summary>
     /// This class handles the behavior of a dropdown menu in the game.
-    /// It allows the player to select different options such as saving progress,
-    /// going to the level select screen, returning to the main menu, or quitting the game.
     /// </summary>
     public TMP_Dropdown dropdown;
 
@@ -17,7 +15,6 @@ public class Bathroom_DropdownActionMenu : MonoBehaviour
 
     void Start()
     {
-        // Get the TMP_Dropdown component
         if (dropdown != null)
         {
             dropdown = GetComponentInChildren<TMP_Dropdown>();

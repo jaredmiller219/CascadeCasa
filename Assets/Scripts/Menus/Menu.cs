@@ -45,7 +45,6 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
-        // Get TMP_Text from each button’s children
         levelSelectText = levelSelectButton.GetComponentInChildren<TMP_Text>();
         playText = playButton.GetComponentInChildren<TMP_Text>();
         instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
@@ -84,7 +83,6 @@ public class Menu : MonoBehaviour
     {
         SetDefaultColor(playText);
         PlayClickSound();
-        // Add your Play() call here if needed
     }
 
     /// <summary>
@@ -111,8 +109,8 @@ public class Menu : MonoBehaviour
     /// <param name="text">the text to change</param>
     private void SetPressedColor(TMP_Text text)
     {
-        if (text != null)
-            text.color = new Color32(200, 200, 200, 255); // Light gray
+        // Light gray
+        if (text != null) text.color = new Color32(200, 200, 200, 255);
     }
 
     /// <summary>
@@ -122,8 +120,9 @@ public class Menu : MonoBehaviour
     private void SetDefaultColor(TMP_Text text)
     {
         PlayClickSound();
-        if (text != null)
-            text.color = new Color32(255, 255, 255, 255); // White
+
+        // White
+        if (text != null) text.color = new Color32(255, 255, 255, 255);
     }
 
     /// <summary>
@@ -140,8 +139,7 @@ public class Menu : MonoBehaviour
 
     private void PlayClickSound()
     {
-        if (audioSource && clickSound)
-            audioSource.PlayOneShot(clickSound);
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
 
     private IEnumerator LoadSceneDelayed(string sceneName)

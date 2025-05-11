@@ -58,7 +58,6 @@ public class Instructions : MonoBehaviour
     public void Start()
     {
         instructionText.GetComponent<TMP_Text>().text = "";
-
         float currentY = 0f;
 
         for (int i = 0; i < _instructions.Count; i++)
@@ -70,7 +69,6 @@ public class Instructions : MonoBehaviour
 
     public void BackToMenu()
     {
-        // Load the main menu scene
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 
@@ -80,10 +78,8 @@ public class Instructions : MonoBehaviour
         {
             instructionText.GetComponent<TMP_Text>().text = _instructions[index].instructionText;
         }
-        else
-        {
-            instructionText.GetComponent<TMP_Text>().text = "Instruction not found.";
-        }
+
+        else instructionText.GetComponent<TMP_Text>().text = "Instruction not found.";
     }
 
     private void CreateButtonInstatiation(int index, float yPosition)

@@ -3,10 +3,8 @@ using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
 {
+    [SerializeField] private Slider volumeSlider;
 
-    [SerializeField] Slider volumeSlider;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (!PlayerPrefs.HasKey("musicVolume"))
@@ -14,10 +12,7 @@ public class VolumeSettings : MonoBehaviour
             PlayerPrefs.SetFloat("musicVolume", 1);
             LoadVolume();
         }
-        else
-        {
-            LoadVolume();
-        }
+        else LoadVolume();
     }
 
     public void ChangeVolume()

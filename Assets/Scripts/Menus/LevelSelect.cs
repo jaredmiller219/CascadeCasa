@@ -68,10 +68,7 @@ public class LevelSelect : MonoBehaviour
 
     public void LoadRoom(string roomName)
     {
-        if (audioSource && clickSound)
-        {
-            audioSource.PlayOneShot(clickSound);
-        }
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
 
         string sceneToLoad;
         switch (roomName)
@@ -104,7 +101,6 @@ public class LevelSelect : MonoBehaviour
                 Debug.LogWarning("Unknown room: " + roomName);
                 return;
         }
-
         StartCoroutine(LoadSceneWithDelay(sceneToLoad));
     }
 

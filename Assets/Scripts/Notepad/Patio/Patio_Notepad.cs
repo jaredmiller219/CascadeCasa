@@ -1,3 +1,4 @@
+// using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -64,9 +65,9 @@ public class Patio_Notepad : MonoBehaviour
 
     private GlobalCursorManager _cursorManager;
 
-    private LivingRoom_ChallengeImage selectedImage;
+    private Patio_ChallengeImage selectedImage;
 
-    private Dictionary<int, string> savedTexts = new Dictionary<int, string>();
+    private Dictionary<int, string> savedTexts = new();
 
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
@@ -123,7 +124,6 @@ public class Patio_Notepad : MonoBehaviour
 
     public void SetCssText(string css)
     {
-        // inputField.GetComponent<TMP_InputField>().text = css;
         // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }
@@ -141,7 +141,6 @@ public class Patio_Notepad : MonoBehaviour
 
     private void SetButtonInteractable(GameObject button, bool isInteractable)
     {
-        // Set the button to be interactable or not
         button.GetComponent<Button>().interactable = isInteractable;
     }
 
@@ -186,10 +185,7 @@ public class Patio_Notepad : MonoBehaviour
     /// </summary>
     private void CheckCssInput()
     {
-        if (audioSource && clickSound)
-        {
-            audioSource.PlayOneShot(clickSound);
-        }
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
 
         if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
@@ -201,8 +197,6 @@ public class Patio_Notepad : MonoBehaviour
 
             if (normalizedUserInput == normalizedCorrectCss)
             {
-                // SubmitCSS(userInput);
-
                 SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
 
                 var scrollBar = FindFirstObjectByType<Patio_HorizontalScrollBar>();
@@ -212,14 +206,11 @@ public class Patio_Notepad : MonoBehaviour
                 }
                 SetTextOfComponent(inputField, "", Color.clear, false);
 
-                // StartCoroutine(HandleCorrectInput());
-
                 // Load the next challenge after a delay
                 // Invoke(nameof(NextChallenge), 1.5f);
             }
             else
             {
-                // If the input is incorrect, display error feedback
                 SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
             }
         }
@@ -236,33 +227,27 @@ public class Patio_Notepad : MonoBehaviour
 
         if (IsLevelComplete())
         {
-            // Display a completion message to the user
             SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
-
-            // Clear the input field and make it non-interactable
             SetTextOfComponent(inputField, "", Color.clear, false);
-
-            // Disable the submit and reset buttons
             SetButtonInteractable(submitBtn, false);
             SetButtonInteractable(resetBtn, false);
-
             challengeComplete.SetActive(true);
         }
-        else
-        {
-            LoadChallenge();
-        }
+        else LoadChallenge();
+    }
+
+    private void SetChallengeIndexFromButtonIndex(int index)
+    {
+        currentChallengeIndex = index;
     }
 
     public void LoadChallenge()
     {
         if (selectedImage != null)
         {
-            currentChallengeIndex = selectedImage.GetComponent<Patio_ChallengeImage>()._buttonIndex;
+            SetChallengeIndexFromButtonIndex(selectedImage.GetComponent<Patio_ChallengeImage>()._buttonIndex);
         }
-
         currentChallengeIndex = buttonindex;
-
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
@@ -273,10 +258,7 @@ public class Patio_Notepad : MonoBehaviour
         {
             SetTextOfComponent(inputField, savedInput, Color.black, true);
         }
-        else
-        {
-            SetTextOfComponent(inputField, _cssChallenges[challengeIndex].Key, Color.black, true);
-        }
+        else SetTextOfComponent(inputField, _cssChallenges[challengeIndex].Key, Color.black, true);
     }
 
     private void UpdateChallengeUI(int challengeIndex)

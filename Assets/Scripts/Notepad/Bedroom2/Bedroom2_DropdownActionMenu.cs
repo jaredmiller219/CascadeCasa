@@ -23,7 +23,6 @@ public class Bedroom2_DropdownActionMenu : MonoBehaviour
             dropdown = GetComponentInChildren<TMP_Dropdown>();
             dropdown.onValueChanged.AddListener(OnOptionSelected);
         }
-
         notepad = GetComponentInChildren<Bedroom2_Notepad>();
     }
 

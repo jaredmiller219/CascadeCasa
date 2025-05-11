@@ -82,8 +82,8 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
         journal = FindFirstObjectByType<Kitchen_Journal>();
         if (journal == null) Debug.Log("journal not initialized");
 
-        LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
-        LivingRoom_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
+        Kitchen_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+        Kitchen_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
 
         SetupLayout();
         StartCoroutine(DelayedLoad());
@@ -258,7 +258,7 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     private void AddScriptToImage(GameObject imgObj)
     {
         if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
-        var image = imgObj.AddComponent<LivingRoom_ChallengeImage>();
+        var image = imgObj.AddComponent<Kitchen_ChallengeImage>();
         int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
         image.AssociatedCss = _cssChallenges[index].Key;
     }

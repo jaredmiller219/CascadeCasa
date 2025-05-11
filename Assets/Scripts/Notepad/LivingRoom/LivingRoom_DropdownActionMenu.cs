@@ -17,13 +17,11 @@ public class DropdownActionMenu : MonoBehaviour
 
     void Start()
     {
-        // Get the TMP_Dropdown component
         if (dropdown != null)
         {
             dropdown = GetComponentInChildren<TMP_Dropdown>();
             dropdown.onValueChanged.AddListener(OnOptionSelected);
         }
-
         notepad = GetComponentInChildren<LivingRoom_Notepad>();
     }
 

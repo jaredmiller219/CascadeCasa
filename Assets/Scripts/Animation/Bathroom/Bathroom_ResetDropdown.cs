@@ -6,24 +6,25 @@ public class Bathroom_ResetDropdown : MonoBehaviour
 
     /// <summary>
     /// Reference to the GameObject that represents the reset popup in the scene.
+    /// <br />
     /// This GameObject should have an Animator component attached to it.
-    /// The Animator component is used to control the animation of the reset popup.
     /// </summary>
     public GameObject resetPopup;
 
     /// <summary>
     /// Reference to the Animator component attached to the resetPopup GameObject.
+    /// <br />
     /// This component is responsible for playing the animation clips assigned to it.
     /// </summary>
     private Animator _animator;
 
     /// <summary>
-    ///
+    /// The source of the audio
     /// </summary>
     public AudioSource audioSource;
 
     /// <summary>
-    ///
+    /// The sound to play when you click the popup
     /// </summary>
     public AudioClip popupSound;
 
@@ -35,10 +36,7 @@ public class Bathroom_ResetDropdown : MonoBehaviour
 
     private void Start()
     {
-        // Get the Animator component attached to the resetPopup GameObject
         _animator = resetPopup.GetComponent<Animator>();
-
-        // Get the Notepad component attached to the same GameObject
         notepad = FindFirstObjectByType<Bathroom_Notepad>();
     }
 
@@ -46,31 +44,16 @@ public class Bathroom_ResetDropdown : MonoBehaviour
     /// Plays the "Pull" animation on the resetPopup GameObject.
     /// This method is called to trigger the animation when needed.
     /// </summary>
-    /// <remarks>
-    /// This method checks if the resetPopup GameObject and the Animator component are not null
-    /// before attempting to play the animation.
-    /// It also ensures that the resetPopup GameObject is active in the scene.
-    /// </remarks>
     public void Animate()
     {
-        if (audioSource && popupSound)
-        {
-            audioSource.PlayOneShot(popupSound);
-        }
-
-        // Check if the resetPopup GameObject or the Animator component is null
+        if (audioSource && popupSound) audioSource.PlayOneShot(popupSound);
         if (resetPopup == null || _animator == null || notepad == null) return;
 
-        // the there is nothing in the notepad aka no text is set, then dont play the animation
+        // if there's nothing in the notepad, don't play animation
         if (notepad.inputField.GetComponent<TMPro.TMP_InputField>().text != "")
         {
-            // Ensure the resetPopup GameObject is active in the scene
             resetPopup.SetActive(true);
-
-            // Play the "Pull" animation from the Animator, starting at the beginning (time 0f)
             _animator.Play("Pull", 0, 0f);
-
-            // Start a coroutine to wait for the animation to finish
             StartCoroutine(WaitForAnimationToEnd());
         }
     }
@@ -78,26 +61,12 @@ public class Bathroom_ResetDropdown : MonoBehaviour
     /// <summary>
     /// Coroutine that waits for the animation to finish before deactivating the resetPopup GameObject.
     /// </summary>
-    /// <remarks>
-    /// This coroutine retrieves the length of the currently playing animation clip
-    /// and waits for that duration before deactivating the resetPopup GameObject.
-    /// It uses the AnimatorStateInfo to get the length of the animation.
-    /// </remarks>
-    /// <returns>An IEnumerator for the coroutine.</returns>
-    /// <exception cref="MissingReferenceException">Thrown if the Animator component is missing.</exception>
     private IEnumerator WaitForAnimationToEnd()
     {
-        // Get the length of the animation clip
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         float animationLength = stateInfo.length;
-
-        // Wait for the animation to finish
         yield return new WaitForSeconds(animationLength);
-
-        // Play the "Pull" animation from the Animator, starting at the beginning (time 0f)
         _animator.Play("Pull", 0, 0f);
-
-        // Now deactivate the popup
         resetPopup.SetActive(false);
     }
 }

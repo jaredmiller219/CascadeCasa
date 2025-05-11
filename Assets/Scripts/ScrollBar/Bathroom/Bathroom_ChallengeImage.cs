@@ -47,10 +47,7 @@ public class Bathroom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _scrollBar = _originalParent.GetComponentInParent<Bathroom_HorizontalScrollBar>();
 
         notepad = FindFirstObjectByType<Bathroom_Notepad>();
-        if (notepad == null)
-        {
-            OnAnyImageClicked += notepad.SetCssText;
-        }
+        if (notepad == null) OnAnyImageClicked += notepad.SetCssText;
     }
 
     /// <summary>
@@ -73,9 +70,6 @@ public class Bathroom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void OnDestroy()
     {
-        if (notepad != null)
-        {
-            OnAnyImageClicked -= notepad.SetCssText;
-        }
+        if (notepad != null) OnAnyImageClicked -= notepad.SetCssText;
     }
 }
