@@ -75,8 +75,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
 
         ClearImages();
 
-        foreach (var sprite in imageSprites)
-            AddImage(sprite);
+        foreach (var sprite in imageSprites) AddImage(sprite);
 
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
@@ -101,8 +100,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
         var rect = img.GetComponent<RectTransform>();
         rect.sizeDelta = imageSize * 2;
 
-        if (imgObj.TryGetComponent<LayoutElement>(out var layout))
-            DestroyImmediate(layout);
+        if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
 
         var draggable = imgObj.AddComponent<Bedroom1_ChallengeImage>();
         int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
@@ -111,16 +109,13 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
 
     private void ClearImages()
     {
-        foreach (var img in _scrollImages.Where(i => i != null))
-            Destroy(img.gameObject);
-
+        foreach (var img in _scrollImages.Where(i => i != null)) Destroy(img.gameObject);
         _scrollImages.Clear();
     }
 
     private void OnValidate()
     {
-        if (Application.isPlaying)
-            UpdateImageSizes();
+        if (Application.isPlaying) UpdateImageSizes();
     }
 
     private void UpdateImageSizes()
@@ -143,7 +138,9 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
         if (content == null) return;
 
         if (content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
+        {
             layoutGroup.spacing = spacing;
+        }
 
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);

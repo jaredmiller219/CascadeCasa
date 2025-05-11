@@ -75,8 +75,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
 
         ClearImages();
 
-        foreach (var sprite in imageSprites)
-            AddImage(sprite);
+        foreach (var sprite in imageSprites) AddImage(sprite);
 
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
@@ -119,16 +118,14 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
 
     private void OnValidate()
     {
-        if (Application.isPlaying)
-            UpdateImageSizes();
+        if (Application.isPlaying) UpdateImageSizes();
     }
 
     private void UpdateImageSizes()
     {
         foreach (var img in _scrollImages)
         {
-            if (img != null)
-                img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
+            if (img != null) img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
         }
 
         if (content)
@@ -143,7 +140,9 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
         if (content == null) return;
 
         if (content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
+        {
             layoutGroup.spacing = spacing;
+        }
 
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);

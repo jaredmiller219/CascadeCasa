@@ -1,4 +1,4 @@
-using System.Collections;
+// using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -67,6 +67,8 @@ public class Bedroom2_Notepad : MonoBehaviour
 
     private Bedroom2_ChallengeImage selectedImage;
 
+    private Dictionary<int, string> savedTexts = new();
+
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
         new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
@@ -91,10 +93,6 @@ public class Bedroom2_Notepad : MonoBehaviour
 
     private int _previousCursorIndex;
 
-    // Dictionary to store each challenge's user input by its index
-    // private Dictionary<int, string> challengeInputs = new();
-
-
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
@@ -118,9 +116,15 @@ public class Bedroom2_Notepad : MonoBehaviour
         // LoadChallenge();
     }
 
+    public void SaveTextForIndex(int index)
+    {
+        string currentInput = inputField.GetComponent<TMP_InputField>().text;
+        savedTexts[index] = currentInput;
+    }
+
     public void SetCssText(string css)
     {
-        // inputField.GetComponent<TMP_InputField>().text = css;
+        // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
@@ -137,7 +141,6 @@ public class Bedroom2_Notepad : MonoBehaviour
 
     private void SetButtonInteractable(GameObject button, bool isInteractable)
     {
-        // Set the button to be interactable or not
         button.GetComponent<Button>().interactable = isInteractable;
     }
 
@@ -177,21 +180,12 @@ public class Bedroom2_Notepad : MonoBehaviour
         }
     }
 
-    private IEnumerator HandleCorrectInput()
-    {
-        yield return new WaitForSeconds(1.5f);
-        SetTextOfComponent(feedbackText, "Select a new furniture", Color.green, false);
-    }
-
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
     /// </summary>
     private void CheckCssInput()
     {
-        if (audioSource && clickSound)
-        {
-            audioSource.PlayOneShot(clickSound);
-        }
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
 
         if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
@@ -203,8 +197,6 @@ public class Bedroom2_Notepad : MonoBehaviour
 
             if (normalizedUserInput == normalizedCorrectCss)
             {
-                // SubmitCSS(userInput);
-
                 SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
 
                 var scrollBar = FindFirstObjectByType<Bedroom2_HorizontalScrollBar>();
@@ -214,14 +206,11 @@ public class Bedroom2_Notepad : MonoBehaviour
                 }
                 SetTextOfComponent(inputField, "", Color.clear, false);
 
-                StartCoroutine(HandleCorrectInput());
-
                 // Load the next challenge after a delay
                 // Invoke(nameof(NextChallenge), 1.5f);
             }
             else
             {
-                // If the input is incorrect, display error feedback
                 SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
             }
         }
@@ -238,70 +227,51 @@ public class Bedroom2_Notepad : MonoBehaviour
 
         if (IsLevelComplete())
         {
-            // Display a completion message to the user
             SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
-
-            // Clear the input field and make it non-interactable
             SetTextOfComponent(inputField, "", Color.clear, false);
-
-            // Disable the submit and reset buttons
             SetButtonInteractable(submitBtn, false);
             SetButtonInteractable(resetBtn, false);
-
             challengeComplete.SetActive(true);
         }
-        else
-        {
-            LoadChallenge();
-        }
+        else LoadChallenge();
+    }
+
+    private void SetChallengeIndexFromButtonIndex(int index)
+    {
+        currentChallengeIndex = index;
     }
 
     public void LoadChallenge()
     {
-        // if the image exists, then we can set the text in the notepad
         if (selectedImage != null)
         {
-            // update the current challenge index to the selected image's button index
-            currentChallengeIndex = selectedImage.GetComponent<Bedroom2_ChallengeImage>()._buttonIndex;
-
-            // No user input saved, so load the default incorrect CSS for the current challenge
-            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-
-            // Set the input field text to the incorrect CSS snippet for the current challenge
-            // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-
-            // Set the hint text for the current challenge
-            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
-
-            // Display a message prompting the user to fix the syntax
-            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
+            SetChallengeIndexFromButtonIndex(selectedImage.GetComponent<Bedroom2_ChallengeImage>()._buttonIndex);
         }
+        currentChallengeIndex = buttonindex;
+        LoadInputForChallenge(currentChallengeIndex);
+        UpdateChallengeUI(currentChallengeIndex);
+    }
 
-        if (inputField.GetComponent<TMP_InputField>().text != "" && canReset)
+    private void LoadInputForChallenge(int challengeIndex)
+    {
+        if (savedTexts.TryGetValue(challengeIndex, out string savedInput) && !string.IsNullOrWhiteSpace(savedInput))
         {
-            // If the input field is not empty, set the current challenge index to the button index
-            currentChallengeIndex = buttonindex;
-
-            // No user input saved, so load the default incorrect CSS for the current challenge
-            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-
-            // Set the input field text to the incorrect CSS snippet for the current challenge
-            // SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-
-            // Set the hint text for the current challenge
-            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
-
-            // Display a message prompting the user to fix the syntax
-            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
+            SetTextOfComponent(inputField, savedInput, Color.black, true);
         }
+        else SetTextOfComponent(inputField, _cssChallenges[challengeIndex].Key, Color.black, true);
+    }
 
-        // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
-        return;
+    private void UpdateChallengeUI(int challengeIndex)
+    {
+        SetTextOfComponent(hintText, _cssHints[challengeIndex], Color.black, false);
+        SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
     }
 
     private void ResetCurrentChallenge()
     {
-        // Reset the user's input for the current challenge to the original incorrect syntax
+        savedTexts.Remove(currentChallengeIndex);
+        SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+        UpdateChallengeUI(currentChallengeIndex);
         LoadChallenge();
     }
 
