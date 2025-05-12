@@ -4,14 +4,15 @@ using UnityEngine.UI;
 public class Bathroom_Journal : MonoBehaviour
 {
     /// <summary>
-    /// Reference to the journal popup GameObject that appears when the journal is opened.
+    /// Reference to the journal popup GameObject that appears when the journal is clicked.
     /// </summary>
-    [SerializeField] private GameObject journalPopup;
+    public GameObject journalPopup;
 
     /// <summary>
     /// Reference to the journal button GameObject that opens the journal.
     /// </summary>
-    [SerializeField] private Button journalButton;
+    [SerializeField]
+    private Button journalButton;
 
     /// <summary>
     /// Reference to the animator component attached to the journal button.
@@ -22,7 +23,6 @@ public class Bathroom_Journal : MonoBehaviour
     {
         if (journalPopup != null) journalPopup.SetActive(false);
         animator = journalButton.GetComponent<Animator>();
-        // canToggle = false;
     }
 
     /// <summary>
@@ -39,7 +39,6 @@ public class Bathroom_Journal : MonoBehaviour
 
     /// <summary>
     /// Sets the hover state of the journal button.
-    /// This method is called to indicate whether the mouse is hovering over the button.
     /// </summary>
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>
     public void SetHover(bool isHovering)

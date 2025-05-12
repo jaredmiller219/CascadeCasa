@@ -27,8 +27,8 @@ public class Patio_Journal : MonoBehaviour
 
     /// <summary>
     /// Toggles the visibility of the journal popup.
+    /// <br />
     /// This method is called when the journal button is clicked.
-    /// It checks if the journal popup is currently active and toggles its state accordingly.
     /// </summary>
     /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()

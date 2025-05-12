@@ -29,8 +29,6 @@ public class Bathroom_FurnitureDropdown : MonoBehaviour
 
     /// <summary>
     /// This class handles the dropdown panel for furniture in the game.
-    /// <br />
-    /// It manages the visibility of the dropdown panel and animates the button image.
     /// </summary>
     private static readonly int Open = Animator.StringToHash("open");
 

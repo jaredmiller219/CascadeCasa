@@ -4,14 +4,12 @@ using TMPro;
 public class Bedroom2_DropdownActionMenu : MonoBehaviour
 {
     /// <summary>
-    /// This class handles the behavior of a dropdown menu in the game.
-    /// It allows the player to select different options such as saving progress,
-    /// going to the level select screen, returning to the main menu, or quitting the game.
+    /// A reference to the dropdown button
     /// </summary>
     public TMP_Dropdown dropdown;
 
     /// <summary>
-    /// Reference to the Notepad script, which manages the game's challenges.
+    /// Reference to the Notepad script
     /// </summary>
     private Bedroom2_Notepad notepad;
 

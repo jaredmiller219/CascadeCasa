@@ -38,8 +38,7 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     [Header("Images")]
     public Sprite[] imageSprites;
 
-    [HideInInspector]
-    public Kitchen_Journal journal;
+    [HideInInspector] public Kitchen_Journal journal;
     // --------------------------------------------------------------
 
 

@@ -6,10 +6,10 @@ public class Bedroom2_Journal : MonoBehaviour
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal is opened.
     /// </summary>
-    [SerializeField] public GameObject journalPopup;
+    public GameObject journalPopup;
 
     /// <summary>
-    /// Reference to the journal button GameObject that opens the journal.
+    /// Reference to the journal button GameObject.
     /// </summary>
     [SerializeField]
     private Button journalButton;
@@ -23,7 +23,6 @@ public class Bedroom2_Journal : MonoBehaviour
     {
         if (journalPopup != null) journalPopup.SetActive(false);
         animator = journalButton.GetComponent<Animator>();
-        // canToggle = false;
     }
 
     /// <summary>

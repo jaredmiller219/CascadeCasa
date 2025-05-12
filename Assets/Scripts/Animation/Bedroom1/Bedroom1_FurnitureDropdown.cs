@@ -24,7 +24,6 @@ public class Bedroom1_FurnitureDropdown : MonoBehaviour
 
     /// <summary>
     /// This class handles the dropdown panel for furniture in the game.
-    /// It manages the visibility of the dropdown panel and animates the button image.
     /// </summary>
     private static readonly int Open = Animator.StringToHash("open");
 
@@ -52,7 +51,8 @@ public class Bedroom1_FurnitureDropdown : MonoBehaviour
 
     /// <summary>
     /// Toggles the dropdown panel's visibility and animates the button image.
-    /// This method is called to pull the bar down and show/hide the dropdown panel.
+    /// <br />
+    /// It also rotates the button image to indicate the panel's state.
     /// </summary>
     public void PullBarDown()
     {

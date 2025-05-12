@@ -2,10 +2,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 
-/// <summary>
-/// This class allows an image to be draggable within a UI canvas and provides functionality
-/// for inserting the dragged image into a horizontal scroll bar at a specific position.
-/// </summary>
 public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>

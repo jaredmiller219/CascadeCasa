@@ -29,6 +29,7 @@ public class LivingRoom_JournalButton : MonoBehaviour, IPointerDownHandler, IPoi
     {
         // Light gray
         if (JournalImage != null) JournalImage.GetComponent<Image>().color = new Color32(200, 200, 200, 255);
+
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
 
