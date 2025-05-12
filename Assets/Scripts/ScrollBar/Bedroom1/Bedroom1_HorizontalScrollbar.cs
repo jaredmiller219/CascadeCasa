@@ -100,7 +100,8 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
         var rect = img.GetComponent<RectTransform>();
         rect.sizeDelta = imageSize * 2;
 
-        if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
+        if (imgObj.TryGetComponent<LayoutElement>(out var layout))
+            DestroyImmediate(layout);
 
         var draggable = imgObj.AddComponent<Bedroom1_ChallengeImage>();
         int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
@@ -109,7 +110,9 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
 
     private void ClearImages()
     {
-        foreach (var img in _scrollImages.Where(i => i != null)) Destroy(img.gameObject);
+        foreach (var img in _scrollImages.Where(i => i != null))
+            Destroy(img.gameObject);
+
         _scrollImages.Clear();
     }
 
@@ -122,8 +125,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     {
         foreach (var img in _scrollImages)
         {
-            if (img != null)
-                img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
+            if (img != null) img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
         }
 
         if (content)

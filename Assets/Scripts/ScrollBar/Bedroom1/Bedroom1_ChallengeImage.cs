@@ -3,12 +3,28 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-/// <summary>
-/// This class allows an image to be draggable within a UI canvas and provides functionality
-/// for inserting the dragged image into a horizontal scroll bar at a specific position.
-/// </summary>
 public class Bedroom1_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
+    /// <summary>
+    /// The default css
+    /// </summary>
+    public string AssociatedCss { get; set; }
+
+    /// <summary>
+    /// The action of when the image is clicked
+    /// </summary>
+    public static event Action<string> OnAnyImageClicked;
+
+    /// <summary>
+    /// The index of the associated css
+    /// </summary>
+    public int AssociatedIndex;
+
+    /// <summary>
+    /// The index of the button in the scroll area.
+    /// </summary>
+    public int _buttonIndex;
+
     /// <summary>
     /// The original parent of the image.
     /// </summary>
@@ -20,27 +36,21 @@ public class Bedroom1_ChallengeImage : MonoBehaviour, IPointerClickHandler
     private Bedroom1_HorizontalScrollBar _scrollBar;
 
     /// <summary>
-    /// The index of the button in the scroll area.
+    /// The notepad reference
     /// </summary>
-    public int _buttonIndex;
-
     private Bedroom1_Notepad notepad;
 
-    public string AssociatedCss { get; set; }
-
-    public static event Action<string> OnAnyImageClicked;
-
-    public int AssociatedIndex;
-
+    /// <summary>
+    /// The constructor
+    /// </summary>
+    /// <param name="image">The image of the "button"</param>
+    /// <param name="associatedCss">The image's default css</param>
     public Bedroom1_ChallengeImage(GameObject image, string associatedCss) : base()
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
     }
 
-    /// <summary>
-    /// Called when the script is initialized. Caches references and sets up the insertion preview.
-    /// </summary>
     private void Awake()
     {
         _originalParent = transform.parent;
