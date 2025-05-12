@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
-using System.Collections.Generic;
-using UnityEngine.UI;
 
 /// <summary>
 /// This class allows an image to be draggable within a UI canvas and provides functionality
@@ -14,6 +12,8 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// The index of the button in the scroll area.
     /// </summary>
     public int _buttonIndex;
+
+    public int _previousbuttonindex = -1; // Ensure it's clearly uninitialized at start
 
     /// <summary>
     ///
@@ -52,10 +52,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     ///
     /// </summary>
-    private Notepad notepad;
-
-    // private Dictionary<Button, string> buttonTexts = new Dictionary<Button, string>();
-    // private Button currentButton = null;
+    private LivingRoom_Notepad notepad;
 
     /// <summary>
     ///
@@ -68,22 +65,10 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         AssociatedCss = associatedCss;
     }
 
-    /// <summary>
-    /// Called when the script is initialized. Caches references and sets up the insertion preview.
-    /// </summary>
-    private void Awake()
+
+    public void NotifyImageClicked(string css)
     {
-        _originalParent = transform.parent;
-        _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
-
-        notepad = FindFirstObjectByType<Notepad>();
-        if (notepad != null)
-        {
-            OnAnyImageClicked += notepad.SetCssText;
-        }
-
-        Completed = false;
-        Locked = true;
+        OnAnyImageClicked?.Invoke(css);
     }
 
     /// <summary>
@@ -92,17 +77,10 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!Completed)
+        if (!Completed && _scrollBar != null)
         {
-
-            // Save current notepad text for previously selected index
-            if (notepad.buttonindex >= 0)
-            {
-                notepad.SaveTextForIndex(notepad.buttonindex);
-            }
-
-            _buttonIndex = transform.GetSiblingIndex();
-            notepad.buttonindex = _buttonIndex;
+            // Save the current input
+            if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
 
             // ---------------- For debug only --------------------------
             // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
@@ -110,13 +88,27 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
             // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
             // ----------------------------------------------------------
 
-            // OnAnyImageClicked?.Invoke(AssociatedCss);
-            OnAnyImageClicked?.Invoke(CurrentCss ?? AssociatedCss);
-            notepad.canReset = true;
-            notepad.canSubmit = true;
-            notepad.LoadChallenge();
-        }
+            int clickedIndex = transform.GetSiblingIndex();
+            _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
 
+            // Update after the check
+            _previousbuttonindex = _buttonIndex;
+        }
+    }
+
+    /// <summary>
+    /// Called when the script is initialized. Caches references and sets up the insertion preview.
+    /// </summary>
+    private void Awake()
+    {
+        _originalParent = transform.parent;
+        _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
+
+        notepad = FindFirstObjectByType<LivingRoom_Notepad>();
+        if (notepad != null) OnAnyImageClicked += notepad.SetCssText;
+
+        Completed = false;
+        Locked = true;
     }
 
     /// <summary>
@@ -124,9 +116,6 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void OnDestroy()
     {
-        if (notepad != null)
-        {
-            OnAnyImageClicked -= notepad.SetCssText;
-        }
+        if (notepad != null) OnAnyImageClicked -= notepad.SetCssText;
     }
 }

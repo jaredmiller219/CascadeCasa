@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
@@ -14,10 +13,14 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public int _buttonIndex;
 
+    public int _previousbuttonindex = -1; // Ensure it's clearly uninitialized at start
+
     /// <summary>
     ///
     /// </summary>
     public string AssociatedCss { get; set; }
+
+    public string CurrentCss { get; set; }
 
     /// <summary>
     ///
@@ -62,6 +65,37 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
         AssociatedCss = associatedCss;
     }
 
+
+    public void NotifyImageClicked(string css)
+    {
+        OnAnyImageClicked?.Invoke(css);
+    }
+
+    /// <summary>
+    /// Handles pointer click events on the draggable image.
+    /// </summary>
+    /// <param name="eventData">Pointer event data containing information about the click.</param>
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!Completed && _scrollBar != null)
+        {
+            // Save the current input
+            if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
+
+            // ---------------- For debug only --------------------------
+            // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
+            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+            // ----------------------------------------------------------
+
+            int clickedIndex = transform.GetSiblingIndex();
+            _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
+
+            // Update after the check
+            _previousbuttonindex = _buttonIndex;
+        }
+    }
+
     /// <summary>
     /// Called when the script is initialized. Caches references and sets up the insertion preview.
     /// </summary>
@@ -71,37 +105,10 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _scrollBar = _originalParent.GetComponentInParent<Kitchen_HorizontalScrollBar>();
 
         notepad = FindFirstObjectByType<Kitchen_Notepad>();
-        if (notepad != null)
-        {
-            OnAnyImageClicked += notepad.SetCssText;
-        }
+        if (notepad != null) OnAnyImageClicked += notepad.SetCssText;
 
         Completed = false;
         Locked = true;
-    }
-
-    /// <summary>
-    /// Handles pointer click events on the draggable image.
-    /// </summary>
-    /// <param name="eventData">Pointer event data containing information about the click.</param>
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!Completed)
-        {
-            _buttonIndex = transform.GetSiblingIndex();
-            notepad.buttonindex = _buttonIndex;
-
-            // ---------------- For debug only --------------------------
-            // Kitchen_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
-            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
-            // ----------------------------------------------------------
-
-            OnAnyImageClicked?.Invoke(AssociatedCss);
-            notepad.canReset = true;
-            notepad.canSubmit = true;
-            notepad.LoadChallenge();
-        }
     }
 
     /// <summary>
@@ -109,9 +116,6 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void OnDestroy()
     {
-        if (notepad != null)
-        {
-            OnAnyImageClicked -= notepad.SetCssText;
-        }
+        if (notepad != null) OnAnyImageClicked -= notepad.SetCssText;
     }
 }

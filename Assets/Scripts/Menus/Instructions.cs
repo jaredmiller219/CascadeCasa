@@ -25,15 +25,30 @@ public class Instructions : MonoBehaviour
     /// </summary>
     public Vector2 buttonSize = new();
 
+    /// <summary>
+    /// A structure composed of the button name and the instruction's text to set.
+    /// </summary>
     [System.Serializable]
     private struct InstructionEntry
     {
+        /// <summary>
+        /// The button's name
+        /// </summary>
         public string buttonName;
+
+        /// <summary>
+        /// The instruction text
+        /// </summary>
         public string instructionText;
 
-        public InstructionEntry(string name, string text)
+        /// <summary>
+        /// The constructor for the instruction entry.
+        /// </summary>
+        /// <param name="btnName">The name of the button for the related instruction</param>
+        /// <param name="text">The text of the instruction to set</param>
+        public InstructionEntry(string btnName, string text)
         {
-            buttonName = name;
+            buttonName = btnName;
             instructionText = text;
         }
     }
@@ -58,7 +73,6 @@ public class Instructions : MonoBehaviour
     public void Start()
     {
         instructionText.GetComponent<TMP_Text>().text = "";
-
         float currentY = 0f;
 
         for (int i = 0; i < _instructions.Count; i++)
@@ -68,24 +82,33 @@ public class Instructions : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Go back to the menu screen
+    /// </summary>
     public void BackToMenu()
     {
-        // Load the main menu scene
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 
+    /// <summary>
+    /// Set the instruction text component
+    /// </summary>
+    /// <param name="index">The index of which to set the text to</param>
     public void SetText(int index)
     {
         if (index >= 0 && index < _instructions.Count)
         {
             instructionText.GetComponent<TMP_Text>().text = _instructions[index].instructionText;
         }
-        else
-        {
-            instructionText.GetComponent<TMP_Text>().text = "Instruction not found.";
-        }
+
+        else instructionText.GetComponent<TMP_Text>().text = "Instruction not found.";
     }
 
+    /// <summary>
+    /// Create the button for the instructions list
+    /// </summary>
+    /// <param name="index">The index of the button</param>
+    /// <param name="yPosition">The y-position of the button</param>
     private void CreateButtonInstatiation(int index, float yPosition)
     {
         GameObject buttonObj = Instantiate(buttonPrefab, buttonContainer);
