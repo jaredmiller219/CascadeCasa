@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System.Collections; // $$$$
+using System.Collections;
 
 public class Menu : MonoBehaviour
 {
@@ -24,8 +24,15 @@ public class Menu : MonoBehaviour
     [Tooltip("Button to load the instructions scene")]
     public GameObject instructionsButton;
 
+    /// <summary>
+    /// The source of the audio
+    /// </summary>
     [Header("Audio")]
     public AudioSource audioSource;
+
+    /// <summary>
+    /// The sound to play when the button is clicked
+    /// </summary>
     public AudioClip clickSound;
 
     /// <summary>
@@ -51,7 +58,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Sets the text color when the level select button is clicked
     /// </summary>
     public void OnLevelSelectPress()
     {
@@ -59,7 +66,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Sets the text color when the level select button is released
     /// </summary>
     public void OnLevelSelectRelease()
     {
@@ -69,7 +76,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Sets the text color when the Play button is clicked
     /// </summary>
     public void OnPlayPress()
     {
@@ -77,7 +84,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Sets the text color when the Play button is released
     /// </summary>
     public void OnPlayRelease()
     {
@@ -86,7 +93,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Sets the text color when the Instructions button is clicked
     /// </summary>
     public void OnInstructionsPress()
     {
@@ -94,7 +101,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Sets the text color when the Instructions button is released
     /// </summary>
     public void OnInstructionsRelease()
     {
@@ -104,7 +111,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Set the color of the text when a button is pressed
     /// </summary>
     /// <param name="text">the text to change</param>
     private void SetPressedColor(TMP_Text text)
@@ -114,7 +121,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Set the color of the text back to its default color when a button is released
     /// </summary>
     /// <param name="text">the text to change</param>
     private void SetDefaultColor(TMP_Text text)
@@ -126,8 +133,13 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Quit the game
     /// </summary>
+    /// <remarks>
+    /// If in editor, stop play (for debug/testing)
+    /// <br />
+    /// Otherwise, Quit the game
+    /// </remarks>
     public void Quit()
     {
         PlayClickSound();
@@ -137,11 +149,19 @@ public class Menu : MonoBehaviour
 #endif
     }
 
+    /// <summary>
+    /// Play the click sound
+    /// </summary>
     private void PlayClickSound()
     {
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
 
+    /// <summary>
+    /// Load the scene after 1 second
+    /// </summary>
+    /// <param name="sceneName">The name of the scene to load</param>
+    /// <returns>IEnumerator</returns>
     private IEnumerator LoadSceneDelayed(string sceneName)
     {
         yield return new WaitForSeconds(1f);
@@ -149,7 +169,7 @@ public class Menu : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Open the settings scene
     /// </summary>
     public void Settings()
     {

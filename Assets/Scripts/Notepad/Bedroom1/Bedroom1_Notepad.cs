@@ -4,9 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Manages a CSS learning game where players fix full CSS snippets.
-/// </summary>
 public class Bedroom1_Notepad : MonoBehaviour
 {
     /// <summary>
@@ -60,6 +57,9 @@ public class Bedroom1_Notepad : MonoBehaviour
     [Header("Challenge Index")]
     public int currentChallengeIndex;
 
+    /// <summary>
+    /// The index of the current button
+    /// </summary>
     [HideInInspector]
     public int buttonindex;
 
@@ -79,6 +79,11 @@ public class Bedroom1_Notepad : MonoBehaviour
     /// The path where the progress of the game is saved
     /// </summary>
     private readonly string saveFilePath;
+
+    /// <summary>
+    /// The previous cursor's index
+    /// </summary>
+    private int _previousCursorIndex;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -112,8 +117,6 @@ public class Bedroom1_Notepad : MonoBehaviour
         "Ensure the border and margin top properties have colons."
     };
 
-    private int _previousCursorIndex;
-
     /// <summary>
     /// Initializes the game state and sets up event listeners
     /// </summary>
@@ -135,23 +138,38 @@ public class Bedroom1_Notepad : MonoBehaviour
         // LoadChallenge();
     }
 
+    /// <summary>
+    /// Set the text of the css
+    /// </summary>
+    /// <param name="css">The css to set</param>
     public void SetCssText(string css)
     {
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
 
+    /// <summary>
+    /// Set the cursor to the i-beam when the cursor is inside the input field
+    /// </summary>
     public void OnInputFieldEnter()
     {
         _previousCursorIndex = _cursorManager.GetSelectedCursor();
         _cursorManager.SetCursor(3);
     }
 
+    /// <summary>
+    /// Reset the cursor back to the previous cursor
+    /// </summary>
     public void OnInputFieldExit()
     {
         _cursorManager.SetCursor(_previousCursorIndex);
     }
 
+    /// <summary>
+    /// Set the button's interaction status
+    /// </summary>
+    /// <param name="button">The button to set interactability to</param>
+    /// <param name="isInteractable">Whether the button should be interactable</param>
     private void SetButtonInteractable(GameObject button, bool isInteractable)
     {
         button.GetComponent<Button>().interactable = isInteractable;
@@ -241,9 +259,13 @@ public class Bedroom1_Notepad : MonoBehaviour
         else LoadChallenge();
     }
 
-    private void SetChallengeIndexFromButtonIndex(int index)
+    /// <summary>
+    /// Set the challenge index from the button index
+    /// </summary>
+    /// <param name="index">The button index</param>
+    private void SetChallengeIndexFromButtonIndex(int btnIndex)
     {
-        currentChallengeIndex = index;
+        currentChallengeIndex = btnIndex;
     }
 
     /// <summary>

@@ -8,6 +8,16 @@ public class Bathroom_SlidePanelController : MonoBehaviour
     public GameObject panel;
 
     /// <summary>
+    /// The source of the audio
+    /// </summary>
+    public AudioSource audioSource;
+
+    /// <summary>
+    /// The sound to play when you click the button
+    /// </summary>
+    public AudioClip toggleSound;
+
+    /// <summary>
     /// Private reference to the Animator component attached to the panel.
     /// </summary>
     private Animator _animator;
@@ -22,16 +32,6 @@ public class Bathroom_SlidePanelController : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject btnImage;
-
-    /// <summary>
-    /// The source of the audio
-    /// </summary>
-    public AudioSource audioSource;
-
-    /// <summary>
-    /// The sound to play when you click the button
-    /// </summary>
-    public AudioClip toggleSound;
 
     private void Start()
     {

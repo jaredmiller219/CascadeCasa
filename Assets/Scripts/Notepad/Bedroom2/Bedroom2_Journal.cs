@@ -11,7 +11,8 @@ public class Bedroom2_Journal : MonoBehaviour
     /// <summary>
     /// Reference to the journal button GameObject that opens the journal.
     /// </summary>
-    [SerializeField] private Button journalButton;
+    [SerializeField]
+    private Button journalButton;
 
     /// <summary>
     /// Reference to the animator component attached to the journal button.

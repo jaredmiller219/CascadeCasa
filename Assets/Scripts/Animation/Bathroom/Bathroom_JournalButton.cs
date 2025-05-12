@@ -5,11 +5,6 @@ using UnityEngine.UI;
 public class Bathroom_JournalButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     /// <summary>
-    /// Reference to the GameObject representing the journal image.
-    /// </summary>
-    [SerializeField] private GameObject JournalImage;
-
-    /// <summary>
     /// The source for the audio
     /// </summary>
     public AudioSource audioSource;
@@ -18,6 +13,12 @@ public class Bathroom_JournalButton : MonoBehaviour, IPointerDownHandler, IPoint
     /// The click sound
     /// </summary>
     public AudioClip clickSound;
+
+    /// <summary>
+    /// Reference to the GameObject representing the journal image.
+    /// </summary>
+    [SerializeField]
+    private GameObject JournalImage;
 
     /// <summary>
     /// Handles the pointer down event when the button is pressed.
