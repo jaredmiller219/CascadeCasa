@@ -45,6 +45,7 @@ public class Bathroom_Notepad : MonoBehaviour
     /// </summary>
     [Tooltip("The index of the current challenge")]
     [Header("Challenge Index")]
+    [HideInInspector]
     public int currentChallengeIndex;
 
     /// <summary>
@@ -159,6 +160,8 @@ public class Bathroom_Notepad : MonoBehaviour
 
         canReset = false;
         canSubmit = false;
+
+        currentChallengeIndex = -1;
 
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
@@ -361,6 +364,13 @@ public class Bathroom_Notepad : MonoBehaviour
     /// </summary>
     private void ResetCurrentChallenge()
     {
+        // user hasn't selected an image yet
+        if (currentChallengeIndex == -1)
+        {
+            SetTextOfComponent(inputField, "", Color.black, true);
+            return;
+        }
+
         savedTexts.Remove(currentChallengeIndex);
         SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);

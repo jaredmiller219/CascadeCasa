@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class LivingRoom_ResetPopup : MonoBehaviour
 {
-
     /// <summary>
     /// Reference to the GameObject that represents the reset popup in the scene.
     /// </summary>

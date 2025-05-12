@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Patio_ResetPopup : MonoBehaviour
 {
-
     /// <summary>
     /// Reference to the GameObject that represents the reset popup in the scene.
     /// </summary>
@@ -43,7 +42,7 @@ public class Patio_ResetPopup : MonoBehaviour
         if (audioSource && popupSound) audioSource.PlayOneShot(popupSound);
         if (resetPopup == null || _animator == null || notepad == null) return;
 
-        if (notepad.inputField.GetComponent<TMPro.TMP_InputField>().text != "")
+        if (GetNotepadText(notepad.inputField) != "")
         {
             resetPopup.SetActive(true);
             _animator.Play("Pull", 0, 0f);
@@ -63,5 +62,17 @@ public class Patio_ResetPopup : MonoBehaviour
         yield return new WaitForSeconds(animationLength);
         _animator.Play("Pull", 0, 0f);
         resetPopup.SetActive(false);
+    }
+
+    /// <summary>
+    /// Gets the text of the notepad's input field and returns it as a string
+    /// </summary>
+    /// <param name="notepad">The notepad gameobject</param>
+    /// <returns>The text of the component as a string</returns>
+    private string GetNotepadText(GameObject notepad)
+    {
+        if (notepad == null) return string.Empty;
+        if (!notepad.TryGetComponent<TMPro.TMP_InputField>(out var inputField)) return string.Empty;
+        return inputField.text;
     }
 }
