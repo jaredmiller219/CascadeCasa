@@ -6,12 +6,14 @@ public class LivingRoom_Journal : MonoBehaviour
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.
     /// </summary>
-    [SerializeField] public GameObject journalPopup;
+    [SerializeField]
+    public GameObject journalPopup;
 
     /// <summary>
     /// Reference to the journal button GameObject.
     /// </summary>
-    [SerializeField] private Button journalButton;
+    [SerializeField]
+    private Button journalButton;
 
     /// <summary>
     /// Reference to the animator component attached to the journal button.
