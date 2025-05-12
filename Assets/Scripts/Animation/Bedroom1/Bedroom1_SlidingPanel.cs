@@ -40,6 +40,8 @@ public class Bedroom1_SlidePanelController : MonoBehaviour
 
     /// <summary>
     /// Method to toggle the panel's open/close state.
+    /// <br />
+    /// Rotate the button image to indicate the current state of the panel.
     /// </summary>
     public void TogglePanel()
     {

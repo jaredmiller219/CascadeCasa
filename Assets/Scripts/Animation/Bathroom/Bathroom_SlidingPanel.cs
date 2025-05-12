@@ -41,8 +41,7 @@ public class Bathroom_SlidePanelController : MonoBehaviour
     /// <summary>
     /// Method to toggle the panel's open/close state.
     /// <br />
-    /// It checks the current state of the panel and updates the Animator parameter accordingly.
-    /// Rotates the button image to indicate the current state of the panel.
+    /// Rotate the button image to indicate the current state of the panel.
     /// </summary>
     public void TogglePanel()
     {
