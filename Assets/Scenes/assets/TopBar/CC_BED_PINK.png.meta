@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: a2af00e1a94f94009b1b5abbc88d5056
+guid: 34d8b555afec3469384bfeb544630b3c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4795573259988461060
-    second: plate_0
-  - first:
-      213: 330159055237114263
-    second: plate_1
+      213: -8465718618277472306
+    second: CC_BED_PINK_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: plate_0
+      name: CC_BED_PINK_0
       rect:
         serializedVersion: 2
-        x: 201
-        y: 396
-        width: 1366
-        height: 480
+        x: 57
+        y: 48
+        width: 687
+        height: 467
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cf996003783b27db0800000000000000
-      internalID: -4795573259988461060
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: plate_1
-      rect:
-        serializedVersion: 2
-        x: 1071
-        y: 352
-        width: 9
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79969c659e5f49400800000000000000
-      internalID: 330159055237114263
+      spriteID: ec7192d15c9b38a80800000000000000
+      internalID: -8465718618277472306
       vertices: []
       indices: 
       edges: []
@@ -163,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      plate_0: -4795573259988461060
-      plate_1: 330159055237114263
+      CC_BED_PINK_0: -8465718618277472306
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
