@@ -83,7 +83,7 @@ public class Bedroom2_ChallengeImage : MonoBehaviour, IPointerClickHandler
             if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
 
             // ---------------- For debug only --------------------------
-            // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            // Bedroom2_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
             // string imageName = clickedImage.GetComponent<Image>().sprite.name;
             // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
             // ----------------------------------------------------------
