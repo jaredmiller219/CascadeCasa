@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Bedroom1_ResetDropdown : MonoBehaviour
 {
-
     /// <summary>
     /// Reference to the resetPopup GameObject.
     /// </summary>
@@ -44,7 +43,7 @@ public class Bedroom1_ResetDropdown : MonoBehaviour
         if (resetPopup == null || _animator == null || notepad == null) return;
 
         // If there's text in the notepad, play the animation
-        if (notepad.inputField.GetComponent<TMPro.TMP_InputField>().text != "")
+        if (GetNotepadText(notepad.inputField) != "")
         {
             resetPopup.SetActive(true);
             _animator.Play("Pull", 0, 0f);
@@ -64,5 +63,17 @@ public class Bedroom1_ResetDropdown : MonoBehaviour
         yield return new WaitForSeconds(animationLength);
         _animator.Play("Pull", 0, 0f);
         resetPopup.SetActive(false);
+    }
+
+    /// <summary>
+    /// Gets the text of the notepad's input field and returns it as a string
+    /// </summary>
+    /// <param name="notepad">The notepad gameobject</param>
+    /// <returns>The text of the component as a string</returns>
+    private string GetNotepadText(GameObject notepad)
+    {
+        if (notepad == null) return string.Empty;
+        if (!notepad.TryGetComponent<TMPro.TMP_InputField>(out var inputField)) return string.Empty;
+        return inputField.text;
     }
 }
