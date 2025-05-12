@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class Bedroom1_FurnitureDropdown : MonoBehaviour
 {
-
-    /// <summary>
-    /// This class handles the dropdown panel for furniture in the game.
-    /// It manages the visibility of the dropdown panel and animates the button image.
-    /// </summary>
-    private static readonly int Open = Animator.StringToHash("open");
-
     /// <summary>
     /// Reference to the dropdown panel GameObject.
     /// </summary>
@@ -20,11 +13,6 @@ public class Bedroom1_FurnitureDropdown : MonoBehaviour
     public GameObject btnImage;
 
     /// <summary>
-    /// Reference to the Animator component for animating the dropdown panel.
-    /// </summary>
-    private Animator _animator;
-
-    /// <summary>
     /// The source of the audio
     /// </summary>
     public AudioSource audioSource;
@@ -33,6 +21,17 @@ public class Bedroom1_FurnitureDropdown : MonoBehaviour
     /// The sound to play when the button is clicked
     /// </summary>
     public AudioClip dropdownSound;
+
+    /// <summary>
+    /// This class handles the dropdown panel for furniture in the game.
+    /// It manages the visibility of the dropdown panel and animates the button image.
+    /// </summary>
+    private static readonly int Open = Animator.StringToHash("open");
+
+    /// <summary>
+    /// Reference to the Animator component for animating the dropdown panel.
+    /// </summary>
+    private Animator _animator;
 
     private void Start()
     {

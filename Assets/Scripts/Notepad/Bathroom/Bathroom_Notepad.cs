@@ -11,7 +11,10 @@ public class Bathroom_Notepad : MonoBehaviour
     /// </summary>
     private GlobalCursorManager _cursorManager;
 
-    private Bathroom_ChallengeImage selectedImage; // Reference to the selected image
+    /// <summary>
+    /// Reference to the selected image
+    /// </summary>
+    private Bathroom_ChallengeImage selectedImage;
 
     /// <summary>
     /// The input field where users type their CSS solutions
@@ -54,14 +57,17 @@ public class Bathroom_Notepad : MonoBehaviour
     [Header("Challenge Index")]
     public int currentChallengeIndex;
 
-    [HideInInspector] public int buttonindex;
+    /// <summary>
+    /// The button's index
+    /// </summary>
+    [HideInInspector]
+    public int buttonindex;
 
     /// <summary>
     /// The popup displayed when all challenges are completed
     /// </summary>
     [Header("Lvl End Popup")]
     public GameObject challengeComplete;
-
 
     /// <summary>
     /// The text area used to display hints for the current challenge
@@ -73,6 +79,11 @@ public class Bathroom_Notepad : MonoBehaviour
     /// The path where the progress of the game is saved
     /// </summary>
     private readonly string saveFilePath;
+
+    /// <summary>
+    /// The index of the previous cursor
+    /// </summary>
+    private int _previousCursorIndex;
 
     /// <summary>
     /// List of CSS challenges with incorrect and correct snippets.
@@ -106,8 +117,6 @@ public class Bathroom_Notepad : MonoBehaviour
         "Ensure the border and margin top properties have colons."
     };
 
-    private int _previousCursorIndex;
-
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
@@ -126,23 +135,39 @@ public class Bathroom_Notepad : MonoBehaviour
         // LoadChallenge();
     }
 
+    /// <summary>
+    /// Set the css text
+    /// </summary>
+    /// <param name="css">the css code to set</param>
     public void SetCssText(string css)
     {
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
-
+    /// <summary>
+    /// Switch to the i-beam cursor when the pointer is inside the input field area
+    /// </summary>
     public void OnInputFieldEnter()
     {
         _previousCursorIndex = _cursorManager.GetSelectedCursor();
         _cursorManager.SetCursor(3);
     }
 
+    /// <summary>
+    /// Switch to the previous cursor when the pointer is outside the input field area
+    /// <br />
+    /// (Depends on the settings option chosen)
+    /// </summary>
     public void OnInputFieldExit()
     {
         _cursorManager.SetCursor(_previousCursorIndex);
     }
 
+    /// <summary>
+    /// Set the button status to interactable or not
+    /// </summary>
+    /// <param name="button">The button to change interaction status</param>
+    /// <param name="isInteractable">The boolean of wheteher the button should be interactable</param>
     private void SetButtonInteractable(GameObject button, bool isInteractable)
     {
         button.GetComponent<Button>().interactable = isInteractable;
@@ -229,9 +254,13 @@ public class Bathroom_Notepad : MonoBehaviour
         else LoadChallenge();
     }
 
-    private void SetChallengeIndexFromButtonIndex(int index)
+    /// <summary>
+    /// Set the challenge index from the index of the button
+    /// </summary>
+    /// <param name="index">the button's index</param>
+    private void SetChallengeIndexFromButtonIndex(int btnIndex)
     {
-        currentChallengeIndex = index;
+        currentChallengeIndex = btnIndex;
     }
 
     /// <summary>

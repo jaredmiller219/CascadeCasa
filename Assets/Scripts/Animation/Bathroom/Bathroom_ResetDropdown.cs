@@ -12,13 +12,6 @@ public class Bathroom_ResetDropdown : MonoBehaviour
     public GameObject resetPopup;
 
     /// <summary>
-    /// Reference to the Animator component attached to the resetPopup GameObject.
-    /// <br />
-    /// This component is responsible for playing the animation clips assigned to it.
-    /// </summary>
-    private Animator _animator;
-
-    /// <summary>
     /// The source of the audio
     /// </summary>
     public AudioSource audioSource;
@@ -33,6 +26,13 @@ public class Bathroom_ResetDropdown : MonoBehaviour
     /// This is used to determine whether to play the animation or not.
     /// </summary>
     private Bathroom_Notepad notepad;
+
+    /// <summary>
+    /// Reference to the Animator component attached to the resetPopup GameObject.
+    /// <br />
+    /// This component is responsible for playing the animation clips assigned to it.
+    /// </summary>
+    private Animator _animator;
 
     private void Start()
     {

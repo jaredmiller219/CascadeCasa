@@ -3,7 +3,12 @@ using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
 {
-    [SerializeField] private Slider volumeSlider;
+
+    /// <summary>
+    /// The slider to change the volume
+    /// </summary>
+    [SerializeField]
+    private Slider volumeSlider;
 
     void Start()
     {

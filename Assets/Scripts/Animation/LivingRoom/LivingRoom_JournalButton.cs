@@ -17,7 +17,8 @@ public class LivingRoom_JournalButton : MonoBehaviour, IPointerDownHandler, IPoi
     /// <summary>
     /// Reference to the GameObject representing the journal image.
     /// </summary>
-    [SerializeField] private GameObject JournalImage;
+    [SerializeField]
+    private GameObject JournalImage;
 
     /// <summary>
     /// Handles the pointer down event when the button is pressed.

@@ -30,7 +30,8 @@ public class Patio_SlidePanelController : MonoBehaviour
     /// <summary>
     /// Reference to the button image GameObject.
     /// </summary>
-    [SerializeField] private GameObject btnImage;
+    [SerializeField]
+    private GameObject btnImage;
 
     private void Start()
     {
