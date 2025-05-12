@@ -4,12 +4,12 @@ using TMPro;
 public class Bedroom1_DropdownActionMenu : MonoBehaviour
 {
     /// <summary>
-    /// This class handles the behavior of a dropdown menu in the game.
+    /// A reference to the dropdown button
     /// </summary>
     public TMP_Dropdown dropdown;
 
     /// <summary>
-    /// Reference to the Notepad script, which manages the game's challenges.
+    /// Reference to the Notepad script
     /// </summary>
     private Bedroom1_Notepad notepad;
 

@@ -47,8 +47,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// a reference to the notepad script
     /// </summary>
-    [SerializeField]
-    private Bedroom1_Notepad notepad;
+    [SerializeField] private Bedroom1_Notepad notepad;
 
     /// <summary>
     ///
@@ -91,10 +90,10 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     }
 
     /// <summary>
-    /// Handle the image click
+    ///
     /// </summary>
-    /// <param name="clickedIndex">The index of the button</param>
-    /// <param name="css">The associated css</param>
+    /// <param name="clickedIndex"></param>
+    /// <param name="css"></param>
     public void HandleImageClick(int clickedIndex, string css)
     {
         Bedroom1_ChallengeImage clickedImage = GetImageAtIndex(clickedIndex);

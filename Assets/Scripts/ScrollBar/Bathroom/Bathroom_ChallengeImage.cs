@@ -1,29 +1,48 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
 public class Bathroom_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
+    /// The index of the button in the scroll area.
+    /// </summary>
+    public int _buttonIndex;
+
+    /// <summary>
+    ///  The previous button index
+    /// </summary>
+    public int _previousbuttonindex = -1;
+
+    /// <summary>
     /// The default css
     /// </summary>
     public string AssociatedCss { get; set; }
 
     /// <summary>
-    /// The action of when the image is clicked
+    /// The current css
+    /// </summary>
+    public string CurrentCss { get; set; }
+
+    /// <summary>
+    /// The image click action
     /// </summary>
     public static event Action<string> OnAnyImageClicked;
 
     /// <summary>
-    /// The index of the associated css
+    /// The index related to the css
     /// </summary>
     public int AssociatedIndex;
 
     /// <summary>
-    /// The index of the button in the scroll area.
+    /// if the challenge was completed
     /// </summary>
-    public int _buttonIndex;
+    public bool Completed { get; set; }
+
+    /// <summary>
+    /// Whether the image is locked or not
+    /// </summary>
+    public bool Locked { get; set; }
 
     /// <summary>
     /// The original parent of the image.
@@ -41,23 +60,23 @@ public class Bathroom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     private Bathroom_Notepad notepad;
 
     /// <summary>
-    /// The constructor
+    /// Initialize the image
     /// </summary>
-    /// <param name="image">The image of the "button"</param>
-    /// <param name="associatedCss">The image's default css</param>
-    public Bathroom_ChallengeImage(GameObject image, string associatedCss) : base()
+    /// <param name="image">The image</param>
+    /// <param name="associatedCss">The css for the associated image</param>
+    public void Init(GameObject image, string associatedCss)
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
     }
 
-    private void Awake()
+    /// <summary>
+    /// Image was clicked
+    /// </summary>
+    /// <param name="css"></param>
+    public void NotifyImageClicked(string css)
     {
-        _originalParent = transform.parent;
-        _scrollBar = _originalParent.GetComponentInParent<Bathroom_HorizontalScrollBar>();
-
-        notepad = FindFirstObjectByType<Bathroom_Notepad>();
-        if (notepad == null) OnAnyImageClicked += notepad.SetCssText;
+        OnAnyImageClicked?.Invoke(css);
     }
 
     /// <summary>
@@ -66,13 +85,35 @@ public class Bathroom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        _buttonIndex = transform.GetSiblingIndex();
-        notepad.buttonindex = _buttonIndex;
-        Bathroom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-        string imageName = clickedImage.GetComponent<Image>().sprite.name;
-        // Debug.Log($"Image: {imageName}, Index: {_buttonIndex}");
+        if (!Completed && _scrollBar != null)
+        {
+            // Save the current input
+            if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
 
-        OnAnyImageClicked?.Invoke(AssociatedCss);
+            // ---------------- For debug only --------------------------
+            // Bathroom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
+            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+            // ----------------------------------------------------------
+
+            int clickedIndex = transform.GetSiblingIndex();
+            _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
+
+            // Update after the check
+            _previousbuttonindex = _buttonIndex;
+        }
+    }
+
+    private void Awake()
+    {
+        _originalParent = transform.parent;
+        _scrollBar = _originalParent.GetComponentInParent<Bathroom_HorizontalScrollBar>();
+
+        notepad = FindFirstObjectByType<Bathroom_Notepad>();
+        if (notepad != null) OnAnyImageClicked += notepad.SetCssText;
+
+        Completed = false;
+        Locked = true;
     }
 
     /// <summary>

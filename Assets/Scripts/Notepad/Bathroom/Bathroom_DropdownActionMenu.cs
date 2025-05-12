@@ -4,7 +4,7 @@ using TMPro;
 public class Bathroom_DropdownActionMenu : MonoBehaviour
 {
     /// <summary>
-    /// This class handles the behavior of a dropdown menu in the game.
+    /// A reference to the dropdown button
     /// </summary>
     public TMP_Dropdown dropdown;
 

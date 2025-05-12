@@ -9,7 +9,7 @@ public class Kitchen_Journal : MonoBehaviour
     public GameObject journalPopup;
 
     /// <summary>
-    /// Reference to the journal button GameObject that opens the journal.
+    /// Reference to the journal button GameObject.
     /// </summary>
     [SerializeField]
     private Button journalButton;
@@ -23,7 +23,6 @@ public class Kitchen_Journal : MonoBehaviour
     {
         if (journalPopup != null) journalPopup.SetActive(false);
         animator = journalButton.GetComponent<Animator>();
-        // canToggle = false;
     }
 
     /// <summary>
@@ -40,7 +39,6 @@ public class Kitchen_Journal : MonoBehaviour
 
     /// <summary>
     /// Sets the hover state of the journal button.
-    /// This method is called to indicate whether the mouse is hovering over the button.
     /// </summary>
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>
     public void SetHover(bool isHovering)

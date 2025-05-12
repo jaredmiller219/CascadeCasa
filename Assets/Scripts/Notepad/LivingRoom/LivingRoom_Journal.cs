@@ -6,7 +6,6 @@ public class LivingRoom_Journal : MonoBehaviour
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.
     /// </summary>
-    [SerializeField]
     public GameObject journalPopup;
 
     /// <summary>
@@ -28,8 +27,8 @@ public class LivingRoom_Journal : MonoBehaviour
 
     /// <summary>
     /// Toggles the visibility of the journal popup.
+    /// <br />
     /// This method is called when the journal button is clicked.
-    /// It checks if the journal popup is currently active and toggles its state accordingly.
     /// </summary>
     /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
@@ -43,9 +42,6 @@ public class LivingRoom_Journal : MonoBehaviour
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>
     public void SetHover(bool isHovering)
     {
-        if (animator != null)
-        {
-            animator.SetBool("hover", isHovering);
-        }
+        if (animator != null) animator.SetBool("hover", isHovering);
     }
 }
