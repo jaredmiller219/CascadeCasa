@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6002686c31fc2402b90009d8bc47666c
+guid: f5e16a721128546c0a4996d92ff15c01
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8938819534478884857
-    second: Plate_0
+      213: 2551390234687688105
+    second: CC_BED_BLUE_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Plate_0
+      name: CC_BED_BLUE_0
       rect:
         serializedVersion: 2
-        x: 230
-        y: 602
-        width: 1037
-        height: 299
+        x: 50
+        y: 36
+        width: 686
+        height: 469
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 70040184efee2f380800000000000000
-      internalID: -8938819534478884857
+      spriteID: 9adc5fd86eb586320800000000000000
+      internalID: 2551390234687688105
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Plate_0: -8938819534478884857
+      CC_BED_BLUE_0: 2551390234687688105
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
