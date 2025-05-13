@@ -225,7 +225,6 @@ public class Bedroom1_Notepad : MonoBehaviour
     {
         if (textObject == null)
         {
-            Debug.LogWarning("Text object is null!");
             return;
         }
 
