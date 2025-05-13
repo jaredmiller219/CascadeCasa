@@ -73,6 +73,7 @@ public class LevelSelect : MonoBehaviour
     /// </summary>
     public AudioClip clickSound;
 
+
     public void Start()
     {
         SetAlphaHitTest(livingRoomBtn);
@@ -153,10 +154,11 @@ public class LevelSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// Go back to the menu screen
+    /// Go back to the previous screen
     /// </summary>
     public void Back()
     {
-        SceneManager.LoadScene("Menu");
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
+        StartCoroutine(LoadSceneWithDelay(NavigationData.PreviousScene));
     }
 }
