@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Bathroom_DropdownActionMenu : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Bathroom_DropdownActionMenu : MonoBehaviour
 
         notepad = GetComponentInChildren<Bathroom_Notepad>();
     }
+
 
     /// <summary>
     /// This method is called when an option is selected from the dropdown menu.
@@ -51,21 +53,22 @@ public class Bathroom_DropdownActionMenu : MonoBehaviour
                 // Option 1 is Level Select
 
                 // Load level select scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene("LevelSelect");
                 break;
 
             case 2:
                 // Option 2 is Menu
 
                 // Load menu scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+                SceneManager.LoadScene("Menu");
                 break;
 
             case 3:
                 // Option 3 is Settings
 
                 // Load settings scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+                SceneManager.LoadScene("Settings");
                 break;
 
             case 4:

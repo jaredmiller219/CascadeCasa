@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PatioDropdownActionMenu : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class PatioDropdownActionMenu : MonoBehaviour
 
         notepad = GetComponentInChildren<Patio_Notepad>();
     }
+
 
     /// <summary>
     /// This method is called when an option is selected from the dropdown menu.
@@ -51,18 +53,26 @@ public class PatioDropdownActionMenu : MonoBehaviour
                 // Option 1 is Level Select
 
                 // Load level select scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene("LevelSelect");
                 break;
 
             case 2:
                 // Option 2 is Menu
 
                 // Load menu scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+                SceneManager.LoadScene("Menu");
                 break;
 
             case 3:
-                // Option 3 is Quit
+                // Option 3 is Settings
+
+                // Load settings scene
+                SceneManager.LoadScene("Settings");
+                break;
+
+            case 4:
+                // Option 4 is Quit
 
                 // Quit the game
                 // If in editor, stop playing. If in build, quit application
