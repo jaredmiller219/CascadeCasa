@@ -2,14 +2,33 @@
 
 ## Features
 
-- TODO: Show level end screen when the entire level is completed
-  - (Trigger when all items in the scroll bar are completed)
-- TODO: Add more cursor style options
+### Level Completion
+
+- TODO: Show level end screen when the entire level is completed.
+
+  1. (Trigger when all items in the scroll bar are completed).
+
+### Cursor
+
+- TODO: Add more cursor style options.
+
+  1. Colors
 
 ## Fixes
 
-- FIXME: Add missing sound effects
+### Sounds
+
+- FIXME: Add missing sound effects.
+
   1. Notepad closing
   2. Selecting options in any dropdown menu
   3. Hovering over options in any dropdown menu
   4. Completing syntax (When showing the checkmark)
+
+### UI
+
+- FIXME: Remember where the user left off.
+
+  1. If they go to the levels screen or settings screen from a level.
+
+  2. If they go to the level select screen and then decide to enter a new level, rememeber where they left off for the notepad, but not visually (which elements where visible at the time)
