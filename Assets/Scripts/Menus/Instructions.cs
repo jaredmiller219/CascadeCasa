@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Instructions : MonoBehaviour
 {
@@ -83,11 +85,22 @@ public class Instructions : MonoBehaviour
     }
 
     /// <summary>
+    /// Load the scene after 1 second
+    /// </summary>
+    /// <param name="sceneName">The name of the scene to load</param>
+    /// <returns>IEnumerator</returns>
+    private IEnumerator LoadSceneWithDelay(string sceneName)
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    /// <summary>
     /// Go back to the menu screen
     /// </summary>
     public void BackToMenu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        StartCoroutine(LoadSceneWithDelay(NavigationData.PreviousScene));
     }
 
     /// <summary>

@@ -61,6 +61,7 @@ public class Bedroom2_DropdownActionMenu : MonoBehaviour
                 // Option 2 is Menu
 
                 // Load menu scene
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("Menu");
                 break;
 
@@ -68,6 +69,7 @@ public class Bedroom2_DropdownActionMenu : MonoBehaviour
                 // Option 3 is Settings
 
                 // Load settings scene
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("Settings");
                 break;
 
