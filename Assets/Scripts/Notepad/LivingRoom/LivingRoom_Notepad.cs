@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -19,6 +20,12 @@ public class LivingRoom_Notepad : MonoBehaviour
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
     public GameObject feedbackText;
+
+    /// <summary>
+    /// The highlighted background of feedbackText
+    /// </summary>
+    [Tooltip("The text's highlighted background")]
+    public GameObject BGHighlight;
 
     /// <summary>
     /// The submit button
@@ -163,6 +170,8 @@ public class LivingRoom_Notepad : MonoBehaviour
 
         currentChallengeIndex = -1;
 
+        // BGHighlight.GetComponent<Image>().color = Color.clear;
+
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
     }
@@ -223,10 +232,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="isInteractable">Whether it is interactable</param>
     private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
     {
-        if (textObject == null)
-        {
-            return;
-        }
+        if (textObject == null) return;
 
         TMP_Text tmpText = textObject.GetComponent<TMP_Text>();
 
@@ -243,11 +249,9 @@ public class LivingRoom_Notepad : MonoBehaviour
             tmpText.text = text;
             tmpText.color = color;
         }
-        else
-        {
-            Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
-        }
+        else Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
     }
+
 
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
