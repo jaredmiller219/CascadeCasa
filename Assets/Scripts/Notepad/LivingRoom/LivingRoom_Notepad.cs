@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -13,6 +12,13 @@ public class LivingRoom_Notepad : MonoBehaviour
     [Tooltip("The notepad input field for CSS code")]
     [Header("Notepad")]
     public GameObject inputField;
+
+    /// <summary>
+    /// The reference to the gameobject with the LivingRoom_HorizontalScrollBar script attached to it
+    /// </summary>
+    [Tooltip("The reference to the gameobject with the LivingRoom_HorizontalScrollBar script attached to it")]
+    [SerializeField]
+    private LivingRoom_HorizontalScrollBar scrollBar;
 
     /// <summary>
     /// The feedback text
@@ -122,20 +128,6 @@ public class LivingRoom_Notepad : MonoBehaviour
     private int _previousCursorIndex;
 
     /// <summary>
-    /// The list of css challenges
-    /// </summary>
-    private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
-    {
-        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
-    };
-
-    /// <summary>
     /// The hints related to the css challenges
     /// </summary>
     private readonly List<string> _cssHints = new()
@@ -165,12 +157,19 @@ public class LivingRoom_Notepad : MonoBehaviour
             _previousCursorIndex = _cursorManager.GetSelectedCursor();
         }
 
+        if (scrollBar == null)
+        {
+            scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
+            if (scrollBar == null)
+            {
+                Debug.LogError("LivingRoom_HorizontalScrollBar not found in scene!");
+            }
+        }
+
         canReset = false;
         canSubmit = false;
 
         currentChallengeIndex = -1;
-
-        // BGHighlight.GetComponent<Image>().color = Color.clear;
 
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
@@ -253,6 +252,42 @@ public class LivingRoom_Notepad : MonoBehaviour
     }
 
 
+    // /// <summary>
+    // /// Validates user input against the current challenge's correct CSS snippet
+    // /// </summary>
+    // private void CheckCssInput()
+    // {
+    //     if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
+
+    //     if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
+    //     {
+    //         var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+    //         var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
+
+    //         var normalizedUserInput = NormalizeCss(userInput);
+    //         var normalizedCorrectCss = NormalizeCss(correctCss);
+
+    //         if (normalizedUserInput == normalizedCorrectCss)
+    //         {
+    //             SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+
+    //             var scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
+    //             if (scrollBar != null)
+    //             {
+    //                 scrollBar.MarkChallengeCompleted(buttonindex);
+    //             }
+    //             SetTextOfComponent(inputField, "", Color.clear, false);
+
+    //             // Load the next challenge after a delay
+    //             // Invoke(nameof(NextChallenge), 1.5f);
+    //         }
+    //         else
+    //         {
+    //             SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+    //         }
+    //     }
+    // }
+
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
     /// </summary>
@@ -263,7 +298,9 @@ public class LivingRoom_Notepad : MonoBehaviour
         if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
             var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
-            var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
+
+            // Now access _cssChallenges from the scrollBar reference
+            var correctCss = scrollBar._cssChallenges[currentChallengeIndex].Value.ToLower();
 
             var normalizedUserInput = NormalizeCss(userInput);
             var normalizedCorrectCss = NormalizeCss(correctCss);
@@ -272,14 +309,15 @@ public class LivingRoom_Notepad : MonoBehaviour
             {
                 SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
 
-                var scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
+                // Mark challenge as completed in the scroll bar
                 if (scrollBar != null)
                 {
                     scrollBar.MarkChallengeCompleted(buttonindex);
                 }
+
                 SetTextOfComponent(inputField, "", Color.clear, false);
 
-                // Load the next challenge after a delay
+                // Optionally, load the next challenge after a delay
                 // Invoke(nameof(NextChallenge), 1.5f);
             }
             else
@@ -295,7 +333,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <returns>boolean stating whether level is complete</returns>
     private bool IsLevelComplete()
     {
-        return currentChallengeIndex >= _cssChallenges.Count;
+        return currentChallengeIndex >= scrollBar._cssChallenges.Count;
     }
 
     /// <summary>
@@ -349,7 +387,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         {
             SetTextOfComponent(inputField, savedInput, Color.black, true);
         }
-        else SetTextOfComponent(inputField, _cssChallenges[challengeIndex].Key, Color.black, true);
+        else SetTextOfComponent(inputField, scrollBar._cssChallenges[challengeIndex].Key, Color.black, true);
     }
 
     /// <summary>
@@ -375,7 +413,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         }
 
         savedTexts.Remove(currentChallengeIndex);
-        SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+        SetTextOfComponent(inputField, scrollBar._cssChallenges[currentChallengeIndex].Key, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);
         LoadChallenge();
     }
@@ -407,7 +445,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             string savedIndex = File.ReadAllText(saveFilePath);
-            if (int.TryParse(savedIndex, out int index) && index < _cssChallenges.Count)
+            if (int.TryParse(savedIndex, out int index) && index < scrollBar._cssChallenges.Count)
             {
                 currentChallengeIndex = index;
             }
