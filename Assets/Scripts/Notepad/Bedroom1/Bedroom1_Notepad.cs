@@ -21,6 +21,12 @@ public class Bedroom1_Notepad : MonoBehaviour
     public GameObject feedbackText;
 
     /// <summary>
+    /// The highlighted background of feedbackText
+    /// </summary>
+    [Tooltip("The text's highlighted background")]
+    public GameObject BGHighlight;
+
+    /// <summary>
     /// The submit button
     /// </summary>
     [Tooltip("The submit button for checking CSS code")]
