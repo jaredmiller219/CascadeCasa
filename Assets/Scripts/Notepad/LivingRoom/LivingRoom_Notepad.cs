@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -169,8 +168,6 @@ public class LivingRoom_Notepad : MonoBehaviour
         canSubmit = false;
 
         currentChallengeIndex = -1;
-
-        // BGHighlight.GetComponent<Image>().color = Color.clear;
 
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();

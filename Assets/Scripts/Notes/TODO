@@ -29,6 +29,6 @@
 
 - FIXME: Remember where the user left off.
 
-  1. If they go to the levels screen or settings screen from a level.
+  1. EXAMPLE: If they go to the level select screen and then decide to enter a new level, only remember the current state of the level (including the code and stuff), otherwise, if they decide to just go back to the same level, rememeber where they left off for the notepad visually (which elements were visible at the time)
 
-  2. If they go to the level select screen and then decide to enter a new level, rememeber where they left off for the notepad, but not visually (which elements where visible at the time)
+### Bugs
