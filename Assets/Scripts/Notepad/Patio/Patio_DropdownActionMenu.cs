@@ -1,17 +1,16 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PatioDropdownActionMenu : MonoBehaviour
 {
     /// <summary>
-    /// This class handles the behavior of a dropdown menu in the game.
-    /// It allows the player to select different options such as saving progress,
-    /// going to the level select screen, returning to the main menu, or quitting the game.
+    /// A reference to the dropdown button
     /// </summary>
     public TMP_Dropdown dropdown;
 
     /// <summary>
-    /// Reference to the Notepad script, which manages the game's challenges.
+    /// Reference to the Notepad script
     /// </summary>
     private Patio_Notepad notepad;
 
@@ -25,6 +24,7 @@ public class PatioDropdownActionMenu : MonoBehaviour
 
         notepad = GetComponentInChildren<Patio_Notepad>();
     }
+
 
     /// <summary>
     /// This method is called when an option is selected from the dropdown menu.
@@ -53,18 +53,28 @@ public class PatioDropdownActionMenu : MonoBehaviour
                 // Option 1 is Level Select
 
                 // Load level select scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene("LevelSelect");
                 break;
 
             case 2:
                 // Option 2 is Menu
 
                 // Load menu scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene("Menu");
                 break;
 
             case 3:
-                // Option 3 is Quit
+                // Option 3 is Settings
+
+                // Load settings scene
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene("Settings");
+                break;
+
+            case 4:
+                // Option 4 is Quit
 
                 // Quit the game
                 // If in editor, stop playing. If in build, quit application

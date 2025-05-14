@@ -7,16 +7,6 @@ using UnityEngine.UI;
 public class Bedroom1_Notepad : MonoBehaviour
 {
     /// <summary>
-    /// Reference to the global cursor manager for handling cursor changes
-    /// </summary>
-    private GlobalCursorManager _cursorManager;
-
-    /// <summary>
-    ///
-    /// </summary>
-    private Bedroom1_ChallengeImage selectedImage;
-
-    /// <summary>
     /// The input field where users type their CSS solutions
     /// </summary>
     [Tooltip("The notepad input field for CSS code")]
@@ -24,41 +14,48 @@ public class Bedroom1_Notepad : MonoBehaviour
     public GameObject inputField;
 
     /// <summary>
-    /// The text area used to display feedback messages to the user
+    /// The feedback text
     /// </summary>
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
     public GameObject feedbackText;
 
     /// <summary>
-    /// The button that users click to submit their CSS solution for validation
+    /// The highlighted background of feedbackText
+    /// </summary>
+    [Tooltip("The text's highlighted background")]
+    public GameObject BGHighlight;
+
+    /// <summary>
+    /// The submit button
     /// </summary>
     [Tooltip("The submit button for checking CSS code")]
     [Header("Buttons")]
     public GameObject submitBtn;
 
     /// <summary>
-    /// The button that resets the current challenge to its initial state
+    /// The reset button
     /// </summary>
     [Tooltip("The reset button for restarting the challenge")]
     public GameObject resetBtn;
 
     /// <summary>
-    /// The popup text displayed when the reset button is clicked
+    /// The reset challenge popup
     /// </summary>
     [Tooltip("The text that appears when the reset button is clicked")]
     [Header("Reset Text")]
     public GameObject resetPopup;
 
     /// <summary>
-    /// The index of the current challenge being solved by the user
+    /// The current challenge index
     /// </summary>
     [Tooltip("The index of the current challenge")]
     [Header("Challenge Index")]
+    [HideInInspector]
     public int currentChallengeIndex;
 
     /// <summary>
-    /// The index of the current button
+    /// The button index
     /// </summary>
     [HideInInspector]
     public int buttonindex;
@@ -70,27 +67,61 @@ public class Bedroom1_Notepad : MonoBehaviour
     public GameObject challengeComplete;
 
     /// <summary>
-    /// The text area used to display hints for the current challenge
+    /// The text for the hint section
     /// </summary>
     [Header("Hint Section")]
     public GameObject hintText;
 
     /// <summary>
-    /// The path where the progress of the game is saved
+    /// The source of the audio
+    /// </summary>
+    [Header("Audio")]
+    public AudioSource audioSource;
+
+    /// <summary>
+    /// The sound to play when the button is clicked
+    /// </summary>
+    public AudioClip clickSound;
+
+    /// <summary>
+    /// whether or not you can click the reset button
+    /// </summary>
+    [HideInInspector]
+    public bool canReset;
+
+    /// <summary>
+    /// whether or not you can click the submit button
+    /// </summary>
+    [HideInInspector]
+    public bool canSubmit;
+
+    /// <summary>
+    /// The path of the file that saves the user's progress
     /// </summary>
     private readonly string saveFilePath;
 
     /// <summary>
-    /// The previous cursor's index
+    /// The glabal manager of the cursor
+    /// </summary>
+    private GlobalCursorManager _cursorManager;
+
+    /// <summary>
+    /// The button (Image) of the challenge that was selected
+    /// </summary>
+    private Bedroom1_ChallengeImage selectedImage;
+
+    /// <summary>
+    /// The saved values of the updated css from the user
+    /// </summary>
+    private Dictionary<int, string> savedTexts = new();
+
+    /// <summary>
+    /// The undex of the previous cursor
     /// </summary>
     private int _previousCursorIndex;
 
     /// <summary>
-    /// List of CSS challenges with incorrect and correct snippets.
-    /// <br />
-    /// - Key: The incorrect CSS with syntax errors to fix
-    /// <br />
-    /// - Value: The correct CSS with proper syntax
+    /// The list of css challenges
     /// </summary>
     private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
@@ -104,52 +135,66 @@ public class Bedroom1_Notepad : MonoBehaviour
     };
 
     /// <summary>
-    /// List of hints to assist the user in fixing CSS syntax errors
+    /// The hints related to the css challenges
     /// </summary>
     private readonly List<string> _cssHints = new()
     {
-        "CSS lets you style HTML elements by changing things like size and color." +
-        "For example, you can use width to set how wide something is, " +
-        "and background-color to set its background color.",
-
+        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
         "Look for missing colons in the font size and text align properties.",
-
-        "Ensure the border and margin top properties have colons."
+        "Ensure the border and margin top properties have colons.",
+        "Use a colon after color and font weight properties.",
+        "List style type and padding need colons and values.",
+        "Colons are required after text decoration and color.",
+        "Don't forget colons after width and height."
     };
 
-    /// <summary>
-    /// Initializes the game state and sets up event listeners
-    /// </summary>
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
 
-        // saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.txt");
-
         resetPopup.SetActive(false);
+
         const float scrollSensitivity = 0.01f;
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
         _cursorManager = GlobalCursorManager.Instance;
-        if (_cursorManager != null) _previousCursorIndex = _cursorManager.GetSelectedCursor();
+        if (_cursorManager != null)
+        {
+            _previousCursorIndex = _cursorManager.GetSelectedCursor();
+        }
+
+        canReset = false;
+        canSubmit = false;
+
+        currentChallengeIndex = -1;
 
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
     }
 
     /// <summary>
-    /// Set the text of the css
+    /// Save the current text at the button's index
+    /// </summary>
+    /// <param name="index">The index of the button</param>
+    public void SaveTextForIndex(int index)
+    {
+        string currentInput = inputField.GetComponent<TMP_InputField>().text;
+        savedTexts[index] = currentInput;
+    }
+
+    /// <summary>
+    /// Set the css text
     /// </summary>
     /// <param name="css">The css to set</param>
     public void SetCssText(string css)
     {
+        // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
-
     /// <summary>
-    /// Set the cursor to the i-beam when the cursor is inside the input field
+    /// Switch to the i-beam when inside the input field
     /// </summary>
     public void OnInputFieldEnter()
     {
@@ -158,7 +203,7 @@ public class Bedroom1_Notepad : MonoBehaviour
     }
 
     /// <summary>
-    /// Reset the cursor back to the previous cursor
+    /// Switch back to the previous cursor when back outside the input field
     /// </summary>
     public void OnInputFieldExit()
     {
@@ -166,10 +211,10 @@ public class Bedroom1_Notepad : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the button's interaction status
+    /// Set the button's interactability status
     /// </summary>
-    /// <param name="button">The button to set interactability to</param>
-    /// <param name="isInteractable">Whether the button should be interactable</param>
+    /// <param name="button">The button to set</param>
+    /// <param name="isInteractable">The interactability status</param>
     private void SetButtonInteractable(GameObject button, bool isInteractable)
     {
         button.GetComponent<Button>().interactable = isInteractable;
@@ -186,7 +231,6 @@ public class Bedroom1_Notepad : MonoBehaviour
     {
         if (textObject == null)
         {
-            Debug.LogWarning("Text object is null!");
             return;
         }
 
@@ -205,7 +249,10 @@ public class Bedroom1_Notepad : MonoBehaviour
             tmpText.text = text;
             tmpText.color = color;
         }
-        else Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
+        else
+        {
+            Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
+        }
     }
 
     /// <summary>
@@ -213,36 +260,48 @@ public class Bedroom1_Notepad : MonoBehaviour
     /// </summary>
     private void CheckCssInput()
     {
-        var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
-        var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
 
-        var normalizedUserInput = NormalizeCss(userInput);
-        var normalizedCorrectCss = NormalizeCss(correctCss);
-
-        if (normalizedUserInput == normalizedCorrectCss)
+        if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
-            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+            var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
+            var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
 
-            // Load the next challenge after a delay
-            // Invoke(nameof(NextChallenge), 1.5f);
-        }
-        else
-        {
-            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+            var normalizedUserInput = NormalizeCss(userInput);
+            var normalizedCorrectCss = NormalizeCss(correctCss);
+
+            if (normalizedUserInput == normalizedCorrectCss)
+            {
+                SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
+
+                var scrollBar = FindFirstObjectByType<Bedroom1_HorizontalScrollBar>();
+                if (scrollBar != null)
+                {
+                    scrollBar.MarkChallengeCompleted(buttonindex);
+                }
+                SetTextOfComponent(inputField, "", Color.clear, false);
+
+                // Load the next challenge after a delay
+                // Invoke(nameof(NextChallenge), 1.5f);
+            }
+            else
+            {
+                SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+            }
         }
     }
 
     /// <summary>
-    /// Checks if all challenges have been completed
+    /// Checks whether the level is complete
     /// </summary>
-    /// <returns>True if all challenges are completed, otherwise false</returns>
+    /// <returns>boolean stating whether level is complete</returns>
     private bool IsLevelComplete()
     {
         return currentChallengeIndex >= _cssChallenges.Count;
     }
 
     /// <summary>
-    /// Advances to the next challenge or completes the game
+    /// Goes to the next challenge
     /// </summary>
     private void NextChallenge()
     {
@@ -260,58 +319,81 @@ public class Bedroom1_Notepad : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the challenge index from the button index
+    /// Set the
     /// </summary>
-    /// <param name="index">The button index</param>
-    private void SetChallengeIndexFromButtonIndex(int btnIndex)
+    /// <param name="index"></param>
+    private void SetChallengeIndexFromButtonIndex(int index)
     {
-        currentChallengeIndex = btnIndex;
+        currentChallengeIndex = index;
     }
 
     /// <summary>
-    /// Loads the current challenge with an incorrect CSS snippet
+    /// Load the challenge
     /// </summary>
-    private void LoadChallenge()
+    public void LoadChallenge()
     {
         if (selectedImage != null)
         {
-            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-            SetTextOfComponent(hintText, _cssHints[currentChallengeIndex], Color.black, false);
-            SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
             SetChallengeIndexFromButtonIndex(selectedImage.GetComponent<Bedroom1_ChallengeImage>()._buttonIndex);
         }
-
-        if (inputField.GetComponent<TMP_InputField>().text != "")
-        {
-            currentChallengeIndex = buttonindex;
-            SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
-        }
-
-        // if an image wasnt selected before, aka its the start of the game, don't have anything to reset to
-        return;
+        currentChallengeIndex = buttonindex;
+        LoadInputForChallenge(currentChallengeIndex);
+        UpdateChallengeUI(currentChallengeIndex);
     }
 
     /// <summary>
-    /// Resets the current challenge back to its original incorrect CSS snippet
+    /// Load the css for the current challenge
+    /// </summary>
+    /// <param name="challengeIndex">The challenge index</param>
+    private void LoadInputForChallenge(int challengeIndex)
+    {
+        if (savedTexts.TryGetValue(challengeIndex, out string savedInput) && !string.IsNullOrWhiteSpace(savedInput))
+        {
+            SetTextOfComponent(inputField, savedInput, Color.black, true);
+        }
+        else SetTextOfComponent(inputField, _cssChallenges[challengeIndex].Key, Color.black, true);
+    }
+
+    /// <summary>
+    /// Update the feedback and hint text
+    /// </summary>
+    /// <param name="challengeIndex">The challenge index</param>
+    private void UpdateChallengeUI(int challengeIndex)
+    {
+        SetTextOfComponent(hintText, _cssHints[challengeIndex], Color.black, false);
+        SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
+    }
+
+    /// <summary>
+    /// Reset the current challenge's text
     /// </summary>
     private void ResetCurrentChallenge()
     {
+        // user hasn't selected an image yet
+        if (currentChallengeIndex == -1)
+        {
+            SetTextOfComponent(inputField, "", Color.black, true);
+            return;
+        }
+
+        savedTexts.Remove(currentChallengeIndex);
+        SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+        UpdateChallengeUI(currentChallengeIndex);
         LoadChallenge();
     }
 
     /// <summary>
-    /// Normalizes CSS input by removing excess spaces and line breaks
+    /// Make the text easier to check against the correct value
     /// </summary>
-    /// <param name="input">The CSS string to normalize</param>
-    /// <returns>A normalized CSS string</returns>
+    /// <param name="input">The string to normalize</param>
+    /// <returns>A string representing the normalized input</returns>
     private static string NormalizeCss(string input)
     {
-        // Replace newlines with empty strings, remove double spaces, and trim the result
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
 
     /// <summary>
-    /// Saves the current challenge index to a file
+    /// Save the current user's progress
     /// </summary>
     public void SaveProgress()
     {
@@ -320,7 +402,7 @@ public class Bedroom1_Notepad : MonoBehaviour
     }
 
     /// <summary>
-    /// Loads the saved challenge index from file and resumes progress
+    /// Load the saved user's progress
     /// </summary>
     private void LoadProgress()
     {

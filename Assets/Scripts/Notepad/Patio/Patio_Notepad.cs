@@ -21,6 +21,12 @@ public class Patio_Notepad : MonoBehaviour
     public GameObject feedbackText;
 
     /// <summary>
+    /// The highlighted background of feedbackText
+    /// </summary>
+    [Tooltip("The text's highlighted background")]
+    public GameObject BGHighlight;
+
+    /// <summary>
     /// The submit button
     /// </summary>
     [Tooltip("The submit button for checking CSS code")]
@@ -45,6 +51,7 @@ public class Patio_Notepad : MonoBehaviour
     /// </summary>
     [Tooltip("The index of the current challenge")]
     [Header("Challenge Index")]
+    [HideInInspector]
     public int currentChallengeIndex;
 
     /// <summary>
@@ -160,6 +167,8 @@ public class Patio_Notepad : MonoBehaviour
         canReset = false;
         canSubmit = false;
 
+        currentChallengeIndex = -1;
+
         // dont load anything at the start, but load the first challenge when the user clicks on an image
         // LoadChallenge();
     }
@@ -222,7 +231,6 @@ public class Patio_Notepad : MonoBehaviour
     {
         if (textObject == null)
         {
-            Debug.LogWarning("Text object is null!");
             return;
         }
 
@@ -361,6 +369,13 @@ public class Patio_Notepad : MonoBehaviour
     /// </summary>
     private void ResetCurrentChallenge()
     {
+        // user hasn't selected an image yet
+        if (currentChallengeIndex == -1)
+        {
+            SetTextOfComponent(inputField, "", Color.black, true);
+            return;
+        }
+
         savedTexts.Remove(currentChallengeIndex);
         SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);

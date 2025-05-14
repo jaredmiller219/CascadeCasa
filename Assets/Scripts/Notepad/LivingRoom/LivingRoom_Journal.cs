@@ -1,13 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class LivingRoom_Journal : MonoBehaviour
+public class LivingRoom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.
     /// </summary>
-    [SerializeField]
     public GameObject journalPopup;
+
+    /// <summary>
+    /// The source of the audio
+    /// </summary>
+    public AudioSource audioSource;
+
+    /// <summary>
+    /// The audio sound
+    /// </summary>
+    public AudioClip clickSound;
 
     /// <summary>
     /// Reference to the journal button GameObject.
@@ -20,6 +30,12 @@ public class LivingRoom_Journal : MonoBehaviour
     /// </summary>
     private Animator animator;
 
+    /// <summary>
+    /// Reference to the GameObject representing the journal image.
+    /// </summary>
+    [SerializeField]
+    private GameObject JournalImage;
+
     private void Start()
     {
         if (journalPopup != null) journalPopup.SetActive(false);
@@ -28,8 +44,8 @@ public class LivingRoom_Journal : MonoBehaviour
 
     /// <summary>
     /// Toggles the visibility of the journal popup.
+    /// <br />
     /// This method is called when the journal button is clicked.
-    /// It checks if the journal popup is currently active and toggles its state accordingly.
     /// </summary>
     /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
@@ -43,9 +59,31 @@ public class LivingRoom_Journal : MonoBehaviour
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>
     public void SetHover(bool isHovering)
     {
-        if (animator != null)
-        {
-            animator.SetBool("hover", isHovering);
-        }
+        if (animator != null) animator.SetBool("hover", isHovering);
+    }
+
+    /// <summary>
+    /// Handles the pointer down event when the button is pressed.
+    /// This method changes the color of the JournalImage to indicate a pressed state.
+    /// </summary>
+    /// <param name="eventData">The event data associated with the pointer down event.</param>
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // Light gray
+        if (JournalImage != null) JournalImage.GetComponent<Image>().color = new Color32(200, 200, 200, 255);
+    }
+
+    /// <summary>
+    /// Handles the pointer up event when the button is released.
+    /// <br />
+    /// This method changes the color of the JournalImage back to white.
+    /// </summary>
+    /// <param name="eventData">The event data associated with the pointer up event.</param>
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        // White
+        if (JournalImage != null) JournalImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
 }

@@ -51,6 +51,8 @@ public class LivingRoom_FurnitureDropdown : MonoBehaviour
 
     /// <summary>
     /// Toggles the dropdown panel's visibility and animates the button image.
+    /// <br />
+    /// It also rotates the button image to indicate the panel's state.
     /// </summary>
     public void PullBarDown()
     {

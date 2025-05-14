@@ -1,15 +1,16 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Bedroom1_DropdownActionMenu : MonoBehaviour
 {
     /// <summary>
-    /// This class handles the behavior of a dropdown menu in the game.
+    /// A reference to the dropdown button
     /// </summary>
     public TMP_Dropdown dropdown;
 
     /// <summary>
-    /// Reference to the Notepad script, which manages the game's challenges.
+    /// Reference to the Notepad script
     /// </summary>
     private Bedroom1_Notepad notepad;
 
@@ -22,6 +23,7 @@ public class Bedroom1_DropdownActionMenu : MonoBehaviour
         }
         notepad = GetComponentInChildren<Bedroom1_Notepad>();
     }
+
 
     /// <summary>
     /// This method is called when an option is selected from the dropdown menu.
@@ -50,21 +52,24 @@ public class Bedroom1_DropdownActionMenu : MonoBehaviour
                 // Option 1 is Level Select
 
                 // Load level select scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene("LevelSelect");
                 break;
 
             case 2:
                 // Option 2 is Menu
 
                 // Load menu scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene("Menu");
                 break;
 
             case 3:
                 // Option 3 is Settings
 
                 // Load settings scene
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
+                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene("Settings");
                 break;
 
             case 4:

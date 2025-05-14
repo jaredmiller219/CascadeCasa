@@ -3,11 +3,8 @@ using UnityEngine;
 
 public class Bathroom_ResetDropdown : MonoBehaviour
 {
-
     /// <summary>
     /// Reference to the GameObject that represents the reset popup in the scene.
-    /// <br />
-    /// This GameObject should have an Animator component attached to it.
     /// </summary>
     public GameObject resetPopup;
 
@@ -22,15 +19,12 @@ public class Bathroom_ResetDropdown : MonoBehaviour
     public AudioClip popupSound;
 
     /// <summary>
-    /// Reference to the Notepad component that is used to check if there is any text in the notepad.
-    /// This is used to determine whether to play the animation or not.
+    /// Reference to the Notepad component.
     /// </summary>
     private Bathroom_Notepad notepad;
 
     /// <summary>
     /// Reference to the Animator component attached to the resetPopup GameObject.
-    /// <br />
-    /// This component is responsible for playing the animation clips assigned to it.
     /// </summary>
     private Animator _animator;
 
@@ -50,7 +44,7 @@ public class Bathroom_ResetDropdown : MonoBehaviour
         if (resetPopup == null || _animator == null || notepad == null) return;
 
         // if there's nothing in the notepad, don't play animation
-        if (notepad.inputField.GetComponent<TMPro.TMP_InputField>().text != "")
+        if (GetNotepadText(notepad.inputField) != "")
         {
             resetPopup.SetActive(true);
             _animator.Play("Pull", 0, 0f);
@@ -61,6 +55,8 @@ public class Bathroom_ResetDropdown : MonoBehaviour
     /// <summary>
     /// Coroutine that waits for the animation to finish before deactivating the resetPopup GameObject.
     /// </summary>
+    /// <returns>An IEnumerator for the coroutine.</returns>
+    /// <exception cref="MissingReferenceException">Thrown if the Animator component is missing.</exception>
     private IEnumerator WaitForAnimationToEnd()
     {
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
@@ -68,5 +64,17 @@ public class Bathroom_ResetDropdown : MonoBehaviour
         yield return new WaitForSeconds(animationLength);
         _animator.Play("Pull", 0, 0f);
         resetPopup.SetActive(false);
+    }
+
+    /// <summary>
+    /// Gets the text of the notepad's input field and returns it as a string
+    /// </summary>
+    /// <param name="notepad">The notepad gameobject</param>
+    /// <returns>The text of the component as a string</returns>
+    private string GetNotepadText(GameObject notepad)
+    {
+        if (notepad == null) return string.Empty;
+        if (!notepad.TryGetComponent<TMPro.TMP_InputField>(out var inputField)) return string.Empty;
+        return inputField.text;
     }
 }

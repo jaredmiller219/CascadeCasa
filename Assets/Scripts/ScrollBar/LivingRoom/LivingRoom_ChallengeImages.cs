@@ -2,10 +2,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 
-/// <summary>
-/// This class allows an image to be draggable within a UI canvas and provides functionality
-/// for inserting the dragged image into a horizontal scroll bar at a specific position.
-/// </summary>
 public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
@@ -13,22 +9,28 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public int _buttonIndex;
 
-    public int _previousbuttonindex = -1; // Ensure it's clearly uninitialized at start
+    /// <summary>
+    ///  The previous button index
+    /// </summary>
+    public int _previousbuttonindex = -1;
 
     /// <summary>
-    ///
+    /// The default css
     /// </summary>
     public string AssociatedCss { get; set; }
 
+    /// <summary>
+    /// The current css
+    /// </summary>
     public string CurrentCss { get; set; }
 
     /// <summary>
-    ///
+    /// The image click action
     /// </summary>
     public static event Action<string> OnAnyImageClicked;
 
     /// <summary>
-    ///
+    /// The index related to the css
     /// </summary>
     public int AssociatedIndex;
 
@@ -37,6 +39,9 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public bool Completed { get; set; }
 
+    /// <summary>
+    /// Whether the image is locked or not
+    /// </summary>
     public bool Locked { get; set; }
 
     /// <summary>
@@ -50,22 +55,25 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     private LivingRoom_HorizontalScrollBar _scrollBar;
 
     /// <summary>
-    ///
+    /// The notepad reference
     /// </summary>
     private LivingRoom_Notepad notepad;
 
     /// <summary>
-    ///
+    /// Initialize the image
     /// </summary>
-    /// <param name="image"></param>
-    /// <param name="associatedCss"></param>
+    /// <param name="image">The image</param>
+    /// <param name="associatedCss">The css for the associated image</param>
     public void Init(GameObject image, string associatedCss)
     {
         _scrollBar.imagePrefab = image;
         AssociatedCss = associatedCss;
     }
 
-
+    /// <summary>
+    /// Image was clicked
+    /// </summary>
+    /// <param name="css"></param>
     public void NotifyImageClicked(string css)
     {
         OnAnyImageClicked?.Invoke(css);
@@ -96,9 +104,6 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    /// <summary>
-    /// Called when the script is initialized. Caches references and sets up the insertion preview.
-    /// </summary>
     private void Awake()
     {
         _originalParent = transform.parent;

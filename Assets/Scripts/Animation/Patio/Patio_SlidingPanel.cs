@@ -40,10 +40,13 @@ public class Patio_SlidePanelController : MonoBehaviour
 
     /// <summary>
     /// Method to toggle the panel's open/close state.
+    /// <br />
+    /// Rotate the button image to indicate the current state of the panel.
     /// </summary>
     public void TogglePanel()
     {
         if (audioSource && toggleSound) audioSource.PlayOneShot(toggleSound);
+
         var isOpen = _animator.GetBool(Open);
 
         // Set the "open" parameter to the opposite of its current value

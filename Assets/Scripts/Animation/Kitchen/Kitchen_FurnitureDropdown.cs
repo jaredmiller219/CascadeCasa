@@ -28,8 +28,7 @@ public class Kitchen_FurnitureDropdown : MonoBehaviour
     private Animator _animator;
 
     /// <summary>
-    /// This class handles the behavior of a dropdown panel in the kitchen furniture UI.
-    /// It allows the player to toggle the visibility of the dropdown panel and animate the button image.
+    /// This class handles the dropdown panel for furniture in the game.
     /// </summary>
     private static readonly int Open = Animator.StringToHash("open");
 
@@ -52,6 +51,8 @@ public class Kitchen_FurnitureDropdown : MonoBehaviour
 
     /// <summary>
     /// Toggles the dropdown panel's visibility and animates the button image.
+    /// <br />
+    /// It also rotates the button image to indicate the panel's state.
     /// </summary>
     public void PullBarDown()
     {
