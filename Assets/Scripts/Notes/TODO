@@ -1,5 +1,15 @@
 # TODO
 
-TODO: make sure the level end screen shows up when you finish the entire level (once all items in the scroll bar have been completed)
+## Features
 
-TODO: Add more cursor style options
+- TODO: Show level end screen when the entire level is completed
+  - (Trigger when all items in the scroll bar are completed)
+- TODO: Add more cursor style options
+
+## Fixes
+
+- FIXME: Add missing sound effects
+  1. Notepad closing
+  2. Selecting options in any dropdown menu
+  3. Hovering over options in any dropdown menu
+  4. Completing syntax (When showing the checkmark)
