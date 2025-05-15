@@ -38,7 +38,27 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     [Header("Images")]
     public Sprite[] imageSprites;
 
-    [HideInInspector] public Patio_Journal journal;
+    /// <summary>
+    /// A reference to the journal
+    /// </summary>
+    [HideInInspector]
+    public Patio_Journal journal;
+
+    /// <summary>
+    /// A list of challenges for each image index
+    /// </summary>
+    [HideInInspector]
+    public readonly List<KeyValuePair<string, string>> _cssChallenges = new()
+    {
+        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
+        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
+        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
+        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
+        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
+        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
+        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
+    };
+
     // --------------------------------------------------------------
 
 
@@ -47,7 +67,8 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// a reference to the notepad script
     /// </summary>
-    [SerializeField] private Patio_Notepad notepad;
+    [SerializeField]
+    private Patio_Notepad notepad;
 
     /// <summary>
     ///
@@ -59,19 +80,6 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private readonly List<Image> _scrollImages = new();
 
-    /// <summary>
-    /// A list of challenges for each image index
-    /// </summary>
-    private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
-    {
-        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
-    };
     // --------------------------------------------------------------
 
     private void Start()
