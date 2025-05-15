@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -220,20 +219,14 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="isInteractable">Whether it is interactable</param>
     private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
     {
-        if (textObject == null) return;
-
-        TMP_Text tmpText = textObject.GetComponent<TMP_Text>();
-
-        if (textObject.TryGetComponent<TMP_InputField>(out var inputField))
+        if (textObject.TryGetComponent(out TMP_InputField inputField))
         {
-            // Set text and color for TMP_InputField
             inputField.text = text;
             inputField.textComponent.color = color;
             inputField.interactable = isInteractable;
         }
-        else if (tmpText != null)
+        else if (textObject.TryGetComponent(out TMP_Text tmpText))
         {
-            // Set text and color for TMP_Text
             tmpText.text = text;
             tmpText.color = color;
         }
@@ -245,7 +238,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     /// <param name="inputfield">The input field GameObject</param>
     /// <returns>The text (string) trimmed and lowered</returns>
-    private string InputFieldStringToLower(GameObject inputfield)
+    private string InputFieldStrToLower(GameObject inputfield)
     {
         if (!inputfield.TryGetComponent<TMP_InputField>(out var input)) return null;
         else return input.text.Trim().ToLower();
@@ -257,10 +250,9 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="scrollBar">The horizontal scrollbar reference</param>
     /// <param name="index">the index of the text to lower</param>
     /// <returns>The text (string) lowered</returns>
-    private string ScrollBarStringToLower(LivingRoom_HorizontalScrollBar scrollBar, int index)
+    private string ScrollBarStrValToLower(LivingRoom_HorizontalScrollBar scrollBar, int index)
     {
-        var value = scrollBar._cssChallenges[index].Value;
-        return value.ToLower();
+        return scrollBar._cssChallenges[index].Value.ToLower();
     }
 
     /// <summary>
@@ -272,8 +264,8 @@ public class LivingRoom_Notepad : MonoBehaviour
 
         if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
-            var normalizedUserInput = NormalizeCss(InputFieldStringToLower(inputField));
-            var normalizedCorrectCss = NormalizeCss(ScrollBarStringToLower(scrollBar, currentChallengeIndex));
+            var normalizedUserInput = NormalizeCss(InputFieldStrToLower(inputField));
+            var normalizedCorrectCss = NormalizeCss(ScrollBarStrValToLower(scrollBar, currentChallengeIndex));
 
             if (normalizedUserInput == normalizedCorrectCss)
             {
@@ -316,15 +308,6 @@ public class LivingRoom_Notepad : MonoBehaviour
         }
         else LoadChallenge();
     }
-
-    // /// <summary>
-    // /// Set the
-    // /// </summary>
-    // /// <param name="index"></param>
-    // private void SetChallengeIndexFromButtonIndex(int index)
-    // {
-    //     currentChallengeIndex = index;
-    // }
 
     /// <summary>
     /// Load the challenge
