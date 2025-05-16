@@ -76,10 +76,10 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="css"></param>
     public static void NotifyImageClicked(string css)
     {
-        if (notepad.currentChallengeIndex == -1)
-        {
-            notepad.ResetCurrentChallenge();
-        }
+        // if (notepad.currentChallengeIndex == -1)
+        // {
+        //     notepad.ResetCurrentChallenge();
+        // }
 
         OnAnyImageClicked?.Invoke(css);
     }
