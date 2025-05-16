@@ -10,7 +10,7 @@ public class Settings : MonoBehaviour
     /// </summary>
     /// <param name="sceneName">The name of the scene to load</param>
     /// <returns>IEnumerator</returns>
-    private IEnumerator LoadSceneWithDelay(string sceneName)
+    private static IEnumerator LoadSceneWithDelay(string sceneName)
     {
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);
