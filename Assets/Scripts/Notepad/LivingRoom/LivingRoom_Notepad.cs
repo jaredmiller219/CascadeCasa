@@ -1,8 +1,8 @@
-
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class LivingRoom_Notepad : MonoBehaviour
@@ -20,12 +20,6 @@ public class LivingRoom_Notepad : MonoBehaviour
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
     public GameObject feedbackText;
-
-    /// <summary>
-    /// The highlighted background of feedbackText
-    /// </summary>
-    [Tooltip("The text's highlighted background")]
-    public GameObject BGHighlight;
 
     /// <summary>
     /// The submit button
@@ -85,21 +79,21 @@ public class LivingRoom_Notepad : MonoBehaviour
     public AudioClip clickSound;
 
     /// <summary>
-    /// whether or not you can click the reset button
+    /// whether you can click the reset button
     /// </summary>
     [HideInInspector]
     public bool canReset;
 
     /// <summary>
-    /// whether or not you can click the submit button
+    /// Whether you can click the submit button
     /// </summary>
     [HideInInspector]
     public bool canSubmit;
 
     /// <summary>
-    /// The reference to the gameobject with the LivingRoom_HorizontalScrollBar script attached to it
+    /// The reference to the gameObject with the LivingRoom_HorizontalScrollBar script attached to it
     /// </summary>
-    [Tooltip("The reference to the gameobject with the LivingRoom_HorizontalScrollBar script attached to it")]
+    [Tooltip("The reference to the gameObject with the LivingRoom_HorizontalScrollBar script attached to it")]
     [SerializeField]
     [Header("Notepad")]
     private LivingRoom_HorizontalScrollBar scrollBar;
@@ -110,7 +104,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     private readonly string saveFilePath;
 
     /// <summary>
-    /// The glabal manager of the cursor
+    /// The global manager of the cursor
     /// </summary>
     private GlobalCursorManager _cursorManager;
 
@@ -120,17 +114,17 @@ public class LivingRoom_Notepad : MonoBehaviour
     private LivingRoom_ChallengeImage selectedImage;
 
     /// <summary>
-    /// The saved values of the updated css from the user
+    /// The saved values of the updated CSS from the user
     /// </summary>
     private Dictionary<int, string> savedTexts = new();
 
     /// <summary>
-    /// The undex of the previous cursor
+    /// The index of the previous cursor
     /// </summary>
     private int _previousCursorIndex;
 
     /// <summary>
-    /// The hints related to the css challenges
+    /// The hints related to the CSS challenges
     /// </summary>
     private readonly List<string> _cssHints = new()
     {
@@ -145,8 +139,15 @@ public class LivingRoom_Notepad : MonoBehaviour
 
     private void Start()
     {
-        submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
-        resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
+        submitBtn.GetComponent<Button>().onClick.AddListener(() => {
+            CheckCssInput();
+            ChangeFocusTo(null);
+        });
+        
+        resetBtn.GetComponent<Button>().onClick.AddListener(() => { 
+            ResetCurrentChallenge();
+            ChangeFocusTo(null);
+        });
 
         resetPopup.SetActive(false);
 
@@ -164,6 +165,11 @@ public class LivingRoom_Notepad : MonoBehaviour
 
         currentChallengeIndex = -1;
     }
+    
+    private static void ChangeFocusTo(GameObject gameObj)
+    {
+        EventSystem.current.SetSelectedGameObject(gameObj);
+    }
 
     /// <summary>
     /// Save the current text at the button's index
@@ -175,9 +181,9 @@ public class LivingRoom_Notepad : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the css text
+    /// Set the CSS text
     /// </summary>
-    /// <param name="css">The css to set</param>
+    /// <param name="css">The CSS to set</param>
     public void SetCssText(string css)
     {
         // When an image is clicked, store a reference to it so we can update its CurrentCss later
@@ -237,11 +243,11 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <summary>
     /// For GameObject inputField (gets text, trims, lowers)
     /// </summary>
-    /// <param name="inputfield">The input field GameObject</param>
+    /// <param name="inputField">The input field GameObject</param>
     /// <returns>The text (string) trimmed and lowered</returns>
-    private static string InputFieldStrToLower(GameObject inputfield)
+    private static string InputFieldStrToLower(GameObject inputField)
     {
-        return inputfield.TryGetComponent<TMP_InputField>(out var input) ? input.text.Trim().ToLower() : null;
+        return inputField.TryGetComponent<TMP_InputField>(out var input) ? input.text.Trim().ToLower() : null;
     }
 
     /// <summary>
@@ -283,7 +289,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <summary>
     /// Checks whether the level is complete
     /// </summary>
-    /// <returns>boolean stating whether level is complete</returns>
+    /// <returns>boolean stating whether the level is complete</returns>
     private bool IsLevelComplete()
     {
         return currentChallengeIndex >= scrollBar._cssChallenges.Count;
@@ -318,7 +324,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     }
 
     /// <summary>
-    /// Load the css for the current challenge
+    /// Load the CSS for the current challenge
     /// </summary>
     /// <param name="challengeIndex">The challenge index</param>
     private void LoadInputForChallenge(int challengeIndex)
@@ -345,13 +351,12 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     private void ResetCurrentChallenge()
     {
-        // user hasn't selected an image yet
+        // the user hasn't selected an image yet
         if (currentChallengeIndex == -1)
         {
             SetTextOfComponent(inputField, "", Color.black, true);
             return;
         }
-
         savedTexts.Remove(currentChallengeIndex);
         SetTextOfComponent(inputField, scrollBar._cssChallenges[currentChallengeIndex].Key, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);
