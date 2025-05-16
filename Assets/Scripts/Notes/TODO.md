@@ -18,14 +18,14 @@
 
 ### Scripts
 Scripts still to edit:
-1. Kitchen
-2. Bedroom1
-3. Bedroom2
-4. Bathroom
+1. Bedroom1
+2. Bedroom2
+3. Bathroom
 
 Scripts Done:
 1. Living Room 
 2. Patio
+3. Kitchen
 
 
 ### Sounds

@@ -85,10 +85,10 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     private void Start()
     {
         notepad = FindFirstObjectByType<Kitchen_Notepad>();
-        if (notepad == null) { Debug.LogError("Notepad not found in scene!"); return; }
+        if (!notepad) Debug.LogError("Notepad not found in scene!");
 
         journal = FindFirstObjectByType<Kitchen_Journal>();
-        if (journal == null) Debug.Log("journal not initialized");
+        if (!journal) Debug.LogError("journal not initialized");
 
         Kitchen_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
         Kitchen_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
@@ -104,14 +104,10 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// <param name="css"></param>
     public void HandleImageClick(int clickedIndex, string css)
     {
-        Kitchen_ChallengeImage clickedImage = GetImageAtIndex(clickedIndex);
-        if (clickedImage != null) clickedImage.NotifyImageClicked(css);
-
+        var clickedImage = GetImageAtIndex(clickedIndex);
+        if (clickedImage) Kitchen_ChallengeImage.NotifyImageClicked(css);
         SetupNotepad(notepad, clickedIndex, true, true);
-
-        if (IsSameButton(clickedIndex, previousIndex)) journal.ToggleJournal();
-        else if (!IsJournalOpen(journal)) journal.ToggleJournal();
-
+        if (IsSameButton(clickedIndex, previousIndex) || !IsJournalOpen(journal)) journal.ToggleJournal();
         previousIndex = clickedIndex;
     }
 
@@ -125,13 +121,10 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// </returns>
     public Kitchen_ChallengeImage GetImageAtIndex(int index)
     {
-        if (index < 0 || index >= _scrollImages.Count)
-        {
-            Debug.LogError($"Index {index} out of range.");
-            return null;
-        }
+        if (index >= 0 && index < _scrollImages.Count) return _scrollImages[index].GetComponent<Kitchen_ChallengeImage>();
+        Debug.LogError($"Index {index} out of range.");
+        return null;
 
-        return _scrollImages[index].GetComponent<Kitchen_ChallengeImage>();
     }
 
     /// <summary>
@@ -146,19 +139,17 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
             return;
         }
 
-        GameObject button = _scrollImages[index].gameObject;
-        Transform Checkmark = button.transform.Find("Checkmark");
-        Transform Lock = button.transform.Find("Lock");
+        var button = _scrollImages[index].gameObject;
+        var checkmark = button.transform.Find("Checkmark");
+        var lockIcon = button.transform.Find("Lock");
 
-        if (Checkmark != null && Lock != null)
+        if (checkmark && lockIcon)
         {
-            Checkmark.gameObject.SetActive(true);
-            Lock.gameObject.SetActive(false);
-            if (button.TryGetComponent<Kitchen_ChallengeImage>(out var challengeImage))
-            {
-                challengeImage.Completed = true;
-                challengeImage.Locked = false;
-            }
+            checkmark.gameObject.SetActive(true);
+            lockIcon.gameObject.SetActive(false);
+            if (!button.TryGetComponent<Kitchen_ChallengeImage>(out var challengeImage)) return;
+            challengeImage.Completed = true;
+            challengeImage.Locked = false;
         }
         else
         {
@@ -239,12 +230,9 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// <returns>A boolean representing if it was able to find the references</returns>
     private bool ValidateReferences()
     {
-        if (!content || !imagePrefab)
-        {
-            Debug.LogError("Missing content or imagePrefab.");
-            return false;
-        }
-        return true;
+        if (content && imagePrefab) return true;
+        Debug.LogError("Missing content or imagePrefab.");
+        return false;
     }
 
     /// <summary>
@@ -267,7 +255,7 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     {
         if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
         var image = imgObj.AddComponent<Kitchen_ChallengeImage>();
-        int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
+        var index = (_scrollImages.Count - 1) % _cssChallenges.Count;
         image.AssociatedCss = _cssChallenges[index].Key;
     }
 
@@ -276,7 +264,7 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void ClearImages()
     {
-        foreach (var img in _scrollImages.Where(i => i != null)) Destroy(img.gameObject);
+        foreach (var img in _scrollImages.Where(i => i)) Destroy(img.gameObject);
         _scrollImages.Clear();
     }
 
@@ -293,16 +281,14 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void UpdateImageSizes()
     {
-        foreach (var img in _scrollImages)
+        foreach (var img in _scrollImages.Where(img => img))
         {
-            if (img != null) img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
+            img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
         }
 
-        if (content)
-        {
-            Canvas.ForceUpdateCanvases();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
-        }
+        if (!content) return;
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
     /// <summary>
@@ -312,10 +298,9 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// <param name="clickedIndex">the current index of the button clicked</param>
     /// <param name="previousIndex">the index of the previous button clicked</param>
     /// <returns>boolean representing whether same button was clicked or not</returns>
-    private bool IsSameButton(int clickedIndex, int previousIndex)
+    private static bool IsSameButton(int clickedIndex, int previousIndex)
     {
-        if (clickedIndex == previousIndex) { return true; }
-        else { return false; }
+        return clickedIndex == previousIndex;
     }
 
     /// <summary>
@@ -323,9 +308,9 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="journal"></param>
     /// <returns>boolean representing if the journal was open or not</returns>
-    private bool IsJournalOpen(Kitchen_Journal journal)
+    private static bool IsJournalOpen(Kitchen_Journal journal)
     {
-        if (journal == null) Debug.LogError("journal is null");
+        if (!journal) Debug.LogError("journal is null");
         return journal.journalPopup.activeSelf;
     }
 
@@ -336,7 +321,7 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// <param name="clickedIndex">The index of the button clicked</param>
     /// <param name="canReset">Whether the notepad is able to reset</param>
     /// <param name="canSubmit">Whether the notepad is able to submit</param>
-    private void SetupNotepad(Kitchen_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
+    private static void SetupNotepad(Kitchen_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
     {
         notepad.buttonindex = clickedIndex;
         notepad.canReset = canReset;
