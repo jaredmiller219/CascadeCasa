@@ -17,8 +17,16 @@
 ## Fixes
 
 ### Scripts
+Scripts still to edit:
+1. Kitchen
+2. Bedroom1
+3. Bedroom2
+4. Bathroom
 
-- FIXME: Update all Notepad and Scrollbar files for each scene to match living room
+Scripts Done:
+1. Living Room 
+2. Patio
+
 
 ### Sounds
 
@@ -35,4 +43,4 @@
 
 - BUG: Remember where the user left off when navigating to and from screens
 
-  1. EXAMPLE: If they go to the level select screen and then decide to enter a new level, only remember the current state of the level (including the code and stuff), otherwise, if they decide to just go back to the same level, rememeber where they left off for the notepad visually (which elements were visible at the time)
+  1. EXAMPLE: If they go to the level select screen and then decide to enter a new level, only remember the current state of the level (including the code and stuff), otherwise, if they decide to just go back to the same level, remember where they left off for the notepad visually (which elements were visible at the time)

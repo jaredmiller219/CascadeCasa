@@ -50,13 +50,13 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     [HideInInspector]
     public readonly List<KeyValuePair<string, string>> _cssChallenges = new()
     {
-        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
+        new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
+        new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
+        new KeyValuePair<string, string>(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
+        new KeyValuePair<string, string>("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
+        new KeyValuePair<string, string>("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
+        new KeyValuePair<string, string>("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
+        new KeyValuePair<string, string>("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
     };
 
     // --------------------------------------------------------------
@@ -85,10 +85,10 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     private void Start()
     {
         notepad = FindFirstObjectByType<Patio_Notepad>();
-        if (notepad == null) { Debug.LogError("Notepad not found in scene!"); return; }
+        if (!notepad) Debug.LogError("Notepad not found in scene!");
 
         journal = FindFirstObjectByType<Patio_Journal>();
-        if (journal == null) Debug.Log("journal not initialized");
+        if (!journal) Debug.LogError("journal not initialized");
 
         Patio_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
         Patio_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
@@ -104,14 +104,10 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// <param name="css"></param>
     public void HandleImageClick(int clickedIndex, string css)
     {
-        Patio_ChallengeImage clickedImage = GetImageAtIndex(clickedIndex);
-        if (clickedImage != null) clickedImage.NotifyImageClicked(css);
-
+        var clickedImage = GetImageAtIndex(clickedIndex);
+        if (clickedImage) Patio_ChallengeImage.NotifyImageClicked(css);
         SetupNotepad(notepad, clickedIndex, true, true);
-
-        if (IsSameButton(clickedIndex, previousIndex)) journal.ToggleJournal();
-        else if (!IsJournalOpen(journal)) journal.ToggleJournal();
-
+        if (IsSameButton(clickedIndex, previousIndex) || !IsJournalOpen(journal)) journal.ToggleJournal();
         previousIndex = clickedIndex;
     }
 
@@ -125,13 +121,10 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// </returns>
     public Patio_ChallengeImage GetImageAtIndex(int index)
     {
-        if (index < 0 || index >= _scrollImages.Count)
-        {
-            Debug.LogError($"Index {index} out of range.");
-            return null;
-        }
+        if (index >= 0 && index < _scrollImages.Count) return _scrollImages[index].GetComponent<Patio_ChallengeImage>();
+        Debug.LogError($"Index {index} out of range.");
+        return null;
 
-        return _scrollImages[index].GetComponent<Patio_ChallengeImage>();
     }
 
     /// <summary>
@@ -146,19 +139,17 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
             return;
         }
 
-        GameObject button = _scrollImages[index].gameObject;
-        Transform Checkmark = button.transform.Find("Checkmark");
-        Transform Lock = button.transform.Find("Lock");
+        var button = _scrollImages[index].gameObject;
+        var checkmark = button.transform.Find("Checkmark");
+        var lockIcon = button.transform.Find("Lock");
 
-        if (Checkmark != null && Lock != null)
+        if (checkmark && lockIcon)
         {
-            Checkmark.gameObject.SetActive(true);
-            Lock.gameObject.SetActive(false);
-            if (button.TryGetComponent<Patio_ChallengeImage>(out var challengeImage))
-            {
-                challengeImage.Completed = true;
-                challengeImage.Locked = false;
-            }
+            checkmark.gameObject.SetActive(true);
+            lockIcon.gameObject.SetActive(false);
+            if (!button.TryGetComponent<Patio_ChallengeImage>(out var challengeImage)) return;
+            challengeImage.Completed = true;
+            challengeImage.Locked = false;
         }
         else
         {
@@ -185,7 +176,7 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void SetupLayout()
     {
-        if (content == null) return;
+        if (!content) return;
 
         if (!content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
         {
@@ -239,12 +230,9 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// <returns>A boolean representing if it was able to find the references</returns>
     private bool ValidateReferences()
     {
-        if (!content || !imagePrefab)
-        {
-            Debug.LogError("Missing content or imagePrefab.");
-            return false;
-        }
-        return true;
+        if (content && imagePrefab) return true;
+        Debug.LogError("Missing content or imagePrefab.");
+        return false;
     }
 
     /// <summary>
@@ -258,7 +246,7 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
         _scrollImages.Add(img);
         rect.sizeDelta = imageSize * 2;
     }
-
+    
     /// <summary>
     /// Prepares the image GameObject for interaction
     /// and attaches the related css script to the image
@@ -267,7 +255,7 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     {
         if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
         var image = imgObj.AddComponent<Patio_ChallengeImage>();
-        int index = (_scrollImages.Count - 1) % _cssChallenges.Count;
+        var index = (_scrollImages.Count - 1) % _cssChallenges.Count;
         image.AssociatedCss = _cssChallenges[index].Key;
     }
 
@@ -276,7 +264,7 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void ClearImages()
     {
-        foreach (var img in _scrollImages.Where(i => i != null)) Destroy(img.gameObject);
+        foreach (var img in _scrollImages.Where(i => i)) Destroy(img.gameObject);
         _scrollImages.Clear();
     }
 
@@ -293,16 +281,14 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void UpdateImageSizes()
     {
-        foreach (var img in _scrollImages)
+        foreach (var img in _scrollImages.Where(img => img))
         {
-            if (img != null) img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
+            img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
         }
 
-        if (content)
-        {
-            Canvas.ForceUpdateCanvases();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
-        }
+        if (!content) return;
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
 
     /// <summary>
@@ -312,10 +298,9 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// <param name="clickedIndex">the current index of the button clicked</param>
     /// <param name="previousIndex">the index of the previous button clicked</param>
     /// <returns>boolean representing whether same button was clicked or not</returns>
-    private bool IsSameButton(int clickedIndex, int previousIndex)
+    private static bool IsSameButton(int clickedIndex, int previousIndex)
     {
-        if (clickedIndex == previousIndex) { return true; }
-        else { return false; }
+        return clickedIndex == previousIndex;
     }
 
     /// <summary>
@@ -323,9 +308,9 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="journal"></param>
     /// <returns>boolean representing if the journal was open or not</returns>
-    private bool IsJournalOpen(Patio_Journal journal)
+    private static bool IsJournalOpen(Patio_Journal journal)
     {
-        if (journal == null) Debug.LogError("journal is null");
+        if (!journal) Debug.LogError("journal is null");
         return journal.journalPopup.activeSelf;
     }
 
@@ -336,7 +321,7 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// <param name="clickedIndex">The index of the button clicked</param>
     /// <param name="canReset">Whether the notepad is able to reset</param>
     /// <param name="canSubmit">Whether the notepad is able to submit</param>
-    private void SetupNotepad(Patio_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
+    private static void SetupNotepad(Patio_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
     {
         notepad.buttonindex = clickedIndex;
         notepad.canReset = canReset;
