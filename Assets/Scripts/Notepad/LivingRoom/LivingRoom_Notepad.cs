@@ -91,6 +91,11 @@ public class LivingRoom_Notepad : MonoBehaviour
     public bool canSubmit;
 
     /// <summary>
+    /// Keeps track of the number of levels completed.
+    /// </summary>
+    public int levelsCompleted;
+
+    /// <summary>
     /// The reference to the gameObject with the LivingRoom_HorizontalScrollBar script attached to it
     /// </summary>
     [Tooltip("The reference to the gameObject with the LivingRoom_HorizontalScrollBar script attached to it")]
@@ -139,10 +144,7 @@ public class LivingRoom_Notepad : MonoBehaviour
 
     private void Start()
     {
-        submitBtn.GetComponent<Button>().onClick.AddListener(() => {
-            CheckCssInput();
-            ChangeFocusTo(null);
-        });
+        submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         
         resetBtn.GetComponent<Button>().onClick.AddListener(() => { 
             ResetCurrentChallenge();
@@ -164,6 +166,8 @@ public class LivingRoom_Notepad : MonoBehaviour
         canSubmit = false;
 
         currentChallengeIndex = -1;
+
+        levelsCompleted = 0;
     }
     
     private static void ChangeFocusTo(GameObject gameObj)
@@ -277,7 +281,11 @@ public class LivingRoom_Notepad : MonoBehaviour
             const string displayedFeedback = "Correct!";
             SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
             if (scrollBar) scrollBar.MarkChallengeCompleted(buttonindex);
+            levelsCompleted++;
             SetTextOfComponent(inputField, "", Color.clear, false);
+            ChangeFocusTo(null);
+            if (!IsLevelComplete()) return;
+            LevelComplete();
         }
         else
         {
@@ -292,25 +300,16 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <returns>boolean stating whether the level is complete</returns>
     private bool IsLevelComplete()
     {
-        return currentChallengeIndex >= scrollBar._cssChallenges.Count;
+        return levelsCompleted == scrollBar.imageSprites.Length;
     }
 
-    /// <summary>
-    /// Goes to the next challenge
-    /// </summary>
-    private void NextChallenge()
+    private void LevelComplete()
     {
-        currentChallengeIndex++;
-
-        if (IsLevelComplete())
-        {
-            SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
-            SetTextOfComponent(inputField, "", Color.clear, false);
-            SetButtonInteractable(submitBtn, false);
-            SetButtonInteractable(resetBtn, false);
-            challengeComplete.SetActive(true);
-        }
-        else LoadChallenge();
+        SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
+        SetTextOfComponent(inputField, "", Color.clear, false);
+        SetButtonInteractable(submitBtn, false);
+        SetButtonInteractable(resetBtn, false);
+        challengeComplete.SetActive(true);
     }
 
     /// <summary>
@@ -349,7 +348,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <summary>
     /// Reset the current challenge's text
     /// </summary>
-    private void ResetCurrentChallenge()
+    public void ResetCurrentChallenge()
     {
         // the user hasn't selected an image yet
         if (currentChallengeIndex == -1)
