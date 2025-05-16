@@ -57,7 +57,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// The notepad reference
     /// </summary>
-    private LivingRoom_Notepad notepad;
+    private static LivingRoom_Notepad notepad;
 
     /// <summary>
     /// Initialize the image
@@ -76,6 +76,11 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="css"></param>
     public static void NotifyImageClicked(string css)
     {
+        if (notepad.currentChallengeIndex == -1)
+        {
+            notepad.ResetCurrentChallenge();
+        }
+
         OnAnyImageClicked?.Invoke(css);
     }
 
@@ -86,7 +91,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (Completed || !_scrollBar) return;
-        // Save the current input
+        if (notepad.currentChallengeIndex == -1) notepad.ResetCurrentChallenge();
         if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
 
         // ---------------- For debug only --------------------------
