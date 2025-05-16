@@ -2,37 +2,32 @@ using UnityEngine;
 
 public class OnboardingManager : MonoBehaviour
 {
-    public GameObject[] tutorialSteps;  
+    public GameObject[] tutorialSteps;
     private int currentStep = 0;
 
     void Start()
     {
-        ShowStep(0); 
+        ShowStep(0);
     }
 
     public void ShowStep(int index)
     {
         for (int i = 0; i < tutorialSteps.Length; i++)
-        {
-            tutorialSteps[i].SetActive(i == index);  
-        }
+            tutorialSteps[i].SetActive(i == index);
     }
 
-    public void NextStep()
+    public void GoToNextStep()
     {
         currentStep++;
         if (currentStep < tutorialSteps.Length)
-        {
             ShowStep(currentStep);
-        }
         else
-        {
             EndTutorial();
-        }
     }
 
     void EndTutorial()
     {
-        Debug.Log("Tutorial Finished!");
+        foreach (var step in tutorialSteps)
+            step.SetActive(false);
     }
 }
