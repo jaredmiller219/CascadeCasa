@@ -154,10 +154,10 @@ public class LivingRoom_Notepad : MonoBehaviour
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
         _cursorManager = GlobalCursorManager.Instance;
-        if (_cursorManager != null) _previousCursorIndex = _cursorManager.GetSelectedCursor();
+        if (_cursorManager) _previousCursorIndex = _cursorManager.GetSelectedCursor();
 
         scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
-        if (scrollBar == null) Debug.LogError("LivingRoom_HorizontalScrollBar not found in scene!");
+        if (!scrollBar) Debug.LogError("LivingRoom_HorizontalScrollBar not found in scene!");
 
         canReset = false;
         canSubmit = false;
@@ -206,7 +206,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     /// <param name="button">The button to set</param>
     /// <param name="isInteractable">The interactability status</param>
-    private void SetButtonInteractable(GameObject button, bool isInteractable)
+    private static void SetButtonInteractable(GameObject button, bool isInteractable)
     {
         button.GetComponent<Button>().interactable = isInteractable;
     }
@@ -218,7 +218,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="text">The text to display</param>
     /// <param name="color">The color of the text</param>
     /// <param name="isInteractable">Whether it is interactable</param>
-    private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
+    private static void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
     {
         if (textObject.TryGetComponent(out TMP_InputField inputField))
         {
@@ -239,10 +239,9 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     /// <param name="inputfield">The input field GameObject</param>
     /// <returns>The text (string) trimmed and lowered</returns>
-    private string InputFieldStrToLower(GameObject inputfield)
+    private static string InputFieldStrToLower(GameObject inputfield)
     {
-        if (!inputfield.TryGetComponent<TMP_InputField>(out var input)) return null;
-        else return input.text.Trim().ToLower();
+        return inputfield.TryGetComponent<TMP_InputField>(out var input) ? input.text.Trim().ToLower() : null;
     }
 
     /// <summary>
@@ -251,7 +250,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="scrollBar">The horizontal scrollbar reference</param>
     /// <param name="index">the index of the text to lower</param>
     /// <returns>The text (string) lowered</returns>
-    private string ScrollBarStrValToLower(LivingRoom_HorizontalScrollBar scrollBar, int index)
+    private static string ScrollBarStrValToLower(LivingRoom_HorizontalScrollBar scrollBar, int index)
     {
         return scrollBar._cssChallenges[index].Value.ToLower();
     }
@@ -263,23 +262,21 @@ public class LivingRoom_Notepad : MonoBehaviour
     {
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
 
-        if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
-        {
-            var normalizedUserInput = NormalizeCss(InputFieldStrToLower(inputField));
-            var normalizedCorrectCss = NormalizeCss(ScrollBarStrValToLower(scrollBar, currentChallengeIndex));
+        if (inputField.GetComponent<TMP_InputField>().text == "" || !canSubmit) return;
+        var normalizedUserInput = NormalizeCss(InputFieldStrToLower(inputField));
+        var normalizedCorrectCss = NormalizeCss(ScrollBarStrValToLower(scrollBar, currentChallengeIndex));
 
-            if (normalizedUserInput == normalizedCorrectCss)
-            {
-                string displayedFeedback = "Correct!";
-                SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
-                if (scrollBar != null) scrollBar.MarkChallengeCompleted(buttonindex);
-                SetTextOfComponent(inputField, "", Color.clear, false);
-            }
-            else
-            {
-                string displayedFeedback = "Check colons, semicolons, dashes, and syntax!";
-                SetTextOfComponent(feedbackText, displayedFeedback, Color.red, false);
-            }
+        if (normalizedUserInput == normalizedCorrectCss)
+        {
+            const string displayedFeedback = "Correct!";
+            SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
+            if (scrollBar) scrollBar.MarkChallengeCompleted(buttonindex);
+            SetTextOfComponent(inputField, "", Color.clear, false);
+        }
+        else
+        {
+            const string displayedFeedback = "Check colons, semicolons, dashes, and syntax!";
+            SetTextOfComponent(feedbackText, displayedFeedback, Color.red, false);
         }
     }
 
@@ -315,8 +312,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     public void LoadChallenge()
     {
-        if (selectedImage != null) currentChallengeIndex = selectedImage._buttonIndex;
-        else currentChallengeIndex = buttonindex;
+        currentChallengeIndex = selectedImage ? selectedImage._buttonIndex : buttonindex;
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
@@ -327,7 +323,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="challengeIndex">The challenge index</param>
     private void LoadInputForChallenge(int challengeIndex)
     {
-        if (savedTexts.TryGetValue(challengeIndex, out string savedInput) && !string.IsNullOrWhiteSpace(savedInput))
+        if (savedTexts.TryGetValue(challengeIndex, out var savedInput) && !string.IsNullOrWhiteSpace(savedInput))
         {
             SetTextOfComponent(inputField, savedInput, Color.black, true);
         }
@@ -388,8 +384,8 @@ public class LivingRoom_Notepad : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            string savedIndex = File.ReadAllText(saveFilePath);
-            if (int.TryParse(savedIndex, out int index) && index < scrollBar._cssChallenges.Count)
+            var savedIndex = File.ReadAllText(saveFilePath);
+            if (int.TryParse(savedIndex, out var index) && index < scrollBar._cssChallenges.Count)
             {
                 currentChallengeIndex = index;
             }

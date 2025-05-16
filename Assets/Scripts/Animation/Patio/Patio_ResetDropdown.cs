@@ -40,14 +40,12 @@ public class Patio_ResetPopup : MonoBehaviour
     public void Animate()
     {
         if (audioSource && popupSound) audioSource.PlayOneShot(popupSound);
-        if (resetPopup == null || _animator == null || notepad == null) return;
+        if (!resetPopup || !_animator || !notepad) return;
 
-        if (GetNotepadText(notepad.inputField) != "")
-        {
-            resetPopup.SetActive(true);
-            _animator.Play("Pull", 0, 0f);
-            StartCoroutine(WaitForAnimationToEnd());
-        }
+        if (GetNotepadText(notepad.inputField) == "") return;
+        resetPopup.SetActive(true);
+        _animator.Play("Pull", 0, 0f);
+        StartCoroutine(WaitForAnimationToEnd());
     }
 
     /// <summary>
@@ -57,8 +55,8 @@ public class Patio_ResetPopup : MonoBehaviour
     /// <exception cref="MissingReferenceException">Thrown if the Animator component is missing.</exception>
     private IEnumerator WaitForAnimationToEnd()
     {
-        AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-        float animationLength = stateInfo.length;
+        var stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+        var animationLength = stateInfo.length;
         yield return new WaitForSeconds(animationLength);
         _animator.Play("Pull", 0, 0f);
         resetPopup.SetActive(false);
@@ -69,10 +67,9 @@ public class Patio_ResetPopup : MonoBehaviour
     /// </summary>
     /// <param name="notepad">The notepad gameobject</param>
     /// <returns>The text of the component as a string</returns>
-    private string GetNotepadText(GameObject notepad)
+    private static string GetNotepadText(GameObject notepad)
     {
-        if (notepad == null) return string.Empty;
-        if (!notepad.TryGetComponent<TMPro.TMP_InputField>(out var inputField)) return string.Empty;
+        if (!notepad || !notepad.TryGetComponent<TMPro.TMP_InputField>(out var inputField)) return string.Empty;
         return inputField.text;
     }
 }

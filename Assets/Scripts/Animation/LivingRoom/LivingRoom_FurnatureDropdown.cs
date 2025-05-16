@@ -37,13 +37,13 @@ public class LivingRoom_FurnitureDropdown : MonoBehaviour
         _animator = furnitureDropdown.GetComponent<Animator>();
         switch (true)
         {
-            case true when _animator == null:
+            case true when !_animator:
                 Debug.LogError("No Animator component found on furnitureDropdown!");
                 break;
-            case true when btnImage == null:
+            case true when !btnImage:
                 Debug.LogError("No btnImage assigned!");
                 break;
-            case true when furnitureDropdown == null:
+            case true when !furnitureDropdown:
                 Debug.LogError("No furnitureDropdown assigned!");
                 break;
         }
@@ -56,7 +56,7 @@ public class LivingRoom_FurnitureDropdown : MonoBehaviour
     /// </summary>
     public void PullBarDown()
     {
-        if (furnitureDropdown == null || _animator == null) return;
+        if (!furnitureDropdown || !_animator) return;
         if (audioSource && dropdownSound) audioSource.PlayOneShot(dropdownSound);
 
         var isOpen = _animator.GetBool(Open);

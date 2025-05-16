@@ -105,7 +105,7 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     public void HandleImageClick(int clickedIndex, string css)
     {
         LivingRoom_ChallengeImage clickedImage = GetImageAtIndex(clickedIndex);
-        if (clickedImage != null) clickedImage.NotifyImageClicked(css);
+        if (clickedImage != null) LivingRoom_ChallengeImage.NotifyImageClicked(css);
 
         SetupNotepad(notepad, clickedIndex, true, true);
 
