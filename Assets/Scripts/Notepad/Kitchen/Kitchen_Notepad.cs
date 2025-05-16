@@ -96,6 +96,14 @@ public class Kitchen_Notepad : MonoBehaviour
     public bool canSubmit;
 
     /// <summary>
+    /// The reference to the gameobject with the Kitchen_HorizontalScrollBar script attached to it
+    /// </summary>
+    [Tooltip("The reference to the gameobject with the Kitchen_HorizontalScrollBar script attached to it")]
+    [SerializeField]
+    [Header("Notepad")]
+    private Kitchen_HorizontalScrollBar scrollBar;
+
+    /// <summary>
     /// The path of the file that saves the user's progress
     /// </summary>
     private readonly string saveFilePath;
@@ -119,20 +127,6 @@ public class Kitchen_Notepad : MonoBehaviour
     /// The undex of the previous cursor
     /// </summary>
     private int _previousCursorIndex;
-
-    /// <summary>
-    /// The list of css challenges
-    /// </summary>
-    private readonly List<KeyValuePair<string, string>> _cssChallenges = new()
-    {
-        new("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}"),
-    };
 
     /// <summary>
     /// The hints related to the css challenges
@@ -159,18 +153,15 @@ public class Kitchen_Notepad : MonoBehaviour
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
         _cursorManager = GlobalCursorManager.Instance;
-        if (_cursorManager != null)
-        {
-            _previousCursorIndex = _cursorManager.GetSelectedCursor();
-        }
+        if (_cursorManager != null) _previousCursorIndex = _cursorManager.GetSelectedCursor();
+
+        scrollBar = FindFirstObjectByType<Kitchen_HorizontalScrollBar>();
+        if (scrollBar == null) Debug.LogError("Kitchen_HorizontalScrollBar not found in scene!");
 
         canReset = false;
         canSubmit = false;
 
         currentChallengeIndex = -1;
-
-        // dont load anything at the start, but load the first challenge when the user clicks on an image
-        // LoadChallenge();
     }
 
     /// <summary>
@@ -179,8 +170,7 @@ public class Kitchen_Notepad : MonoBehaviour
     /// <param name="index">The index of the button</param>
     public void SaveTextForIndex(int index)
     {
-        string currentInput = inputField.GetComponent<TMP_InputField>().text;
-        savedTexts[index] = currentInput;
+        savedTexts[index] = inputField.GetComponent<TMP_InputField>().text;
     }
 
     /// <summary>
@@ -229,30 +219,40 @@ public class Kitchen_Notepad : MonoBehaviour
     /// <param name="isInteractable">Whether it is interactable</param>
     private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
     {
-        if (textObject == null)
+        if (textObject.TryGetComponent(out TMP_InputField inputField))
         {
-            return;
-        }
-
-        TMP_Text tmpText = textObject.GetComponent<TMP_Text>();
-
-        if (textObject.TryGetComponent<TMP_InputField>(out var inputField))
-        {
-            // Set text and color for TMP_InputField
             inputField.text = text;
             inputField.textComponent.color = color;
             inputField.interactable = isInteractable;
         }
-        else if (tmpText != null)
+        else if (textObject.TryGetComponent(out TMP_Text tmpText))
         {
-            // Set text and color for TMP_Text
             tmpText.text = text;
             tmpText.color = color;
         }
-        else
-        {
-            Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
-        }
+        else Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
+    }
+
+    /// <summary>
+    /// For GameObject inputField (gets text, trims, lowers)
+    /// </summary>
+    /// <param name="inputfield">The input field GameObject</param>
+    /// <returns>The text (string) trimmed and lowered</returns>
+    private string InputFieldStrToLower(GameObject inputfield)
+    {
+        if (!inputfield.TryGetComponent<TMP_InputField>(out var input)) return null;
+        else return input.text.Trim().ToLower();
+    }
+
+    /// <summary>
+    /// For scrollBar + index (gets challenge value, lowers)
+    /// </summary>
+    /// <param name="scrollBar">The horizontal scrollbar reference</param>
+    /// <param name="index">the index of the text to lower</param>
+    /// <returns>The text (string) lowered</returns>
+    private string ScrollBarStrValToLower(Kitchen_HorizontalScrollBar scrollBar, int index)
+    {
+        return scrollBar._cssChallenges[index].Value.ToLower();
     }
 
     /// <summary>
@@ -264,29 +264,20 @@ public class Kitchen_Notepad : MonoBehaviour
 
         if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
         {
-            var userInput = inputField.GetComponent<TMP_InputField>().text.Trim().ToLower();
-            var correctCss = _cssChallenges[currentChallengeIndex].Value.ToLower();
-
-            var normalizedUserInput = NormalizeCss(userInput);
-            var normalizedCorrectCss = NormalizeCss(correctCss);
+            var normalizedUserInput = NormalizeCss(InputFieldStrToLower(inputField));
+            var normalizedCorrectCss = NormalizeCss(ScrollBarStrValToLower(scrollBar, currentChallengeIndex));
 
             if (normalizedUserInput == normalizedCorrectCss)
             {
-                SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
-
-                var scrollBar = FindFirstObjectByType<Kitchen_HorizontalScrollBar>();
-                if (scrollBar != null)
-                {
-                    scrollBar.MarkChallengeCompleted(buttonindex);
-                }
+                string displayedFeedback = "Correct!";
+                SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
+                if (scrollBar != null) scrollBar.MarkChallengeCompleted(buttonindex);
                 SetTextOfComponent(inputField, "", Color.clear, false);
-
-                // Load the next challenge after a delay
-                // Invoke(nameof(NextChallenge), 1.5f);
             }
             else
             {
-                SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
+                string displayedFeedback = "Check colons, semicolons, dashes, and syntax!";
+                SetTextOfComponent(feedbackText, displayedFeedback, Color.red, false);
             }
         }
     }
@@ -297,7 +288,7 @@ public class Kitchen_Notepad : MonoBehaviour
     /// <returns>boolean stating whether level is complete</returns>
     private bool IsLevelComplete()
     {
-        return currentChallengeIndex >= _cssChallenges.Count;
+        return currentChallengeIndex >= scrollBar._cssChallenges.Count;
     }
 
     /// <summary>
@@ -319,24 +310,12 @@ public class Kitchen_Notepad : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the
-    /// </summary>
-    /// <param name="index"></param>
-    private void SetChallengeIndexFromButtonIndex(int index)
-    {
-        currentChallengeIndex = index;
-    }
-
-    /// <summary>
     /// Load the challenge
     /// </summary>
     public void LoadChallenge()
     {
-        if (selectedImage != null)
-        {
-            SetChallengeIndexFromButtonIndex(selectedImage.GetComponent<Kitchen_ChallengeImage>()._buttonIndex);
-        }
-        currentChallengeIndex = buttonindex;
+        if (selectedImage != null) currentChallengeIndex = selectedImage._buttonIndex;
+        else currentChallengeIndex = buttonindex;
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
@@ -351,7 +330,7 @@ public class Kitchen_Notepad : MonoBehaviour
         {
             SetTextOfComponent(inputField, savedInput, Color.black, true);
         }
-        else SetTextOfComponent(inputField, _cssChallenges[challengeIndex].Key, Color.black, true);
+        else SetTextOfComponent(inputField, scrollBar._cssChallenges[challengeIndex].Key, Color.black, true);
     }
 
     /// <summary>
@@ -377,7 +356,7 @@ public class Kitchen_Notepad : MonoBehaviour
         }
 
         savedTexts.Remove(currentChallengeIndex);
-        SetTextOfComponent(inputField, _cssChallenges[currentChallengeIndex].Key, Color.black, true);
+        SetTextOfComponent(inputField, scrollBar._cssChallenges[currentChallengeIndex].Key, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);
         LoadChallenge();
     }
@@ -409,7 +388,7 @@ public class Kitchen_Notepad : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             string savedIndex = File.ReadAllText(saveFilePath);
-            if (int.TryParse(savedIndex, out int index) && index < _cssChallenges.Count)
+            if (int.TryParse(savedIndex, out int index) && index < scrollBar._cssChallenges.Count)
             {
                 currentChallengeIndex = index;
             }

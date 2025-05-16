@@ -27,12 +27,6 @@ public class Bathroom_SlidePanelController : MonoBehaviour
     /// </summary>
     private static readonly int Open = Animator.StringToHash("open");
 
-    /// <summary>
-    /// Reference to the button image GameObject that will be rotated.
-    /// </summary>
-    [SerializeField]
-    private GameObject btnImage;
-
     private void Start()
     {
         _animator = panel.GetComponent<Animator>();
@@ -50,11 +44,5 @@ public class Bathroom_SlidePanelController : MonoBehaviour
 
         // Set the "open" parameter to the opposite of its current value
         _animator.SetBool(Open, !isOpen);
-
-        // Rotate x-axis by 180 degrees
-        if (isOpen) btnImage.transform.Rotate(180, 0, 0);
-
-        // Reset to original state
-        else btnImage.transform.Rotate(-180, 0, 0);
     }
 }
