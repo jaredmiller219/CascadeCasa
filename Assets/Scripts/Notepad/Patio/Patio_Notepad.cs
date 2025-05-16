@@ -153,7 +153,7 @@ public class Patio_Notepad : MonoBehaviour
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
         _cursorManager = GlobalCursorManager.Instance;
-        if (_cursorManager) _previousCursorIndex = _cursorManager.GetSelectedCursor();
+        if (_cursorManager) _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
 
         scrollBar = FindFirstObjectByType<Patio_HorizontalScrollBar>();
         if (!scrollBar) Debug.LogError("Patio_HorizontalScrollBar not found in scene!");
@@ -188,7 +188,7 @@ public class Patio_Notepad : MonoBehaviour
     /// </summary>
     public void OnInputFieldEnter()
     {
-        _previousCursorIndex = _cursorManager.GetSelectedCursor();
+        _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
         _cursorManager.SetCursor(3);
     }
 

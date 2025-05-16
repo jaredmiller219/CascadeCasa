@@ -25,7 +25,7 @@ public class Instructions : MonoBehaviour
     /// <summary>
     /// The size of each button
     /// </summary>
-    public Vector2 buttonSize = new();
+    public Vector2 buttonSize;
 
     /// <summary>
     /// A structure composed of the button name and the instruction's text to set.
@@ -67,19 +67,19 @@ public class Instructions : MonoBehaviour
         new InstructionEntry("Lists & Padding", "List style type and padding need colons and values."),
         new InstructionEntry("Text Decoration", "Colons are required after text decoration and color."),
         new InstructionEntry("Size Settings", "Don't forget colons after width and height."),
-        new InstructionEntry("Debug Entry 1", "askldhaskjd"),
+        new InstructionEntry("Debug Entry 1", "more text"),
         new InstructionEntry("Greeting Tip", "hello"),
-        new InstructionEntry("Miscellaneous", "ausndychdnduydndkdk")
+        new InstructionEntry("Miscellaneous", "here's some text here")
     };
 
     public void Start()
     {
         instructionText.GetComponent<TMP_Text>().text = "";
-        float currentY = 0f;
+        var currentY = 0f;
 
-        for (int i = 0; i < _instructions.Count; i++)
+        for (var i = 0; i < _instructions.Count; i++)
         {
-            CreateButtonInstatiation(i, currentY);
+            CreateButtonInstantiation(i, currentY);
             currentY -= buttonSize.y + 10f;
         }
     }
@@ -89,7 +89,7 @@ public class Instructions : MonoBehaviour
     /// </summary>
     /// <param name="sceneName">The name of the scene to load</param>
     /// <returns>IEnumerator</returns>
-    private IEnumerator LoadSceneWithDelay(string sceneName)
+    private static IEnumerator LoadSceneWithDelay(string sceneName)
     {
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);
@@ -118,15 +118,15 @@ public class Instructions : MonoBehaviour
     }
 
     /// <summary>
-    /// Create the button for the instructions list
+    /// Create the button for the instruction list
     /// </summary>
     /// <param name="index">The index of the button</param>
     /// <param name="yPosition">The y-position of the button</param>
-    private void CreateButtonInstatiation(int index, float yPosition)
+    private void CreateButtonInstantiation(int index, float yPosition)
     {
-        GameObject buttonObj = Instantiate(buttonPrefab, buttonContainer);
+        var buttonObj = Instantiate(buttonPrefab, buttonContainer);
 
-        RectTransform rect = buttonObj.GetComponent<RectTransform>();
+        var rect = buttonObj.GetComponent<RectTransform>();
         rect.sizeDelta = buttonSize;
         rect.anchoredPosition = new Vector2(0f, yPosition);
 

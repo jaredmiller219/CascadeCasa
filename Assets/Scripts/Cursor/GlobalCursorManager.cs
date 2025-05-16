@@ -63,7 +63,7 @@ public class GlobalCursorManager : MonoBehaviour
     private void Awake()
     {
         // Check if an instance of this manager already exists
-        if (Instance == null)
+        if (!Instance)
         {
             // Set this instance as the singleton instance
             Instance = this;
@@ -78,7 +78,6 @@ public class GlobalCursorManager : MonoBehaviour
         {
             // Destroy this GameObject if another instance already exists
             Destroy(gameObject);
-            return;
         }
     }
 
@@ -139,7 +138,7 @@ public class GlobalCursorManager : MonoBehaviour
     /// Retrieves the currently selected cursor index from PlayerPrefs.
     /// </summary>
     /// <returns>The index of the currently selected cursor.</returns>
-    public int GetSelectedCursor()
+    public static int GetSelectedCursor()
     {
         // Return the saved cursor index from PlayerPrefs
         return PlayerPrefs.GetInt(CursorPrefKey);
@@ -152,7 +151,7 @@ public class GlobalCursorManager : MonoBehaviour
     private void ApplyCursor(int index)
     {
         // Ensure the index is within the valid range and the texture is not null
-        if (index < 0 || index >= _cursorTextures.Length || _cursorTextures[index] == null) return;
+        if (index < 0 || index >= _cursorTextures.Length || !_cursorTextures[index]) return;
 
         // Use a custom hotspot for the I-beam cursor, otherwise use the default (top-left corner)
         var hotspot = index == 3 ? _cursorHotspot : Vector2.zero;
