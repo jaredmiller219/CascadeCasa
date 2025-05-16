@@ -53,7 +53,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// The button index
     /// </summary>
     [HideInInspector]
-    public int buttonindex;
+    public int buttonIndex;
 
     /// <summary>
     /// The popup displayed when all challenges are completed
@@ -262,7 +262,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <returns>The text (string) lowered</returns>
     private static string ScrollBarStrValToLower(LivingRoom_HorizontalScrollBar scrollBar, int index)
     {
-        return scrollBar._cssChallenges[index].Value.ToLower();
+        return scrollBar.CssChallenges[index].Value.ToLower();
     }
 
     /// <summary>
@@ -280,7 +280,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         {
             const string displayedFeedback = "Correct!";
             SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
-            if (scrollBar) scrollBar.MarkChallengeCompleted(buttonindex);
+            if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
             levelsCompleted++;
             SetTextOfComponent(inputField, "", Color.clear, false);
             ChangeFocusTo(null);
@@ -317,7 +317,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     public void LoadChallenge()
     {
-        currentChallengeIndex = selectedImage ? selectedImage._buttonIndex : buttonindex;
+        currentChallengeIndex = selectedImage ? selectedImage.buttonIndex : buttonIndex;
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
@@ -332,7 +332,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         {
             SetTextOfComponent(inputField, savedInput, Color.black, true);
         }
-        else SetTextOfComponent(inputField, scrollBar._cssChallenges[challengeIndex].Key, Color.black, true);
+        else SetTextOfComponent(inputField, scrollBar.CssChallenges[challengeIndex].Key, Color.black, true);
     }
 
     /// <summary>
@@ -357,7 +357,7 @@ public class LivingRoom_Notepad : MonoBehaviour
             return;
         }
         savedTexts.Remove(currentChallengeIndex);
-        SetTextOfComponent(inputField, scrollBar._cssChallenges[currentChallengeIndex].Key, Color.black, true);
+        SetTextOfComponent(inputField, scrollBar.CssChallenges[currentChallengeIndex].Key, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);
         LoadChallenge();
     }
@@ -389,7 +389,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             var savedIndex = File.ReadAllText(saveFilePath);
-            if (int.TryParse(savedIndex, out var index) && index < scrollBar._cssChallenges.Count)
+            if (int.TryParse(savedIndex, out var index) && index < scrollBar.CssChallenges.Count)
             {
                 currentChallengeIndex = index;
             }
