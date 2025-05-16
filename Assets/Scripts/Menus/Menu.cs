@@ -117,7 +117,7 @@ public class Menu : MonoBehaviour
     private void SetPressedColor(TMP_Text text)
     {
         // Light gray
-        if (text != null) text.color = new Color32(200, 200, 200, 255);
+        if (text) text.color = new Color32(200, 200, 200, 255);
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public class Menu : MonoBehaviour
         PlayClickSound();
 
         // White
-        if (text != null) text.color = new Color32(255, 255, 255, 255);
+        if (text) text.color = new Color32(255, 255, 255, 255);
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ public class Menu : MonoBehaviour
     /// </summary>
     /// <param name="sceneName">The name of the scene to load</param>
     /// <returns>IEnumerator</returns>
-    private IEnumerator LoadSceneDelayed(string sceneName)
+    private static IEnumerator LoadSceneDelayed(string sceneName)
     {
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);

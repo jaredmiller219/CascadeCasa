@@ -113,11 +113,9 @@ public class CursorType : MonoBehaviour
     public int GetSelectedCursor()
     {
         // If _selectedCursor is not null or PlayerPrefs contains the cursor key, return the saved index
-        if (_selectedCursor != null || PlayerPrefs.HasKey(CursorPrefKey))
-            return PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor);
+        if (_selectedCursor || PlayerPrefs.HasKey(CursorPrefKey)) return PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor);
 
         // Otherwise, retrieve the saved index from PlayerPrefs (fallback to default if not found)
-        var savedIndex = PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor);
-        return savedIndex;
+        return PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor);
     }
 }

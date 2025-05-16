@@ -14,10 +14,10 @@ public class Bedroom2_DropdownActionMenu : MonoBehaviour
     /// </summary>
     private Bedroom2_Notepad notepad;
 
-    void Start()
+    private void Start()
     {
         // Get the TMP_Dropdown component
-        if (dropdown != null)
+        if (dropdown)
         {
             dropdown = GetComponentInChildren<TMP_Dropdown>();
             dropdown.onValueChanged.AddListener(OnOptionSelected);
@@ -35,7 +35,7 @@ public class Bedroom2_DropdownActionMenu : MonoBehaviour
     /// 2 - Menu <br/>
     /// 3 - Quit</para>
     /// </summary>
-    void OnOptionSelected(int index)
+    private void OnOptionSelected(int index)
     {
         // Immediately reset so no option is visually "selected"
         dropdown.RefreshShownValue();
@@ -82,10 +82,6 @@ public class Bedroom2_DropdownActionMenu : MonoBehaviour
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif
                 Application.Quit();
-                break;
-
-            default:
-                // Handle unexpected index
                 break;
         }
     }

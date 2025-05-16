@@ -1,8 +1,8 @@
-
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class LivingRoom_Notepad : MonoBehaviour
@@ -20,12 +20,6 @@ public class LivingRoom_Notepad : MonoBehaviour
     [Tooltip("The feedback text area for user messages")]
     [Header("Feedback")]
     public GameObject feedbackText;
-
-    /// <summary>
-    /// The highlighted background of feedbackText
-    /// </summary>
-    [Tooltip("The text's highlighted background")]
-    public GameObject BGHighlight;
 
     /// <summary>
     /// The submit button
@@ -85,21 +79,26 @@ public class LivingRoom_Notepad : MonoBehaviour
     public AudioClip clickSound;
 
     /// <summary>
-    /// whether or not you can click the reset button
+    /// whether you can click the reset button
     /// </summary>
     [HideInInspector]
     public bool canReset;
 
     /// <summary>
-    /// whether or not you can click the submit button
+    /// Whether you can click the submit button
     /// </summary>
     [HideInInspector]
     public bool canSubmit;
 
     /// <summary>
-    /// The reference to the gameobject with the LivingRoom_HorizontalScrollBar script attached to it
+    /// Keeps track of the number of levels completed.
     /// </summary>
-    [Tooltip("The reference to the gameobject with the LivingRoom_HorizontalScrollBar script attached to it")]
+    public int levelsCompleted;
+
+    /// <summary>
+    /// The reference to the gameObject with the LivingRoom_HorizontalScrollBar script attached to it
+    /// </summary>
+    [Tooltip("The reference to the gameObject with the LivingRoom_HorizontalScrollBar script attached to it")]
     [SerializeField]
     [Header("Notepad")]
     private LivingRoom_HorizontalScrollBar scrollBar;
@@ -110,7 +109,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     private readonly string saveFilePath;
 
     /// <summary>
-    /// The glabal manager of the cursor
+    /// The global manager of the cursor
     /// </summary>
     private GlobalCursorManager _cursorManager;
 
@@ -120,17 +119,17 @@ public class LivingRoom_Notepad : MonoBehaviour
     private LivingRoom_ChallengeImage selectedImage;
 
     /// <summary>
-    /// The saved values of the updated css from the user
+    /// The saved values of the updated CSS from the user
     /// </summary>
     private Dictionary<int, string> savedTexts = new();
 
     /// <summary>
-    /// The undex of the previous cursor
+    /// The index of the previous cursor
     /// </summary>
     private int _previousCursorIndex;
 
     /// <summary>
-    /// The hints related to the css challenges
+    /// The hints related to the CSS challenges
     /// </summary>
     private readonly List<string> _cssHints = new()
     {
@@ -146,7 +145,11 @@ public class LivingRoom_Notepad : MonoBehaviour
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
-        resetBtn.GetComponent<Button>().onClick.AddListener(ResetCurrentChallenge);
+        
+        resetBtn.GetComponent<Button>().onClick.AddListener(() => { 
+            ResetCurrentChallenge();
+            ChangeFocusTo(null);
+        });
 
         resetPopup.SetActive(false);
 
@@ -154,15 +157,22 @@ public class LivingRoom_Notepad : MonoBehaviour
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
 
         _cursorManager = GlobalCursorManager.Instance;
-        if (_cursorManager != null) _previousCursorIndex = _cursorManager.GetSelectedCursor();
+        if (_cursorManager) _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
 
         scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
-        if (scrollBar == null) Debug.LogError("LivingRoom_HorizontalScrollBar not found in scene!");
+        if (!scrollBar) Debug.LogError("LivingRoom_HorizontalScrollBar not found in scene!");
 
         canReset = false;
         canSubmit = false;
 
         currentChallengeIndex = -1;
+
+        levelsCompleted = 0;
+    }
+    
+    private static void ChangeFocusTo(GameObject gameObj)
+    {
+        EventSystem.current.SetSelectedGameObject(gameObj);
     }
 
     /// <summary>
@@ -175,9 +185,9 @@ public class LivingRoom_Notepad : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the css text
+    /// Set the CSS text
     /// </summary>
-    /// <param name="css">The css to set</param>
+    /// <param name="css">The CSS to set</param>
     public void SetCssText(string css)
     {
         // When an image is clicked, store a reference to it so we can update its CurrentCss later
@@ -189,7 +199,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     public void OnInputFieldEnter()
     {
-        _previousCursorIndex = _cursorManager.GetSelectedCursor();
+        _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
         _cursorManager.SetCursor(3);
     }
 
@@ -206,7 +216,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     /// <param name="button">The button to set</param>
     /// <param name="isInteractable">The interactability status</param>
-    private void SetButtonInteractable(GameObject button, bool isInteractable)
+    private static void SetButtonInteractable(GameObject button, bool isInteractable)
     {
         button.GetComponent<Button>().interactable = isInteractable;
     }
@@ -218,7 +228,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="text">The text to display</param>
     /// <param name="color">The color of the text</param>
     /// <param name="isInteractable">Whether it is interactable</param>
-    private void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
+    private static void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
     {
         if (textObject.TryGetComponent(out TMP_InputField inputField))
         {
@@ -237,12 +247,11 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <summary>
     /// For GameObject inputField (gets text, trims, lowers)
     /// </summary>
-    /// <param name="inputfield">The input field GameObject</param>
+    /// <param name="inputField">The input field GameObject</param>
     /// <returns>The text (string) trimmed and lowered</returns>
-    private string InputFieldStrToLower(GameObject inputfield)
+    private static string InputFieldStrToLower(GameObject inputField)
     {
-        if (!inputfield.TryGetComponent<TMP_InputField>(out var input)) return null;
-        else return input.text.Trim().ToLower();
+        return inputField.TryGetComponent<TMP_InputField>(out var input) ? input.text.Trim().ToLower() : null;
     }
 
     /// <summary>
@@ -251,7 +260,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="scrollBar">The horizontal scrollbar reference</param>
     /// <param name="index">the index of the text to lower</param>
     /// <returns>The text (string) lowered</returns>
-    private string ScrollBarStrValToLower(LivingRoom_HorizontalScrollBar scrollBar, int index)
+    private static string ScrollBarStrValToLower(LivingRoom_HorizontalScrollBar scrollBar, int index)
     {
         return scrollBar._cssChallenges[index].Value.ToLower();
     }
@@ -263,51 +272,44 @@ public class LivingRoom_Notepad : MonoBehaviour
     {
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
 
-        if (inputField.GetComponent<TMP_InputField>().text != "" && canSubmit)
-        {
-            var normalizedUserInput = NormalizeCss(InputFieldStrToLower(inputField));
-            var normalizedCorrectCss = NormalizeCss(ScrollBarStrValToLower(scrollBar, currentChallengeIndex));
+        if (inputField.GetComponent<TMP_InputField>().text == "" || !canSubmit) return;
+        var normalizedUserInput = NormalizeCss(InputFieldStrToLower(inputField));
+        var normalizedCorrectCss = NormalizeCss(ScrollBarStrValToLower(scrollBar, currentChallengeIndex));
 
-            if (normalizedUserInput == normalizedCorrectCss)
-            {
-                string displayedFeedback = "Correct!";
-                SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
-                if (scrollBar != null) scrollBar.MarkChallengeCompleted(buttonindex);
-                SetTextOfComponent(inputField, "", Color.clear, false);
-            }
-            else
-            {
-                string displayedFeedback = "Check colons, semicolons, dashes, and syntax!";
-                SetTextOfComponent(feedbackText, displayedFeedback, Color.red, false);
-            }
+        if (normalizedUserInput == normalizedCorrectCss)
+        {
+            const string displayedFeedback = "Correct!";
+            SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
+            if (scrollBar) scrollBar.MarkChallengeCompleted(buttonindex);
+            levelsCompleted++;
+            SetTextOfComponent(inputField, "", Color.clear, false);
+            ChangeFocusTo(null);
+            if (!IsLevelComplete()) return;
+            LevelComplete();
+        }
+        else
+        {
+            const string displayedFeedback = "Check colons, semicolons, dashes, and syntax!";
+            SetTextOfComponent(feedbackText, displayedFeedback, Color.red, false);
         }
     }
 
     /// <summary>
     /// Checks whether the level is complete
     /// </summary>
-    /// <returns>boolean stating whether level is complete</returns>
+    /// <returns>boolean stating whether the level is complete</returns>
     private bool IsLevelComplete()
     {
-        return currentChallengeIndex >= scrollBar._cssChallenges.Count;
+        return levelsCompleted == scrollBar.imageSprites.Length;
     }
 
-    /// <summary>
-    /// Goes to the next challenge
-    /// </summary>
-    private void NextChallenge()
+    private void LevelComplete()
     {
-        currentChallengeIndex++;
-
-        if (IsLevelComplete())
-        {
-            SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
-            SetTextOfComponent(inputField, "", Color.clear, false);
-            SetButtonInteractable(submitBtn, false);
-            SetButtonInteractable(resetBtn, false);
-            challengeComplete.SetActive(true);
-        }
-        else LoadChallenge();
+        SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
+        SetTextOfComponent(inputField, "", Color.clear, false);
+        SetButtonInteractable(submitBtn, false);
+        SetButtonInteractable(resetBtn, false);
+        challengeComplete.SetActive(true);
     }
 
     /// <summary>
@@ -315,19 +317,18 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     public void LoadChallenge()
     {
-        if (selectedImage != null) currentChallengeIndex = selectedImage._buttonIndex;
-        else currentChallengeIndex = buttonindex;
+        currentChallengeIndex = selectedImage ? selectedImage._buttonIndex : buttonindex;
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
 
     /// <summary>
-    /// Load the css for the current challenge
+    /// Load the CSS for the current challenge
     /// </summary>
     /// <param name="challengeIndex">The challenge index</param>
     private void LoadInputForChallenge(int challengeIndex)
     {
-        if (savedTexts.TryGetValue(challengeIndex, out string savedInput) && !string.IsNullOrWhiteSpace(savedInput))
+        if (savedTexts.TryGetValue(challengeIndex, out var savedInput) && !string.IsNullOrWhiteSpace(savedInput))
         {
             SetTextOfComponent(inputField, savedInput, Color.black, true);
         }
@@ -347,15 +348,14 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <summary>
     /// Reset the current challenge's text
     /// </summary>
-    private void ResetCurrentChallenge()
+    public void ResetCurrentChallenge()
     {
-        // user hasn't selected an image yet
+        // the user hasn't selected an image yet
         if (currentChallengeIndex == -1)
         {
             SetTextOfComponent(inputField, "", Color.black, true);
             return;
         }
-
         savedTexts.Remove(currentChallengeIndex);
         SetTextOfComponent(inputField, scrollBar._cssChallenges[currentChallengeIndex].Key, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);
@@ -388,8 +388,8 @@ public class LivingRoom_Notepad : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            string savedIndex = File.ReadAllText(saveFilePath);
-            if (int.TryParse(savedIndex, out int index) && index < scrollBar._cssChallenges.Count)
+            var savedIndex = File.ReadAllText(saveFilePath);
+            if (int.TryParse(savedIndex, out var index) && index < scrollBar._cssChallenges.Count)
             {
                 currentChallengeIndex = index;
             }

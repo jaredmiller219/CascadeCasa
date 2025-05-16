@@ -14,9 +14,9 @@ public class PatioDropdownActionMenu : MonoBehaviour
     /// </summary>
     private Patio_Notepad notepad;
 
-    void Start()
+    private void Start()
     {
-        if (dropdown != null)
+        if (dropdown)
         {
             dropdown = GetComponentInChildren<TMP_Dropdown>();
             dropdown.onValueChanged.AddListener(OnOptionSelected);
@@ -35,7 +35,7 @@ public class PatioDropdownActionMenu : MonoBehaviour
     /// 2 - Menu <br/>
     /// 3 - Quit</para>
     /// </summary>
-    void OnOptionSelected(int index)
+    private void OnOptionSelected(int index)
     {
         // Immediately reset so no option is visually "selected"
         dropdown.RefreshShownValue();
@@ -82,10 +82,6 @@ public class PatioDropdownActionMenu : MonoBehaviour
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif
                 Application.Quit();
-                break;
-
-            default:
-                // Handle unexpected index
                 break;
         }
     }

@@ -14,9 +14,9 @@ public class Kitchen_DropdownActionMenu : MonoBehaviour
     /// </summary>
     private Kitchen_Notepad notepad;
 
-    void Start()
+    private void Start()
     {
-        if (dropdown != null)
+        if (dropdown)
         {
             dropdown = GetComponentInChildren<TMP_Dropdown>();
             dropdown.onValueChanged.AddListener(OnOptionSelected);
@@ -34,7 +34,7 @@ public class Kitchen_DropdownActionMenu : MonoBehaviour
     /// 2 - Menu <br/>
     /// 3 - Quit</para>
     /// </summary>
-    void OnOptionSelected(int index)
+    private void OnOptionSelected(int index)
     {
         // Immediately reset so no option is visually "selected"
         dropdown.RefreshShownValue();
@@ -81,10 +81,6 @@ public class Kitchen_DropdownActionMenu : MonoBehaviour
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif
                 Application.Quit();
-                break;
-
-            default:
-                // Handle unexpected index
                 break;
         }
     }
