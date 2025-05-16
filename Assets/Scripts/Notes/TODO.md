@@ -2,12 +2,6 @@
 
 ## Features
 
-### Level Completion
-
-- TODO: Show level end screen when the entire level is completed.
-
-  1. (Trigger when all items in the scroll bar are completed).
-
 ### Cursor
 
 - TODO: Add more cursor style options.
