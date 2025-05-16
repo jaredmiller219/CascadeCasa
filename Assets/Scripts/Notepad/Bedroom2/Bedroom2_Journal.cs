@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 
 public class Bedroom2_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    private static readonly int Hover = Animator.StringToHash("hover");
+
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.
     /// </summary>
@@ -38,7 +40,7 @@ public class Bedroom2_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private void Start()
     {
-        if (journalPopup != null) journalPopup.SetActive(false);
+        if (journalPopup) journalPopup.SetActive(false);
         animator = journalButton.GetComponent<Animator>();
     }
 
@@ -59,7 +61,7 @@ public class Bedroom2_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>
     public void SetHover(bool isHovering)
     {
-        if (animator != null) animator.SetBool("hover", isHovering);
+        if (animator) animator.SetBool(Hover, isHovering);
     }
 
     /// <summary>
@@ -70,7 +72,7 @@ public class Bedroom2_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public void OnPointerDown(PointerEventData eventData)
     {
         // Light gray
-        if (JournalImage != null) JournalImage.GetComponent<Image>().color = new Color32(200, 200, 200, 255);
+        if (JournalImage) JournalImage.GetComponent<Image>().color = new Color32(200, 200, 200, 255);
     }
 
     /// <summary>
@@ -82,8 +84,7 @@ public class Bedroom2_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public void OnPointerUp(PointerEventData eventData)
     {
         // White
-        if (JournalImage != null) JournalImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-
+        if (JournalImage) JournalImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
 }
