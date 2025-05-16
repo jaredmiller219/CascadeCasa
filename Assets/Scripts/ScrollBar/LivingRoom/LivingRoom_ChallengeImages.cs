@@ -74,7 +74,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// Image was clicked
     /// </summary>
     /// <param name="css"></param>
-    public void NotifyImageClicked(string css)
+    public static void NotifyImageClicked(string css)
     {
         OnAnyImageClicked?.Invoke(css);
     }
@@ -85,23 +85,21 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!Completed && _scrollBar != null)
-        {
-            // Save the current input
-            if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
+        if (Completed || !_scrollBar) return;
+        // Save the current input
+        if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
 
-            // ---------------- For debug only --------------------------
-            // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
-            // string imageName = clickedImage.GetComponent<Image>().sprite.name;
-            // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
-            // ----------------------------------------------------------
+        // ---------------- For debug only --------------------------
+        // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+        // string imageName = clickedImage.GetComponent<Image>().sprite.name;
+        // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
+        // ----------------------------------------------------------
 
-            int clickedIndex = transform.GetSiblingIndex();
-            _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
+        var clickedIndex = transform.GetSiblingIndex();
+        _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
 
-            // Update after the check
-            _previousbuttonindex = _buttonIndex;
-        }
+        // Update after the check
+        _previousbuttonindex = _buttonIndex;
     }
 
     private void Awake()
@@ -110,7 +108,7 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
 
         notepad = FindFirstObjectByType<LivingRoom_Notepad>();
-        if (notepad != null) OnAnyImageClicked += notepad.SetCssText;
+        if (notepad) OnAnyImageClicked += notepad.SetCssText;
 
         Completed = false;
         Locked = true;
@@ -121,6 +119,6 @@ public class LivingRoom_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void OnDestroy()
     {
-        if (notepad != null) OnAnyImageClicked -= notepad.SetCssText;
+        if (notepad) OnAnyImageClicked -= notepad.SetCssText;
     }
 }
