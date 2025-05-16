@@ -5,29 +5,26 @@ public class OnboardingManager : MonoBehaviour
     public GameObject[] tutorialSteps;
     private int currentStep = 0;
 
-    void Start()
+    private void Start()
     {
         ShowStep(0);
     }
 
     public void ShowStep(int index)
     {
-        for (int i = 0; i < tutorialSteps.Length; i++)
+        for (var i = 0; i < tutorialSteps.Length; i++)
             tutorialSteps[i].SetActive(i == index);
     }
 
     public void GoToNextStep()
     {
         currentStep++;
-        if (currentStep < tutorialSteps.Length)
-            ShowStep(currentStep);
-        else
-            EndTutorial();
+        if (currentStep < tutorialSteps.Length) ShowStep(currentStep);
+        else EndTutorial();
     }
 
-    void EndTutorial()
+    private void EndTutorial()
     {
-        foreach (var step in tutorialSteps)
-            step.SetActive(false);
+        foreach (var step in tutorialSteps) step.SetActive(false);
     }
 }
