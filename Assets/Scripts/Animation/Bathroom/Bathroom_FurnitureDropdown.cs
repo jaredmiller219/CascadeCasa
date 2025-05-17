@@ -6,14 +6,19 @@ public class Bathroom_FurnitureDropdown : MonoBehaviour
     /// Reference to the dropdown panel GameObject.
     /// </summary>
     public GameObject furnitureDropdown;
-    
+
     /// <summary>
-    /// The source of the audio to play
+    /// Reference to the button's image (the arrow)
+    /// </summary>
+    public GameObject btnImage;
+
+    /// <summary>
+    /// The source of the audio
     /// </summary>
     public AudioSource audioSource;
 
     /// <summary>
-    /// The sound that plays when you click the dropdown button
+    /// The sound to play when the button is clicked
     /// </summary>
     public AudioClip dropdownSound;
 
@@ -33,10 +38,13 @@ public class Bathroom_FurnitureDropdown : MonoBehaviour
         switch (true)
         {
             case true when !_animator:
-                Debug.LogError("Animator component not found on furnitureDropdown");
+                Debug.LogError("No Animator component found on furnitureDropdown!");
+                break;
+            case true when !btnImage:
+                Debug.LogError("No btnImage found");
                 break;
             case true when !furnitureDropdown:
-                Debug.LogError("furnitureDropdown not assigned");
+                Debug.LogError("No furnitureDropdown assigned!");
                 break;
         }
     }
@@ -48,12 +56,15 @@ public class Bathroom_FurnitureDropdown : MonoBehaviour
     /// </summary>
     public void PullBarDown()
     {
-        if (audioSource && dropdownSound) audioSource.PlayOneShot(dropdownSound);
         if (!furnitureDropdown || !_animator) return;
+        if (audioSource && dropdownSound) audioSource.PlayOneShot(dropdownSound);
 
         var isOpen = _animator.GetBool(Open);
 
-        // Toggle to opposite of current value
+        // Toggle the "open" parameter to the opposite of its current value
         _animator.SetBool(Open, !isOpen);
+
+        if (!isOpen) btnImage.transform.Rotate(180, 0, 0);
+        else btnImage.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }
