@@ -139,12 +139,14 @@ public class Patio_Notepad : MonoBehaviour
 
     private void Start()
     {
-        submitBtn.GetComponent<Button>().onClick.AddListener(() => {
+        submitBtn.GetComponent<Button>().onClick.AddListener(() =>
+        {
             CheckCssInput();
             ChangeFocusTo(null);
         });
-        
-        resetBtn.GetComponent<Button>().onClick.AddListener(() => { 
+
+        resetBtn.GetComponent<Button>().onClick.AddListener(() =>
+        {
             ResetCurrentChallenge();
             ChangeFocusTo(null);
         });
@@ -165,7 +167,7 @@ public class Patio_Notepad : MonoBehaviour
 
         currentChallengeIndex = -1;
     }
-    
+
     private static void ChangeFocusTo(GameObject gameObj)
     {
         EventSystem.current.SetSelectedGameObject(gameObj);
@@ -196,7 +198,7 @@ public class Patio_Notepad : MonoBehaviour
     public void OnInputFieldEnter()
     {
         _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
-        _cursorManager.SetCursor(3);
+        _cursorManager.SetCursor(5);
     }
 
     /// <summary>
