@@ -1077,6 +1077,9 @@ MonoBehaviour:
     - m_Text: Gradient
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: Heart
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1098,6 +1101,7 @@ MonoBehaviour:
   yellowCursor: {fileID: 2800000, guid: a80284a91ce0a4f7591cd52a0bffb22e, type: 3}
   pinkCursor: {fileID: 2800000, guid: ecdc2e34747ce42d6bba1207ae32e0ea, type: 3}
   gradientCursor: {fileID: 2800000, guid: ad76340ef563c49b9b1aaf21d91754fd, type: 3}
+  heartCursor: {fileID: 2800000, guid: 6326bab3c65594bbc98c658af4cbd63e, type: 3}
 --- !u!1 &7535366489977021675
 GameObject:
   m_ObjectHideFlags: 0
