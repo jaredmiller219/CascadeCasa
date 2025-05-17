@@ -2,10 +2,62 @@ using UnityEngine;
 
 /// <summary>
 /// Manages the cursor settings across all scenes.
-/// This script should be attached to a GameObject in every scene.
 /// </summary>
 public class GlobalCursorManager : MonoBehaviour
 {
+    /// <summary>
+    /// Singleton instance of the GlobalCursorManager.
+    /// </summary>
+    public static GlobalCursorManager Instance { get; set; }
+
+    /// <summary>
+    /// Texture for the black cursor.
+    /// </summary>
+    [Header("Cursor Textures")]
+    [Tooltip("Black cursor texture")]
+    [SerializeField]
+    private readonly Texture2D blackCursor;
+
+    /// <summary>
+    /// Texture for the blank cursor.
+    /// </summary>
+    [Tooltip("Blank cursor texture")]
+    [SerializeField]
+    private readonly Texture2D blankCursor;
+
+    /// <summary>
+    /// Texture for the yellow cursor.
+    /// </summary>
+    [Tooltip("Yellow cursor texture")]
+    [SerializeField]
+    private readonly Texture2D yellowCursor;
+
+    /// <summary>
+    /// Texture for the yellow cursor.
+    /// </summary>
+    [Tooltip("Pink cursor texture")]
+    [SerializeField]
+    private readonly Texture2D pinkCursor;
+
+    /// <summary>
+    /// Texture for the yellow cursor.
+    /// </summary>
+    [Tooltip("Gradient cursor texture")]
+    [SerializeField]
+    private readonly Texture2D gradientCursor;
+
+    /// <summary>
+    /// Texture for the I-beam cursor.
+    /// </summary>
+    [Tooltip("I-beam cursor texture")]
+    [SerializeField]
+    private readonly Texture2D IBeamCursor;
+
+    /// <summary>
+    /// Index for the I-beam cursor in the cursor textures array.
+    /// </summary>
+    private int IBeamCursorIndex;
+
     /// <summary>
     /// Key used to save and retrieve the selected cursor index from PlayerPrefs.
     /// </summary>
@@ -22,39 +74,9 @@ public class GlobalCursorManager : MonoBehaviour
     private readonly Vector2 _cursorHotspot = new(7.5f, 7.5f);
 
     /// <summary>
-    /// Texture for the black cursor.
-    /// </summary>
-    [Header("Cursor Textures")]
-    [Tooltip("Black cursor texture")]
-    [SerializeField] private Texture2D blackCursor;
-
-    /// <summary>
-    /// Texture for the blank cursor.
-    /// </summary>
-    [Tooltip("Blank cursor texture")]
-    [SerializeField] private Texture2D blankCursor;
-
-    /// <summary>
-    /// Texture for the yellow cursor.
-    /// </summary>
-    [Tooltip("Yellow cursor texture")]
-    [SerializeField] private Texture2D yellowCursor;
-
-    /// <summary>
-    /// Texture for the I-beam cursor.
-    /// </summary>
-    [Tooltip("I-beam cursor texture")]
-    [SerializeField] private Texture2D iBeamCursor;
-
-    /// <summary>
     /// Array to hold all cursor textures.
     /// </summary>
     private Texture2D[] _cursorTextures;
-
-    /// <summary>
-    /// Singleton instance of the GlobalCursorManager.
-    /// </summary>
-    public static GlobalCursorManager Instance { get; set; }
 
     /// <summary>
     /// Called when the script instance is being loaded.
@@ -94,13 +116,16 @@ public class GlobalCursorManager : MonoBehaviour
     private void InitializeCursorTextures()
     {
         // Create an array to hold the cursor textures
-        _cursorTextures = new Texture2D[4];
+        _cursorTextures = new Texture2D[6];
 
-        // Assign each texture to its corresponding index
-        _cursorTextures[0] = blackCursor; // Black cursor
-        _cursorTextures[1] = blankCursor; // Blank cursor
-        _cursorTextures[2] = yellowCursor; // Yellow cursor
-        _cursorTextures[3] = iBeamCursor; // I-beam cursor
+        _cursorTextures[0] = blackCursor;
+        _cursorTextures[1] = blankCursor;
+        _cursorTextures[2] = yellowCursor;
+        _cursorTextures[3] = pinkCursor;
+        _cursorTextures[4] = gradientCursor;
+        _cursorTextures[5] = IBeamCursor;
+
+        IBeamCursorIndex = 5;
     }
 
     /// <summary>
@@ -108,11 +133,7 @@ public class GlobalCursorManager : MonoBehaviour
     /// </summary>
     private void LoadSavedCursor()
     {
-        // Retrieve the saved cursor index from PlayerPrefs, defaulting to DefaultCursor if not found
-        var savedCursorIndex = PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor);
-
-        // Apply the cursor based on the saved index
-        ApplyCursor(savedCursorIndex);
+        ApplyCursor(PlayerPrefs.GetInt(CursorPrefKey, DefaultCursor));
     }
 
     /// <summary>
@@ -121,16 +142,9 @@ public class GlobalCursorManager : MonoBehaviour
     /// <param name="cursorIndex">The index of the cursor to set.</param>
     public void SetCursor(int cursorIndex)
     {
-        // Ensure the index is within the valid range
         if (cursorIndex < 0 || cursorIndex >= _cursorTextures.Length) return;
-
-        // Save the selected cursor index to PlayerPrefs
         PlayerPrefs.SetInt(CursorPrefKey, cursorIndex);
-
-        // Persist the changes to PlayerPrefs
         PlayerPrefs.Save();
-
-        // Apply the cursor based on the selected index
         ApplyCursor(cursorIndex);
     }
 
@@ -140,7 +154,6 @@ public class GlobalCursorManager : MonoBehaviour
     /// <returns>The index of the currently selected cursor.</returns>
     public static int GetSelectedCursor()
     {
-        // Return the saved cursor index from PlayerPrefs
         return PlayerPrefs.GetInt(CursorPrefKey);
     }
 
@@ -150,11 +163,11 @@ public class GlobalCursorManager : MonoBehaviour
     /// <param name="index">The index of the cursor to apply.</param>
     private void ApplyCursor(int index)
     {
-        // Ensure the index is within the valid range and the texture is not null
         if (index < 0 || index >= _cursorTextures.Length || !_cursorTextures[index]) return;
 
-        // Use a custom hotspot for the I-beam cursor, otherwise use the default (top-left corner)
-        var hotspot = index == 3 ? _cursorHotspot : Vector2.zero;
+        Vector2 hotspot;
+        if (index == IBeamCursorIndex) hotspot = _cursorHotspot; // I-Beam has custom hotspot (set to middle)
+        else hotspot = Vector2.zero; // Normal hotspot at corner for regular cursors
 
         // Set the cursor texture, hotspot, and mode
         Cursor.SetCursor(_cursorTextures[index], hotspot, CursorMode.Auto);
