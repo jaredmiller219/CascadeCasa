@@ -8,7 +8,7 @@ public class Patio_FurnitureDropdown : MonoBehaviour
     public GameObject furnitureDropdown;
 
     /// <summary>
-    /// Reference to the button image GameObject.
+    /// Reference to the button's image (the arrow)
     /// </summary>
     public GameObject btnImage;
 
@@ -28,7 +28,7 @@ public class Patio_FurnitureDropdown : MonoBehaviour
     private Animator _animator;
 
     /// <summary>
-    /// Hash for the "open" parameter in the Animator.
+    /// This class handles the dropdown panel for furniture in the game.
     /// </summary>
     private static readonly int Open = Animator.StringToHash("open");
 
@@ -41,7 +41,7 @@ public class Patio_FurnitureDropdown : MonoBehaviour
                 Debug.LogError("No Animator component found on furnitureDropdown!");
                 break;
             case true when !btnImage:
-                Debug.LogError("No btnImage assigned!");
+                Debug.LogError("No btnImage found");
                 break;
             case true when !furnitureDropdown:
                 Debug.LogError("No furnitureDropdown assigned!");
@@ -58,15 +58,13 @@ public class Patio_FurnitureDropdown : MonoBehaviour
     {
         if (!furnitureDropdown || !_animator) return;
         if (audioSource && dropdownSound) audioSource.PlayOneShot(dropdownSound);
+
         var isOpen = _animator.GetBool(Open);
 
         // Toggle the "open" parameter to the opposite of its current value
         _animator.SetBool(Open, !isOpen);
 
-        // Rotate the button image's x-axis by 180 degrees to indicate the panel is open
         if (!isOpen) btnImage.transform.Rotate(180, 0, 0);
-
-        // Reset the button image's rotation to its original state (0 degrees on all axes)
         else btnImage.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

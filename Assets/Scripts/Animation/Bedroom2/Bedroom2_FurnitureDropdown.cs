@@ -8,24 +8,29 @@ public class Bedroom2_FurnitureDropdown : MonoBehaviour
     public GameObject furnitureDropdown;
 
     /// <summary>
+    /// Reference to the button's image (the arrow)
+    /// </summary>
+    public GameObject btnImage;
+
+    /// <summary>
     /// The source of the audio
     /// </summary>
     public AudioSource audioSource;
 
     /// <summary>
-    /// The sound to play when you click the button
+    /// The sound to play when the button is clicked
     /// </summary>
     public AudioClip dropdownSound;
-
-    /// <summary>
-    /// This class handles the dropdown panel for furniture in the game.
-    /// </summary>
-    private static readonly int Open = Animator.StringToHash("open");
 
     /// <summary>
     /// Reference to the Animator component for animating the dropdown panel.
     /// </summary>
     private Animator _animator;
+
+    /// <summary>
+    /// This class handles the dropdown panel for furniture in the game.
+    /// </summary>
+    private static readonly int Open = Animator.StringToHash("open");
 
     private void Start()
     {
@@ -35,6 +40,9 @@ public class Bedroom2_FurnitureDropdown : MonoBehaviour
             case true when !_animator:
                 Debug.LogError("No Animator component found on furnitureDropdown!");
                 break;
+            case true when !btnImage:
+                Debug.LogError("No btnImage found");
+                break;
             case true when !furnitureDropdown:
                 Debug.LogError("No furnitureDropdown assigned!");
                 break;
@@ -43,6 +51,8 @@ public class Bedroom2_FurnitureDropdown : MonoBehaviour
 
     /// <summary>
     /// Toggles the dropdown panel's visibility and animates the button image.
+    /// <br />
+    /// It also rotates the button image to indicate the panel's state.
     /// </summary>
     public void PullBarDown()
     {
@@ -53,5 +63,8 @@ public class Bedroom2_FurnitureDropdown : MonoBehaviour
 
         // Toggle the "open" parameter to the opposite of its current value
         _animator.SetBool(Open, !isOpen);
+
+        if (!isOpen) btnImage.transform.Rotate(180, 0, 0);
+        else btnImage.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }
