@@ -16,42 +16,42 @@ public class GlobalCursorManager : MonoBehaviour
     [Header("Cursor Textures")]
     [Tooltip("Black cursor texture")]
     [SerializeField]
-    private readonly Texture2D blackCursor;
+    private Texture2D blackCursor;
 
     /// <summary>
     /// Texture for the blank cursor.
     /// </summary>
     [Tooltip("Blank cursor texture")]
     [SerializeField]
-    private readonly Texture2D blankCursor;
+    private Texture2D blankCursor;
 
     /// <summary>
     /// Texture for the yellow cursor.
     /// </summary>
     [Tooltip("Yellow cursor texture")]
     [SerializeField]
-    private readonly Texture2D yellowCursor;
+    private Texture2D yellowCursor;
 
     /// <summary>
     /// Texture for the yellow cursor.
     /// </summary>
     [Tooltip("Pink cursor texture")]
     [SerializeField]
-    private readonly Texture2D pinkCursor;
+    private Texture2D pinkCursor;
 
     /// <summary>
     /// Texture for the yellow cursor.
     /// </summary>
     [Tooltip("Gradient cursor texture")]
     [SerializeField]
-    private readonly Texture2D gradientCursor;
+    private Texture2D gradientCursor;
 
     /// <summary>
     /// Texture for the I-beam cursor.
     /// </summary>
     [Tooltip("I-beam cursor texture")]
     [SerializeField]
-    private readonly Texture2D IBeamCursor;
+    private Texture2D IBeamCursor;
 
     /// <summary>
     /// Index for the I-beam cursor in the cursor textures array.
