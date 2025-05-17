@@ -47,6 +47,13 @@ public class GlobalCursorManager : MonoBehaviour
     private Texture2D gradientCursor;
 
     /// <summary>
+    ///  Texture for the heart cursor
+    /// </summary>
+    [Tooltip("heart cursor texture")]
+    [SerializeField]
+    private Texture2D heartCursor;
+
+    /// <summary>
     /// Texture for the I-beam cursor.
     /// </summary>
     [Tooltip("I-beam cursor texture")]
@@ -116,16 +123,17 @@ public class GlobalCursorManager : MonoBehaviour
     private void InitializeCursorTextures()
     {
         // Create an array to hold the cursor textures
-        _cursorTextures = new Texture2D[6];
+        _cursorTextures = new Texture2D[7];
 
         _cursorTextures[0] = blackCursor;
         _cursorTextures[1] = blankCursor;
         _cursorTextures[2] = yellowCursor;
         _cursorTextures[3] = pinkCursor;
         _cursorTextures[4] = gradientCursor;
-        _cursorTextures[5] = IBeamCursor;
+        _cursorTextures[5] = heartCursor;
+        _cursorTextures[6] = IBeamCursor;
 
-        IBeamCursorIndex = 5;
+        IBeamCursorIndex = 6;
     }
 
     /// <summary>

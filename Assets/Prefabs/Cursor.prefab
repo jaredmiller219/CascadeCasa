@@ -50,3 +50,4 @@ MonoBehaviour:
   pinkCursor: {fileID: 2800000, guid: ecdc2e34747ce42d6bba1207ae32e0ea, type: 3}
   gradientCursor: {fileID: 2800000, guid: ad76340ef563c49b9b1aaf21d91754fd, type: 3}
   IBeamCursor: {fileID: 2800000, guid: 06a668368f4044d96ac62e49f0277c37, type: 3}
+  heartCursor: {fileID: 2800000, guid: 6326bab3c65594bbc98c658af4cbd63e, type: 3}

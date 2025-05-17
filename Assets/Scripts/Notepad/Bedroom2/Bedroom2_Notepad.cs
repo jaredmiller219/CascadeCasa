@@ -198,7 +198,7 @@ public class Bedroom2_Notepad : MonoBehaviour
     public void OnInputFieldEnter()
     {
         _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
-        _cursorManager.SetCursor(5);
+        _cursorManager.SetCursor(6);
     }
 
     /// <summary>

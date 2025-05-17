@@ -39,6 +39,12 @@ public class CursorType : MonoBehaviour
     public Texture2D gradientCursor;
 
     /// <summary>
+    ///  The heart cursor reference
+    /// </summary>
+    [Tooltip("The cursor texture for the heart cursor")]
+    public Texture2D heartCursor;
+
+    /// <summary>
     /// The key used to save the selected cursor index in PlayerPrefs.
     /// </summary>
     /// <remarks>
@@ -108,6 +114,7 @@ public class CursorType : MonoBehaviour
             2 => yellowCursor,
             3 => pinkCursor,
             4 => gradientCursor,
+            5 => heartCursor,
             _ => _selectedCursor
         };
 
