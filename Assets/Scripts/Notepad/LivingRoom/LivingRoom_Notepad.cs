@@ -145,8 +145,9 @@ public class LivingRoom_Notepad : MonoBehaviour
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
-        
-        resetBtn.GetComponent<Button>().onClick.AddListener(() => { 
+
+        resetBtn.GetComponent<Button>().onClick.AddListener(() =>
+        {
             ResetCurrentChallenge();
             ChangeFocusTo(null);
         });
@@ -169,7 +170,7 @@ public class LivingRoom_Notepad : MonoBehaviour
 
         levelsCompleted = 0;
     }
-    
+
     private static void ChangeFocusTo(GameObject gameObj)
     {
         EventSystem.current.SetSelectedGameObject(gameObj);
@@ -200,7 +201,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     public void OnInputFieldEnter()
     {
         _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
-        _cursorManager.SetCursor(3);
+        _cursorManager.SetCursor(5);
     }
 
     /// <summary>

@@ -54,6 +54,11 @@ public class GlobalCursorManager : MonoBehaviour
     private readonly Texture2D IBeamCursor;
 
     /// <summary>
+    /// Index for the I-beam cursor in the cursor textures array.
+    /// </summary>
+    private int IBeamCursorIndex;
+
+    /// <summary>
     /// Key used to save and retrieve the selected cursor index from PlayerPrefs.
     /// </summary>
     private const string CursorPrefKey = "SelectedCursorIndex";
@@ -119,6 +124,8 @@ public class GlobalCursorManager : MonoBehaviour
         _cursorTextures[3] = pinkCursor;
         _cursorTextures[4] = gradientCursor;
         _cursorTextures[5] = IBeamCursor;
+
+        IBeamCursorIndex = 5;
     }
 
     /// <summary>
@@ -159,7 +166,7 @@ public class GlobalCursorManager : MonoBehaviour
         if (index < 0 || index >= _cursorTextures.Length || !_cursorTextures[index]) return;
 
         Vector2 hotspot;
-        if (index == 5) hotspot = _cursorHotspot; // I-Beam Cursor has a custom hotspet (set to middle)
+        if (index == IBeamCursorIndex) hotspot = _cursorHotspot; // I-Beam has custom hotspot (set to middle)
         else hotspot = Vector2.zero; // Normal hotspot at corner for regular cursors
 
         // Set the cursor texture, hotspot, and mode
