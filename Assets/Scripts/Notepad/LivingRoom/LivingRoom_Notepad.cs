@@ -142,10 +142,10 @@ public class LivingRoom_Notepad : MonoBehaviour
         "Don't forget colons after width and height."
     };
 
+
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
-
         resetBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
             ResetCurrentChallenge();
@@ -191,6 +191,8 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <param name="css">The CSS to set</param>
     public void SetCssText(string css)
     {
+        if (!inputField) return;
+
         // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }

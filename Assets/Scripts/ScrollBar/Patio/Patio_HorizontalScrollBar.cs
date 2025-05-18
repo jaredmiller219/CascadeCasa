@@ -246,7 +246,7 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
         _scrollImages.Add(img);
         rect.sizeDelta = imageSize * 2;
     }
-    
+
     /// <summary>
     /// Prepares the image GameObject for interaction
     /// and attaches the related css script to the image
@@ -327,5 +327,10 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
         notepad.canReset = canReset;
         notepad.canSubmit = canSubmit;
         notepad.LoadChallenge();
+    }
+
+    private void OnDestroy()
+    {
+        if (notepad) LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
     }
 }
