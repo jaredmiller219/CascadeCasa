@@ -188,6 +188,8 @@ public class Bedroom2_Notepad : MonoBehaviour
     /// <param name="css">The CSS to set</param>
     public void SetCssText(string css)
     {
+        if (!inputField) return;
+
         // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }
