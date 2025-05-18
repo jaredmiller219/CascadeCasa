@@ -328,4 +328,9 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
         notepad.canSubmit = canSubmit;
         notepad.LoadChallenge();
     }
+
+    private void OnDestroy()
+    {
+        if (notepad) LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+    }
 }
