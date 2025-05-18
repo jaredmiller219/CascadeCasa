@@ -2,14 +2,6 @@
 
 ## Features
 
-### Cursor
-
-- TODO: Add more cursor style options.
-
-  1. Colors
-
-## Fixes
-
 ### Sounds
 
 - FIXME: Add missing sound effects.
