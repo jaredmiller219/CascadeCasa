@@ -30,6 +30,7 @@ public class LevelEnd : MonoBehaviour
     /// </summary>
     public void GoToLevelSelect()
     {
+        NavigationData.CameFromLevelComplete = true;
         completePopup.SetActive(false);
         SceneManager.LoadScene("LevelSelect");
     }
@@ -39,6 +40,7 @@ public class LevelEnd : MonoBehaviour
     /// </summary>
     public void GoToMenu()
     {
+        NavigationData.CameFromLevelComplete = false;
         completePopup.SetActive(false);
         SceneManager.LoadScene("Menu");
     }

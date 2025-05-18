@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelSelect : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class LevelSelect : MonoBehaviour
     /// </summary>
     [Header("Rooms")]
     [Tooltip("The button to go to the living room scene \n lvl 1")]
-    [InspectorName("Living Button")]
+    [InspectorName("LivingRoom Button")]
     public GameObject livingRoomBtn;
 
     /// <summary>
@@ -63,6 +64,19 @@ public class LevelSelect : MonoBehaviour
     public GameObject gardenBtn;
 
     /// <summary>
+    /// The back button reference
+    /// </summary>
+    [Header("Navigation")]
+    [InspectorName("Back/Menu Button")]
+    public GameObject navButton;
+
+    /// <summary>
+    /// The text of the back/menu button
+    /// </summary>
+    [Tooltip("The text of the back/menu button")]
+    public TMP_Text btnText;
+
+    /// <summary>
     /// The source of the audio
     /// </summary>
     [Header("Audio")]
@@ -84,6 +98,9 @@ public class LevelSelect : MonoBehaviour
         SetAlphaHitTest(bedroom1Btn);
         SetAlphaHitTest(bedroom2Btn);
         SetAlphaHitTest(gardenBtn);
+
+        if (NavigationData.CameFromLevelComplete) btnText.text = "Menu";
+        else btnText.text = "Back";
     }
 
     /// <summary>
@@ -159,6 +176,11 @@ public class LevelSelect : MonoBehaviour
     public void Back()
     {
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
-        StartCoroutine(LoadSceneWithDelay(NavigationData.PreviousScene));
+        if (NavigationData.CameFromLevelComplete)
+        {
+            NavigationData.CameFromLevelComplete = false;
+            StartCoroutine(LoadSceneWithDelay("Menu"));
+        }
+        else StartCoroutine(LoadSceneWithDelay(NavigationData.PreviousScene));
     }
 }
