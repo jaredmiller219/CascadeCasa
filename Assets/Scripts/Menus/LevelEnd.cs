@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelEnd : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class LevelEnd : MonoBehaviour
     /// <summary>
     /// Reference to the restart button GameObject.
     /// </summary>
-    public GameObject restartBtn;
+    public GameObject levelSelectBtn;
 
     /// <summary>
     /// Reference to the menu button GameObject.
@@ -20,17 +21,17 @@ public class LevelEnd : MonoBehaviour
 
     private void Start()
     {
-        restartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
+        levelSelectBtn.GetComponent<Button>().onClick.AddListener(GoToLevelSelect);
         menuBtn.GetComponent<Button>().onClick.AddListener(GoToMenu);
     }
 
     /// <summary>
     /// This method is called to display the level completion popup.
     /// </summary>
-    public void RestartGame()
+    public void GoToLevelSelect()
     {
-        Debug.Log("Restarting Game...");
         completePopup.SetActive(false);
+        SceneManager.LoadScene("LevelSelect");
     }
 
     /// <summary>
@@ -39,6 +40,6 @@ public class LevelEnd : MonoBehaviour
     public void GoToMenu()
     {
         completePopup.SetActive(false);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Menu");
     }
 }
