@@ -38,6 +38,12 @@ public class LivingRoom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     [SerializeField]
     private GameObject JournalImage;
 
+    /// <summary>
+    /// A reference to the living room notepad
+    /// </summary>
+    [SerializeField]
+    private LivingRoom_Notepad notepad;
+
     private void Start()
     {
         if (journalPopup) journalPopup.SetActive(false);
@@ -52,6 +58,7 @@ public class LivingRoom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
     {
+        notepad.SaveCurrentInputIfNeeded();
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
 
