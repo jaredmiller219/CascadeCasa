@@ -42,7 +42,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// A reference to the journal
     /// </summary>
     [HideInInspector]
-    public LivingRoom_Journal journal;
+    public Onboarding_Journal journal;
 
     /// <summary>
     /// A list of challenges for each image index
@@ -68,7 +68,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// a reference to the notepad script
     /// </summary>
     [SerializeField]
-    private LivingRoom_Notepad notepad;
+    private Onboarding_Notepad notepad;
 
     /// <summary>
     ///
@@ -84,14 +84,14 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
 
     private void Start()
     {
-        notepad = FindFirstObjectByType<LivingRoom_Notepad>();
+        notepad = FindFirstObjectByType<Onboarding_Notepad>();
         if (!notepad) Debug.LogError("Notepad not found in scene!");
 
-        journal = FindFirstObjectByType<LivingRoom_Journal>();
+        journal = FindFirstObjectByType<Onboarding_Journal>();
         if (!journal) Debug.Log("journal not initialized");
 
-        LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
-        LivingRoom_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
+        Onboarding_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+        Onboarding_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
 
         SetupLayout();
         StartCoroutine(DelayedLoad());
@@ -105,7 +105,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     public void HandleImageClick(int clickedIndex, string css)
     {
         var clickedImage = GetImageAtIndex(clickedIndex);
-        if (clickedImage) LivingRoom_ChallengeImage.NotifyImageClicked(css);
+        if (clickedImage) Onboarding_ChallengeImage.NotifyImageClicked(css);
         SetupNotepad(notepad, clickedIndex, true, true);
         if (IsSameButton(clickedIndex, previousIndex) || !IsJournalOpen(journal)) journal.ToggleJournal();
         previousIndex = clickedIndex;
@@ -116,12 +116,12 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="index">The index of the image to find.</param>
     /// <returns>
-    /// A <see cref="LivingRoom_ChallengeImage"/> if the index is valid; otherwise, <c>null</c>
+    /// A <see cref="Onboarding_ChallengeImage"/> if the index is valid; otherwise, <c>null</c>
     /// if the image doesn't exist or index is out of range.
     /// </returns>
-    private LivingRoom_ChallengeImage GetImageAtIndex(int index)
+    private Onboarding_ChallengeImage GetImageAtIndex(int index)
     {
-        if (index >= 0 && index < _scrollImages.Count) return _scrollImages[index].GetComponent<LivingRoom_ChallengeImage>();
+        if (index >= 0 && index < _scrollImages.Count) return _scrollImages[index].GetComponent<Onboarding_ChallengeImage>();
         Debug.LogError($"Index {index} out of range.");
         return null;
 
@@ -147,7 +147,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
         {
             checkmark.gameObject.SetActive(true);
             lockIcon.gameObject.SetActive(false);
-            if (!button.TryGetComponent<LivingRoom_ChallengeImage>(out var challengeImage)) return;
+            if (!button.TryGetComponent<Onboarding_ChallengeImage>(out var challengeImage)) return;
             challengeImage.Completed = true;
             challengeImage.Locked = false;
         }
@@ -254,7 +254,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     private void AddScriptToImage(GameObject imgObj)
     {
         if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
-        var image = imgObj.AddComponent<LivingRoom_ChallengeImage>();
+        var image = imgObj.AddComponent<Onboarding_ChallengeImage>();
         var index = (_scrollImages.Count - 1) % CssChallenges.Count;
         image.AssociatedCss = CssChallenges[index].Key;
     }
@@ -308,7 +308,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="journal"></param>
     /// <returns>boolean representing if the journal was open or not</returns>
-    private static bool IsJournalOpen(LivingRoom_Journal journal)
+    private static bool IsJournalOpen(Onboarding_Journal journal)
     {
         if (!journal) Debug.LogError("journal is null");
         return journal.journalPopup.activeSelf;
@@ -321,7 +321,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <param name="clickedIndex">The index of the button clicked</param>
     /// <param name="canReset">Whether the notepad is able to reset</param>
     /// <param name="canSubmit">Whether the notepad is able to submit</param>
-    private static void SetupNotepad(LivingRoom_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
+    private static void SetupNotepad(Onboarding_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
     {
         notepad.buttonIndex = clickedIndex;
         notepad.canReset = canReset;
@@ -331,6 +331,6 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (notepad) LivingRoom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
+        if (notepad) Onboarding_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
     }
 }
