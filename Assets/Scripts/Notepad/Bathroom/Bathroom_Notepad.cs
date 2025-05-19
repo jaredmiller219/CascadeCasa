@@ -53,7 +53,7 @@ public class Bathroom_Notepad : MonoBehaviour
     /// The button index
     /// </summary>
     [HideInInspector]
-    public int buttonindex;
+    public int buttonIndex;
 
     /// <summary>
     /// The popup displayed when all challenges are completed
@@ -91,9 +91,14 @@ public class Bathroom_Notepad : MonoBehaviour
     public bool canSubmit;
 
     /// <summary>
-    /// The reference to the gameObject with the Bathroom_HorizontalScrollBar script attached to it
+    /// Keeps track of the number of levels completed.
     /// </summary>
-    [Tooltip("The reference to the gameObject with the Bathroom_HorizontalScrollBar script attached to it")]
+    public int levelsCompleted;
+
+    /// <summary>
+    /// The reference to the gameObject with the orizontalScrollBar
+    /// </summary>
+    [Tooltip("The reference to the gameObject with the HorizontalScrollBar")]
     [SerializeField]
     [Header("Notepad")]
     private Bathroom_HorizontalScrollBar scrollBar;
@@ -101,7 +106,7 @@ public class Bathroom_Notepad : MonoBehaviour
     /// <summary>
     /// The path of the file that saves the user's progress
     /// </summary>
-    private readonly string saveFilePath;
+    private string saveFilePath;
 
     /// <summary>
     /// The global manager of the cursor
@@ -139,12 +144,7 @@ public class Bathroom_Notepad : MonoBehaviour
 
     private void Start()
     {
-        submitBtn.GetComponent<Button>().onClick.AddListener(() =>
-        {
-            CheckCssInput();
-            ChangeFocusTo(null);
-        });
-
+        submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
             ResetCurrentChallenge();
@@ -162,10 +162,15 @@ public class Bathroom_Notepad : MonoBehaviour
         scrollBar = FindFirstObjectByType<Bathroom_HorizontalScrollBar>();
         if (!scrollBar) Debug.LogError("Bathroom_HorizontalScrollBar not found in scene!");
 
+        saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.json");
+
         canReset = false;
         canSubmit = false;
 
         currentChallengeIndex = -1;
+        levelsCompleted = 0;
+
+        LoadProgress();
     }
 
     private static void ChangeFocusTo(GameObject gameObj)
@@ -180,6 +185,7 @@ public class Bathroom_Notepad : MonoBehaviour
     public void SaveTextForIndex(int index)
     {
         savedTexts[index] = inputField.GetComponent<TMP_InputField>().text;
+        SaveProgress();
     }
 
     /// <summary>
@@ -262,7 +268,7 @@ public class Bathroom_Notepad : MonoBehaviour
     /// <returns>The text (string) lowered</returns>
     private static string ScrollBarStrValToLower(Bathroom_HorizontalScrollBar scrollBar, int index)
     {
-        return scrollBar._cssChallenges[index].Value.ToLower();
+        return scrollBar.CssChallenges[index].Value.ToLower();
     }
 
     /// <summary>
@@ -280,8 +286,13 @@ public class Bathroom_Notepad : MonoBehaviour
         {
             const string displayedFeedback = "Correct!";
             SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
-            if (scrollBar) scrollBar.MarkChallengeCompleted(buttonindex);
+            if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
+            SaveProgress();
+            levelsCompleted++;
             SetTextOfComponent(inputField, "", Color.clear, false);
+            ChangeFocusTo(null);
+            if (!IsLevelComplete()) return;
+            LevelComplete();
         }
         else
         {
@@ -296,25 +307,16 @@ public class Bathroom_Notepad : MonoBehaviour
     /// <returns>boolean stating whether the level is complete</returns>
     private bool IsLevelComplete()
     {
-        return currentChallengeIndex >= scrollBar._cssChallenges.Count;
+        return levelsCompleted == scrollBar.imageSprites.Length;
     }
 
-    /// <summary>
-    /// Goes to the next challenge
-    /// </summary>
-    private void NextChallenge()
+    private void LevelComplete()
     {
-        currentChallengeIndex++;
-
-        if (IsLevelComplete())
-        {
-            SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
-            SetTextOfComponent(inputField, "", Color.clear, false);
-            SetButtonInteractable(submitBtn, false);
-            SetButtonInteractable(resetBtn, false);
-            challengeComplete.SetActive(true);
-        }
-        else LoadChallenge();
+        SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
+        SetTextOfComponent(inputField, "", Color.clear, false);
+        SetButtonInteractable(submitBtn, false);
+        SetButtonInteractable(resetBtn, false);
+        challengeComplete.SetActive(true);
     }
 
     /// <summary>
@@ -322,10 +324,11 @@ public class Bathroom_Notepad : MonoBehaviour
     /// </summary>
     public void LoadChallenge()
     {
-        currentChallengeIndex = selectedImage ? selectedImage._buttonIndex : buttonindex;
+        currentChallengeIndex = selectedImage ? selectedImage.buttonIndex : buttonIndex;
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
+
 
     /// <summary>
     /// Load the CSS for the current challenge
@@ -337,7 +340,7 @@ public class Bathroom_Notepad : MonoBehaviour
         {
             SetTextOfComponent(inputField, savedInput, Color.black, true);
         }
-        else SetTextOfComponent(inputField, scrollBar._cssChallenges[challengeIndex].Key, Color.black, true);
+        else SetTextOfComponent(inputField, scrollBar.CssChallenges[challengeIndex].Key, Color.black, true);
     }
 
     /// <summary>
@@ -353,7 +356,7 @@ public class Bathroom_Notepad : MonoBehaviour
     /// <summary>
     /// Reset the current challenge's text
     /// </summary>
-    private void ResetCurrentChallenge()
+    public void ResetCurrentChallenge()
     {
         // the user hasn't selected an image yet
         if (currentChallengeIndex == -1)
@@ -362,7 +365,7 @@ public class Bathroom_Notepad : MonoBehaviour
             return;
         }
         savedTexts.Remove(currentChallengeIndex);
-        SetTextOfComponent(inputField, scrollBar._cssChallenges[currentChallengeIndex].Key, Color.black, true);
+        SetTextOfComponent(inputField, scrollBar.CssChallenges[currentChallengeIndex].Key, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);
         LoadChallenge();
     }
@@ -378,12 +381,56 @@ public class Bathroom_Notepad : MonoBehaviour
     }
 
     /// <summary>
+    ///
+    /// </summary>
+    [System.Serializable]
+    private class SaveData
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        public int currentChallengeIndex;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public List<ChallengeEntry> challenges = new();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [System.Serializable]
+    private class ChallengeEntry
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        public int index;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string text;
+    }
+
+    /// <summary>
     /// Save the current user's progress
     /// </summary>
     public void SaveProgress()
     {
-        File.WriteAllText(saveFilePath, currentChallengeIndex.ToString());
-        Debug.Log("Progress saved!");
+        SaveData data = new SaveData
+        {
+            currentChallengeIndex = currentChallengeIndex
+        };
+
+        foreach (var kvp in savedTexts)
+        {
+            data.challenges.Add(new ChallengeEntry { index = kvp.Key, text = kvp.Value });
+        }
+
+        string json = JsonUtility.ToJson(data, prettyPrint: true);
+        File.WriteAllText(saveFilePath, json);
     }
 
     /// <summary>
@@ -393,10 +440,15 @@ public class Bathroom_Notepad : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            var savedIndex = File.ReadAllText(saveFilePath);
-            if (int.TryParse(savedIndex, out var index) && index < scrollBar._cssChallenges.Count)
+            string json = File.ReadAllText(saveFilePath);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            currentChallengeIndex = data.currentChallengeIndex;
+
+            savedTexts.Clear();
+            foreach (var entry in data.challenges)
             {
-                currentChallengeIndex = index;
+                if (!string.IsNullOrWhiteSpace(entry.text)) savedTexts[entry.index] = entry.text;
             }
         }
         LoadChallenge();

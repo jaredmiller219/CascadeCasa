@@ -16,11 +16,6 @@ public class DropdownActionMenu : MonoBehaviour
 
     private void Start()
     {
-        // if (dropdown)
-        // {
-        //     dropdown = GetComponentInChildren<TMP_Dropdown>();
-        //     dropdown.onValueChanged.AddListener(OnOptionSelected);
-        // }
         if (!dropdown) dropdown = GetComponentInChildren<TMP_Dropdown>();
         if (dropdown) dropdown.onValueChanged.AddListener(OnOptionSelected);
         else Debug.LogError("Dropdown reference is missing!");
