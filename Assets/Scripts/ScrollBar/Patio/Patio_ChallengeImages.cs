@@ -7,12 +7,12 @@ public class Patio_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// The index of the button in the scroll area.
     /// </summary>
-    public int _buttonIndex;
+    public int buttonIndex;
 
     /// <summary>
     ///  The previous button index
     /// </summary>
-    public int _previousbuttonindex = -1;
+    public int PreviousButtonIndex = -1;
 
     /// <summary>
     /// The default css
@@ -57,7 +57,7 @@ public class Patio_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// The notepad reference
     /// </summary>
-    private Patio_Notepad notepad;
+    private static Patio_Notepad _notepad;
 
     /// <summary>
     /// Initialize the image
@@ -86,8 +86,8 @@ public class Patio_ChallengeImage : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (Completed || !_scrollBar) return;
-        // Save the current input
-        if (notepad.buttonindex >= 0) notepad.SaveTextForIndex(notepad.buttonindex);
+        if (_notepad.currentChallengeIndex == -1) _notepad.ResetCurrentChallenge();
+        if (_notepad.buttonIndex >= 0) _notepad.SaveTextForIndex(_notepad.buttonIndex);
 
         // ---------------- For debug only --------------------------
         // Patio_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
@@ -99,7 +99,7 @@ public class Patio_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
 
         // Update after the check
-        _previousbuttonindex = _buttonIndex;
+        PreviousButtonIndex = buttonIndex;
     }
 
     private void Awake()
@@ -107,8 +107,8 @@ public class Patio_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _originalParent = transform.parent;
         _scrollBar = _originalParent.GetComponentInParent<Patio_HorizontalScrollBar>();
 
-        notepad = FindFirstObjectByType<Patio_Notepad>();
-        if (notepad) OnAnyImageClicked += notepad.SetCssText;
+        _notepad = FindFirstObjectByType<Patio_Notepad>();
+        if (_notepad) OnAnyImageClicked += _notepad.SetCssText;
 
         Completed = false;
         Locked = true;
@@ -119,6 +119,6 @@ public class Patio_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void OnDestroy()
     {
-        if (notepad) OnAnyImageClicked -= notepad.SetCssText;
+        if (_notepad) OnAnyImageClicked -= _notepad.SetCssText;
     }
 }

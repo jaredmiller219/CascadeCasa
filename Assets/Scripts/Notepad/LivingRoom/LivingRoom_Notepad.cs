@@ -96,9 +96,9 @@ public class LivingRoom_Notepad : MonoBehaviour
     public int levelsCompleted;
 
     /// <summary>
-    /// The reference to the gameObject with the LivingRoom_HorizontalScrollBar script attached to it
+    /// The reference to the gameObject with the orizontalScrollBar
     /// </summary>
-    [Tooltip("The reference to the gameObject with the LivingRoom_HorizontalScrollBar script attached to it")]
+    [Tooltip("The reference to the gameObject with the HorizontalScrollBar")]
     [SerializeField]
     [Header("Notepad")]
     private LivingRoom_HorizontalScrollBar scrollBar;
@@ -106,7 +106,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <summary>
     /// The path of the file that saves the user's progress
     /// </summary>
-    private readonly string saveFilePath;
+    private string saveFilePath;
 
     /// <summary>
     /// The global manager of the cursor
@@ -142,7 +142,6 @@ public class LivingRoom_Notepad : MonoBehaviour
         "Don't forget colons after width and height."
     };
 
-
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
@@ -163,12 +162,15 @@ public class LivingRoom_Notepad : MonoBehaviour
         scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
         if (!scrollBar) Debug.LogError("LivingRoom_HorizontalScrollBar not found in scene!");
 
+        saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.json");
+
         canReset = false;
         canSubmit = false;
 
         currentChallengeIndex = -1;
-
         levelsCompleted = 0;
+
+        LoadProgress();
     }
 
     private static void ChangeFocusTo(GameObject gameObj)
@@ -183,6 +185,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     public void SaveTextForIndex(int index)
     {
         savedTexts[index] = inputField.GetComponent<TMP_InputField>().text;
+        SaveProgress();
     }
 
     /// <summary>
@@ -284,6 +287,7 @@ public class LivingRoom_Notepad : MonoBehaviour
             const string displayedFeedback = "Correct!";
             SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
             if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
+            SaveProgress();
             levelsCompleted++;
             SetTextOfComponent(inputField, "", Color.clear, false);
             ChangeFocusTo(null);
@@ -324,6 +328,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
+
 
     /// <summary>
     /// Load the CSS for the current challenge
@@ -376,12 +381,56 @@ public class LivingRoom_Notepad : MonoBehaviour
     }
 
     /// <summary>
+    ///
+    /// </summary>
+    [System.Serializable]
+    private class SaveData
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        public int currentChallengeIndex;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public List<ChallengeEntry> challenges = new();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [System.Serializable]
+    private class ChallengeEntry
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        public int index;
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string text;
+    }
+
+    /// <summary>
     /// Save the current user's progress
     /// </summary>
     public void SaveProgress()
     {
-        File.WriteAllText(saveFilePath, currentChallengeIndex.ToString());
-        Debug.Log("Progress saved!");
+        SaveData data = new SaveData
+        {
+            currentChallengeIndex = currentChallengeIndex
+        };
+
+        foreach (var kvp in savedTexts)
+        {
+            data.challenges.Add(new ChallengeEntry { index = kvp.Key, text = kvp.Value });
+        }
+
+        string json = JsonUtility.ToJson(data, prettyPrint: true);
+        File.WriteAllText(saveFilePath, json);
     }
 
     /// <summary>
@@ -391,10 +440,15 @@ public class LivingRoom_Notepad : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            var savedIndex = File.ReadAllText(saveFilePath);
-            if (int.TryParse(savedIndex, out var index) && index < scrollBar.CssChallenges.Count)
+            string json = File.ReadAllText(saveFilePath);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            currentChallengeIndex = data.currentChallengeIndex;
+
+            savedTexts.Clear();
+            foreach (var entry in data.challenges)
             {
-                currentChallengeIndex = index;
+                if (!string.IsNullOrWhiteSpace(entry.text)) savedTexts[entry.index] = entry.text;
             }
         }
         LoadChallenge();
