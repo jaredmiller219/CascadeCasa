@@ -189,6 +189,18 @@ public class Bathroom_Notepad : MonoBehaviour
     }
 
     /// <summary>
+    /// Save the currently displayed text into the savedTexts dictionary, only if a challenge is loaded.
+    /// </summary>
+    public void SaveCurrentInputIfNeeded()
+    {
+        if (currentChallengeIndex >= 0 && inputField.activeSelf)
+        {
+            savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
+            SaveProgress();
+        }
+    }
+
+    /// <summary>
     /// Set the CSS text
     /// </summary>
     /// <param name="css">The CSS to set</param>
