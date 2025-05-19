@@ -391,39 +391,38 @@ public class Bedroom2_Notepad : MonoBehaviour
     {
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
-
     /// <summary>
-    ///
+    /// The user data to save
     /// </summary>
     [System.Serializable]
     private class SaveData
     {
         /// <summary>
-        ///
+        /// The current challenge index of the save data
         /// </summary>
         public int currentChallengeIndex;
 
         /// <summary>
-        ///
+        /// A list of challenge entries for the save data
         /// </summary>
         public List<ChallengeEntry> challenges = new();
     }
 
     /// <summary>
-    ///
+    /// Each element of challenges to be saved
     /// </summary>
     [System.Serializable]
     private class ChallengeEntry
     {
         /// <summary>
-        ///
+        /// The index of the challenge to be saved
         /// </summary>
         public int index;
 
         /// <summary>
-        ///
+        /// The text of the challenge to be saved
         /// </summary>
-        public string text;
+        public string entryText;
     }
 
     /// <summary>
@@ -438,7 +437,7 @@ public class Bedroom2_Notepad : MonoBehaviour
 
         foreach (var kvp in savedTexts)
         {
-            data.challenges.Add(new ChallengeEntry { index = kvp.Key, text = kvp.Value });
+            data.challenges.Add(new ChallengeEntry { index = kvp.Key, entryText = kvp.Value });
         }
 
         string json = JsonUtility.ToJson(data, prettyPrint: true);
@@ -460,7 +459,7 @@ public class Bedroom2_Notepad : MonoBehaviour
             savedTexts.Clear();
             foreach (var entry in data.challenges)
             {
-                if (!string.IsNullOrWhiteSpace(entry.text)) savedTexts[entry.index] = entry.text;
+                if (!string.IsNullOrWhiteSpace(entry.entryText)) savedTexts[entry.index] = entry.entryText;
             }
         }
         LoadChallenge();
