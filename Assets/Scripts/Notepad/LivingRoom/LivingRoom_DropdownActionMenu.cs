@@ -16,12 +16,17 @@ public class DropdownActionMenu : MonoBehaviour
 
     private void Start()
     {
-        if (dropdown)
-        {
-            dropdown = GetComponentInChildren<TMP_Dropdown>();
-            dropdown.onValueChanged.AddListener(OnOptionSelected);
-        }
+        // if (dropdown)
+        // {
+        //     dropdown = GetComponentInChildren<TMP_Dropdown>();
+        //     dropdown.onValueChanged.AddListener(OnOptionSelected);
+        // }
+        if (!dropdown) dropdown = GetComponentInChildren<TMP_Dropdown>();
+        if (dropdown) dropdown.onValueChanged.AddListener(OnOptionSelected);
+        else Debug.LogError("Dropdown reference is missing!");
+
         notepad = GetComponentInChildren<LivingRoom_Notepad>();
+        if (!notepad) Debug.LogError("LivingRoom_Notepad reference is missing!");
     }
 
     /// <summary>
@@ -31,7 +36,8 @@ public class DropdownActionMenu : MonoBehaviour
     /// 0 - Save <br/>
     /// 1 - Level Select <br/>
     /// 2 - Menu <br/>
-    /// 3 - Quit</para>
+    /// 3 - Settings<br />
+    /// 4 - Quit</para>
     /// </summary>
     private void OnOptionSelected(int index)
     {
@@ -51,6 +57,7 @@ public class DropdownActionMenu : MonoBehaviour
                 // Option 1 is Level Select
 
                 // Load level select scene
+                notepad.SaveProgress();
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("LevelSelect");
                 break;
@@ -60,6 +67,7 @@ public class DropdownActionMenu : MonoBehaviour
 
                 // Load menu scene
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                notepad.SaveProgress();
                 SceneManager.LoadScene("Menu");
                 break;
 
@@ -68,6 +76,7 @@ public class DropdownActionMenu : MonoBehaviour
 
                 // Load settings scene
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
+                notepad.SaveProgress();
                 SceneManager.LoadScene("Settings");
                 break;
 
