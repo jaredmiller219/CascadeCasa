@@ -176,9 +176,15 @@ public class LevelSelect : MonoBehaviour
     public void Back()
     {
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
+
         if (NavigationData.CameFromLevelComplete)
         {
             NavigationData.CameFromLevelComplete = false;
+            StartCoroutine(LoadSceneWithDelay("Menu"));
+        }
+        else if (NavigationData.CameFromOnBoarding)
+        {
+            NavigationData.CameFromOnBoarding = false;
             StartCoroutine(LoadSceneWithDelay("Menu"));
         }
         else StartCoroutine(LoadSceneWithDelay(NavigationData.PreviousScene));
