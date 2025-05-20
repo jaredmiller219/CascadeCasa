@@ -101,7 +101,7 @@ public class Onboarding_Notepad : MonoBehaviour
     [Tooltip("The reference to the gameObject with the HorizontalScrollBar")]
     [SerializeField]
     [Header("Notepad")]
-    private LivingRoom_HorizontalScrollBar scrollBar;
+    private Onboarding_HorizontalScrollBar scrollBar;
 
     /// <summary>
     /// The path of the file that saves the user's progress
@@ -116,7 +116,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <summary>
     /// The button (Image) of the challenge that was selected
     /// </summary>
-    private LivingRoom_ChallengeImage selectedImage;
+    private Onboarding_ChallengeImage selectedImage;
 
     /// <summary>
     /// The saved values of the updated CSS from the user
@@ -159,8 +159,8 @@ public class Onboarding_Notepad : MonoBehaviour
         _cursorManager = GlobalCursorManager.Instance;
         if (_cursorManager) _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
 
-        scrollBar = FindFirstObjectByType<LivingRoom_HorizontalScrollBar>();
-        if (!scrollBar) Debug.LogError("LivingRoom_HorizontalScrollBar not found in scene!");
+        scrollBar = FindFirstObjectByType<Onboarding_HorizontalScrollBar>();
+        if (!scrollBar) Debug.LogError("Onboarding_HorizontalScrollBar not found in scene!");
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.json");
 
@@ -278,7 +278,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <param name="scrollBar">The horizontal scrollbar reference</param>
     /// <param name="index">the index of the text to lower</param>
     /// <returns>The text (string) lowered</returns>
-    private static string ScrollBarStrValToLower(LivingRoom_HorizontalScrollBar scrollBar, int index)
+    private static string ScrollBarStrValToLower(Onboarding_HorizontalScrollBar scrollBar, int index)
     {
         return scrollBar.CssChallenges[index].Value.ToLower();
     }
