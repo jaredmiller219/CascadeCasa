@@ -39,7 +39,7 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     private GameObject JournalImage;
 
     /// <summary>
-    /// A reference to the living room notepad
+    /// A reference to the onboarding room notepad
     /// </summary>
     [SerializeField]
     private Onboarding_Notepad notepad;
