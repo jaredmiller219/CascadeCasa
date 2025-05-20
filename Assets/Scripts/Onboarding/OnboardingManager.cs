@@ -70,8 +70,6 @@ public class OnboardingManager : MonoBehaviour
             step.SetActive(stepNumber == index);
             stepNumber++;
         }
-
-        // Debug.Log($"Showing tutorial step: {index + 1}");
     }
 
     /// <summary>
