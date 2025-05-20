@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class Menu : MonoBehaviour
