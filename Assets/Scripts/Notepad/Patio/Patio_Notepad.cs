@@ -131,16 +131,20 @@ public class Patio_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-    private readonly List<string> _cssHints = new()
-    {
-        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
-        "Look for missing colons in the font size and text align properties.",
-        "Ensure the border and margin top properties have colons.",
-        "Use a colon after color and font weight properties.",
-        "List style type and padding need colons and values.",
-        "Colons are required after text decoration and color.",
-        "Don't forget colons after width and height."
-    };
+private readonly List<string> _cssHints = new()
+{
+    "Use transition to make style changes smooth (e.g., transition: all 0.3s ease;).",
+    "box-shadow adds a soft shadow around elements. Use offsets and blur-radius.",
+    "border-radius softens corners — great for buttons and cards.",
+    "text-shadow adds subtle glow or depth to text — try color, offset, and blur.",
+    "Use both background-color and border-radius for cozy button styles.",
+    "Combining properties like shadow, transition, and color makes UIs feel alive.",
+    "Remember to end each style line with a semicolon!",
+    "Try grouping related properties for readability.",
+    "Use :hover with transition to animate shadows or color changes.",
+    "Great work! You’ve learned the essentials — now style like a pro!"
+};
+
 
     private void Start()
     {

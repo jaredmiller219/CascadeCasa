@@ -73,17 +73,19 @@ private readonly List<InstructionEntry> _instructions = new()
         "This room focused on typography and color. You styled text using font-family, font-size, font-weight, line-height, and text-align. You also learned how to decorate and color text with text-decoration, color, and background-color. By combining these properties, you made text readable and expressive."
     ),
     new InstructionEntry(
-        "Bedroom2",
-        "Use a colon after color and font weight properties." // Placeholder – will update after Bedroom2 is designed
-    ),
+    "Bedroom2",
+    "In Bedroom2, you explored different types of CSS selectors: element selectors (like p), class selectors (.name), ID selectors (#header), and more advanced ones like group selectors and descendant selectors. You also learned how specificity affects which styles get applied, and how to structure combined selectors properly."
+),
+
     new InstructionEntry(
-        "Bathroom",
-        "List style type and padding need colons and values." // Placeholder – will update after Bathroom is designed
+    "Bathroom",
+    "In the Bathroom, you styled lists and interactive elements. You learned to customize bullets using list-style-type and adjusted spacing with padding and margin. You also explored pseudo-classes like :hover, :active, and :first-child to add interactive effects to buttons and links. These features make your page feel more alive and responsive to users."
     ),
     new InstructionEntry(
         "Patio",
-        "Colons are required after text decoration and color." // Placeholder – will update after Patio is designed
+        "In the Patio, you added visual polish using modern CSS properties like transition, box-shadow, border-radius, and text-shadow. These styles add depth, smoothness, and a professional feel to your interfaces. You also practiced combining multiple properties into clean, elegant rule sets — a perfect way to end your journey through the Cascade Casa."
     ),
+
 };
 
 
