@@ -58,7 +58,7 @@ public class Instructions : MonoBehaviour
     /// <summary>
     ///  Contains a button name and the instruction text for it
     /// </summary>
-private readonly List<InstructionEntry> _instructions = new()
+    private readonly List<InstructionEntry> _instructions = new()
 {
     new InstructionEntry(
         "Living Room",

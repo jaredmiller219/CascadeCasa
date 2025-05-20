@@ -131,7 +131,7 @@ public class Bedroom2_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-private readonly List<string> _cssHints = new()
+    private readonly List<string> _cssHints = new()
 {
     "Element selectors target tags like p, h1, or div. They're the most basic.",
     "Class selectors start with a dot (.) and apply styles to any element with that class.",

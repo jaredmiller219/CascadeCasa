@@ -48,7 +48,7 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     /// A list of challenges for each image index
     /// </summary>
     [HideInInspector]
-public readonly List<KeyValuePair<string, string>> CssChallenges = new()
+    public readonly List<KeyValuePair<string, string>> CssChallenges = new()
 {
     new KeyValuePair<string, string>(
         "div {\n    background color blue;\n    width: 100px;\n}",

@@ -48,7 +48,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     /// A list of challenges for each image index
     /// </summary>
     [HideInInspector]
- public readonly List<KeyValuePair<string, string>> CssChallenges = new()
+    public readonly List<KeyValuePair<string, string>> CssChallenges = new()
 {
     new KeyValuePair<string, string>(
         "ul {\n    list style type none;\n    padding left 0;\n}",

@@ -94,17 +94,17 @@ public class LivingRoom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
         if (JournalImage) JournalImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
+
     /// <summary>
-/// Closes the journal popup if it's currently open.
-/// </summary>
-public void CloseJournal()
-{
-    if (journalPopup && journalPopup.activeSelf)
+    /// Closes the journal popup if it's currently open.
+    /// </summary>
+    public void CloseJournal()
     {
-        notepad.SaveCurrentInputIfNeeded(); // same as in ToggleJournal
-        journalPopup.SetActive(false);
+        if (journalPopup && journalPopup.activeSelf)
+        {
+            notepad.SaveCurrentInputIfNeeded(); // same as in ToggleJournal
+            journalPopup.SetActive(false);
+        }
     }
-}
 
 }
-

@@ -131,7 +131,7 @@ public class Patio_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-private readonly List<string> _cssHints = new()
+    private readonly List<string> _cssHints = new()
 {
     "Use transition to make style changes smooth (e.g., transition: all 0.3s ease;).",
     "box-shadow adds a soft shadow around elements. Use offsets and blur-radius.",

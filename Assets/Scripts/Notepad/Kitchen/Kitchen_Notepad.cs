@@ -131,7 +131,7 @@ public class Kitchen_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-  private readonly List<string> _cssHints = new()
+    private readonly List<string> _cssHints = new()
 {
     "The margin property creates space *outside* the element. Padding creates space *inside*.",
     "Use display: flex to arrange items in a row or column. Flex is great for layout!",
