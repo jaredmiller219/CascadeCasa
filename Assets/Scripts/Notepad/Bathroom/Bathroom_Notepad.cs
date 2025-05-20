@@ -131,7 +131,7 @@ public class Bathroom_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
- private readonly List<string> _cssHints = new()
+    private readonly List<string> _cssHints = new()
 {
     "Use list-style-type to remove or change bullet styles (e.g., none, circle, square).",
     "You can adjust spacing around lists with margin and padding properties.",

@@ -131,7 +131,7 @@ public class Bedroom1_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-private readonly List<string> _cssHints = new()
+    private readonly List<string> _cssHints = new()
 {
     "font-family defines the typeface. You can use common fonts like Arial or 'Times New Roman'.",
     "font-size sets how big the text is. Use units like px, em, or rem.",
