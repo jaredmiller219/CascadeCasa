@@ -38,6 +38,12 @@ public class Kitchen_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     [SerializeField]
     private GameObject JournalImage;
 
+    /// <summary>
+    /// A reference to the kitchen notepad
+    /// </summary>
+    [SerializeField]
+    private Kitchen_Notepad notepad;
+
     private void Start()
     {
         if (journalPopup) journalPopup.SetActive(false);
@@ -52,6 +58,7 @@ public class Kitchen_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
     {
+        notepad.SaveCurrentInputIfNeeded();
         journalPopup.SetActive(!journalPopup.activeSelf);
     }
 

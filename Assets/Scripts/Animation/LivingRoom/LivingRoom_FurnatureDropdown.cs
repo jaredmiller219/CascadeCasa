@@ -8,6 +8,11 @@ public class LivingRoom_FurnitureDropdown : MonoBehaviour
     public GameObject furnitureDropdown;
 
     /// <summary>
+    /// Reference to the button's image (the arrow)
+    /// </summary>
+    public GameObject btnImage;
+
+    /// <summary>
     /// The source of the audio
     /// </summary>
     public AudioSource audioSource;
@@ -35,6 +40,9 @@ public class LivingRoom_FurnitureDropdown : MonoBehaviour
             case true when !_animator:
                 Debug.LogError("No Animator component found on furnitureDropdown!");
                 break;
+            case true when !btnImage:
+                Debug.LogError("No btnImage found");
+                break;
             case true when !furnitureDropdown:
                 Debug.LogError("No furnitureDropdown assigned!");
                 break;
@@ -55,5 +63,8 @@ public class LivingRoom_FurnitureDropdown : MonoBehaviour
 
         // Toggle the "open" parameter to the opposite of its current value
         _animator.SetBool(Open, !isOpen);
+
+        if (!isOpen) btnImage.transform.Rotate(180, 0, 0);
+        else btnImage.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

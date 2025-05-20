@@ -33,7 +33,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     public Vector2 imageSize;
 
     /// <summary>
-    /// An array of sprites to _____
+    /// An array of sprites to add
     /// </summary>
     [Header("Images")]
     public Sprite[] imageSprites;
@@ -48,7 +48,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     /// A list of challenges for each image index
     /// </summary>
     [HideInInspector]
-    public readonly List<KeyValuePair<string, string>> _cssChallenges = new()
+    public readonly List<KeyValuePair<string, string>> CssChallenges = new()
     {
         new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
         new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
@@ -88,7 +88,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
         if (!notepad) Debug.LogError("Notepad not found in scene!");
 
         journal = FindFirstObjectByType<Bedroom1_Journal>();
-        if (!journal) Debug.LogError("journal not initialized");
+        if (!journal) Debug.Log("journal not initialized");
 
         Bedroom1_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
         Bedroom1_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
@@ -106,11 +106,8 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     {
         var clickedImage = GetImageAtIndex(clickedIndex);
         if (clickedImage) Bedroom1_ChallengeImage.NotifyImageClicked(css);
-
         SetupNotepad(notepad, clickedIndex, true, true);
-
         if (IsSameButton(clickedIndex, previousIndex) || !IsJournalOpen(journal)) journal.ToggleJournal();
-
         previousIndex = clickedIndex;
     }
 
@@ -119,7 +116,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="index">The index of the image to find.</param>
     /// <returns>
-    /// A <see cref="ChallengeImage"/> if the index is valid; otherwise, <c>null</c>
+    /// A <see cref="Bedroom1_ChallengeImage"/> if the index is valid; otherwise, <c>null</c>
     /// if the image doesn't exist or index is out of range.
     /// </returns>
     private Bedroom1_ChallengeImage GetImageAtIndex(int index)
@@ -258,8 +255,8 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     {
         if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
         var image = imgObj.AddComponent<Bedroom1_ChallengeImage>();
-        var index = (_scrollImages.Count - 1) % _cssChallenges.Count;
-        image.AssociatedCss = _cssChallenges[index].Key;
+        var index = (_scrollImages.Count - 1) % CssChallenges.Count;
+        image.AssociatedCss = CssChallenges[index].Key;
     }
 
     /// <summary>
@@ -326,9 +323,14 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     /// <param name="canSubmit">Whether the notepad is able to submit</param>
     private static void SetupNotepad(Bedroom1_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
     {
-        notepad.buttonindex = clickedIndex;
+        notepad.buttonIndex = clickedIndex;
         notepad.canReset = canReset;
         notepad.canSubmit = canSubmit;
         notepad.LoadChallenge();
+    }
+
+    private void OnDestroy()
+    {
+        if (notepad) Bedroom1_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
     }
 }

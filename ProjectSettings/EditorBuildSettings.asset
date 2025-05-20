@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Patio.unity
     guid: b9efc4e3952e0374581b938f8d78529b
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/OnBoarding.unity
+    guid: 899bde009036847bea7ff1e68954c063
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

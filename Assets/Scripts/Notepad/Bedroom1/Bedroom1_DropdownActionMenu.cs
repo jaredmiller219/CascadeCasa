@@ -16,14 +16,13 @@ public class Bedroom1_DropdownActionMenu : MonoBehaviour
 
     private void Start()
     {
-        if (dropdown)
-        {
-            dropdown = GetComponentInChildren<TMP_Dropdown>();
-            dropdown.onValueChanged.AddListener(OnOptionSelected);
-        }
-        notepad = GetComponentInChildren<Bedroom1_Notepad>();
-    }
+        if (!dropdown) dropdown = GetComponentInChildren<TMP_Dropdown>();
+        if (dropdown) dropdown.onValueChanged.AddListener(OnOptionSelected);
+        else Debug.LogError("Dropdown reference is missing!");
 
+        notepad = GetComponentInChildren<Bedroom1_Notepad>();
+        if (!notepad) Debug.LogError("Bedroom1_Notepad reference is missing!");
+    }
 
     /// <summary>
     /// This method is called when an option is selected from the dropdown menu.
@@ -32,8 +31,10 @@ public class Bedroom1_DropdownActionMenu : MonoBehaviour
     /// 0 - Save <br/>
     /// 1 - Level Select <br/>
     /// 2 - Menu <br/>
-    /// 3 - Quit</para>
+    /// 3 - Settings<br />
+    /// 4 - Quit</para>
     /// </summary>
+    /// <param name="index">The index of the option selected</param>
     private void OnOptionSelected(int index)
     {
         // Immediately reset so no option is visually "selected"
@@ -42,40 +43,35 @@ public class Bedroom1_DropdownActionMenu : MonoBehaviour
         switch (index)
         {
             case 0:
-                // Option 1 is Save
-
-                // Call save function from notepad
+                // Save
                 notepad.SaveProgress();
                 break;
 
             case 1:
-                // Option 1 is Level Select
-
-                // Load level select scene
+                // Level Select
+                notepad.SaveProgress();
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("LevelSelect");
                 break;
 
             case 2:
-                // Option 2 is Menu
-
-                // Load menu scene
+                // Menu
+                notepad.SaveProgress();
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("Menu");
                 break;
 
             case 3:
-                // Option 3 is Settings
-
-                // Load settings scene
+                // Settings
+                notepad.SaveProgress();
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("Settings");
                 break;
 
             case 4:
-                // Option 4 is Quit
+                // Ouit
+                notepad.SaveProgress();
 
-                // Quit the game
                 // If in editor, stop playing. If in build, quit application
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;

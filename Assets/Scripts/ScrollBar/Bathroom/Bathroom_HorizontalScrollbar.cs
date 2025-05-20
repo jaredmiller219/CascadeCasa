@@ -33,7 +33,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     public Vector2 imageSize;
 
     /// <summary>
-    /// An array of sprites to _____
+    /// An array of sprites to add
     /// </summary>
     [Header("Images")]
     public Sprite[] imageSprites;
@@ -48,7 +48,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     /// A list of challenges for each image index
     /// </summary>
     [HideInInspector]
-    public readonly List<KeyValuePair<string, string>> _cssChallenges = new()
+    public readonly List<KeyValuePair<string, string>> CssChallenges = new()
     {
         new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
         new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
@@ -116,7 +116,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="index">The index of the image to find.</param>
     /// <returns>
-    /// A <see cref="ChallengeImage"/> if the index is valid; otherwise, <c>null</c>
+    /// A <see cref="Bathroom_ChallengeImage"/> if the index is valid; otherwise, <c>null</c>
     /// if the image doesn't exist or index is out of range.
     /// </returns>
     private Bathroom_ChallengeImage GetImageAtIndex(int index)
@@ -151,7 +151,10 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
             challengeImage.Completed = true;
             challengeImage.Locked = false;
         }
-        else Debug.LogWarning("Checkmark object not found under button!");
+        else
+        {
+            Debug.LogWarning("Checkmark object not found under button!");
+        }
     }
 
     /// <summary>
@@ -252,8 +255,8 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     {
         if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
         var image = imgObj.AddComponent<Bathroom_ChallengeImage>();
-        var index = (_scrollImages.Count - 1) % _cssChallenges.Count;
-        image.AssociatedCss = _cssChallenges[index].Key;
+        var index = (_scrollImages.Count - 1) % CssChallenges.Count;
+        image.AssociatedCss = CssChallenges[index].Key;
     }
 
     /// <summary>
@@ -320,9 +323,14 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     /// <param name="canSubmit">Whether the notepad is able to submit</param>
     private static void SetupNotepad(Bathroom_Notepad notepad, int clickedIndex, bool canReset, bool canSubmit)
     {
-        notepad.buttonindex = clickedIndex;
+        notepad.buttonIndex = clickedIndex;
         notepad.canReset = canReset;
         notepad.canSubmit = canSubmit;
         notepad.LoadChallenge();
+    }
+
+    private void OnDestroy()
+    {
+        if (notepad) Bathroom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
     }
 }
