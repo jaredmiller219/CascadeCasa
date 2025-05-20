@@ -12,7 +12,7 @@ public class Onboarding_DropdownActionMenu : MonoBehaviour
     /// <summary>
     /// Reference to the Notepad script
     /// </summary>
-    private LivingRoom_Notepad notepad;
+    private Onboarding_Notepad notepad;
 
     private void Start()
     {
@@ -20,8 +20,8 @@ public class Onboarding_DropdownActionMenu : MonoBehaviour
         if (dropdown) dropdown.onValueChanged.AddListener(OnOptionSelected);
         else Debug.LogError("Dropdown reference is missing!");
 
-        notepad = GetComponentInChildren<LivingRoom_Notepad>();
-        if (!notepad) Debug.LogError("LivingRoom_Notepad reference is missing!");
+        notepad = GetComponentInChildren<Onboarding_Notepad>();
+        if (!notepad) Debug.LogError("Onboarding_Notepad reference is missing!");
     }
 
     /// <summary>
