@@ -14,11 +14,11 @@ public class Menu : MonoBehaviour
     [Header("Menu Buttons")]
     public GameObject levelSelectButton;
 
-    // /// <summary>
-    // ///
-    // /// </summary>
-    // [Tooltip("Lock icon for level select")]
-    // public GameObject levelSelectLock;
+    /// <summary>
+    ///
+    /// </summary>
+    [Tooltip("Lock icon for level select")]
+    public GameObject levelSelectLock;
 
     /// <summary>
     /// Button to load the tutorial scene
@@ -83,8 +83,9 @@ public class Menu : MonoBehaviour
         levelSelectText = levelSelectButton.GetComponentInChildren<TMP_Text>();
         tutorialText = tutorialButton.GetComponentInChildren<TMP_Text>();
         instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
-        SetLevelSelectInteractable(false);
-        if (CheckUnlockCondition()) SetLevelSelectInteractable(true);
+        if (!levelSelectLock) levelSelectLock = GameObject.Find("LvlSelectLock");
+        bool unlocked = CheckUnlockCondition();
+        SetLevelSelectInteractable(unlocked);
     }
 
     private bool CheckUnlockCondition()
@@ -95,6 +96,8 @@ public class Menu : MonoBehaviour
     private void SetLevelSelectInteractable(bool interactable)
     {
         if (levelSelectButton) levelSelectButton.GetComponent<EventTrigger>().enabled = interactable;
+        if (levelSelectButton) levelSelectButton.SetActive(interactable);
+        if (levelSelectLock) levelSelectLock.SetActive(!interactable);
     }
 
     /// <summary>
@@ -113,7 +116,7 @@ public class Menu : MonoBehaviour
         SetDefaultColor(levelSelectText);
         PlayClickSound();
         NavigationData.CameFromOnBoarding = false;
-        NavigationData.CameFromLevelComplete = false; // Reset flags here
+        NavigationData.CameFromLevelComplete = false;
         NavigationData.PreviousScene = "Menu";
         StartCoroutine(LoadSceneDelayed("LevelSelect"));
     }

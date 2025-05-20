@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -96,9 +97,15 @@ public class OnboardingManager : MonoBehaviour
         // Show some completion text and wait for 3 seconds (or show a button)
 
         // Go to main menu
-        SceneManager.LoadScene("Menu");
-
         Debug.Log("Tutorial completed!");
+        StartCoroutine(DelayedLoadMenu());
+    }
+
+
+    private IEnumerator DelayedLoadMenu()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("Menu");
     }
 
 }
