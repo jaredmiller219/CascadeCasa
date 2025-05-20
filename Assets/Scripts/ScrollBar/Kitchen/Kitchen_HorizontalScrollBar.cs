@@ -48,7 +48,7 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// A list of challenges for each image index
     /// </summary>
     [HideInInspector]
- public readonly List<KeyValuePair<string, string>> CssChallenges = new()
+    public readonly List<KeyValuePair<string, string>> CssChallenges = new()
 {
     new KeyValuePair<string, string>(
         ".plate {\n    margin 20px;\n    padding 10px;\n}",
