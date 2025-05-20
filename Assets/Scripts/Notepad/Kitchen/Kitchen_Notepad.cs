@@ -131,16 +131,20 @@ public class Kitchen_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-    private readonly List<string> _cssHints = new()
-    {
-        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
-        "Look for missing colons in the font size and text align properties.",
-        "Ensure the border and margin top properties have colons.",
-        "Use a colon after color and font weight properties.",
-        "List style type and padding need colons and values.",
-        "Colons are required after text decoration and color.",
-        "Don't forget colons after width and height."
-    };
+  private readonly List<string> _cssHints = new()
+{
+    "The margin property creates space *outside* the element. Padding creates space *inside*.",
+    "Use display: flex to arrange items in a row or column. Flex is great for layout!",
+    "justify-content controls how items are spaced *horizontally* in a flex container.",
+    "align-items controls how items are aligned *vertically* inside a flex container.",
+    "box-sizing: border-box makes the width include padding and border. Very useful!",
+    "Use max-width to limit how wide an element can stretch, especially for responsive designs.",
+    "You can combine margin shorthand like: margin: 10px 20px;",
+    "display: block and display: inline change how elements stack or flow.",
+    "Try combining multiple layout properties in one rule. Syntax matters!",
+    "A recap! Think like a chef: organize your layout ingredients cleanly and consistently!"
+};
+
 
     private void Start()
     {
