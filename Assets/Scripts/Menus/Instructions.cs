@@ -58,19 +58,34 @@ public class Instructions : MonoBehaviour
     /// <summary>
     ///  Contains a button name and the instruction text for it
     /// </summary>
-    private readonly List<InstructionEntry> _instructions = new()
-    {
-        new InstructionEntry("CSS Basics", "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color."),
-        new InstructionEntry("Font Fixes", "Look for missing colons in the font size and text align properties."),
-        new InstructionEntry("Borders & Margins", "Ensure the border and margin top properties have colons."),
-        new InstructionEntry("Colors & Fonts", "Use a colon after color and font weight properties."),
-        new InstructionEntry("Lists & Padding", "List style type and padding need colons and values."),
-        new InstructionEntry("Text Decoration", "Colons are required after text decoration and color."),
-        new InstructionEntry("Size Settings", "Don't forget colons after width and height."),
-        new InstructionEntry("Debug Entry 1", "more text"),
-        new InstructionEntry("Greeting Tip", "hello"),
-        new InstructionEntry("Miscellaneous", "here's some text here")
-    };
+private readonly List<InstructionEntry> _instructions = new()
+{
+    new InstructionEntry(
+        "Living Room",
+        "In this room, you learned the foundational structure of CSS: CSS rules follow the pattern selector { property: value; }. Every property (like background-color, font-size, or width) needs a colon : and ends with a semicolon ;. Hyphenated properties (like margin-top or font-weight) must include the hyphen. This level helped you practice catching common beginner mistakes in syntax."
+    ),
+    new InstructionEntry(
+        "Kitchen",
+        "In the Kitchen, you explored how to space and arrange elements using the box model. You learned how margin and padding create space inside and outside elements, and how display: flex can lay out content. You also worked with layout helpers like justify-content, align-items, box-sizing, and max-width."
+    ),
+    new InstructionEntry(
+        "Bedroom1",
+        "This room focused on typography and color. You styled text using font-family, font-size, font-weight, line-height, and text-align. You also learned how to decorate and color text with text-decoration, color, and background-color. By combining these properties, you made text readable and expressive."
+    ),
+    new InstructionEntry(
+        "Bedroom2",
+        "Use a colon after color and font weight properties." // Placeholder – will update after Bedroom2 is designed
+    ),
+    new InstructionEntry(
+        "Bathroom",
+        "List style type and padding need colons and values." // Placeholder – will update after Bathroom is designed
+    ),
+    new InstructionEntry(
+        "Patio",
+        "Colons are required after text decoration and color." // Placeholder – will update after Patio is designed
+    ),
+};
+
 
     public void Start()
     {
