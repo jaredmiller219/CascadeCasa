@@ -131,16 +131,20 @@ public class Bathroom_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-    private readonly List<string> _cssHints = new()
-    {
-        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
-        "Look for missing colons in the font size and text align properties.",
-        "Ensure the border and margin top properties have colons.",
-        "Use a colon after color and font weight properties.",
-        "List style type and padding need colons and values.",
-        "Colons are required after text decoration and color.",
-        "Don't forget colons after width and height."
-    };
+ private readonly List<string> _cssHints = new()
+{
+    "Use list-style-type to remove or change bullet styles (e.g., none, circle, square).",
+    "You can adjust spacing around lists with margin and padding properties.",
+    ":hover adds a style when the mouse is over an element — great for buttons and links!",
+    ":active adds a style when the element is being clicked.",
+    ":first-child targets the first item in a group — useful for list formatting.",
+    "Buttons are usually styled with background-color, padding, border, and cursor.",
+    "Use :hover and :active together for better interaction feedback.",
+    "Don't forget colons in pseudo-classes like :hover or :first-child.",
+    "You can combine pseudo-classes with class selectors like .btn:hover.",
+    "Pseudo-classes let you add logic to your styling. Think of them as mini conditions!"
+};
+
 
     private void Start()
     {
