@@ -42,7 +42,7 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// A reference to the living room notepad
     /// </summary>
     [SerializeField]
-    private LivingRoom_Notepad notepad;
+    private Onboarding_Notepad notepad;
 
     private void Start()
     {

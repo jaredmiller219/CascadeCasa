@@ -52,12 +52,12 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Reference to the horizontal scroll bar.
     /// </summary>
-    private LivingRoom_HorizontalScrollBar _scrollBar;
+    private Onboarding_HorizontalScrollBar _scrollBar;
 
     /// <summary>
     /// The notepad reference
     /// </summary>
-    private static LivingRoom_Notepad _notepad;
+    private static Onboarding_Notepad _notepad;
 
     /// <summary>
     /// Initialize the image
@@ -90,7 +90,7 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
         if (_notepad.buttonIndex >= 0) _notepad.SaveTextForIndex(_notepad.buttonIndex);
 
         // ---------------- For debug only --------------------------
-        // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+        // Onboarding_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         // string imageName = clickedImage.GetComponent<Image>().sprite.name;
         // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
         // ----------------------------------------------------------
@@ -105,9 +105,9 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         _originalParent = transform.parent;
-        _scrollBar = _originalParent.GetComponentInParent<LivingRoom_HorizontalScrollBar>();
+        _scrollBar = _originalParent.GetComponentInParent<Onboarding_HorizontalScrollBar>();
 
-        _notepad = FindFirstObjectByType<LivingRoom_Notepad>();
+        _notepad = FindFirstObjectByType<Onboarding_Notepad>();
         if (_notepad) OnAnyImageClicked += _notepad.SetCssText;
 
         Completed = false;
