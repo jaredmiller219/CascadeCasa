@@ -12,6 +12,13 @@ public class OnboardingManager : MonoBehaviour
     private GameObject[] tutorialSteps;
 
     /// <summary>
+    /// THe dropdown GameObject
+    /// </summary>
+    [Tooltip("A reference to the Dropdown GameObject")]
+    [SerializeField]
+    private GameObject dropdown;
+
+    /// <summary>
     /// The current step
     /// </summary>
     [Tooltip("The current step")]
@@ -34,7 +41,8 @@ public class OnboardingManager : MonoBehaviour
         }
 #endif
         // DONE TESTING
-
+        // var dropdownMenu = dropdown.GetComponent<TMPro.TMP_Dropdown>();
+        dropdown.SetActive(true);
         if (tutorialSteps.Length > 0) ShowStep(0);
         else Debug.LogWarning("No tutorial steps configured!");
     }
@@ -93,8 +101,6 @@ public class OnboardingManager : MonoBehaviour
         PlayerPrefs.Save();
         NavigationData.CameFromOnBoarding = true;
 
-        // Show some completion text and wait for 3 seconds (or show a button)
-
         // Go to main menu
         // Debug.Log("Tutorial completed!");
         StartCoroutine(DelayedLoadMenu());
@@ -103,6 +109,7 @@ public class OnboardingManager : MonoBehaviour
 
     private IEnumerator DelayedLoadMenu()
     {
+        dropdown.SetActive(false);
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("Menu");
     }
