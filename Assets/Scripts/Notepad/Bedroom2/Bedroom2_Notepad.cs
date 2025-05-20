@@ -131,16 +131,19 @@ public class Bedroom2_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-    private readonly List<string> _cssHints = new()
-    {
-        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
-        "Look for missing colons in the font size and text align properties.",
-        "Ensure the border and margin top properties have colons.",
-        "Use a colon after color and font weight properties.",
-        "List style type and padding need colons and values.",
-        "Colons are required after text decoration and color.",
-        "Don't forget colons after width and height."
-    };
+private readonly List<string> _cssHints = new()
+{
+    "Element selectors target tags like p, h1, or div. They're the most basic.",
+    "Class selectors start with a dot (.) and apply styles to any element with that class.",
+    "ID selectors begin with a hashtag (#) and should be unique to one element.",
+    "Group selectors apply the same styles to multiple elements, separated by commas.",
+    "Descendant selectors target elements inside other elements (e.g., div p).",
+    "You can combine class and element selectors like p.note to be more specific.",
+    "ID selectors are stronger than class selectors. Only use them when needed.",
+    "When combining multiple selectors, keep spacing and punctuation correct.",
+    "Avoid repeating styles unnecessarily by grouping shared styles.",
+    "Specificity matters. More specific selectors will override general ones!"
+};
 
     private void Start()
     {
