@@ -9,4 +9,9 @@ public static class NavigationData
     ///
     /// </summary>
     public static bool CameFromLevelComplete = false;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public static bool CameFromOnBoarding = false;
 }

@@ -17,6 +17,12 @@ public class OnboardingManager : MonoBehaviour
 
     private void Start()
     {
+        // Start of testing
+        PlayerPrefs.SetInt("TutorialFinished", 1);
+        PlayerPrefs.Save();
+        NavigationData.CameFromOnBoarding = true;
+        // End of testing
+
         if (tutorialSteps.Length > 0) ShowStep(0);
         else Debug.LogWarning("No tutorial steps configured!");
     }
@@ -45,7 +51,7 @@ public class OnboardingManager : MonoBehaviour
             stepNumber++;
         }
 
-        Debug.Log($"Showing tutorial step: {index + 1}");
+        // Debug.Log($"Showing tutorial step: {index + 1}");
     }
 
     /// <summary>
@@ -71,11 +77,16 @@ public class OnboardingManager : MonoBehaviour
         foreach (var step in tutorialSteps) if (step) step.SetActive(false);
 
         // Tell the user they are done
+        PlayerPrefs.SetInt("TutorialFinished", 1);
+        PlayerPrefs.Save();
+        NavigationData.CameFromOnBoarding = true;
 
         // Delay for 3 seconds
 
         // Go to main menu
 
+
         Debug.Log("Tutorial completed!");
     }
+
 }
