@@ -30,7 +30,6 @@ public class StorySlideController : MonoBehaviour
     {
         nextButton.onClick.AddListener(NextSlide);
         prevButton.onClick.AddListener(PrevSlide);
-
         ShowSlide(currentSlide);
     }
 
@@ -38,7 +37,6 @@ public class StorySlideController : MonoBehaviour
     {
         StartCoroutine(FadeInSlide(slideImages[index]));
 
-        // Change music
         if (slideMusic != null && index < slideMusic.Count && slideMusic[index] != null)
         {
             musicSource.Stop();
@@ -46,21 +44,16 @@ public class StorySlideController : MonoBehaviour
             musicSource.Play();
         }
 
-        // Button state
         prevButton.interactable = index > 0;
         nextButton.interactable = true;
-        
-
     }
+
+
     private IEnumerator ExitStoryAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-
-        if (storyRoot != null)
-            storyRoot.SetActive(false);
-
-        if (challengeUIToEnable != null)
-            challengeUIToEnable.SetActive(true);
+        if (storyRoot) storyRoot.SetActive(false);
+        if (challengeUIToEnable) challengeUIToEnable.SetActive(true);
     }
 
     private IEnumerator FadeInSlide(Sprite newSlide)
@@ -73,11 +66,8 @@ public class StorySlideController : MonoBehaviour
     }
     private void ExitStoryMode()
     {
-        if (storyRoot != null)
-            storyRoot.SetActive(false);
-
-        if (challengeUIToEnable != null)
-            challengeUIToEnable.SetActive(true);
+        if (storyRoot) storyRoot.SetActive(false);
+        if (challengeUIToEnable) challengeUIToEnable.SetActive(true);
     }
 
     private void NextSlide()
@@ -87,11 +77,7 @@ public class StorySlideController : MonoBehaviour
             currentSlide++;
             ShowSlide(currentSlide);
         }
-        else
-        {
-            // We're at the last slide and the user just clicked "Next"
-            ExitStoryMode();
-        }
+        else ExitStoryMode();
     }
 
 

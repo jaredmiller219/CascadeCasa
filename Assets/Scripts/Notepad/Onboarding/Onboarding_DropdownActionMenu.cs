@@ -46,29 +46,21 @@ public class Onboarding_DropdownActionMenu : MonoBehaviour
                 // Save
                 notepad.SaveProgress();
                 break;
-
             case 1:
-                // Level Select
-                notepad.SaveProgress();
-                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
-                SceneManager.LoadScene("LevelSelect");
-                break;
-
-            case 2:
                 // Menu
                 notepad.SaveProgress();
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("Menu");
                 break;
 
-            case 3:
+            case 2:
                 // Settings
                 notepad.SaveProgress();
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("Settings");
                 break;
 
-            case 4:
+            case 3:
                 // Ouit
                 notepad.SaveProgress();
 

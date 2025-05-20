@@ -59,34 +59,34 @@ public class Instructions : MonoBehaviour
     ///  Contains a button name and the instruction text for it
     /// </summary>
     private readonly List<InstructionEntry> _instructions = new()
-{
-    new InstructionEntry(
-        "Living Room",
-        "In this room, you learned the foundational structure of CSS: CSS rules follow the pattern selector { property: value; }. Every property (like background-color, font-size, or width) needs a colon : and ends with a semicolon ;. Hyphenated properties (like margin-top or font-weight) must include the hyphen. This level helped you practice catching common beginner mistakes in syntax."
-    ),
-    new InstructionEntry(
-        "Kitchen",
-        "In the Kitchen, you explored how to space and arrange elements using the box model. You learned how margin and padding create space inside and outside elements, and how display: flex can lay out content. You also worked with layout helpers like justify-content, align-items, box-sizing, and max-width."
-    ),
-    new InstructionEntry(
-        "Bedroom1",
-        "This room focused on typography and color. You styled text using font-family, font-size, font-weight, line-height, and text-align. You also learned how to decorate and color text with text-decoration, color, and background-color. By combining these properties, you made text readable and expressive."
-    ),
-    new InstructionEntry(
-    "Bedroom2",
-    "In Bedroom2, you explored different types of CSS selectors: element selectors (like p), class selectors (.name), ID selectors (#header), and more advanced ones like group selectors and descendant selectors. You also learned how specificity affects which styles get applied, and how to structure combined selectors properly."
-),
+    {
+        new InstructionEntry(
+            "Living Room",
+            "In this room, you learned the foundational structure of CSS: CSS rules follow the pattern selector { property: value; }. Every property (like background-color, font-size, or width) needs a colon : and ends with a semicolon ;. Hyphenated properties (like margin-top or font-weight) must include the hyphen. This level helped you practice catching common beginner mistakes in syntax."
+        ),
+        new InstructionEntry(
+            "Kitchen",
+            "In the Kitchen, you explored how to space and arrange elements using the box model. You learned how margin and padding create space inside and outside elements, and how display: flex can lay out content. You also worked with layout helpers like justify-content, align-items, box-sizing, and max-width."
+        ),
+        new InstructionEntry(
+            "Bedroom1",
+            "This room focused on typography and color. You styled text using font-family, font-size, font-weight, line-height, and text-align. You also learned how to decorate and color text with text-decoration, color, and background-color. By combining these properties, you made text readable and expressive."
+        ),
+        new InstructionEntry(
+        "Bedroom2",
+        "In Bedroom2, you explored different types of CSS selectors: element selectors (like p), class selectors (.name), ID selectors (#header), and more advanced ones like group selectors and descendant selectors. You also learned how specificity affects which styles get applied, and how to structure combined selectors properly."
+        ),
 
-    new InstructionEntry(
-    "Bathroom",
-    "In the Bathroom, you styled lists and interactive elements. You learned to customize bullets using list-style-type and adjusted spacing with padding and margin. You also explored pseudo-classes like :hover, :active, and :first-child to add interactive effects to buttons and links. These features make your page feel more alive and responsive to users."
-    ),
-    new InstructionEntry(
-        "Patio",
-        "In the Patio, you added visual polish using modern CSS properties like transition, box-shadow, border-radius, and text-shadow. These styles add depth, smoothness, and a professional feel to your interfaces. You also practiced combining multiple properties into clean, elegant rule sets — a perfect way to end your journey through the Cascade Casa."
-    ),
+        new InstructionEntry(
+        "Bathroom",
+        "In the Bathroom, you styled lists and interactive elements. You learned to customize bullets using list-style-type and adjusted spacing with padding and margin. You also explored pseudo-classes like :hover, :active, and :first-child to add interactive effects to buttons and links. These features make your page feel more alive and responsive to users."
+        ),
+        new InstructionEntry(
+            "Patio",
+            "In the Patio, you added visual polish using modern CSS properties like transition, box-shadow, border-radius, and text-shadow. These styles add depth, smoothness, and a professional feel to your interfaces. You also practiced combining multiple properties into clean, elegant rule sets — a perfect way to end your journey through the Cascade Casa."
+        ),
 
-};
+    };
 
 
     public void Start()
@@ -133,6 +133,7 @@ public class Instructions : MonoBehaviour
 
         else instructionText.GetComponent<TMP_Text>().text = "Instruction not found.";
     }
+
 
     /// <summary>
     /// Create the button for the instruction list
