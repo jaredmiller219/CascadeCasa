@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 77aa41e0e8b5c43c8a0d6a9cdc8bdfcf
+guid: bfb1254bcf16d45bba5db49d0b199ad3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4591853083064926847
-    second: Story3_0
+      213: 397424870129191617
+    second: Story8_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Story3_0
+      name: Story8_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 18df12b13f57640c0800000000000000
-      internalID: -4591853083064926847
+      spriteID: 1cac4f050dfe38500800000000000000
+      internalID: 397424870129191617
       vertices: []
       indices: 
       edges: []
