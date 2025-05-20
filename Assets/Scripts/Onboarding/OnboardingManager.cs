@@ -31,7 +31,6 @@ public class OnboardingManager : MonoBehaviour
             PlayerPrefs.Save();
             NavigationData.CameFromOnBoarding = true;
             testingSetupDone = true;
-            Debug.Log("Test setup applied in OnboardingManager.");
         }
 #endif
         // DONE TESTING
@@ -97,7 +96,7 @@ public class OnboardingManager : MonoBehaviour
         // Show some completion text and wait for 3 seconds (or show a button)
 
         // Go to main menu
-        Debug.Log("Tutorial completed!");
+        // Debug.Log("Tutorial completed!");
         StartCoroutine(DelayedLoadMenu());
     }
 
