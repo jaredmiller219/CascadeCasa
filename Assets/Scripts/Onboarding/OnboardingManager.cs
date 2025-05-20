@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OnboardingManager : MonoBehaviour
 {
@@ -15,13 +16,24 @@ public class OnboardingManager : MonoBehaviour
     [Tooltip("The current step")]
     private int currentStep;
 
+#if UNITY_EDITOR
+    private static bool testingSetupDone = false;
+#endif
+
     private void Start()
     {
-        // Start of testing
-        PlayerPrefs.SetInt("TutorialFinished", 1);
-        PlayerPrefs.Save();
-        NavigationData.CameFromOnBoarding = true;
-        // End of testing
+        // TESTING
+#if UNITY_EDITOR
+        if (!testingSetupDone)
+        {
+            PlayerPrefs.SetInt("TutorialFinished", 1);
+            PlayerPrefs.Save();
+            NavigationData.CameFromOnBoarding = true;
+            testingSetupDone = true;
+            Debug.Log("Test setup applied in OnboardingManager.");
+        }
+#endif
+        // DONE TESTING
 
         if (tutorialSteps.Length > 0) ShowStep(0);
         else Debug.LogWarning("No tutorial steps configured!");
@@ -81,10 +93,10 @@ public class OnboardingManager : MonoBehaviour
         PlayerPrefs.Save();
         NavigationData.CameFromOnBoarding = true;
 
-        // Delay for 3 seconds
+        // Show some completion text and wait for 3 seconds (or show a button)
 
         // Go to main menu
-
+        SceneManager.LoadScene("Menu");
 
         Debug.Log("Tutorial completed!");
     }

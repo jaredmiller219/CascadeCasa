@@ -99,7 +99,7 @@ public class LevelSelect : MonoBehaviour
         SetAlphaHitTest(bedroom2Btn);
         SetAlphaHitTest(gardenBtn);
 
-        if (NavigationData.CameFromLevelComplete || NavigationData.CameFromOnBoarding) btnText.text = "Menu";
+        if (NavigationData.CameFromLevelComplete) btnText.text = "Menu";
         else btnText.text = "Back";
     }
 
@@ -187,9 +187,6 @@ public class LevelSelect : MonoBehaviour
             NavigationData.CameFromOnBoarding = false;
             StartCoroutine(LoadSceneWithDelay("Menu"));
         }
-        else
-        {
-            StartCoroutine(LoadSceneWithDelay(NavigationData.PreviousScene));
-        }
+        else StartCoroutine(LoadSceneWithDelay(NavigationData.PreviousScene));
     }
 }
