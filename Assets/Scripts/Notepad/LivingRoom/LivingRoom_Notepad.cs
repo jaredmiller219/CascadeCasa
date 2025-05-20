@@ -8,7 +8,6 @@ using System.Collections;
 
 public class LivingRoom_Notepad : MonoBehaviour
 {
-
     /// <summary>
     /// The input field where users type their CSS solutions
     /// </summary>
@@ -315,28 +314,20 @@ public class LivingRoom_Notepad : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks whether the level is complete
+    /// </summary>
+    /// <returns>boolean stating whether the level is complete</returns>
     private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
+
+    ///
     private void LevelComplete()
     {
-        // Close journal if it's open
-        if (journal != null)
-        {
-            journal.CloseJournal(); // Make sure this method exists in LivingRoom_Journal
-        }
+        if (journal) journal.CloseJournal();
 
-        // 1. Swap background to furnished version
-        if (backgroundImage && furnishedRoomSprite)
-        {
-            backgroundImage.sprite = furnishedRoomSprite;
-        }
+        if (backgroundImage && furnishedRoomSprite) backgroundImage.sprite = furnishedRoomSprite;
 
-        // 2. Play success sound
-        if (audioSource && successJingle)
-        {
-            audioSource.PlayOneShot(successJingle);
-        }
-
-        // 3. Delay and show completion popup
+        if (audioSource && successJingle) audioSource.PlayOneShot(successJingle);
         StartCoroutine(ShowPopupAfterDelay(1.2f));
     }
 
@@ -352,6 +343,9 @@ public class LivingRoom_Notepad : MonoBehaviour
         challengeComplete.SetActive(true);
     }
 
+    /// <summary>
+    /// Load the challenge
+    /// </summary>
     public void LoadChallenge()
     {
         currentChallengeIndex = selectedImage ? selectedImage.buttonIndex : buttonIndex;
@@ -359,6 +353,10 @@ public class LivingRoom_Notepad : MonoBehaviour
         UpdateChallengeUI(currentChallengeIndex);
     }
 
+    /// <summary>
+    /// Load the CSS for the current challenge
+    /// </summary>
+    /// <param name="challengeIndex">The challenge index</param>
     private void LoadInputForChallenge(int challengeIndex)
     {
         if (savedTexts.TryGetValue(challengeIndex, out var savedInput) && !string.IsNullOrWhiteSpace(savedInput))
@@ -368,12 +366,19 @@ public class LivingRoom_Notepad : MonoBehaviour
         else SetTextOfComponent(inputField, scrollBar.CssChallenges[challengeIndex].Key, Color.black, true);
     }
 
+    /// <summary>
+    /// Update the feedback and hint text
+    /// </summary>
+    /// <param name="challengeIndex">The challenge index</param>
     private void UpdateChallengeUI(int challengeIndex)
     {
         SetTextOfComponent(hintText, _cssHints[challengeIndex], Color.black, false);
         SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
     }
 
+    /// <summary>
+    /// Reset the current challenge's text
+    /// </summary>
     public void ResetCurrentChallenge()
     {
         if (currentChallengeIndex == -1)
@@ -387,25 +392,53 @@ public class LivingRoom_Notepad : MonoBehaviour
         LoadChallenge();
     }
 
+    /// <summary>
+    /// Make the text easier to check against the correct value
+    /// </summary>
+    /// <param name="input">The string to normalize</param>
+    /// <returns>A string representing the normalized input</returns>
     private static string NormalizeCss(string input)
     {
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
 
+    /// <summary>
+    /// The user data to save
+    /// </summary>
     [System.Serializable]
     private class SaveData
     {
+        /// <summary>
+        /// The current challenge index of the save data
+        /// </summary>
         public int currentChallengeIndex;
+
+        /// <summary>
+        /// A list of challenge entries for the save data
+        /// </summary>
         public List<ChallengeEntry> challenges = new();
     }
 
+    /// <summary>
+    /// Each element of challenges to be saved
+    /// </summary>
     [System.Serializable]
     private class ChallengeEntry
     {
+        /// <summary>
+        /// The index of the challenge to be saved
+        /// </summary>
         public int index;
+
+        /// <summary>
+        /// The text of the challenge to be saved
+        /// </summary>
         public string entryText;
     }
 
+    /// <summary>
+    /// Save the current user's progress
+    /// </summary>
     public void SaveProgress()
     {
         SaveData data = new SaveData { currentChallengeIndex = currentChallengeIndex };
@@ -417,6 +450,9 @@ public class LivingRoom_Notepad : MonoBehaviour
         File.WriteAllText(saveFilePath, json);
     }
 
+    /// <summary>
+    /// Load the saved user's progress
+    /// </summary>
     private void LoadProgress()
     {
         if (File.Exists(saveFilePath))
