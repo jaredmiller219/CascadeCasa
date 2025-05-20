@@ -8,6 +8,10 @@ public class StorySlideController : MonoBehaviour
     [Header("Slides")]
     public List<Sprite> slideImages;
     public List<AudioClip> slideMusic;
+    [Header("End Behavior")]
+    public GameObject storyRoot;
+    public GameObject challengeUIToEnable;
+
 
     [Header("UI References")]
     public Image slideDisplay;
@@ -44,7 +48,19 @@ public class StorySlideController : MonoBehaviour
 
         // Button state
         prevButton.interactable = index > 0;
-        nextButton.interactable = index < slideImages.Count - 1;
+        nextButton.interactable = true;
+        
+
+    }
+    private IEnumerator ExitStoryAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (storyRoot != null)
+            storyRoot.SetActive(false);
+
+        if (challengeUIToEnable != null)
+            challengeUIToEnable.SetActive(true);
     }
 
     private IEnumerator FadeInSlide(Sprite newSlide)
@@ -55,6 +71,14 @@ public class StorySlideController : MonoBehaviour
         slideDisplay.CrossFadeAlpha(1f, fadeDuration, false);
         yield return new WaitForSeconds(fadeDuration);
     }
+    private void ExitStoryMode()
+    {
+        if (storyRoot != null)
+            storyRoot.SetActive(false);
+
+        if (challengeUIToEnable != null)
+            challengeUIToEnable.SetActive(true);
+    }
 
     private void NextSlide()
     {
@@ -63,7 +87,13 @@ public class StorySlideController : MonoBehaviour
             currentSlide++;
             ShowSlide(currentSlide);
         }
+        else
+        {
+            // We're at the last slide and the user just clicked "Next"
+            ExitStoryMode();
+        }
     }
+
 
     private void PrevSlide()
     {
