@@ -96,7 +96,6 @@ public class Menu : MonoBehaviour
     private void SetLevelSelectInteractable(bool interactable)
     {
         if (levelSelectButton) levelSelectButton.GetComponent<EventTrigger>().enabled = interactable;
-        if (levelSelectButton) levelSelectButton.SetActive(interactable);
         if (levelSelectLock) levelSelectLock.SetActive(!interactable);
     }
 
