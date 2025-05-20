@@ -30,6 +30,8 @@ public class LivingRoom_Notepad : MonoBehaviour
     public Image backgroundImage;
     public Sprite furnishedRoomSprite;
     public AudioClip successJingle;
+[Header("Journal")]
+public LivingRoom_Journal journal;
 
     [HideInInspector] public int currentChallengeIndex;
     [HideInInspector] public int buttonIndex;
@@ -176,24 +178,30 @@ public class LivingRoom_Notepad : MonoBehaviour
     }
 
     private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
-
-    private void LevelComplete()
+private void LevelComplete()
+{
+    // Close journal if it's open
+    if (journal != null)
     {
-        // 1. Swap background to furnished version
-        if (backgroundImage && furnishedRoomSprite)
-        {
-            backgroundImage.sprite = furnishedRoomSprite;
-        }
-
-        // 2. Play success sound
-        if (audioSource && successJingle)
-        {
-            audioSource.PlayOneShot(successJingle);
-        }
-
-        // 3. Delay and show completion popup
-        StartCoroutine(ShowPopupAfterDelay(1.2f));
+        journal.CloseJournal(); // Make sure this method exists in LivingRoom_Journal
     }
+
+    // 1. Swap background to furnished version
+    if (backgroundImage && furnishedRoomSprite)
+    {
+        backgroundImage.sprite = furnishedRoomSprite;
+    }
+
+    // 2. Play success sound
+    if (audioSource && successJingle)
+    {
+        audioSource.PlayOneShot(successJingle);
+    }
+
+    // 3. Delay and show completion popup
+    StartCoroutine(ShowPopupAfterDelay(1.2f));
+}
+
 
     private IEnumerator ShowPopupAfterDelay(float delay)
     {
