@@ -48,16 +48,50 @@ public class LivingRoom_HorizontalScrollBar : MonoBehaviour
     /// A list of challenges for each image index
     /// </summary>
     [HideInInspector]
-    public readonly List<KeyValuePair<string, string>> CssChallenges = new()
-    {
-        new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new KeyValuePair<string, string>(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new KeyValuePair<string, string>("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new KeyValuePair<string, string>("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new KeyValuePair<string, string>("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new KeyValuePair<string, string>("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
-    };
+public readonly List<KeyValuePair<string, string>> CssChallenges = new()
+{
+    new KeyValuePair<string, string>(
+        "div {\n    background color blue;\n    width: 100px;\n}",
+        "div {\n    background-color: blue;\n    width: 100px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "p {\n    font size 20px;\n    text align center;\n}",
+        "p {\n    font-size: 20px;\n    text-align: center;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".box {\n    border 2px solid black;\n    margin top 10px;\n}",
+        ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "#header {\n    color red;\n    font weight bold;\n}",
+        "#header {\n    color: red;\n    font-weight: bold;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "ul {\n    list style type none;\n    padding 0;\n}",
+        "ul {\n    list-style-type: none;\n    padding: 0;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "a {\n    text decoration none;\n    color green;\n}",
+        "a {\n    text-decoration: none;\n    color: green;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "img {\n    width 100px;\n    height 100px;\n}",
+        "img {\n    width: 100px;\n    height: 100px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".card {\n    background color white;\n    font size 16px;\n}",
+        ".card {\n    background-color: white;\n    font-size: 16px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".title {\n    color blue\n}\n#footer {\n    text align right;\n}",
+        ".title {\n    color: blue;\n}\n#footer {\n    text-align: right;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "section {\n    border 1px solid gray\n    padding 20px;\n}",
+        "section {\n    border: 1px solid gray;\n    padding: 20px;\n}"
+    )
+};
+
 
     // --------------------------------------------------------------
 
