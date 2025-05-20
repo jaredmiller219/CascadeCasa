@@ -133,13 +133,27 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     private readonly List<string> _cssHints = new()
     {
-        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
-        "Look for missing colons in the font size and text align properties.",
-        "Ensure the border and margin top properties have colons.",
-        "Use a colon after color and font weight properties.",
-        "List style type and padding need colons and values.",
-        "Colons are required after text decoration and color.",
-        "Don't forget colons after width and height."
+    // 1
+    "Use a colon (:) between property and value. Properties like background-color and width define how elements look.",
+    // 2
+    "Text styling: font-size and text-align both need colons and semicolons. Always hyphenate compound property names.",
+    // 3
+    "Borders and margins are common layout tools. Remember: margin-top and border use hyphens.",
+    // 4
+    "Use color and font-weight to style text. Both need colons, and the values go after them.",
+    // 5
+    "Lists use 'list-style-type' to control bullets and 'padding' for spacing. Double-check spelling and colons.",
+    // 6
+    "Links are styled with 'text-decoration' and 'color'. Use hyphens for compound properties.",
+    // 7
+    "Width and height often go together. Each needs a colon and unit like px or %.",
+    // 8
+    "Practice combining multiple properties in one rule block. Don't forget a semicolon at the end of each line.",
+    // 9
+    "CSS selectors like .class or #id target specific elements. Check your dots and hashes!",
+    // 10
+    "This final one is a recap — remember colons, semicolons, and consistent spacing. You’ve got this!"
+
     };
 
     private void Start()
