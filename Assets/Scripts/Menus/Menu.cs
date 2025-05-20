@@ -58,10 +58,27 @@ public class Menu : MonoBehaviour
     /// </summary>
     private TMP_Text instructionsText;
 
+
+    // TEMPORARY WHILE TESTING
+#if UNITY_EDITOR
+    private static bool prefsResetThisSession = false;
+    private static bool ResetPlayerPrefsInEditor = true;
+#endif
+
     private void Start()
     {
-        // Keep using this when testing every other game to reset status
-        // PlayerPrefs.DeleteKey("TutorialFinished");
+        // TEMPORARY WHILE TESTING
+#if UNITY_EDITOR
+        if (ResetPlayerPrefsInEditor && !prefsResetThisSession)
+        {
+            PlayerPrefs.DeleteKey("TutorialFinished");
+            prefsResetThisSession = true;
+            Debug.Log("PlayerPrefs reset at session start (Editor only)");
+        }
+#endif
+
+        NavigationData.CameFromOnBoarding = false;
+        NavigationData.CameFromLevelComplete = false;
 
         levelSelectText = levelSelectButton.GetComponentInChildren<TMP_Text>();
         tutorialText = tutorialButton.GetComponentInChildren<TMP_Text>();
@@ -95,6 +112,9 @@ public class Menu : MonoBehaviour
     {
         SetDefaultColor(levelSelectText);
         PlayClickSound();
+        NavigationData.CameFromOnBoarding = false;
+        NavigationData.CameFromLevelComplete = false; // Reset flags here
+        NavigationData.PreviousScene = "Menu";
         StartCoroutine(LoadSceneDelayed("LevelSelect"));
     }
 
@@ -113,6 +133,8 @@ public class Menu : MonoBehaviour
     {
         SetDefaultColor(tutorialText);
         PlayClickSound();
+        NavigationData.CameFromOnBoarding = true;
+        NavigationData.CameFromLevelComplete = false;
         StartCoroutine(LoadSceneDelayed("OnBoarding"));
     }
 
