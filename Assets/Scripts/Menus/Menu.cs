@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Menu : MonoBehaviour
 {
@@ -11,6 +13,12 @@ public class Menu : MonoBehaviour
     [Tooltip("Button to load the level select scene")]
     [Header("Menu Buttons")]
     public GameObject levelSelectButton;
+
+    // /// <summary>
+    // ///
+    // /// </summary>
+    // [Tooltip("Lock icon for level select")]
+    // public GameObject levelSelectLock;
 
     /// <summary>
     /// Button to load the tutorial scene
@@ -52,9 +60,24 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
+        // Keep using this when testing every other game to reset status
+        // PlayerPrefs.DeleteKey("TutorialFinished");
+
         levelSelectText = levelSelectButton.GetComponentInChildren<TMP_Text>();
         tutorialText = tutorialButton.GetComponentInChildren<TMP_Text>();
         instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
+        SetLevelSelectInteractable(false);
+        if (CheckUnlockCondition()) SetLevelSelectInteractable(true);
+    }
+
+    private bool CheckUnlockCondition()
+    {
+        return PlayerPrefs.GetInt("TutorialFinished", 0) == 1;
+    }
+
+    private void SetLevelSelectInteractable(bool interactable)
+    {
+        if (levelSelectButton) levelSelectButton.GetComponent<EventTrigger>().enabled = interactable;
     }
 
     /// <summary>
