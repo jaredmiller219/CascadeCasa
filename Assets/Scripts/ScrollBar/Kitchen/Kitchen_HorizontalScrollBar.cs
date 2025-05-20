@@ -48,16 +48,50 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// A list of challenges for each image index
     /// </summary>
     [HideInInspector]
-    public readonly List<KeyValuePair<string, string>> CssChallenges = new()
-    {
-        new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new KeyValuePair<string, string>(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new KeyValuePair<string, string>("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new KeyValuePair<string, string>("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new KeyValuePair<string, string>("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new KeyValuePair<string, string>("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
-    };
+ public readonly List<KeyValuePair<string, string>> CssChallenges = new()
+{
+    new KeyValuePair<string, string>(
+        ".plate {\n    margin 20px;\n    padding 10px;\n}",
+        ".plate {\n    margin: 20px;\n    padding: 10px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".shelf {\n    display flex;\n}",
+        ".shelf {\n    display: flex;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".row {\n    justify content space-between;\n}",
+        ".row {\n    justify-content: space-between;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".column {\n    align items center;\n}",
+        ".column {\n    align-items: center;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".container {\n    box sizing border-box;\n}",
+        ".container {\n    box-sizing: border-box;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "img {\n    max width 100%;\n}",
+        "img {\n    max-width: 100%;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".table {\n    margin 10px 20px;\n}",
+        ".table {\n    margin: 10px 20px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".blocky {\n    display block;\n}\n.inliney {\n    display inline;\n}",
+        ".blocky {\n    display: block;\n}\n.inliney {\n    display: inline;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".layout {\n    display flex;\n    justify content center;\n    padding 15px;\n}",
+        ".layout {\n    display: flex;\n    justify-content: center;\n    padding: 15px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "#kitchen {\n    box sizing border-box;\n    max width 600px;\n}",
+        "#kitchen {\n    box-sizing: border-box;\n    max-width: 600px;\n}"
+    )
+};
+
 
     // --------------------------------------------------------------
 
