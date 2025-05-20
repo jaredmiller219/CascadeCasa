@@ -43,7 +43,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// The text on the play button
     /// </summary>
-    private TMP_Text playText;
+    private TMP_Text tutorialText;
 
     /// <summary>
     /// the text on the instructions button
@@ -53,7 +53,7 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         levelSelectText = levelSelectButton.GetComponentInChildren<TMP_Text>();
-        playText = tutorialButton.GetComponentInChildren<TMP_Text>();
+        tutorialText = tutorialButton.GetComponentInChildren<TMP_Text>();
         instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
     }
 
@@ -80,7 +80,7 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void OnTutorialPress()
     {
-        SetPressedColor(playText);
+        SetPressedColor(tutorialText);
     }
 
     /// <summary>
@@ -88,8 +88,9 @@ public class Menu : MonoBehaviour
     /// </summary>
     public void OnTutorialRelease()
     {
-        SetDefaultColor(playText);
+        SetDefaultColor(tutorialText);
         PlayClickSound();
+        StartCoroutine(LoadSceneDelayed("OnBoarding"));
     }
 
     /// <summary>
