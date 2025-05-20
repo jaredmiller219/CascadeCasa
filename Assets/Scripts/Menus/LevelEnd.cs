@@ -41,9 +41,8 @@ public class LevelEnd : MonoBehaviour
     public void GoToMenu()
     {
         NavigationData.CameFromLevelComplete = false;
-        completePopup.SetActive(false);
-        // NavigationData.CameFromLevelComplete = true;
         NavigationData.CameFromOnBoarding = false;
+        completePopup.SetActive(false);
         SceneManager.LoadScene("Menu");
     }
 }
