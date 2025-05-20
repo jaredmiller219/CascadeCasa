@@ -131,16 +131,20 @@ public class Bedroom1_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-    private readonly List<string> _cssHints = new()
-    {
-        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
-        "Look for missing colons in the font size and text align properties.",
-        "Ensure the border and margin top properties have colons.",
-        "Use a colon after color and font weight properties.",
-        "List style type and padding need colons and values.",
-        "Colons are required after text decoration and color.",
-        "Don't forget colons after width and height."
-    };
+private readonly List<string> _cssHints = new()
+{
+    "font-family defines the typeface. You can use common fonts like Arial or 'Times New Roman'.",
+    "font-size sets how big the text is. Use units like px, em, or rem.",
+    "font-weight changes how bold text looks. Try normal, bold, or numeric values like 700.",
+    "line-height adjusts spacing between lines. Helpful for readability!",
+    "text-align aligns your text left, center, or right.",
+    "text-decoration adds effects like underline or none (useful for links).",
+    "Use color to change text color. Use basic names or hex values like #333.",
+    "background-color changes the area behind the text.",
+    "You can combine multiple text styles in one rule block.",
+    "Final check: Be mindful of colons, semicolons, and spelling in properties like font-family and line-height."
+};
+
 
     private void Start()
     {

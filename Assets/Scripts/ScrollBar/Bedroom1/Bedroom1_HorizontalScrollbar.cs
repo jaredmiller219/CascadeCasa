@@ -48,16 +48,50 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     /// A list of challenges for each image index
     /// </summary>
     [HideInInspector]
-    public readonly List<KeyValuePair<string, string>> CssChallenges = new()
-    {
-        new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new KeyValuePair<string, string>(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new KeyValuePair<string, string>("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new KeyValuePair<string, string>("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new KeyValuePair<string, string>("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new KeyValuePair<string, string>("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
-    };
+   public readonly List<KeyValuePair<string, string>> CssChallenges = new()
+{
+    new KeyValuePair<string, string>(
+        "p {\n    font family Arial;\n}",
+        "p {\n    font-family: Arial;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "h1 {\n    font size 32px;\n}",
+        "h1 {\n    font-size: 32px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".title {\n    font weight bold;\n}",
+        ".title {\n    font-weight: bold;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "p {\n    line height 1.5;\n}",
+        "p {\n    line-height: 1.5;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "h2 {\n    text align center;\n}",
+        "h2 {\n    text-align: center;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "a {\n    text decoration none;\n}",
+        "a {\n    text-decoration: none;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "p {\n    color #333;\n}",
+        "p {\n    color: #333;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "h3 {\n    background color yellow;\n}",
+        "h3 {\n    background-color: yellow;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".info {\n    font size 14px;\n    line height 1.6;\n}",
+        ".info {\n    font-size: 14px;\n    line-height: 1.6;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "#note {\n    font family 'Courier New';\n    color blue;\n}",
+        "#note {\n    font-family: 'Courier New';\n    color: blue;\n}"
+    )
+};
+
 
     // --------------------------------------------------------------
 
