@@ -2235,15 +2235,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slideImages:
-  - {fileID: 5706624216366063729, guid: fb4ce7123a60241f49c95eefa3125093, type: 3}
-  - {fileID: -1532437594706998308, guid: 6c1d10396f98e4d448b8439d610c614e, type: 3}
-  - {fileID: -4591853083064926847, guid: 77aa41e0e8b5c43c8a0d6a9cdc8bdfcf, type: 3}
-  - {fileID: -7339872270171649015, guid: 22d250b8a08124945ad977e152f2e260, type: 3}
+  - {fileID: 5706624216366063729, guid: 8fb69f272245b457f947bc527badb29f, type: 3}
+  - {fileID: -1532437594706998308, guid: 0a0d5cb27561b4ef9a37354feebb015a, type: 3}
+  - {fileID: -4591853083064926847, guid: 1e044cc1ed0be43dca709fc089b472f2, type: 3}
+  - {fileID: -7339872270171649015, guid: 6b6bea3a3f7054921b16201284f481dc, type: 3}
+  - {fileID: -6208726632836535474, guid: d69a97cacb0b04405846adf8ab67087a, type: 3}
+  - {fileID: -4221852468482947332, guid: 89bcd92fcae884374950b84f320a50fc, type: 3}
+  - {fileID: 6639557959646127074, guid: c4246a5e79c544627a79d87084c367d8, type: 3}
+  - {fileID: 397424870129191617, guid: bfb1254bcf16d45bba5db49d0b199ad3, type: 3}
   slideMusic:
   - {fileID: 8300000, guid: 2a39a27f484084f6c8910326529d518d, type: 3}
   - {fileID: 8300000, guid: 452dc7d86731141a8987e46bc87a3548, type: 3}
   - {fileID: 8300000, guid: b78d315e4a86041b39a793c0948b9483, type: 3}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 93024f7c09565457bac2c4b1ea271893, type: 3}
+  - {fileID: 8300000, guid: 0e06848db98154e8ea1f08cd0424c0db, type: 3}
+  - {fileID: 8300000, guid: e3a0aaa8bf4c14a2dbbded6af9849ed7, type: 3}
+  - {fileID: 8300000, guid: fb65e955d268b4d87a85cf30212f43db, type: 3}
+  - {fileID: 8300000, guid: 8f9e07bf4c55d4417be3db4fb3de84c9, type: 3}
   storyRoot: {fileID: 841179519}
   challengeUIToEnable: {fileID: 1696186387}
   slideDisplay: {fileID: 1663862899}
@@ -4470,7 +4478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5706624216366063729, guid: fb4ce7123a60241f49c95eefa3125093, type: 3}
+  m_Sprite: {fileID: 5706624216366063729, guid: 8fb69f272245b457f947bc527badb29f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
