@@ -752,7 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSelectButton: {fileID: 213781729}
-  playButton: {fileID: 981638708}
+  tutorialButton: {fileID: 981638708}
   instructionsButton: {fileID: 1970227187}
   audioSource: {fileID: 1854686912}
   clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
@@ -1440,7 +1440,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 461368818}
           m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-          m_MethodName: OnPlayPress
+          m_MethodName: OnTutorialPress
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1456,7 +1456,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 461368818}
           m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-          m_MethodName: OnPlayRelease
+          m_MethodName: OnTutorialRelease
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

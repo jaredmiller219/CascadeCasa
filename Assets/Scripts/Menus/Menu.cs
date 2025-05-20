@@ -13,10 +13,10 @@ public class Menu : MonoBehaviour
     public GameObject levelSelectButton;
 
     /// <summary>
-    /// Button to load the play scene
+    /// Button to load the tutorial scene
     /// </summary>
     [Tooltip("Button to load the play scene")]
-    public GameObject playButton;
+    public GameObject tutorialButton;
 
     /// <summary>
     /// Button to load the instructions scene
@@ -53,7 +53,7 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         levelSelectText = levelSelectButton.GetComponentInChildren<TMP_Text>();
-        playText = playButton.GetComponentInChildren<TMP_Text>();
+        playText = tutorialButton.GetComponentInChildren<TMP_Text>();
         instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
     }
 
@@ -78,7 +78,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// Sets the text color when the Play button is clicked
     /// </summary>
-    public void OnPlayPress()
+    public void OnTutorialPress()
     {
         SetPressedColor(playText);
     }
@@ -86,7 +86,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// Sets the text color when the Play button is released
     /// </summary>
-    public void OnPlayRelease()
+    public void OnTutorialRelease()
     {
         SetDefaultColor(playText);
         PlayClickSound();
