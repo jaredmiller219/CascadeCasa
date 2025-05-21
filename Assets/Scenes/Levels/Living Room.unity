@@ -285,11 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 1117844312}
-=======
   m_Material: {fileID: 488622467}
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1010,11 +1006,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222856356}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
---- !u!21 &316769441
-=======
 --- !u!21 &284351895
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1096,8 +1088,6 @@ Material:
     - _WidthHeightRadius: {r: 60, g: 60, b: 6, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
-<<<<<<< HEAD
-=======
 --- !u!21 &415650528
 Material:
   serializedVersion: 8
@@ -1182,7 +1172,6 @@ Material:
     - _rect2props: {r: -4.9999695, g: 4.9999695, b: 306.62363, a: 299.55255}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
 --- !u!1 &533730706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,11 +1624,8 @@ MonoBehaviour:
   journal: {fileID: 115715717}
   audioSource: {fileID: 942927239}
   clickSound: {fileID: 8300000, guid: c5952bfad501848bfb69b9a27dc43db0, type: 3}
-<<<<<<< HEAD
-=======
   successSound: {fileID: 8300000, guid: c745e527d00e646e7be134fc2cec35e6, type: 3}
   errorSound: {fileID: 8300000, guid: ba82259e7378a44fba0f02507bfd15d0, type: 3}
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
   canReset: 0
   canSubmit: 0
   levelsCompleted: 5
@@ -2015,11 +2001,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5830378430634212527, guid: 752b6d8cce85a436db6e32142bec8a8f, type: 3}
   m_PrefabInstance: {fileID: 1021780915}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
---- !u!21 &1117844312
-=======
 --- !u!21 &1077586951
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -2057,13 +2039,7 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-<<<<<<< HEAD
-    - _halfSize: {r: 200, g: 243.63126, b: 0, a: 0}
-    - _r: {r: 0, g: 20, b: 20, a: 20}
-    - _rect2props: {r: -4.9999695, g: 4.9999695, b: 306.62363, a: 299.55255}
-=======
     - _WidthHeightRadius: {r: 413, g: 500, b: 60, a: 0}
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1185903503
@@ -2506,91 +2482,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
-<<<<<<< HEAD
---- !u!21 &1307963520
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _WidthHeightRadius: {r: 200, g: 80, b: 40, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!21 &1317486408
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _WidthHeightRadius: {r: 60, g: 60, b: 6, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
-=======
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
 --- !u!21 &1346513095
 Material:
   serializedVersion: 8
@@ -2714,11 +2605,7 @@ Material:
     - _WidthHeightRadius: {r: 200, g: 80, b: 40, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
-<<<<<<< HEAD
---- !u!21 &1637044901
-=======
 --- !u!21 &1543609118
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -3279,11 +3166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 1356688766}
-=======
   m_Material: {fileID: 1782691762}
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4718,11 +4601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 540244604}
-=======
   m_Material: {fileID: 1077586951}
->>>>>>> 0eec245da59cda9923f3a4df60d15303d6e941e7
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}

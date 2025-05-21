@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kitchen furnished_0: 4157152692339831172
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

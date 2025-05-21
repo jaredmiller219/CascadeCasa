@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bathroom finale flip_0: 7630941798048195117
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
