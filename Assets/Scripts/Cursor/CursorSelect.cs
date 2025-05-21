@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 /// <summary>
 /// This script manages the cursor for a dropdown menu in Unity.

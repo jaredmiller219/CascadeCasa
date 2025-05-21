@@ -1,8 +1,8 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 using UnityEngine.UI;
-using TMPro;
 
 public class LevelSelect : MonoBehaviour
 {
@@ -99,8 +99,7 @@ public class LevelSelect : MonoBehaviour
         SetAlphaHitTest(bedroom2Btn);
         SetAlphaHitTest(gardenBtn);
 
-        if (NavigationData.CameFromLevelComplete) btnText.text = "Menu";
-        else btnText.text = "Back";
+        btnText.text = NavigationData.CameFromLevelComplete ? "Menu" : "Back";
     }
 
     /// <summary>

@@ -42,7 +42,7 @@ public class Bedroom1_ResetDropdown : MonoBehaviour
         if (audioSource && popupSound) audioSource.PlayOneShot(popupSound);
         if (!resetPopup || !_animator || !notepad) return;
 
-        // If there's text in the notepad, play the animation
+        // If there's a text in the notepad, play the animation
         if (GetNotepadText(notepad.inputField) == "") return;
         resetPopup.SetActive(true);
         _animator.Play("Pull", 0, 0f);
@@ -66,7 +66,7 @@ public class Bedroom1_ResetDropdown : MonoBehaviour
     /// <summary>
     /// Gets the text of the notepad's input field and returns it as a string
     /// </summary>
-    /// <param name="notepad">The notepad gameobject</param>
+    /// <param name="notepad">The notepad gameObject</param>
     /// <returns>The text of the component as a string</returns>
     private static string GetNotepadText(GameObject notepad)
     {

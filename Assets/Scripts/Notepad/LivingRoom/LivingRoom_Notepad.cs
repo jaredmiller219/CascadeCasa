@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System.Collections;
 
 public class LivingRoom_Notepad : MonoBehaviour
 {
@@ -88,6 +89,16 @@ public class LivingRoom_Notepad : MonoBehaviour
     public AudioClip clickSound;
 
     /// <summary>
+    /// the success sound
+    /// </summary>
+    public AudioClip successSound;
+
+    /// <summary>
+    /// the error sound
+    /// </summary>
+    public AudioClip errorSound;
+
+    /// <summary>
     /// whether you can click the reset button
     /// </summary>
     [HideInInspector]
@@ -105,7 +116,7 @@ public class LivingRoom_Notepad : MonoBehaviour
     public int levelsCompleted;
 
     /// <summary>
-    /// The reference to the gameObject with the orizontalScrollBar
+    /// The reference to the gameObject with the HorizontalScrollBar
     /// </summary>
     [Tooltip("The reference to the gameObject with the HorizontalScrollBar")]
     [SerializeField]
@@ -159,6 +170,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
+            if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
             ResetCurrentChallenge();
             ChangeFocusTo(null);
         });
@@ -213,8 +225,6 @@ public class LivingRoom_Notepad : MonoBehaviour
     public void SetCssText(string css)
     {
         if (!inputField) return;
-
-        // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
@@ -242,7 +252,6 @@ public class LivingRoom_Notepad : MonoBehaviour
         button.GetComponent<Button>().interactable = isInteractable;
     }
 
-
     /// <summary>
     /// Sets the feedback text and color for the user
     /// </summary>
@@ -263,6 +272,7 @@ public class LivingRoom_Notepad : MonoBehaviour
             tmpText.text = text;
             tmpText.color = color;
         }
+        else Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
     }
 
     /// <summary>
@@ -299,6 +309,8 @@ public class LivingRoom_Notepad : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
+            if (audioSource && successSound) audioSource.PlayOneShot(successSound);
+
             SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
             if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
             SaveProgress();
@@ -310,6 +322,7 @@ public class LivingRoom_Notepad : MonoBehaviour
         }
         else
         {
+            if (audioSource && errorSound) audioSource.PlayOneShot(errorSound);
             SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
         }
     }
@@ -320,7 +333,9 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <returns>boolean stating whether the level is complete</returns>
     private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
 
-    ///
+    /// <summary>
+    /// The level is complete
+    /// </summary>
     private void LevelComplete()
     {
         if (journal) journal.CloseJournal();
@@ -441,12 +456,13 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     public void SaveProgress()
     {
-        SaveData data = new SaveData { currentChallengeIndex = currentChallengeIndex };
+        var data = new SaveData { currentChallengeIndex = currentChallengeIndex };
+
         foreach (var kvp in savedTexts)
         {
             data.challenges.Add(new ChallengeEntry { index = kvp.Key, entryText = kvp.Value });
         }
-        string json = JsonUtility.ToJson(data, true);
+        var json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
     }
 
@@ -461,9 +477,9 @@ public class LivingRoom_Notepad : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
             currentChallengeIndex = data.currentChallengeIndex;
             savedTexts.Clear();
-            foreach (var entry in data.challenges)
+            foreach (var entry in data.challenges.Where(entry => !string.IsNullOrWhiteSpace(entry.entryText)))
             {
-                if (!string.IsNullOrWhiteSpace(entry.entryText)) savedTexts[entry.index] = entry.entryText;
+                savedTexts[entry.index] = entry.entryText;
             }
         }
         LoadChallenge();
