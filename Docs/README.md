@@ -64,6 +64,25 @@ _(Coming Soon)._
   The house customization and object placement mechanics influenced how players will use CSS to style and position objects in _Cascade Casa_.
 
 ---
+## Screenshots
+
+Here are some previews of *Cascade Casa* gameplay:
+
+![Living Room](./Docs/readme1.jpg)
+![Hint System](./Docs/readme2.jpg)
+![Syntax Challenge](./Docs/readme3.jpg)
+![Decorated Room](./Docs/readme4.jpg)
+![Journal UI](./Docs/readme5.jpg)
+![Room Unlocked](./Docs/readme6.jpg)
+
+---
+
+## Gameplay Video
+
+Watch a quick gameplay demo of *Cascade Casa* here:
+
+[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+
 
 ## Early Concept & Contributions
 
