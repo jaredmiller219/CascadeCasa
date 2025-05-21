@@ -65,7 +65,7 @@ public class Kitchen_ResetDropdown : MonoBehaviour
     /// <summary>
     /// Gets the text of the notepad's input field and returns it as a string
     /// </summary>
-    /// <param name="notepad">The notepad gameobject</param>
+    /// <param name="notepad">The notepad gameObject</param>
     /// <returns>The text of the component as a string</returns>
     private static string GetNotepadText(GameObject notepad)
     {

@@ -1,9 +1,9 @@
-using UnityEngine;
-using TMPro;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Instructions : MonoBehaviour
 {
@@ -130,7 +130,6 @@ public class Instructions : MonoBehaviour
         {
             instructionText.GetComponent<TMP_Text>().text = _instructions[index].instructionText;
         }
-
         else instructionText.GetComponent<TMP_Text>().text = "Instruction not found.";
     }
 

@@ -25,7 +25,7 @@ public class OnboardingManager : MonoBehaviour
     private int currentStep;
 
 #if UNITY_EDITOR
-    private static bool testingSetupDone = false;
+    private static bool testingSetupDone;
 #endif
 
     private void Start()
@@ -51,7 +51,7 @@ public class OnboardingManager : MonoBehaviour
     /// Activates the tutorial step at the specified index and deactivates all others.
     /// </summary>
     /// <param name="index">The index of the tutorial step to show.</param>
-    public void ShowStep(int index)
+    private void ShowStep(int index)
     {
         if (index < 0 || index >= tutorialSteps.Length)
         {
@@ -77,7 +77,7 @@ public class OnboardingManager : MonoBehaviour
     /// <br />
     /// Calls <see cref="ShowStep"/> if there are remaining steps.
     /// <br />
-    /// otherwise ends the tutorial.
+    /// Otherwise, ends the tutorial.
     /// </summary>
     public void GoToNextStep()
     {
@@ -88,7 +88,7 @@ public class OnboardingManager : MonoBehaviour
 
     /// <summary>
     /// Ends the tutorial by deactivating all tutorial steps and
-    /// transitions to main menu after a delay.
+    /// transitions to the main menu after a delay.
     /// </summary>
     private void EndTutorial()
     {
@@ -99,7 +99,7 @@ public class OnboardingManager : MonoBehaviour
         PlayerPrefs.Save();
         NavigationData.CameFromOnBoarding = true;
 
-        // Go to main menu
+        // Go to the main menu
         // Debug.Log("Tutorial completed!");
         StartCoroutine(DelayedLoadMenu());
     }

@@ -15,7 +15,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     public RectTransform content;
 
     /// <summary>
-    /// The image prefab to be added
+    /// The image prefabs to be added
     /// </summary>
     [Header("References")]
     public GameObject imagePrefab;
@@ -206,7 +206,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     }
 
     /// <summary>
-    /// Setup the layout of the scroll area
+    /// Set up the layout of the scroll area
     /// </summary>
     private void SetupLayout()
     {
@@ -283,7 +283,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
 
     /// <summary>
     /// Prepares the image GameObject for interaction
-    /// and attaches the related css script to the image
+    /// and attaches the related CSS script to the image
     /// </summary>
     private void AddScriptToImage(GameObject imgObj)
     {
@@ -331,7 +331,7 @@ public class Bedroom1_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="clickedIndex">the current index of the button clicked</param>
     /// <param name="previousIndex">the index of the previous button clicked</param>
-    /// <returns>boolean representing whether same button was clicked or not</returns>
+    /// <returns>boolean representing whether the same button was clicked or not</returns>
     private static bool IsSameButton(int clickedIndex, int previousIndex)
     {
         return clickedIndex == previousIndex;
