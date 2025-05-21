@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Onboarding_Notepad : MonoBehaviour
 {
@@ -66,6 +67,14 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     [Header("Hint Section")]
     public GameObject hintText;
+
+    [Header("Room Transition")]
+    public Image backgroundImage;
+    public Sprite furnishedRoomSprite;
+    public AudioClip successJingle;
+
+    [Header("Journal")]
+    public Onboarding_Journal journal;
 
     /// <summary>
     /// The source of the audio
@@ -133,13 +142,16 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     private readonly List<string> _cssHints = new()
     {
-        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
-        "Look for missing colons in the font size and text align properties.",
-        "Ensure the border and margin top properties have colons.",
-        "Use a colon after color and font weight properties.",
-        "List style type and padding need colons and values.",
-        "Colons are required after text decoration and color.",
-        "Don't forget colons after width and height."
+        "Use a colon (:) between property and value. Properties like background-color and width define how elements look.",
+        "Text styling: font-size and text-align both need colons and semicolons. Always hyphenate compound property names.",
+        "Borders and margins are common layout tools. Remember: margin-top and border use hyphens.",
+        "Use color and font-weight to style text. Both need colons, and the values go after them.",
+        "Lists use 'list-style-type' to control bullets and 'padding' for spacing. Double-check spelling and colons.",
+        "Links are styled with 'text-decoration' and 'color'. Use hyphens for compound properties.",
+        "Width and height often go together. Each needs a colon and unit like px or %.",
+        "Practice combining multiple properties in one rule block. Don't forget a semicolon at the end of each line.",
+        "CSS selectors like .class or #id target specific elements. Check your dots and hashes!",
+        "This final one is a recap — remember colons, semicolons, and consistent spacing. You’ve got this!"
     };
 
     private void Start()
@@ -152,9 +164,7 @@ public class Onboarding_Notepad : MonoBehaviour
         });
 
         resetPopup.SetActive(false);
-
-        const float scrollSensitivity = 0.01f;
-        inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
+        inputField.GetComponent<TMP_InputField>().scrollSensitivity = 0.01f;
 
         _cursorManager = GlobalCursorManager.Instance;
         if (_cursorManager) _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
@@ -166,17 +176,13 @@ public class Onboarding_Notepad : MonoBehaviour
 
         canReset = false;
         canSubmit = false;
-
         currentChallengeIndex = -1;
         levelsCompleted = 0;
 
         LoadProgress();
     }
 
-    private static void ChangeFocusTo(GameObject gameObj)
-    {
-        EventSystem.current.SetSelectedGameObject(gameObj);
-    }
+    private static void ChangeFocusTo(GameObject gameObj) => EventSystem.current.SetSelectedGameObject(gameObj);
 
     /// <summary>
     /// Save the current text at the button's index
@@ -224,10 +230,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <summary>
     /// Switch back to the previous cursor when back outside the input field
     /// </summary>
-    public void OnInputFieldExit()
-    {
-        _cursorManager.SetCursor(_previousCursorIndex);
-    }
+    public void OnInputFieldExit() => _cursorManager.SetCursor(_previousCursorIndex);
 
     /// <summary>
     /// Set the button's interactability status
@@ -238,6 +241,7 @@ public class Onboarding_Notepad : MonoBehaviour
     {
         button.GetComponent<Button>().interactable = isInteractable;
     }
+
 
     /// <summary>
     /// Sets the feedback text and color for the user
@@ -259,7 +263,6 @@ public class Onboarding_Notepad : MonoBehaviour
             tmpText.text = text;
             tmpText.color = color;
         }
-        else Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
     }
 
     /// <summary>
@@ -296,8 +299,7 @@ public class Onboarding_Notepad : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            const string displayedFeedback = "Correct!";
-            SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
+            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
             if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
             SaveProgress();
             levelsCompleted++;
@@ -308,8 +310,7 @@ public class Onboarding_Notepad : MonoBehaviour
         }
         else
         {
-            const string displayedFeedback = "Check colons, semicolons, dashes, and syntax!";
-            SetTextOfComponent(feedbackText, displayedFeedback, Color.red, false);
+            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
         }
     }
 
@@ -317,13 +318,24 @@ public class Onboarding_Notepad : MonoBehaviour
     /// Checks whether the level is complete
     /// </summary>
     /// <returns>boolean stating whether the level is complete</returns>
-    private bool IsLevelComplete()
-    {
-        return levelsCompleted == scrollBar.imageSprites.Length;
-    }
+    private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
 
+    ///
     private void LevelComplete()
     {
+        if (journal) journal.CloseJournal();
+
+        if (backgroundImage && furnishedRoomSprite) backgroundImage.sprite = furnishedRoomSprite;
+
+        if (audioSource && successJingle) audioSource.PlayOneShot(successJingle);
+        StartCoroutine(ShowPopupAfterDelay(1.2f));
+    }
+
+
+    private IEnumerator ShowPopupAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
         SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
         SetTextOfComponent(inputField, "", Color.clear, false);
         SetButtonInteractable(submitBtn, false);
@@ -340,7 +352,6 @@ public class Onboarding_Notepad : MonoBehaviour
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
-
 
     /// <summary>
     /// Load the CSS for the current challenge
@@ -370,7 +381,6 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     public void ResetCurrentChallenge()
     {
-        // the user hasn't selected an image yet
         if (currentChallengeIndex == -1)
         {
             SetTextOfComponent(inputField, "", Color.black, true);
@@ -431,17 +441,12 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     public void SaveProgress()
     {
-        SaveData data = new SaveData
-        {
-            currentChallengeIndex = currentChallengeIndex
-        };
-
+        SaveData data = new SaveData { currentChallengeIndex = currentChallengeIndex };
         foreach (var kvp in savedTexts)
         {
             data.challenges.Add(new ChallengeEntry { index = kvp.Key, entryText = kvp.Value });
         }
-
-        string json = JsonUtility.ToJson(data, prettyPrint: true);
+        string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
     }
 
@@ -454,9 +459,7 @@ public class Onboarding_Notepad : MonoBehaviour
         {
             string json = File.ReadAllText(saveFilePath);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
-
             currentChallengeIndex = data.currentChallengeIndex;
-
             savedTexts.Clear();
             foreach (var entry in data.challenges)
             {
