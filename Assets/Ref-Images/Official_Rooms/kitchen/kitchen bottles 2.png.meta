@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kitchen bottles 2_0: -7175999747803105230
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
