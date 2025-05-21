@@ -252,6 +252,7 @@ public class Onboarding_Notepad : MonoBehaviour
         button.GetComponent<Button>().interactable = isInteractable;
     }
 
+
     /// <summary>
     /// Sets the feedback text and color for the user
     /// </summary>
@@ -272,7 +273,6 @@ public class Onboarding_Notepad : MonoBehaviour
             tmpText.text = text;
             tmpText.color = color;
         }
-        else Debug.LogWarning("No TMP_Text or TMP_InputField component found!");
     }
 
     /// <summary>
@@ -310,7 +310,6 @@ public class Onboarding_Notepad : MonoBehaviour
         if (normalizedUserInput == normalizedCorrectCss)
         {
             if (audioSource && successSound) audioSource.PlayOneShot(successSound);
-            
             SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
             if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
             SaveProgress();
@@ -457,7 +456,6 @@ public class Onboarding_Notepad : MonoBehaviour
     public void SaveProgress()
     {
         var data = new SaveData { currentChallengeIndex = currentChallengeIndex };
-
         foreach (var kvp in savedTexts)
         {
             data.challenges.Add(new ChallengeEntry { index = kvp.Key, entryText = kvp.Value });

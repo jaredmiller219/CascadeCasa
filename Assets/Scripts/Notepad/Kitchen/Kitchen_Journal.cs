@@ -39,7 +39,7 @@ public class Kitchen_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     private GameObject JournalImage;
 
     /// <summary>
-    /// A reference to the kitchen notepad
+    /// A reference to the kitchen room notepad
     /// </summary>
     [SerializeField]
     private Kitchen_Notepad notepad;
@@ -102,7 +102,7 @@ public class Kitchen_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         if (journalPopup && journalPopup.activeSelf)
         {
-            notepad.SaveCurrentInputIfNeeded();
+            notepad.SaveCurrentInputIfNeeded(); // same as in ToggleJournal
             journalPopup.SetActive(false);
         }
     }
