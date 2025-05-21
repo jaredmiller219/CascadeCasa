@@ -11,6 +11,7 @@
   3. Completing syntax (When showing the checkmark)
 
 - From Dustin:
+
 1. Add correct sound effects for completing challenges
 2. Finish the Onboarding Scene
 3. Clean up README and complete the Canvas Assignment
