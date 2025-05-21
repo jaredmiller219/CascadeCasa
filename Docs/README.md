@@ -6,16 +6,24 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 
 ## Developers
 
-- **Jared Miller** - [jaredmil@udel.edu](mailto:jaredmil@udel.edu)
-- **Selin Bacaz** - [selinb@udel.edu](mailto:selinb@udel.edu) !!
-- **Dustin Tran** - [dustintr@udel.edu](mailto:dustintr@udel.edu)
-- **Mohamed Mouhoud** - [tahamou@udel.edu](mailto:tahamou@udel.edu)
+- **Jared Miller** - [jaredmil@udel.edu](mailto:jaredmil@udel.edu), Lead Developer
+- **Selin Bacaz** - [selinb@udel.edu](mailto:selinb@udel.edu), Lead Artist
+- **Dustin Tran** - [dustintr@udel.edu](mailto:dustintr@udel.edu), Concepts & Instructions Designer & Developer
+- **Mohamed Mouhoud** - [tahamou@udel.edu](mailto:tahamou@udel.edu), Sound Developer
 
 ---
 
 ## Basic Instructions
-
-_(Coming Soon)._
+1. **Start the Game:** On the home screen, click on the **Tutorial** house to begin.
+2. **Follow the Storyline:** The journal (Cee Cee) will guide you through your journey in Cascade Casa.
+3. **Complete Styling Challenges:**
+   - Open the **selection bar** to explore your room.
+   - Click on a piece of furniture to open Cee Cee’s journal.
+   - Use the **hint bar** on the left page for help.
+   - Fix the **CSS syntax** on the journal's right page and click **Submit**.
+   - If correct, the furniture will be marked with a **green check** and unlocked.
+4. **Reset if Needed:** Use the **Reset** button to retry the challenge.
+5. **Progress Through the Game:** Once all furniture in the room is unlocked, it will automatically decorate itself — and the next room will be unlocked!
 
 ---
 
@@ -59,6 +67,15 @@ _(Coming Soon)._
 
 ## Early Concept & Contributions
 
-- **Game Idea:** Dustin Tran
+- **Concepts:** Dustin Tran
+- **Core Game Mechanics:** Jared Miller
 - **Graphics:** Selin Bacaz, Dustin Tran, Mohamed Mouhoud
-- **Soundtrack:** Jared Miller (inspired by Stardew Valley)
+
+## Credits:
+- Sounds: All of our soundtracks were found on https://pixabay.com/
++ https://pixabay.com/sound-effects/busy-office-no-people-loop-6719/
++ https://pixabay.com/sound-effects/summer-insects-243572/
++ https://pixabay.com/sound-effects/music-box-336285/
++ https://pixabay.com/sound-effects/squeaky-door-open-113212/
++ https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/
+- ChatGPT were used to refine code & writing for the game

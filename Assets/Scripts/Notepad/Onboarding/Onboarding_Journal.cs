@@ -102,7 +102,7 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     {
         if (journalPopup && journalPopup.activeSelf)
         {
-            notepad.SaveCurrentInputIfNeeded();
+            notepad.SaveCurrentInputIfNeeded(); // same as in ToggleJournal
             journalPopup.SetActive(false);
         }
     }
