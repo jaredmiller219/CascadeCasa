@@ -11,6 +11,11 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// the content area
     /// </summary>
+    /// 
+    [Header("Unlock Display")]
+    public RectTransform unlockedImagePanel;
+
+
     [Header("References")]
     public RectTransform content;
 
@@ -150,12 +155,40 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
             if (!button.TryGetComponent<Onboarding_ChallengeImage>(out var challengeImage)) return;
             challengeImage.Completed = true;
             challengeImage.Locked = false;
+
+            AddUnlockedImage(index);
         }
         else
         {
             Debug.LogWarning("Checkmark object not found under button!");
         }
     }
+
+    private void AddUnlockedImage(int index)
+{
+    if (!unlockedImagePanel)
+    {
+        Debug.LogWarning("Unlocked image panel is not assigned!");
+        return;
+    }
+
+    if (index < 0 || index >= imageSprites.Length)
+    {
+        Debug.LogWarning("Index out of range for imageSprites.");
+        return;
+    }
+
+    GameObject newImageObj = Instantiate(imagePrefab, unlockedImagePanel);
+    if (!newImageObj.TryGetComponent<Image>(out var newImage)) return;
+
+    newImage.sprite = imageSprites[index];
+    newImage.preserveAspect = true;
+    newImage.GetComponent<RectTransform>().sizeDelta = imageSize;
+
+    // Optional: Remove ChallengeImage component from clone
+    var challengeComponent = newImageObj.GetComponent<Onboarding_ChallengeImage>();
+    if (challengeComponent) Destroy(challengeComponent);
+}
 
     /// <summary>
     /// wait for one frame until rebuild
