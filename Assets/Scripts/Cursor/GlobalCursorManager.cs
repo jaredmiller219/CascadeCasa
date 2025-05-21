@@ -91,29 +91,18 @@ public class GlobalCursorManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        // Check if an instance of this manager already exists
         if (!Instance)
         {
-            // Set this instance as the singleton instance
             Instance = this;
-
-            // Initialize the array of cursor textures
             InitializeCursorTextures();
-
-            // Prevent this GameObject from being destroyed when loading new scenes
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            // Destroy this GameObject if another instance already exists
-            Destroy(gameObject);
-        }
+        else Destroy(gameObject);
     }
 
 
     private void Start()
     {
-        // Load the saved cursor preference and apply it
         LoadSavedCursor();
     }
 
@@ -122,7 +111,6 @@ public class GlobalCursorManager : MonoBehaviour
     /// </summary>
     private void InitializeCursorTextures()
     {
-        // Create an array to hold the cursor textures
         _cursorTextures = new Texture2D[7];
 
         _cursorTextures[0] = blackCursor;
@@ -172,12 +160,7 @@ public class GlobalCursorManager : MonoBehaviour
     private void ApplyCursor(int index)
     {
         if (index < 0 || index >= _cursorTextures.Length || !_cursorTextures[index]) return;
-
-        Vector2 hotspot;
-        if (index == IBeamCursorIndex) hotspot = _cursorHotspot; // I-Beam has custom hotspot (set to middle)
-        else hotspot = Vector2.zero; // Normal hotspot at corner for regular cursors
-
-        // Set the cursor texture, hotspot, and mode
+        var hotspot = index == IBeamCursorIndex ? _cursorHotspot : Vector2.zero;
         Cursor.SetCursor(_cursorTextures[index], hotspot, CursorMode.Auto);
     }
 }

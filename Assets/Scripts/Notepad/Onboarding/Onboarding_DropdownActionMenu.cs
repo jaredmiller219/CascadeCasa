@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Onboarding_DropdownActionMenu : MonoBehaviour
@@ -46,33 +46,25 @@ public class Onboarding_DropdownActionMenu : MonoBehaviour
                 // Save
                 notepad.SaveProgress();
                 break;
-
             case 1:
-                // Level Select
-                notepad.SaveProgress();
-                NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
-                SceneManager.LoadScene("LevelSelect");
-                break;
-
-            case 2:
                 // Menu
                 notepad.SaveProgress();
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("Menu");
                 break;
 
-            case 3:
+            case 2:
                 // Settings
                 notepad.SaveProgress();
                 NavigationData.PreviousScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("Settings");
                 break;
 
-            case 4:
-                // Ouit
+            case 3:
+                // Quit the game
                 notepad.SaveProgress();
 
-                // If in editor, stop playing. If in build, quit application
+                // If in the editor, stop playing. If in build, quit the application
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif

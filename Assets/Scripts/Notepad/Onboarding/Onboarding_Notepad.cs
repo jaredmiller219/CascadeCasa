@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System.Collections;
 
 public class Onboarding_Notepad : MonoBehaviour
 {
@@ -86,6 +87,16 @@ public class Onboarding_Notepad : MonoBehaviour
     /// The sound to play when the button is clicked
     /// </summary>
     public AudioClip clickSound;
+    
+    /// <summary>
+    /// the success sound
+    /// </summary>
+    public AudioClip successSound;
+    
+    /// <summary>
+    /// the error sound
+    /// </summary>
+    public AudioClip errorSound;
 
     /// <summary>
     /// whether you can click the reset button
@@ -105,7 +116,7 @@ public class Onboarding_Notepad : MonoBehaviour
     public int levelsCompleted;
 
     /// <summary>
-    /// The reference to the gameObject with the orizontalScrollBar
+    /// The reference to the gameObject with the HorizontalScrollBar
     /// </summary>
     [Tooltip("The reference to the gameObject with the HorizontalScrollBar")]
     [SerializeField]
@@ -159,6 +170,7 @@ public class Onboarding_Notepad : MonoBehaviour
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
+            if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
             ResetCurrentChallenge();
             ChangeFocusTo(null);
         });
@@ -213,8 +225,6 @@ public class Onboarding_Notepad : MonoBehaviour
     public void SetCssText(string css)
     {
         if (!inputField) return;
-
-        // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
@@ -299,6 +309,7 @@ public class Onboarding_Notepad : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
+            if (audioSource && successSound) audioSource.PlayOneShot(successSound);
             SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
             if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
             SaveProgress();
@@ -310,6 +321,7 @@ public class Onboarding_Notepad : MonoBehaviour
         }
         else
         {
+            if (audioSource && errorSound) audioSource.PlayOneShot(errorSound);
             SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
         }
     }
@@ -320,7 +332,9 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <returns>boolean stating whether the level is complete</returns>
     private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
 
-    ///
+    /// <summary>
+    /// The level is complete
+    /// </summary>
     private void LevelComplete()
     {
         if (journal) journal.CloseJournal();
@@ -342,7 +356,7 @@ public class Onboarding_Notepad : MonoBehaviour
         SetButtonInteractable(resetBtn, false);
         challengeComplete.SetActive(true);
     }
-
+    
     /// <summary>
     /// Load the challenge
     /// </summary>
@@ -412,7 +426,7 @@ public class Onboarding_Notepad : MonoBehaviour
         /// The current challenge index of the save data
         /// </summary>
         public int currentChallengeIndex;
-
+        
         /// <summary>
         /// A list of challenge entries for the save data
         /// </summary>
@@ -429,7 +443,7 @@ public class Onboarding_Notepad : MonoBehaviour
         /// The index of the challenge to be saved
         /// </summary>
         public int index;
-
+        
         /// <summary>
         /// The text of the challenge to be saved
         /// </summary>
@@ -441,12 +455,12 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     public void SaveProgress()
     {
-        SaveData data = new SaveData { currentChallengeIndex = currentChallengeIndex };
+        var data = new SaveData { currentChallengeIndex = currentChallengeIndex };
         foreach (var kvp in savedTexts)
         {
             data.challenges.Add(new ChallengeEntry { index = kvp.Key, entryText = kvp.Value });
         }
-        string json = JsonUtility.ToJson(data, true);
+        var json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
     }
 
@@ -461,9 +475,9 @@ public class Onboarding_Notepad : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
             currentChallengeIndex = data.currentChallengeIndex;
             savedTexts.Clear();
-            foreach (var entry in data.challenges)
+            foreach (var entry in data.challenges.Where(entry => !string.IsNullOrWhiteSpace(entry.entryText)))
             {
-                if (!string.IsNullOrWhiteSpace(entry.entryText)) savedTexts[entry.index] = entry.entryText;
+                savedTexts[entry.index] = entry.entryText;
             }
         }
         LoadChallenge();

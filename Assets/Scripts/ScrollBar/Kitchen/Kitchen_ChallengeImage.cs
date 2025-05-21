@@ -1,6 +1,6 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System;
 
 public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {

@@ -1,9 +1,8 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
 using System.Collections;
-using UnityEngine.UI;
+using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -27,7 +26,7 @@ public class Menu : MonoBehaviour
     public GameObject tutorialButton;
 
     /// <summary>
-    /// Button to load the instructions scene
+    /// Button to load the instruction scene
     /// </summary>
     [Tooltip("Button to load the instructions scene")]
     public GameObject instructionsButton;
@@ -54,14 +53,14 @@ public class Menu : MonoBehaviour
     private TMP_Text tutorialText;
 
     /// <summary>
-    /// the text on the instructions button
+    /// the text on the instruction button
     /// </summary>
     private TMP_Text instructionsText;
 
 
     // TEMPORARY WHILE TESTING
 #if UNITY_EDITOR
-    private static bool prefsResetThisSession = false;
+    private static bool prefsResetThisSession;
     private static bool ResetPlayerPrefsInEditor = true;
 #endif
 
@@ -84,11 +83,11 @@ public class Menu : MonoBehaviour
         tutorialText = tutorialButton.GetComponentInChildren<TMP_Text>();
         instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
         if (!levelSelectLock) levelSelectLock = GameObject.Find("LvlSelectLock");
-        bool unlocked = CheckUnlockCondition();
+        var unlocked = CheckUnlockCondition();
         SetLevelSelectInteractable(unlocked);
     }
 
-    private bool CheckUnlockCondition()
+    private static bool CheckUnlockCondition()
     {
         return PlayerPrefs.GetInt("TutorialFinished", 0) == 1;
     }
@@ -162,7 +161,7 @@ public class Menu : MonoBehaviour
     /// Set the color of the text when a button is pressed
     /// </summary>
     /// <param name="text">the text to change</param>
-    private void SetPressedColor(TMP_Text text)
+    private static void SetPressedColor(TMP_Text text)
     {
         // Light gray
         if (text) text.color = new Color32(200, 200, 200, 255);
@@ -184,7 +183,7 @@ public class Menu : MonoBehaviour
     /// Quit the game
     /// </summary>
     /// <remarks>
-    /// If in editor, stop play (for debug/testing)
+    /// If in the editor, stop playing (for debug/testing)
     /// <br />
     /// Otherwise, Quit the game
     /// </remarks>

@@ -11,11 +11,16 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// the content area
     /// </summary>
+    /// 
+    [Header("Unlock Display")]
+    public RectTransform unlockedImagePanel;
+
+
     [Header("References")]
     public RectTransform content;
 
     /// <summary>
-    /// The image prefab to be added
+    /// The image prefabs to be added
     /// </summary>
     [Header("References")]
     public GameObject imagePrefab;
@@ -150,12 +155,40 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
             if (!button.TryGetComponent<Onboarding_ChallengeImage>(out var challengeImage)) return;
             challengeImage.Completed = true;
             challengeImage.Locked = false;
+
+            AddUnlockedImage(index);
         }
         else
         {
             Debug.LogWarning("Checkmark object not found under button!");
         }
     }
+
+    private void AddUnlockedImage(int index)
+{
+    if (!unlockedImagePanel)
+    {
+        Debug.LogWarning("Unlocked image panel is not assigned!");
+        return;
+    }
+
+    if (index < 0 || index >= imageSprites.Length)
+    {
+        Debug.LogWarning("Index out of range for imageSprites.");
+        return;
+    }
+
+    GameObject newImageObj = Instantiate(imagePrefab, unlockedImagePanel);
+    if (!newImageObj.TryGetComponent<Image>(out var newImage)) return;
+
+    newImage.sprite = imageSprites[index];
+    newImage.preserveAspect = true;
+    newImage.GetComponent<RectTransform>().sizeDelta = imageSize;
+
+    // Optional: Remove ChallengeImage component from clone
+    var challengeComponent = newImageObj.GetComponent<Onboarding_ChallengeImage>();
+    if (challengeComponent) Destroy(challengeComponent);
+}
 
     /// <summary>
     /// wait for one frame until rebuild
@@ -172,7 +205,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     }
 
     /// <summary>
-    /// Setup the layout of the scroll area
+    /// Set up the layout of the scroll area
     /// </summary>
     private void SetupLayout()
     {
@@ -249,7 +282,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
 
     /// <summary>
     /// Prepares the image GameObject for interaction
-    /// and attaches the related css script to the image
+    /// and attaches the related CSS script to the image
     /// </summary>
     private void AddScriptToImage(GameObject imgObj)
     {
@@ -297,7 +330,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="clickedIndex">the current index of the button clicked</param>
     /// <param name="previousIndex">the index of the previous button clicked</param>
-    /// <returns>boolean representing whether same button was clicked or not</returns>
+    /// <returns>boolean representing whether the same button was clicked or not</returns>
     private static bool IsSameButton(int clickedIndex, int previousIndex)
     {
         return clickedIndex == previousIndex;

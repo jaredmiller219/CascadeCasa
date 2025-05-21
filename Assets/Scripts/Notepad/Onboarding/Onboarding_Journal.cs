@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -106,5 +106,4 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
             journalPopup.SetActive(false);
         }
     }
-
 }
