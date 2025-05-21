@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Onboarding_DropdownActionMenu : MonoBehaviour
@@ -61,10 +61,10 @@ public class Onboarding_DropdownActionMenu : MonoBehaviour
                 break;
 
             case 3:
-                // Ouit
+                // Quit the game
                 notepad.SaveProgress();
 
-                // If in editor, stop playing. If in build, quit application
+                // If in the editor, stop playing. If in build, quit the application
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif

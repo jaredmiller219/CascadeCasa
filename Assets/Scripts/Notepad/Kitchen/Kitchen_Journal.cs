@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Kitchen_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {

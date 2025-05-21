@@ -1,6 +1,6 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System;
 
 public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
 {

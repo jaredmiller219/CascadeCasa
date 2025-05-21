@@ -1,10 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System.Collections;
 
 public class LivingRoom_Notepad : MonoBehaviour
 {
@@ -182,6 +183,10 @@ public class LivingRoom_Notepad : MonoBehaviour
         LoadProgress();
     }
 
+    /// <summary>
+    /// Changes the focus to the specified GameObject in the UI.
+    /// </summary>
+    /// <param name="gameObj">The GameObject to set as the selected UI element. Pass null to clear the current selection.</param>
     private static void ChangeFocusTo(GameObject gameObj) => EventSystem.current.SetSelectedGameObject(gameObj);
 
     /// <summary>
@@ -199,11 +204,9 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     public void SaveCurrentInputIfNeeded()
     {
-        if (currentChallengeIndex >= 0 && inputField.activeSelf)
-        {
-            savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
-            SaveProgress();
-        }
+        if (currentChallengeIndex < 0 || !inputField.activeSelf) return;
+        savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
+        SaveProgress();
     }
 
     /// <summary>
@@ -213,8 +216,6 @@ public class LivingRoom_Notepad : MonoBehaviour
     public void SetCssText(string css)
     {
         if (!inputField) return;
-
-        // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
@@ -320,22 +321,27 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// <returns>boolean stating whether the level is complete</returns>
     private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
 
-    ///
+    /// <summary>
+    /// Completes the current level by applying various transitions and initiating a success flow.
+    /// This method updates the room's background, plays a completion sound,
+    /// closes the journal if it is open, and displays the level completion popup after a delay.
+    /// </summary>
     private void LevelComplete()
     {
         if (journal) journal.CloseJournal();
-
         if (backgroundImage && furnishedRoomSprite) backgroundImage.sprite = furnishedRoomSprite;
-
         if (audioSource && successJingle) audioSource.PlayOneShot(successJingle);
         StartCoroutine(ShowPopupAfterDelay(1.2f));
     }
 
-
+    /// <summary>
+    /// Displays a popup after a specified delay.
+    /// </summary>
+    /// <param name="delay">The amount of time in seconds to wait before showing the popup.</param>
+    /// <returns>An IEnumerator for use with Unity's coroutine system.</returns>
     private IEnumerator ShowPopupAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-
         SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
         SetTextOfComponent(inputField, "", Color.clear, false);
         SetButtonInteractable(submitBtn, false);
@@ -441,12 +447,12 @@ public class LivingRoom_Notepad : MonoBehaviour
     /// </summary>
     public void SaveProgress()
     {
-        SaveData data = new SaveData { currentChallengeIndex = currentChallengeIndex };
+        var data = new SaveData { currentChallengeIndex = currentChallengeIndex };
         foreach (var kvp in savedTexts)
         {
             data.challenges.Add(new ChallengeEntry { index = kvp.Key, entryText = kvp.Value });
         }
-        string json = JsonUtility.ToJson(data, true);
+        var json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
     }
 
@@ -457,13 +463,13 @@ public class LivingRoom_Notepad : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            string json = File.ReadAllText(saveFilePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            var json = File.ReadAllText(saveFilePath);
+            var data = JsonUtility.FromJson<SaveData>(json);
             currentChallengeIndex = data.currentChallengeIndex;
             savedTexts.Clear();
-            foreach (var entry in data.challenges)
+            foreach (var entry in data.challenges.Where(entry => !string.IsNullOrWhiteSpace(entry.entryText)))
             {
-                if (!string.IsNullOrWhiteSpace(entry.entryText)) savedTexts[entry.index] = entry.entryText;
+                savedTexts[entry.index] = entry.entryText;
             }
         }
         LoadChallenge();

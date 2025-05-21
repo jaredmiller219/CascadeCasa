@@ -1,9 +1,9 @@
-using UnityEngine;
-using TMPro;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Instructions : MonoBehaviour
 {
@@ -130,7 +130,6 @@ public class Instructions : MonoBehaviour
         {
             instructionText.GetComponent<TMP_Text>().text = _instructions[index].instructionText;
         }
-
         else instructionText.GetComponent<TMP_Text>().text = "Instruction not found.";
     }
 
@@ -147,6 +146,9 @@ public class Instructions : MonoBehaviour
         var rect = buttonObj.GetComponent<RectTransform>();
         rect.sizeDelta = buttonSize;
         rect.anchoredPosition = new Vector2(0f, yPosition);
+
+        var image = buttonObj.GetComponent<Image>();
+        if (image) image.color = new Color(0.95f, 0.95f, 0.95f, 0.75f);
 
         buttonObj.GetComponentInChildren<TMP_Text>().text = _instructions[index].buttonName;
         buttonObj.GetComponent<Button>().onClick.AddListener(() => SetText(index));

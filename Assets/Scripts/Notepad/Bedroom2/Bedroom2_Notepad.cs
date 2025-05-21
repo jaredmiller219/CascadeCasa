@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -196,11 +197,9 @@ public class Bedroom2_Notepad : MonoBehaviour
     /// </summary>
     public void SaveCurrentInputIfNeeded()
     {
-        if (currentChallengeIndex >= 0 && inputField.activeSelf)
-        {
-            savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
-            SaveProgress();
-        }
+        if (currentChallengeIndex < 0 || !inputField.activeSelf) return;
+        savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
+        SaveProgress();
     }
 
     /// <summary>
@@ -433,7 +432,7 @@ public class Bedroom2_Notepad : MonoBehaviour
     /// </summary>
     public void SaveProgress()
     {
-        SaveData data = new SaveData
+        var data = new SaveData
         {
             currentChallengeIndex = currentChallengeIndex
         };
@@ -443,7 +442,7 @@ public class Bedroom2_Notepad : MonoBehaviour
             data.challenges.Add(new ChallengeEntry { index = kvp.Key, entryText = kvp.Value });
         }
 
-        string json = JsonUtility.ToJson(data, prettyPrint: true);
+        var json = JsonUtility.ToJson(data, prettyPrint: true);
         File.WriteAllText(saveFilePath, json);
     }
 
@@ -454,15 +453,15 @@ public class Bedroom2_Notepad : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            string json = File.ReadAllText(saveFilePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            var json = File.ReadAllText(saveFilePath);
+            var data = JsonUtility.FromJson<SaveData>(json);
 
             currentChallengeIndex = data.currentChallengeIndex;
 
             savedTexts.Clear();
-            foreach (var entry in data.challenges)
+            foreach (var entry in data.challenges.Where(entry => !string.IsNullOrWhiteSpace(entry.entryText)))
             {
-                if (!string.IsNullOrWhiteSpace(entry.entryText)) savedTexts[entry.index] = entry.entryText;
+                savedTexts[entry.index] = entry.entryText;
             }
         }
         LoadChallenge();
