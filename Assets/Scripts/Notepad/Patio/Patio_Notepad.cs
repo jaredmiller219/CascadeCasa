@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Patio_Notepad : MonoBehaviour
 {
@@ -54,6 +55,13 @@ public class Patio_Notepad : MonoBehaviour
     public bool canSubmit;
 
     public int levelsCompleted;
+
+    [Header("Room Transition")]
+    public Image backgroundImage;
+    public Sprite furnishedRoomSprite;
+    public AudioClip successJingle;
+    [Header("Journal")]
+    public Patio_Journal journal;
 
     [Tooltip("The reference to the gameObject with the HorizontalScrollBar")]
     [SerializeField]
@@ -214,12 +222,27 @@ public class Patio_Notepad : MonoBehaviour
 
     private void LevelComplete()
     {
-        SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
-        SetTextOfComponent(inputField, "", Color.clear, false);
-        SetButtonInteractable(submitBtn, false);
-        SetButtonInteractable(resetBtn, false);
-        challengeComplete.SetActive(true);
+        if (journal) journal.CloseJournal(); // this line is only needed if you add a Journal too
+
+        if (backgroundImage && furnishedRoomSprite)
+            backgroundImage.sprite = furnishedRoomSprite;
+
+        if (audioSource && successJingle)
+            audioSource.PlayOneShot(successJingle);
+
+        StartCoroutine(ShowPopupAfterDelay(1.2f));
     }
+
+private IEnumerator ShowPopupAfterDelay(float delay)
+{
+    yield return new WaitForSeconds(delay);
+
+    SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
+    SetTextOfComponent(inputField, "", Color.clear, false);
+    SetButtonInteractable(submitBtn, false);
+    SetButtonInteractable(resetBtn, false);
+    challengeComplete.SetActive(true);
+}
 
     public void LoadChallenge()
     {
