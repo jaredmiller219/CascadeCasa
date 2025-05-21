@@ -68,12 +68,12 @@ _(Coming Soon)._
 
 Here are some previews of *Cascade Casa* gameplay:
 
-![Living Room](./Docs/readme1.jpg)
-![Hint System](./Docs/readme2.jpg)
-![Syntax Challenge](./Docs/readme3.jpg)
-![Decorated Room](./Docs/readme4.jpg)
-![Journal UI](./Docs/readme5.jpg)
-![Room Unlocked](./Docs/readme6.jpg)
+![Living Room](./Docs/DemoIMg/readme1.png)
+![Hint System](./Docs/DemoIMg/readme2.png)
+![Syntax Challenge](./Docs/DemoIMg/readme3.png)
+![Decorated Room](./Docs/DemoIMg/readme4.png)
+![Journal UI](./Docs/DemoIMg/readme5.png)
+![Room Unlocked](./Docs/DemoIMg/readme6.png)
 
 ---
 
@@ -81,7 +81,9 @@ Here are some previews of *Cascade Casa* gameplay:
 
 Watch a quick gameplay demo of *Cascade Casa* here:
 
-[![Watch the video (Short Version) & (Long Version)]()](https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view?usp=sharing)(https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view?usp=sharing)
+[![Watch the video (Long Version)]()](https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view?usp=sharing)
+
+[![Watch the video (Short Version)]()](https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view?usp=sharing)
 
 
 ## Early Concept & Contributions
