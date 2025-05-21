@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Kitchen_Notepad : MonoBehaviour
 {
@@ -92,6 +93,16 @@ public class Kitchen_Notepad : MonoBehaviour
 
     /// <summary>
     /// Keeps track of the number of levels completed.
+    /// </summary>
+    [Header("Journal")]
+    public Kitchen_Journal journal;
+
+    [Header("Room Transition")]
+    public Image backgroundImage;
+    public Sprite furnishedRoomSprite;
+    public AudioClip successJingle;
+  /// <summary>
+    /// Added change scene when completing the level
     /// </summary>
     public int levelsCompleted;
 
@@ -326,8 +337,22 @@ public class Kitchen_Notepad : MonoBehaviour
         return levelsCompleted == scrollBar.imageSprites.Length;
     }
 
-    private void LevelComplete()
+private void LevelComplete()
+{
+    if (journal) journal.CloseJournal(); 
+
+    if (backgroundImage && furnishedRoomSprite)
+        backgroundImage.sprite = furnishedRoomSprite;
+
+    if (audioSource && successJingle)
+        audioSource.PlayOneShot(successJingle);
+
+    StartCoroutine(ShowPopupAfterDelay(1.2f));
+}
+    private IEnumerator ShowPopupAfterDelay(float delay)
     {
+        yield return new WaitForSeconds(delay);
+
         SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
         SetTextOfComponent(inputField, "", Color.clear, false);
         SetButtonInteractable(submitBtn, false);
