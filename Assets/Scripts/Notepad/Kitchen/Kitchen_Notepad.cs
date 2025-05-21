@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -67,6 +69,14 @@ public class Kitchen_Notepad : MonoBehaviour
     [Header("Hint Section")]
     public GameObject hintText;
 
+    [Header("Room Transition")]
+    public Image backgroundImage;
+    public Sprite furnishedRoomSprite;
+    public AudioClip successJingle;
+
+    [Header("Journal")]
+    public Kitchen_Journal journal;
+
     /// <summary>
     /// The source of the audio
     /// </summary>
@@ -77,6 +87,16 @@ public class Kitchen_Notepad : MonoBehaviour
     /// The sound to play when the button is clicked
     /// </summary>
     public AudioClip clickSound;
+
+    /// <summary>
+    /// the success sound
+    /// </summary>
+    public AudioClip successSound;
+
+    /// <summary>
+    /// the error sound
+    /// </summary>
+    public AudioClip errorSound;
 
     /// <summary>
     /// whether you can click the reset button
@@ -96,7 +116,7 @@ public class Kitchen_Notepad : MonoBehaviour
     public int levelsCompleted;
 
     /// <summary>
-    /// The reference to the gameObject with the orizontalScrollBar
+    /// The reference to the gameObject with the HorizontalScrollBar
     /// </summary>
     [Tooltip("The reference to the gameObject with the HorizontalScrollBar")]
     [SerializeField]
@@ -133,13 +153,16 @@ public class Kitchen_Notepad : MonoBehaviour
     /// </summary>
     private readonly List<string> _cssHints = new()
     {
-        "CSS lets you style HTML elements by changing things like size and color. For example, you can use width to set how wide something is, and background-color to set its background color.",
-        "Look for missing colons in the font size and text align properties.",
-        "Ensure the border and margin top properties have colons.",
-        "Use a colon after color and font weight properties.",
-        "List style type and padding need colons and values.",
-        "Colons are required after text decoration and color.",
-        "Don't forget colons after width and height."
+        "Use a colon (:) between property and value. Properties like background-color and width define how elements look.",
+        "Text styling: font-size and text-align both need colons and semicolons. Always hyphenate compound property names.",
+        "Borders and margins are common layout tools. Remember: margin-top and border use hyphens.",
+        "Use color and font-weight to style text. Both need colons, and the values go after them.",
+        "Lists use 'list-style-type' to control bullets and 'padding' for spacing. Double-check spelling and colons.",
+        "Links are styled with 'text-decoration' and 'color'. Use hyphens for compound properties.",
+        "Width and height often go together. Each needs a colon and unit like px or %.",
+        "Practice combining multiple properties in one rule block. Don't forget a semicolon at the end of each line.",
+        "CSS selectors like .class or #id target specific elements. Check your dots and hashes!",
+        "This final one is a recap — remember colons, semicolons, and consistent spacing. You’ve got this!"
     };
 
     private void Start()
@@ -147,14 +170,13 @@ public class Kitchen_Notepad : MonoBehaviour
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
+            if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
             ResetCurrentChallenge();
             ChangeFocusTo(null);
         });
 
         resetPopup.SetActive(false);
-
-        const float scrollSensitivity = 0.01f;
-        inputField.GetComponent<TMP_InputField>().scrollSensitivity = scrollSensitivity;
+        inputField.GetComponent<TMP_InputField>().scrollSensitivity = 0.01f;
 
         _cursorManager = GlobalCursorManager.Instance;
         if (_cursorManager) _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
@@ -166,17 +188,13 @@ public class Kitchen_Notepad : MonoBehaviour
 
         canReset = false;
         canSubmit = false;
-
         currentChallengeIndex = -1;
         levelsCompleted = 0;
 
         LoadProgress();
     }
 
-    private static void ChangeFocusTo(GameObject gameObj)
-    {
-        EventSystem.current.SetSelectedGameObject(gameObj);
-    }
+    private static void ChangeFocusTo(GameObject gameObj) => EventSystem.current.SetSelectedGameObject(gameObj);
 
     /// <summary>
     /// Save the current text at the button's index
@@ -207,8 +225,6 @@ public class Kitchen_Notepad : MonoBehaviour
     public void SetCssText(string css)
     {
         if (!inputField) return;
-
-        // When an image is clicked, store a reference to it so we can update its CurrentCss later
         SetTextOfComponent(inputField, css, Color.black, true);
     }
 
@@ -224,10 +240,7 @@ public class Kitchen_Notepad : MonoBehaviour
     /// <summary>
     /// Switch back to the previous cursor when back outside the input field
     /// </summary>
-    public void OnInputFieldExit()
-    {
-        _cursorManager.SetCursor(_previousCursorIndex);
-    }
+    public void OnInputFieldExit() => _cursorManager.SetCursor(_previousCursorIndex);
 
     /// <summary>
     /// Set the button's interactability status
@@ -296,8 +309,9 @@ public class Kitchen_Notepad : MonoBehaviour
 
         if (normalizedUserInput == normalizedCorrectCss)
         {
-            const string displayedFeedback = "Correct!";
-            SetTextOfComponent(feedbackText, displayedFeedback, Color.green, false);
+            if (audioSource && successSound) audioSource.PlayOneShot(successSound);
+
+            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
             if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
             SaveProgress();
             levelsCompleted++;
@@ -308,8 +322,8 @@ public class Kitchen_Notepad : MonoBehaviour
         }
         else
         {
-            const string displayedFeedback = "Check colons, semicolons, dashes, and syntax!";
-            SetTextOfComponent(feedbackText, displayedFeedback, Color.red, false);
+            if (audioSource && errorSound) audioSource.PlayOneShot(errorSound);
+            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
         }
     }
 
@@ -317,13 +331,26 @@ public class Kitchen_Notepad : MonoBehaviour
     /// Checks whether the level is complete
     /// </summary>
     /// <returns>boolean stating whether the level is complete</returns>
-    private bool IsLevelComplete()
-    {
-        return levelsCompleted == scrollBar.imageSprites.Length;
-    }
+    private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
 
+    /// <summary>
+    /// The level is complete
+    /// </summary>
     private void LevelComplete()
     {
+        if (journal) journal.CloseJournal();
+
+        if (backgroundImage && furnishedRoomSprite) backgroundImage.sprite = furnishedRoomSprite;
+
+        if (audioSource && successJingle) audioSource.PlayOneShot(successJingle);
+        StartCoroutine(ShowPopupAfterDelay(1.2f));
+    }
+
+
+    private IEnumerator ShowPopupAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
         SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
         SetTextOfComponent(inputField, "", Color.clear, false);
         SetButtonInteractable(submitBtn, false);
@@ -340,7 +367,6 @@ public class Kitchen_Notepad : MonoBehaviour
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
-
 
     /// <summary>
     /// Load the CSS for the current challenge
@@ -370,7 +396,6 @@ public class Kitchen_Notepad : MonoBehaviour
     /// </summary>
     public void ResetCurrentChallenge()
     {
-        // the user hasn't selected an image yet
         if (currentChallengeIndex == -1)
         {
             SetTextOfComponent(inputField, "", Color.black, true);
@@ -431,17 +456,13 @@ public class Kitchen_Notepad : MonoBehaviour
     /// </summary>
     public void SaveProgress()
     {
-        SaveData data = new SaveData
-        {
-            currentChallengeIndex = currentChallengeIndex
-        };
+        var data = new SaveData { currentChallengeIndex = currentChallengeIndex };
 
         foreach (var kvp in savedTexts)
         {
             data.challenges.Add(new ChallengeEntry { index = kvp.Key, entryText = kvp.Value });
         }
-
-        string json = JsonUtility.ToJson(data, prettyPrint: true);
+        var json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveFilePath, json);
     }
 
@@ -454,13 +475,11 @@ public class Kitchen_Notepad : MonoBehaviour
         {
             string json = File.ReadAllText(saveFilePath);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
-
             currentChallengeIndex = data.currentChallengeIndex;
-
             savedTexts.Clear();
-            foreach (var entry in data.challenges)
+            foreach (var entry in data.challenges.Where(entry => !string.IsNullOrWhiteSpace(entry.entryText)))
             {
-                if (!string.IsNullOrWhiteSpace(entry.entryText)) savedTexts[entry.index] = entry.entryText;
+                savedTexts[entry.index] = entry.entryText;
             }
         }
         LoadChallenge();

@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -13,13 +14,19 @@ public class Menu : MonoBehaviour
     public GameObject levelSelectButton;
 
     /// <summary>
+    ///
+    /// </summary>
+    [Tooltip("Lock icon for level select")]
+    public GameObject levelSelectLock;
+
+    /// <summary>
     /// Button to load the tutorial scene
     /// </summary>
     [Tooltip("Button to load the play scene")]
     public GameObject tutorialButton;
 
     /// <summary>
-    /// Button to load the instructions scene
+    /// Button to load the instruction scene
     /// </summary>
     [Tooltip("Button to load the instructions scene")]
     public GameObject instructionsButton;
@@ -46,15 +53,49 @@ public class Menu : MonoBehaviour
     private TMP_Text tutorialText;
 
     /// <summary>
-    /// the text on the instructions button
+    /// the text on the instruction button
     /// </summary>
     private TMP_Text instructionsText;
 
+
+    // TEMPORARY WHILE TESTING
+#if UNITY_EDITOR
+    private static bool prefsResetThisSession;
+    private static bool ResetPlayerPrefsInEditor = true;
+#endif
+
     private void Start()
     {
+        // TEMPORARY WHILE TESTING
+#if UNITY_EDITOR
+        if (ResetPlayerPrefsInEditor && !prefsResetThisSession)
+        {
+            PlayerPrefs.DeleteKey("TutorialFinished");
+            prefsResetThisSession = true;
+            Debug.Log("PlayerPrefs reset at session start (Editor only)");
+        }
+#endif
+
+        NavigationData.CameFromOnBoarding = false;
+        NavigationData.CameFromLevelComplete = false;
+
         levelSelectText = levelSelectButton.GetComponentInChildren<TMP_Text>();
         tutorialText = tutorialButton.GetComponentInChildren<TMP_Text>();
         instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
+        if (!levelSelectLock) levelSelectLock = GameObject.Find("LvlSelectLock");
+        var unlocked = CheckUnlockCondition();
+        SetLevelSelectInteractable(unlocked);
+    }
+
+    private static bool CheckUnlockCondition()
+    {
+        return PlayerPrefs.GetInt("TutorialFinished", 0) == 1;
+    }
+
+    private void SetLevelSelectInteractable(bool interactable)
+    {
+        if (levelSelectButton) levelSelectButton.GetComponent<EventTrigger>().enabled = interactable;
+        if (levelSelectLock) levelSelectLock.SetActive(!interactable);
     }
 
     /// <summary>
@@ -72,6 +113,9 @@ public class Menu : MonoBehaviour
     {
         SetDefaultColor(levelSelectText);
         PlayClickSound();
+        NavigationData.CameFromOnBoarding = false;
+        NavigationData.CameFromLevelComplete = false;
+        NavigationData.PreviousScene = "Menu";
         StartCoroutine(LoadSceneDelayed("LevelSelect"));
     }
 
@@ -90,6 +134,8 @@ public class Menu : MonoBehaviour
     {
         SetDefaultColor(tutorialText);
         PlayClickSound();
+        NavigationData.CameFromOnBoarding = true;
+        NavigationData.CameFromLevelComplete = false;
         StartCoroutine(LoadSceneDelayed("OnBoarding"));
     }
 
@@ -115,7 +161,7 @@ public class Menu : MonoBehaviour
     /// Set the color of the text when a button is pressed
     /// </summary>
     /// <param name="text">the text to change</param>
-    private void SetPressedColor(TMP_Text text)
+    private static void SetPressedColor(TMP_Text text)
     {
         // Light gray
         if (text) text.color = new Color32(200, 200, 200, 255);
@@ -137,7 +183,7 @@ public class Menu : MonoBehaviour
     /// Quit the game
     /// </summary>
     /// <remarks>
-    /// If in editor, stop play (for debug/testing)
+    /// If in the editor, stop playing (for debug/testing)
     /// <br />
     /// Otherwise, Quit the game
     /// </remarks>

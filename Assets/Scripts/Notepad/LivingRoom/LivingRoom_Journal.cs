@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class LivingRoom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -94,4 +94,15 @@ public class LivingRoom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
         if (JournalImage) JournalImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
+
+    /// <summary>
+    /// Closes the journal popup if it's currently open.
+    /// </summary>
+    public void CloseJournal()
+    {
+        if (!journalPopup || !journalPopup.activeSelf) return;
+        notepad.SaveCurrentInputIfNeeded(); // same as in ToggleJournal
+        journalPopup.SetActive(false);
+    }
+
 }

@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OnboardingManager : MonoBehaviour
 {
@@ -10,13 +12,37 @@ public class OnboardingManager : MonoBehaviour
     private GameObject[] tutorialSteps;
 
     /// <summary>
+    /// THe dropdown GameObject
+    /// </summary>
+    [Tooltip("A reference to the Dropdown GameObject")]
+    [SerializeField]
+    private GameObject dropdown;
+
+    /// <summary>
     /// The current step
     /// </summary>
     [Tooltip("The current step")]
     private int currentStep;
 
+#if UNITY_EDITOR
+    private static bool testingSetupDone;
+#endif
+
     private void Start()
     {
+        // TESTING
+#if UNITY_EDITOR
+        if (!testingSetupDone)
+        {
+            PlayerPrefs.SetInt("TutorialFinished", 1);
+            PlayerPrefs.Save();
+            NavigationData.CameFromOnBoarding = true;
+            testingSetupDone = true;
+        }
+#endif
+        // DONE TESTING
+        // var dropdownMenu = dropdown.GetComponent<TMPro.TMP_Dropdown>();
+        dropdown.SetActive(true);
         if (tutorialSteps.Length > 0) ShowStep(0);
         else Debug.LogWarning("No tutorial steps configured!");
     }
@@ -25,7 +51,7 @@ public class OnboardingManager : MonoBehaviour
     /// Activates the tutorial step at the specified index and deactivates all others.
     /// </summary>
     /// <param name="index">The index of the tutorial step to show.</param>
-    public void ShowStep(int index)
+    private void ShowStep(int index)
     {
         if (index < 0 || index >= tutorialSteps.Length)
         {
@@ -44,8 +70,6 @@ public class OnboardingManager : MonoBehaviour
             step.SetActive(stepNumber == index);
             stepNumber++;
         }
-
-        Debug.Log($"Showing tutorial step: {index + 1}");
     }
 
     /// <summary>
@@ -53,7 +77,7 @@ public class OnboardingManager : MonoBehaviour
     /// <br />
     /// Calls <see cref="ShowStep"/> if there are remaining steps.
     /// <br />
-    /// otherwise ends the tutorial.
+    /// Otherwise, ends the tutorial.
     /// </summary>
     public void GoToNextStep()
     {
@@ -64,18 +88,28 @@ public class OnboardingManager : MonoBehaviour
 
     /// <summary>
     /// Ends the tutorial by deactivating all tutorial steps and
-    /// transitions to main menu after a delay.
+    /// transitions to the main menu after a delay.
     /// </summary>
     private void EndTutorial()
     {
         foreach (var step in tutorialSteps) if (step) step.SetActive(false);
 
         // Tell the user they are done
+        PlayerPrefs.SetInt("TutorialFinished", 1);
+        PlayerPrefs.Save();
+        NavigationData.CameFromOnBoarding = true;
 
-        // Delay for 3 seconds
-
-        // Go to main menu
-
-        Debug.Log("Tutorial completed!");
+        // Go to the main menu
+        // Debug.Log("Tutorial completed!");
+        StartCoroutine(DelayedLoadMenu());
     }
+
+
+    private IEnumerator DelayedLoadMenu()
+    {
+        dropdown.SetActive(false);
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("Menu");
+    }
+
 }

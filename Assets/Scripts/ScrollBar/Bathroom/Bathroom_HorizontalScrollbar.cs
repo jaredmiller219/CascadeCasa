@@ -15,7 +15,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     public RectTransform content;
 
     /// <summary>
-    /// The image prefab to be added
+    /// The image prefabs to be added
     /// </summary>
     [Header("References")]
     public GameObject imagePrefab;
@@ -49,15 +49,49 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public readonly List<KeyValuePair<string, string>> CssChallenges = new()
-    {
-        new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new KeyValuePair<string, string>(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new KeyValuePair<string, string>("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new KeyValuePair<string, string>("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new KeyValuePair<string, string>("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new KeyValuePair<string, string>("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
-    };
+{
+    new KeyValuePair<string, string>(
+        "ul {\n    list style type none;\n    padding left 0;\n}",
+        "ul {\n    list-style-type: none;\n    padding-left: 0;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "ol {\n    list style type decimal;\n    margin 10px;\n}",
+        "ol {\n    list-style-type: decimal;\n    margin: 10px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "button:hover {\n    background color lightblue;\n}",
+        "button:hover {\n    background-color: lightblue;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "button:active {\n    transform scale(0.98);\n}",
+        "button:active {\n    transform: scale(0.98);\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "li:first child {\n    font weight bold;\n}",
+        "li:first-child {\n    font-weight: bold;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".btn {\n    background color #444;\n    color white;\n}",
+        ".btn {\n    background-color: #444;\n    color: white;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".btn:hover {\n    cursor pointer;\n    background color #666;\n}",
+        ".btn:hover {\n    cursor: pointer;\n    background-color: #666;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "a:hover {\n    text decoration underline;\n}",
+        "a:hover {\n    text-decoration: underline;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "ul li {\n    margin bottom 5px;\n}",
+        "ul li {\n    margin-bottom: 5px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "li:first child {\n    color red;\n    text transform uppercase;\n}",
+        "li:first-child {\n    color: red;\n    text-transform: uppercase;\n}"
+    )
+};
+
 
     // --------------------------------------------------------------
 
@@ -172,7 +206,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     }
 
     /// <summary>
-    /// Setup the layout of the scroll area
+    /// Set up the layout of the scroll area
     /// </summary>
     private void SetupLayout()
     {
@@ -249,7 +283,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
 
     /// <summary>
     /// Prepares the image GameObject for interaction
-    /// and attaches the related css script to the image
+    /// and attaches the related CSS script to the image
     /// </summary>
     private void AddScriptToImage(GameObject imgObj)
     {
@@ -297,7 +331,7 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="clickedIndex">the current index of the button clicked</param>
     /// <param name="previousIndex">the index of the previous button clicked</param>
-    /// <returns>boolean representing whether same button was clicked or not</returns>
+    /// <returns>boolean representing whether the same button was clicked or not</returns>
     private static bool IsSameButton(int clickedIndex, int previousIndex)
     {
         return clickedIndex == previousIndex;

@@ -15,7 +15,7 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
     public RectTransform content;
 
     /// <summary>
-    /// The image prefab to be added
+    /// The image prefabs to be added
     /// </summary>
     [Header("References")]
     public GameObject imagePrefab;
@@ -49,15 +49,49 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public readonly List<KeyValuePair<string, string>> CssChallenges = new()
-    {
-        new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new KeyValuePair<string, string>(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new KeyValuePair<string, string>("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new KeyValuePair<string, string>("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new KeyValuePair<string, string>("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new KeyValuePair<string, string>("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
-    };
+{
+    new KeyValuePair<string, string>(
+        "p {\n    color blue;\n}",
+        "p {\n    color: blue;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".highlight {\n    background color yellow;\n}",
+        ".highlight {\n    background-color: yellow;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "#main {\n    font size 16px;\n}",
+        "#main {\n    font-size: 16px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "h1, h2, h3 {\n    font weight bold;\n}",
+        "h1, h2, h3 {\n    font-weight: bold;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "div p {\n    line height 1.5;\n}",
+        "div p {\n    line-height: 1.5;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "p.note {\n    color gray;\n}",
+        "p.note {\n    color: gray;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "#sidebar .link {\n    text decoration none;\n}",
+        "#sidebar .link {\n    text-decoration: none;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "ul li a {\n    color green;\n    text decoration underline;\n}",
+        "ul li a {\n    color: green;\n    text-decoration: underline;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".btn, .card {\n    padding 10px;\n}",
+        ".btn, .card {\n    padding: 10px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "section .title {\n    font size 24px;\n    font weight 700;\n}",
+        "section .title {\n    font-size: 24px;\n    font-weight: 700;\n}"
+    )
+};
+
 
     // --------------------------------------------------------------
 
@@ -172,7 +206,7 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
     }
 
     /// <summary>
-    /// Setup the layout of the scroll area
+    /// Set up the layout of the scroll area
     /// </summary>
     private void SetupLayout()
     {
@@ -249,7 +283,7 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
 
     /// <summary>
     /// Prepares the image GameObject for interaction
-    /// and attaches the related css script to the image
+    /// and attaches the related CSS script to the image
     /// </summary>
     private void AddScriptToImage(GameObject imgObj)
     {
@@ -297,7 +331,7 @@ public class Bedroom2_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     /// <param name="clickedIndex">the current index of the button clicked</param>
     /// <param name="previousIndex">the index of the previous button clicked</param>
-    /// <returns>boolean representing whether same button was clicked or not</returns>
+    /// <returns>boolean representing whether the same button was clicked or not</returns>
     private static bool IsSameButton(int clickedIndex, int previousIndex)
     {
         return clickedIndex == previousIndex;

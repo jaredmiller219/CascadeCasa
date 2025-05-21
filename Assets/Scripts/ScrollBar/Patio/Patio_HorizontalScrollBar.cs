@@ -49,15 +49,49 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public readonly List<KeyValuePair<string, string>> CssChallenges = new()
-    {
-        new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
-        new KeyValuePair<string, string>("p {\n    font size 20px;\n    text align center;\n}", "p {\n    font-size: 20px;\n    text-align: center;\n}"),
-        new KeyValuePair<string, string>(".box {\n    border 2px solid black;\n    margin top 10px;\n}", ".box {\n    border: 2px solid black;\n    margin-top: 10px;\n}"),
-        new KeyValuePair<string, string>("#header {\n    color red;\n    font weight bold;\n}", "#header {\n    color: red;\n    font-weight: bold;\n}"),
-        new KeyValuePair<string, string>("ul {\n    list style type none;\n    padding 0;\n}", "ul {\n    list-style-type: none;\n    padding: 0;\n}"),
-        new KeyValuePair<string, string>("a {\n    text decoration none;\n    color green;\n}", "a {\n    text-decoration: none;\n    color: green;\n}"),
-        new KeyValuePair<string, string>("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
-    };
+{
+    new KeyValuePair<string, string>(
+        ".card {\n    border radius 10px;\n}",
+        ".card {\n    border-radius: 10px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".btn {\n    transition all 0.3s ease;\n}",
+        ".btn {\n    transition: all 0.3s ease;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".shadowbox {\n    box shadow 0px 4px 6px rgba(0, 0, 0, 0.1);\n}",
+        ".shadowbox {\n    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "h2 {\n    text shadow 1px 1px 2px gray;\n}",
+        "h2 {\n    text-shadow: 1px 1px 2px gray;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".pill {\n    background color #eee;\n    border radius 20px;\n}",
+        ".pill {\n    background-color: #eee;\n    border-radius: 20px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".image:hover {\n    box shadow 0px 8px 12px rgba(0, 0, 0, 0.2);\n}",
+        ".image:hover {\n    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".hovercard {\n    transition all 0.2s ease;\n    border radius 6px;\n}",
+        ".hovercard {\n    transition: all 0.2s ease;\n    border-radius: 6px;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        "button {\n    background color white;\n    box shadow 2px 2px 5px rgba(0, 0, 0, 0.1);\n}",
+        "button {\n    background-color: white;\n    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".title:hover {\n    text shadow 2px 2px 5px #999;\n    color #222;\n}",
+        ".title:hover {\n    text-shadow: 2px 2px 5px #999;\n    color: #222;\n}"
+    ),
+    new KeyValuePair<string, string>(
+        ".final {\n    padding 20px;\n    border radius 12px;\n    background color #f8f8f8;\n}",
+        ".final {\n    padding: 20px;\n    border-radius: 12px;\n    background-color: #f8f8f8;\n}"
+    )
+};
+
 
     // --------------------------------------------------------------
 

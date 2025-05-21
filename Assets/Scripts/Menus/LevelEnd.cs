@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelEnd : MonoBehaviour
 {
@@ -41,6 +41,7 @@ public class LevelEnd : MonoBehaviour
     public void GoToMenu()
     {
         NavigationData.CameFromLevelComplete = false;
+        NavigationData.CameFromOnBoarding = false;
         completePopup.SetActive(false);
         SceneManager.LoadScene("Menu");
     }
