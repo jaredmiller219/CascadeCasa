@@ -81,7 +81,7 @@ Here are some previews of *Cascade Casa* gameplay:
 
 Watch a quick gameplay demo of *Cascade Casa* here:
 
-[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+[![Watch the video (Short Version) & (Long Version)]()](https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view?usp=sharing)(https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view?usp=sharing)
 
 
 ## Early Concept & Contributions
