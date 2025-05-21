@@ -285,11 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 1156257663}
-=======
   m_Material: {fileID: 488622467}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -352,50 +348,6 @@ MonoBehaviour:
   r: {x: 0, y: 20, z: 20, w: 20}
   rect2props: {x: -4.9999695, y: 4.9999695, z: 306.62363, w: 299.55255}
   image: {fileID: 55216331}
-<<<<<<< HEAD
---- !u!21 &56294188
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _WidthHeightRadius: {r: 60, g: 60, b: 6, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
-=======
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
 --- !u!1 &90493303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,11 +1006,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222856356}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
---- !u!21 &342015383
-=======
 --- !u!21 &284351895
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1096,11 +1044,7 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-<<<<<<< HEAD
-    - _WidthHeightRadius: {r: 413, g: 500, b: 60, a: 0}
-=======
     - _WidthHeightRadius: {r: 800, g: 450, b: 100, a: 0}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!21 &352559874
@@ -1465,11 +1409,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687986035}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
---- !u!21 &693692690
-=======
 --- !u!21 &927815353
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1507,11 +1447,7 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-<<<<<<< HEAD
-    - _WidthHeightRadius: {r: 410, g: 50, b: 30, a: 0}
-=======
     - _WidthHeightRadius: {r: 200, g: 80, b: 40, a: 0}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &942927231
@@ -2024,11 +1960,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5830378430634212527, guid: 752b6d8cce85a436db6e32142bec8a8f, type: 3}
   m_PrefabInstance: {fileID: 1021780915}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
---- !u!21 &1156257663
-=======
 --- !u!21 &1077586951
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -2066,13 +1998,7 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-<<<<<<< HEAD
-    - _halfSize: {r: 200, g: 243.63126, b: 0, a: 0}
-    - _r: {r: 0, g: 20, b: 20, a: 20}
-    - _rect2props: {r: -4.9999695, g: 4.9999695, b: 306.62363, a: 299.55255}
-=======
     - _WidthHeightRadius: {r: 413, g: 500, b: 60, a: 0}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1185903503
@@ -2556,50 +2482,6 @@ Material:
     - _WidthHeightRadius: {r: 800, g: 450, b: 100, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
-<<<<<<< HEAD
---- !u!21 &1426915656
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-    - _WidthHeightRadius: {r: 200, g: 80, b: 40, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
-=======
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
 --- !u!21 &1450443011
 Material:
   serializedVersion: 8
@@ -3202,11 +3084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 693692690}
-=======
   m_Material: {fileID: 1782691762}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4641,11 +4519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 342015383}
-=======
   m_Material: {fileID: 1077586951}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}

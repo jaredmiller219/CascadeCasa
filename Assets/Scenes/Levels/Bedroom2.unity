@@ -3758,11 +3758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 298356707}
-=======
   m_Material: {fileID: 1253549221}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5601,11 +5597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 89939222}
-=======
   m_Material: {fileID: 1086778028}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5791,8 +5783,6 @@ Material:
     - _WidthHeightRadius: {r: 200, g: 80, b: 40, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
-<<<<<<< HEAD
-=======
 --- !u!21 &1928583723
 Material:
   serializedVersion: 8
@@ -5834,7 +5824,6 @@ Material:
     - _WidthHeightRadius: {r: 60, g: 60, b: 6, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

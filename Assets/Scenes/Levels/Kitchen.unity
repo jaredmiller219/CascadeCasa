@@ -871,11 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 242761247}
-=======
   m_Material: {fileID: 1988959730}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1073,11 +1069,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
---- !u!21 &242761247
-=======
 --- !u!21 &254258433
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1115,11 +1107,7 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _OuterUV: {r: 0, g: 0, b: 1, a: 1}
-<<<<<<< HEAD
-    - _WidthHeightRadius: {r: 410, g: 50, b: 30, a: 0}
-=======
     - _WidthHeightRadius: {r: 200, g: 80, b: 40, a: 0}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &370222800
@@ -1197,8 +1185,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370222800}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
-=======
 --- !u!21 &392267692
 Material:
   serializedVersion: 8
@@ -1283,7 +1269,6 @@ Material:
     - _rect2props: {r: -4.9999695, g: 4.9999695, b: 306.62363, a: 299.55255}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
 --- !u!1 &533730706
 GameObject:
   m_ObjectHideFlags: 0
@@ -4407,11 +4392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_Material: {fileID: 800964801}
-=======
   m_Material: {fileID: 452172268}
->>>>>>> 6bdba3533790e8591e5e4679ab249070e6cf44d6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
