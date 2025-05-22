@@ -75,12 +75,12 @@ short version: https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK
 
 Here are some previews of *Cascade Casa* gameplay:
 
-![Living Room](./Docs/DemoIMg/readme1.png)
-![Hint System](./Docs/DemoIMg/readme2.png)
-![Syntax Challenge](./Docs/DemoIMg/readme3.png)
-![Decorated Room](./Docs/DemoIMg/readme4.png)
-![Journal UI](./Docs/DemoIMg/readme5.png)
-![Room Unlocked](./Docs/DemoIMg/readme6.png)
+![Living Room](./DemoIMg/readme1.png)
+![Hint System](./DemoIMg/readme2.png)
+![Syntax Challenge](./DemoIMg/readme3.png)
+![Decorated Room](./DemoIMg/readme4.png)
+![Journal UI](./DemoIMg/readme5.png)
+![Room Unlocked](./DemoIMg/readme6.png)
 
 ---
 
@@ -106,4 +106,4 @@ Watch a quick gameplay demo of *Cascade Casa* here:
 + https://pixabay.com/sound-effects/music-box-336285/
 + https://pixabay.com/sound-effects/squeaky-door-open-113212/
 + https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/
-- ChatGPT were used to refine code & writing for the game
+- ChatGPT was used to refine code & writing for the game
