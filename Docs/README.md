@@ -39,13 +39,6 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 
 ---
 
-## Gameplay Video
-
-Long version: <https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view>
-short version: <https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view>
-
----
-
 ## Educational Game Design Document
 
 [View EGDD](egdd.md)
