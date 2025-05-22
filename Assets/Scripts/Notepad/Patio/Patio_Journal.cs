@@ -39,7 +39,7 @@ public class Patio_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private GameObject JournalImage;
 
     /// <summary>
-    /// A reference to the patio notepad
+    /// A reference to the Patio notepad
     /// </summary>
     [SerializeField]
     private Patio_Notepad notepad;
@@ -100,10 +100,9 @@ public class Patio_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     /// </summary>
     public void CloseJournal()
     {
-        if (journalPopup && journalPopup.activeSelf)
-        {
-            notepad.SaveCurrentInputIfNeeded();
-            journalPopup.SetActive(false);
-        }
+        if (!journalPopup || !journalPopup.activeSelf) return;
+        notepad.SaveCurrentInputIfNeeded(); // same as in ToggleJournal
+        journalPopup.SetActive(false);
     }
+
 }
