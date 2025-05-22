@@ -26,16 +26,6 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 4. **Reset if Needed:** Use the **Reset** button to retry the challenge.
 5. **Progress Through the Game:** Once all furniture in the room is unlocked, it will automatically decorate itself — and the next room will be unlocked!
 
----
-
-## Screenshot
-
-![SCREENSHOT1](../Assets/Ref-Images/readme1.jpg)
-![SCREENSHOT2](../Assets/Ref-Images/readme2.jpg)
-![SCREENSHOT3](../Assets/Ref-Images/readme3.jpg)
-![SCREENSHOT4](../Assets/Ref-Images/readme4.jpg)
-![SCREENSHOT5](../Assets/Ref-Images/readme5.jpg)
-![SCREENSHOT6](../Assets/Ref-Images/readme6.jpg)
 
 ---
 
@@ -44,10 +34,6 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 [View EGDD](egdd.md)
 
 ---
-
-## Credits & Acknowledgements
-
-- **ChatGPT** – For writing refinement and brainstorming support
 
 ### Influences
 
@@ -65,6 +51,8 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 
 ---
 
+=======
+
 ## Screenshots
 
 Here are some previews of _Cascade Casa_ gameplay:
@@ -78,6 +66,7 @@ Here are some previews of _Cascade Casa_ gameplay:
 
 ---
 
+
 ## Gameplay Videos
 
 Watch a quick gameplay demo of _Cascade Casa_ here:
@@ -86,20 +75,24 @@ Watch a quick gameplay demo of _Cascade Casa_ here:
 
 [![Watch the video (Short Version)]()](https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view?usp=sharing)
 
+Slides: Coming Soon !
+
 ## Early Concept & Contributions
 
 - **Concepts:** Dustin Tran
 - **Core Game Mechanics:** Jared Miller
 - **Graphics:** Selin Bacaz, Dustin Tran, Mohamed Mouhoud
 
-## Credits
 
-- Sounds: All of our soundtracks were found on <https://pixabay.com/>
+## Credits and acknowledgements:
+- Some furniture are from canva 
+- all backgrounds, and most furniture are from Selin Bacaz
+- Sounds: All of our soundtracks were found on https://pixabay.com/
++ https://pixabay.com/sound-effects/busy-office-no-people-loop-6719/
++ https://pixabay.com/sound-effects/summer-insects-243572/
++ https://pixabay.com/sound-effects/music-box-336285/
++ https://pixabay.com/sound-effects/squeaky-door-open-113212/
++ https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/
 
-- <https://pixabay.com/sound-effects/busy-office-no-people-loop-6719/>
-- <https://pixabay.com/sound-effects/summer-insects-243572/>
-- <https://pixabay.com/sound-effects/music-box-336285/>
-- <https://pixabay.com/sound-effects/squeaky-door-open-113212/>
-- <https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/>
+- ChatGPT were used to refine code & writing for the game
 
-- ChatGPT was used to refine code & writing for the game
