@@ -26,7 +26,6 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 4. **Reset if Needed:** Use the **Reset** button to retry the challenge.
 5. **Progress Through the Game:** Once all furniture in the room is unlocked, it will automatically decorate itself — and the next room will be unlocked!
 
-
 ---
 
 ## Educational Game Design Document
@@ -51,8 +50,6 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 
 ---
 
-=======
-
 ## Screenshots
 
 Here are some previews of _Cascade Casa_ gameplay:
@@ -66,7 +63,6 @@ Here are some previews of _Cascade Casa_ gameplay:
 
 ---
 
-
 ## Gameplay Videos
 
 Watch a quick gameplay demo of _Cascade Casa_ here:
@@ -75,7 +71,7 @@ Watch a quick gameplay demo of _Cascade Casa_ here:
 
 [![Watch the video (Short Version)]()](https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view?usp=sharing)
 
-Slides: Coming Soon !
+Slides Coming Soon!
 
 ## Early Concept & Contributions
 
@@ -83,16 +79,16 @@ Slides: Coming Soon !
 - **Core Game Mechanics:** Jared Miller
 - **Graphics:** Selin Bacaz, Dustin Tran, Mohamed Mouhoud
 
+## Credits and acknowledgements
 
-## Credits and acknowledgements:
-- Some furniture are from canva 
-- all backgrounds, and most furniture are from Selin Bacaz
-- Sounds: All of our soundtracks were found on https://pixabay.com/
-+ https://pixabay.com/sound-effects/busy-office-no-people-loop-6719/
-+ https://pixabay.com/sound-effects/summer-insects-243572/
-+ https://pixabay.com/sound-effects/music-box-336285/
-+ https://pixabay.com/sound-effects/squeaky-door-open-113212/
-+ https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/
+- Some furniture from canva
+- All backgrounds, and most furniture illustrations by Selin Bacaz
+- Sounds/soundtracks:
 
-- ChatGPT were used to refine code & writing for the game
+  - <https://pixabay.com/sound-effects/busy-office-no-people-loop-6719/>
+  - <https://pixabay.com/sound-effects/summer-insects-243572/>
+  - <https://pixabay.com/sound-effects/music-box-336285/>
+  - <https://pixabay.com/sound-effects/squeaky-door-open-113212/>
+  - <https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/>
 
+- ChatGPT was used to refine code & writing for the game
