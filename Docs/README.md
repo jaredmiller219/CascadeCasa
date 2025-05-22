@@ -14,6 +14,7 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 ---
 
 ## Basic Instructions
+
 1. **Start the Game:** On the home screen, click on the **Tutorial** house to begin.
 2. **Follow the Storyline:** The journal (Cee Cee) will guide you through your journey in Cascade Casa.
 3. **Complete Styling Challenges:**
@@ -25,26 +26,6 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 4. **Reset if Needed:** Use the **Reset** button to retry the challenge.
 5. **Progress Through the Game:** Once all furniture in the room is unlocked, it will automatically decorate itself — and the next room will be unlocked!
 
----
-
-## Screenshots
-
-Here are some previews of *Cascade Casa* gameplay:
-
-![Living Room](./Docs/DemoIMg/readme1.png)
-![Hint System](./Docs/DemoIMg/readme2.png)
-![Syntax Challenge](./Docs/DemoIMg/readme3.png)
-![Decorated Room](./Docs/DemoIMg/readme4.png)
-![Journal UI](./Docs/DemoIMg/readme5.png)
-![Room Unlocked](./Docs/DemoIMg/readme6.png)
-
-
----
-
-## Gameplay Video
-
-Long version: https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view 
-short version: https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view 
 
 ---
 
@@ -70,20 +51,38 @@ short version: https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK
 
 ---
 
-## Gameplay Video
+=======
 
-Watch a quick gameplay demo of *Cascade Casa* here:
+## Screenshots
+
+Here are some previews of _Cascade Casa_ gameplay:
+
+![Living Room](./DemoIMg/readme1.png)
+![Hint System](./DemoIMg/readme2.png)
+![Syntax Challenge](./DemoIMg/readme3.png)
+![Decorated Room](./DemoIMg/readme4.png)
+![Journal UI](./DemoIMg/readme5.png)
+![Room Unlocked](./DemoIMg/readme6.png)
+
+---
+
+
+## Gameplay Videos
+
+Watch a quick gameplay demo of _Cascade Casa_ here:
 
 [![Watch the video (Long Version)]()](https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view?usp=sharing)
 
 [![Watch the video (Short Version)]()](https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view?usp=sharing)
 
+Slides: Coming Soon !
 
 ## Early Concept & Contributions
 
 - **Concepts:** Dustin Tran
 - **Core Game Mechanics:** Jared Miller
 - **Graphics:** Selin Bacaz, Dustin Tran, Mohamed Mouhoud
+
 
 ## Credits and acknowledgements:
 - Some furniture are from canva 
@@ -94,4 +93,6 @@ Watch a quick gameplay demo of *Cascade Casa* here:
 + https://pixabay.com/sound-effects/music-box-336285/
 + https://pixabay.com/sound-effects/squeaky-door-open-113212/
 + https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/
+
 - ChatGPT were used to refine code & writing for the game
+
