@@ -14,6 +14,7 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 ---
 
 ## Basic Instructions
+
 1. **Start the Game:** On the home screen, click on the **Tutorial** house to begin.
 2. **Follow the Storyline:** The journal (Cee Cee) will guide you through your journey in Cascade Casa.
 3. **Complete Styling Challenges:**
@@ -36,13 +37,12 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 ![SCREENSHOT5](../Assets/Ref-Images/readme5.jpg)
 ![SCREENSHOT6](../Assets/Ref-Images/readme6.jpg)
 
-
 ---
 
 ## Gameplay Video
 
-Long version: https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view 
-short version: https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view 
+Long version: <https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view>
+short version: <https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view>
 
 ---
 
@@ -71,9 +71,10 @@ short version: https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK
   The house customization and object placement mechanics influenced how players will use CSS to style and position objects in _Cascade Casa_.
 
 ---
+
 ## Screenshots
 
-Here are some previews of *Cascade Casa* gameplay:
+Here are some previews of _Cascade Casa_ gameplay:
 
 ![Living Room](./DemoIMg/readme1.png)
 ![Hint System](./DemoIMg/readme2.png)
@@ -84,14 +85,13 @@ Here are some previews of *Cascade Casa* gameplay:
 
 ---
 
-## Gameplay Video
+## Gameplay Videos
 
-Watch a quick gameplay demo of *Cascade Casa* here:
+Watch a quick gameplay demo of _Cascade Casa_ here:
 
 [![Watch the video (Long Version)]()](https://drive.google.com/file/d/1eudrdVcb5IR7WoFMdZPRnbxzYyggRDfC/view?usp=sharing)
 
 [![Watch the video (Short Version)]()](https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK/view?usp=sharing)
-
 
 ## Early Concept & Contributions
 
@@ -99,11 +99,14 @@ Watch a quick gameplay demo of *Cascade Casa* here:
 - **Core Game Mechanics:** Jared Miller
 - **Graphics:** Selin Bacaz, Dustin Tran, Mohamed Mouhoud
 
-## Credits:
-- Sounds: All of our soundtracks were found on https://pixabay.com/
-+ https://pixabay.com/sound-effects/busy-office-no-people-loop-6719/
-+ https://pixabay.com/sound-effects/summer-insects-243572/
-+ https://pixabay.com/sound-effects/music-box-336285/
-+ https://pixabay.com/sound-effects/squeaky-door-open-113212/
-+ https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/
+## Credits
+
+- Sounds: All of our soundtracks were found on <https://pixabay.com/>
+
+- <https://pixabay.com/sound-effects/busy-office-no-people-loop-6719/>
+- <https://pixabay.com/sound-effects/summer-insects-243572/>
+- <https://pixabay.com/sound-effects/music-box-336285/>
+- <https://pixabay.com/sound-effects/squeaky-door-open-113212/>
+- <https://pixabay.com/sound-effects/fairy-dust-shimmer-1-175611/>
+
 - ChatGPT was used to refine code & writing for the game
