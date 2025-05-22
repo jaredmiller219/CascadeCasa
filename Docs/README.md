@@ -27,14 +27,16 @@ _Cascade Casa_ is an interactive 2D home decor simulation game designed to teach
 
 ---
 
-## Screenshot
+## Screenshots
 
-![SCREENSHOT1](..\Assets\Ref-Images\readme1.jpg)
-![SCREENSHOT2](..\Assets\Ref-Images\readme2.jpg)
-![SCREENSHOT3](..\Assets\Ref-Images\readme3.jpg)
-![SCREENSHOT4](..\Assets\Ref-Images\readme4.jpg)
-![SCREENSHOT5](..\Assets\Ref-Images\readme5.jpg)
-![SCREENSHOT6](..\Assets\Ref-Images\readme6.jpg)
+Here are some previews of *Cascade Casa* gameplay:
+
+![Living Room](./Docs/DemoIMg/readme1.png)
+![Hint System](./Docs/DemoIMg/readme2.png)
+![Syntax Challenge](./Docs/DemoIMg/readme3.png)
+![Decorated Room](./Docs/DemoIMg/readme4.png)
+![Journal UI](./Docs/DemoIMg/readme5.png)
+![Room Unlocked](./Docs/DemoIMg/readme6.png)
 
 
 ---
@@ -52,10 +54,6 @@ short version: https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK
 
 ---
 
-## Credits & Acknowledgements
-
-- **ChatGPT** – For writing refinement and brainstorming support
-
 ### Influences
 
 - [_Stardew Valley_](https://www.stardewvalley.net/)
@@ -69,18 +67,6 @@ short version: https://drive.google.com/file/d/1ag5DT2Vd8wkTjfMI-K41hnvlD4kXzNaK
 
 - [_The Sims_](https://en.wikipedia.org/wiki/The_Sims)
   The house customization and object placement mechanics influenced how players will use CSS to style and position objects in _Cascade Casa_.
-
----
-## Screenshots
-
-Here are some previews of *Cascade Casa* gameplay:
-
-![Living Room](./Docs/DemoIMg/readme1.png)
-![Hint System](./Docs/DemoIMg/readme2.png)
-![Syntax Challenge](./Docs/DemoIMg/readme3.png)
-![Decorated Room](./Docs/DemoIMg/readme4.png)
-![Journal UI](./Docs/DemoIMg/readme5.png)
-![Room Unlocked](./Docs/DemoIMg/readme6.png)
 
 ---
 
@@ -99,7 +85,9 @@ Watch a quick gameplay demo of *Cascade Casa* here:
 - **Core Game Mechanics:** Jared Miller
 - **Graphics:** Selin Bacaz, Dustin Tran, Mohamed Mouhoud
 
-## Credits:
+## Credits and acknowledgements:
+- Some furniture are from canva 
+- all backgrounds, and most furniture are from Selin Bacaz
 - Sounds: All of our soundtracks were found on https://pixabay.com/
 + https://pixabay.com/sound-effects/busy-office-no-people-loop-6719/
 + https://pixabay.com/sound-effects/summer-insects-243572/
