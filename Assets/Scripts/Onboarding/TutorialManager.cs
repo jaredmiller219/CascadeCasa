@@ -27,21 +27,9 @@ public enum InteractableType
 [System.Serializable]
 public class InteractableStep
 {
-    /// <summary>
-    /// List of GameObjects allowed to be interacted with during this step.
-    /// </summary>
-    [Tooltip("Interactable GameObjects allowed in this step")]
-    public List<GameObject> allowedInteractables = new();
-
-    /// <summary>
-    /// Main interactable GameObjects highlighted in this step.
-    /// </summary>
     [Tooltip("Main interactable GameObjects for this step")]
     public List<GameObject> mainInteractables = new();
 
-    /// <summary>
-    /// Allowed interactable types for this step.
-    /// </summary>
     [Tooltip("Allowed interactable types for this step")]
     public List<InteractableType> allowedTypes = new();
 }
@@ -102,6 +90,10 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private List<InteractableStep> interactableItems = new();
 
+
+    // Keeps track of all interactables made available in previous steps
+    private HashSet<GameObject> cumulativeInteractables = new();
+
     /// <summary>
     /// Index of the current tutorial step.
     /// </summary>
@@ -130,7 +122,7 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        // Activate only the current tutorial step GameObject
+        // Optional: keep all steps active, or toggle visuals only if needed
         for (int i = 0; i < tutorialSteps.Length; i++)
             tutorialSteps[i].SetActive(i == index);
 
@@ -142,31 +134,45 @@ public class TutorialManager : MonoBehaviour
 
         var step = interactableItems[index];
 
-        // Set allowed types for this step
+        // Update allowed types
         InteractionManager.SetAllowedTypes(step.allowedTypes.ToArray());
 
-        // Disable interaction on all UI elements first
-        Canvas rootCanvas = FindFirstObjectByType<Canvas>();
-        if (rootCanvas)
-        {
-            foreach (Transform child in rootCanvas.GetComponentsInChildren<Transform>(true))
-            {
-                SetInteractable(child.gameObject, false);
-                RemoveHighlight(child.gameObject);
-            }
-        }
+        // Disable all first
+        DisableAllInteractionsAndHighlights();
 
-        // Enable and highlight only main interactables
+        // Add new main interactables to cumulative list
         foreach (var mainGO in step.mainInteractables)
         {
-            SetInteractable(mainGO, true);
-            AddHighlight(mainGO);
+            if (!cumulativeInteractables.Contains(mainGO))
+                cumulativeInteractables.Add(mainGO);
         }
 
-        // Optional fallback: enable all allowed interactables if no main interactables set
-        if (step.mainInteractables.Count == 0)
+        // Enable interaction on all cumulative interactables
+        foreach (var go in cumulativeInteractables)
         {
-            foreach (var go in step.allowedInteractables) SetInteractable(go, true);
+            SetInteractable(go, true);
+        }
+
+        // Highlight current step's main interactables
+        foreach (var mainGO in step.mainInteractables)
+        {
+            AddHighlight(mainGO);
+        }
+    }
+
+
+    /// <summary>
+    /// Disables interaction and removes highlights from all UI elements under the root Canvas.
+    /// </summary>
+    private void DisableAllInteractionsAndHighlights()
+    {
+        Canvas rootCanvas = FindFirstObjectByType<Canvas>();
+        if (!rootCanvas) return;
+
+        foreach (Transform child in rootCanvas.GetComponentsInChildren<Transform>(true))
+        {
+            SetInteractable(child.gameObject, false);
+            RemoveHighlight(child.gameObject);
         }
     }
 

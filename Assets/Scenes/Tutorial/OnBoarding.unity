@@ -2131,7 +2131,11 @@ MonoBehaviour:
   - {fileID: 1441942481}
   - {fileID: 71732558}
   - {fileID: 1390441927}
-  interactableItems: []
+  interactableItems:
+  - mainInteractables: []
+    allowedTypes: 
+  - mainInteractables: []
+    allowedTypes: 
 --- !u!1 &756250499
 GameObject:
   m_ObjectHideFlags: 0
