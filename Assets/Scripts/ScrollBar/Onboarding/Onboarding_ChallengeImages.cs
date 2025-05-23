@@ -60,6 +60,11 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     private static Onboarding_Notepad _notepad;
 
     /// <summary>
+    ///
+    /// </summary>
+    private bool _interactable = true;
+
+    /// <summary>
     /// Initialize the image
     /// </summary>
     /// <param name="image">The image</param>
@@ -79,13 +84,19 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
         OnAnyImageClicked?.Invoke(css);
     }
 
+    public void SetInteractable(bool state)
+    {
+        _interactable = state;
+    }
+
     /// <summary>
     /// Handles pointer click events on the draggable image.
     /// </summary>
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (Completed || !_scrollBar) return;
+        // if (Completed || !_scrollBar) return;
+        if (!_interactable || Completed || !_scrollBar) return;
         if (_notepad.currentChallengeIndex == -1) _notepad.ResetCurrentChallenge();
         if (_notepad.buttonIndex >= 0) _notepad.SaveTextForIndex(_notepad.buttonIndex);
 
@@ -121,4 +132,5 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         if (_notepad) OnAnyImageClicked -= _notepad.SetCssText;
     }
+
 }
