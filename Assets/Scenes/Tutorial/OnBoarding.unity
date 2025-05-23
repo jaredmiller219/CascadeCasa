@@ -2125,9 +2125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6a647128ae94d31905d4fa3c018e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialSteps: []
   dropdown: {fileID: 0}
-  steps: []
+  tutorialSteps:
+  - {fileID: 994073573}
+  - {fileID: 1441942481}
+  - {fileID: 71732558}
+  - {fileID: 1390441927}
+  interactableItems: []
 --- !u!1 &756250499
 GameObject:
   m_ObjectHideFlags: 0
