@@ -77,7 +77,7 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Image was clicked
     /// </summary>
-    /// <param name="css"></param>
+    /// <param name="css">The CSS of the image</param>
     public static void NotifyImageClicked(string css) => OnAnyImageClicked?.Invoke(css);
 
     /// <summary>
