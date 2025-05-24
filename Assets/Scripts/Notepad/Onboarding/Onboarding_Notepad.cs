@@ -1,12 +1,16 @@
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the functionality of the onboarding notepad including user input, feedback, and challenge progression.
+/// </summary>
 public class Onboarding_Notepad : MonoBehaviour
 {
     /// <summary>
@@ -69,12 +73,27 @@ public class Onboarding_Notepad : MonoBehaviour
     [Header("Hint Section")]
     public GameObject hintText;
 
-    [Header("Room Transition")]
+    /// <summary>
+    /// The background image displayed during the room transition
+    /// </summary>
+    [Header("Room Transition")] 
     public Image backgroundImage;
+
+    /// <summary>
+    /// The sprite used to display the furnished version of the room in the onboarding process
+    /// </summary>
     public Sprite furnishedRoomSprite;
+
+    /// <summary>
+    /// The audio clip that plays when a challenge is successfully completed
+    /// </summary>
     public AudioClip successJingle;
 
-    [Header("Journal")]
+    /// <summary>
+    /// The journal component used for tracking user progress and displaying relevant information
+    /// during the onboarding process.
+    /// </summary>
+    [Header("Journal")] 
     public Onboarding_Journal journal;
 
     /// <summary>
@@ -102,6 +121,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// whether you can click the reset button
     /// </summary>
     [HideInInspector]
+    [UsedImplicitly]
     public bool canReset;
 
     /// <summary>
@@ -141,6 +161,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <summary>
     /// The saved values of the updated CSS from the user
     /// </summary>
+    [UsedImplicitly]
     private Dictionary<int, string> savedTexts = new();
 
     /// <summary>
@@ -193,41 +214,7 @@ public class Onboarding_Notepad : MonoBehaviour
 
         LoadProgress();
     }
-
-    private static void ChangeFocusTo(GameObject gameObj) => EventSystem.current.SetSelectedGameObject(gameObj);
-
-    /// <summary>
-    /// Save the current text at the button's index
-    /// </summary>
-    /// <param name="index">The index of the button</param>
-    public void SaveTextForIndex(int index)
-    {
-        savedTexts[index] = inputField.GetComponent<TMP_InputField>().text;
-        SaveProgress();
-    }
-
-    /// <summary>
-    /// Save the currently displayed text into the savedTexts dictionary, only if a challenge is loaded.
-    /// </summary>
-    public void SaveCurrentInputIfNeeded()
-    {
-        if (currentChallengeIndex >= 0 && inputField.activeSelf)
-        {
-            savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
-            SaveProgress();
-        }
-    }
-
-    /// <summary>
-    /// Set the CSS text
-    /// </summary>
-    /// <param name="css">The CSS to set</param>
-    public void SetCssText(string css)
-    {
-        if (!inputField) return;
-        SetTextOfComponent(inputField, css, Color.black, true);
-    }
-
+    
     /// <summary>
     /// Switch to the i-beam when inside the input field
     /// </summary>
@@ -243,121 +230,6 @@ public class Onboarding_Notepad : MonoBehaviour
     public void OnInputFieldExit() => _cursorManager.SetCursor(_previousCursorIndex);
 
     /// <summary>
-    /// Set the button's interactability status
-    /// </summary>
-    /// <param name="button">The button to set</param>
-    /// <param name="isInteractable">The interactability status</param>
-    private static void SetButtonInteractable(GameObject button, bool isInteractable)
-    {
-        button.GetComponent<Button>().interactable = isInteractable;
-    }
-
-
-    /// <summary>
-    /// Sets the feedback text and color for the user
-    /// </summary>
-    /// <param name="textObject">The GameObject containing the text</param>
-    /// <param name="text">The text to display</param>
-    /// <param name="color">The color of the text</param>
-    /// <param name="isInteractable">Whether it is interactable</param>
-    private static void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
-    {
-        if (textObject.TryGetComponent(out TMP_InputField inputField))
-        {
-            inputField.text = text;
-            inputField.textComponent.color = color;
-            inputField.interactable = isInteractable;
-        }
-        else if (textObject.TryGetComponent(out TMP_Text tmpText))
-        {
-            tmpText.text = text;
-            tmpText.color = color;
-        }
-    }
-
-    /// <summary>
-    /// For GameObject inputField (gets text, trims, lowers)
-    /// </summary>
-    /// <param name="inputField">The input field GameObject</param>
-    /// <returns>The text (string) trimmed and lowered</returns>
-    private static string InputFieldStrToLower(GameObject inputField)
-    {
-        return inputField.TryGetComponent<TMP_InputField>(out var input) ? input.text.Trim().ToLower() : null;
-    }
-
-    /// <summary>
-    /// For scrollBar + index (gets challenge value, lowers)
-    /// </summary>
-    /// <param name="scrollBar">The horizontal scrollbar reference</param>
-    /// <param name="index">the index of the text to lower</param>
-    /// <returns>The text (string) lowered</returns>
-    private static string ScrollBarStrValToLower(Onboarding_HorizontalScrollBar scrollBar, int index)
-    {
-        return scrollBar.CssChallenges[index].Value.ToLower();
-    }
-
-    /// <summary>
-    /// Validates user input against the current challenge's correct CSS snippet
-    /// </summary>
-    private void CheckCssInput()
-    {
-        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
-
-        if (inputField.GetComponent<TMP_InputField>().text == "" || !canSubmit) return;
-        var normalizedUserInput = NormalizeCss(InputFieldStrToLower(inputField));
-        var normalizedCorrectCss = NormalizeCss(ScrollBarStrValToLower(scrollBar, currentChallengeIndex));
-
-        if (normalizedUserInput == normalizedCorrectCss)
-        {
-            if (audioSource && successSound) audioSource.PlayOneShot(successSound);
-            SetTextOfComponent(feedbackText, "Correct!", Color.green, false);
-            if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
-            SaveProgress();
-            levelsCompleted++;
-            SetTextOfComponent(inputField, "", Color.clear, false);
-            ChangeFocusTo(null);
-            if (!IsLevelComplete()) return;
-            LevelComplete();
-        }
-        else
-        {
-            if (audioSource && errorSound) audioSource.PlayOneShot(errorSound);
-            SetTextOfComponent(feedbackText, "Check colons, semicolons, dashes, and syntax!", Color.red, false);
-        }
-    }
-
-    /// <summary>
-    /// Checks whether the level is complete
-    /// </summary>
-    /// <returns>boolean stating whether the level is complete</returns>
-    private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
-
-    /// <summary>
-    /// The level is complete
-    /// </summary>
-    private void LevelComplete()
-    {
-        if (journal) journal.CloseJournal();
-
-        if (backgroundImage && furnishedRoomSprite) backgroundImage.sprite = furnishedRoomSprite;
-
-        if (audioSource && successJingle) audioSource.PlayOneShot(successJingle);
-        StartCoroutine(ShowPopupAfterDelay(1.2f));
-    }
-
-
-    private IEnumerator ShowPopupAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
-        SetTextOfComponent(inputField, "", Color.clear, false);
-        SetButtonInteractable(submitBtn, false);
-        SetButtonInteractable(resetBtn, false);
-        challengeComplete.SetActive(true);
-    }
-    
-    /// <summary>
     /// Load the challenge
     /// </summary>
     public void LoadChallenge()
@@ -366,7 +238,45 @@ public class Onboarding_Notepad : MonoBehaviour
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
-
+    
+    /// <summary>
+    /// Save the currently displayed text into the savedTexts dictionary, only if a challenge is loaded.
+    /// </summary>
+    public void SaveCurrentInputIfNeeded()
+    {
+        if (currentChallengeIndex < 0 || !inputField.activeSelf) return;
+        savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
+        SaveProgress();
+    }
+    
+    /// <summary>
+    /// Save the current text at the button's index
+    /// </summary>
+    /// <param name="index">The index of the button</param>
+    public void SaveTextForIndex(int index)
+    {
+        savedTexts[index] = inputField.GetComponent<TMP_InputField>().text;
+        SaveProgress();
+    }
+    
+    /// <summary>
+    /// Reset the current challenge's text
+    /// </summary>
+    public void ResetCurrentChallenge()
+    {
+        if (currentChallengeIndex == -1)
+        {
+            SetTextOfComponent(inputField, "", Color.black, true);
+            return;
+        }
+        
+        var challengeKey = scrollBar.CssChallenges[currentChallengeIndex].Key;
+        savedTexts.Remove(currentChallengeIndex);
+        SetTextOfComponent(inputField, challengeKey, Color.black, true);
+        UpdateChallengeUI(currentChallengeIndex);
+        LoadChallenge();
+    }
+    
     /// <summary>
     /// Load the CSS for the current challenge
     /// </summary>
@@ -389,23 +299,77 @@ public class Onboarding_Notepad : MonoBehaviour
         SetTextOfComponent(hintText, _cssHints[challengeIndex], Color.black, false);
         SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
     }
-
+    
     /// <summary>
-    /// Reset the current challenge's text
+    /// Set the CSS text
     /// </summary>
-    public void ResetCurrentChallenge()
+    /// <param name="css">The CSS to set</param>
+    public void SetCssText(string css)
     {
-        if (currentChallengeIndex == -1)
-        {
-            SetTextOfComponent(inputField, "", Color.black, true);
-            return;
-        }
-        savedTexts.Remove(currentChallengeIndex);
-        SetTextOfComponent(inputField, scrollBar.CssChallenges[currentChallengeIndex].Key, Color.black, true);
-        UpdateChallengeUI(currentChallengeIndex);
-        LoadChallenge();
+        if (!inputField) return;
+        SetTextOfComponent(inputField, css, Color.black, true);
     }
-
+    
+    /// <summary>
+    /// Sets the feedback text and color for the user
+    /// </summary>
+    /// <param name="textObject">The GameObject containing the text</param>
+    /// <param name="text">The text to display</param>
+    /// <param name="color">The color of the text</param>
+    /// <param name="isInteractable">Whether it is interactable</param>
+    private static void SetTextOfComponent(GameObject textObject, string text, Color color, bool isInteractable)
+    {
+        if (textObject.TryGetComponent(out TMP_InputField inputField))
+        {
+            inputField.text = text;
+            inputField.textComponent.color = color;
+            inputField.interactable = isInteractable;
+        }
+        else if (textObject.TryGetComponent(out TMP_Text tmpText))
+        {
+            tmpText.text = text;
+            tmpText.color = color;
+        }
+    }
+    
+    /// <summary>
+    /// Validates user input against the current challenge's correct CSS snippet
+    /// </summary>
+    private void CheckCssInput()
+    {
+        PlaySound(clickSound);
+        if (!CanAttemptSubmission()) return;
+        
+        if (IsUserCssCorrect()) HandleSuccess();
+        else HandleFailure();
+    }
+    
+    /// <summary>
+    /// Determines whether a submission attempt can be made.
+    /// </summary>
+    /// <returns>True if the submit button can be clicked and the input text is not empty or whitespace;
+    /// otherwise, false.</returns>
+    private bool CanAttemptSubmission()
+    {
+        var inputText = inputField.GetComponent<TMP_InputField>().text;
+        return canSubmit && !string.IsNullOrWhiteSpace(inputText);
+    }
+    
+    /// <summary>
+    /// Determines whether the CSS code entered by the user matches the required correct CSS code.
+    /// </summary>
+    /// <returns>True if the user's CSS code is correct; otherwise, false.</returns>
+    private bool IsUserCssCorrect()
+    {
+        var InputFieldString = InputFieldStrToLower(inputField);
+        var ScrollBarString = ScrollBarStrValToLower(scrollBar, currentChallengeIndex);
+        
+        var userCss =  NormalizeCss(InputFieldString);
+        var correctCss = NormalizeCss(ScrollBarString);
+        
+        return userCss == correctCss;
+    }
+    
     /// <summary>
     /// Make the text easier to check against the correct value
     /// </summary>
@@ -415,7 +379,143 @@ public class Onboarding_Notepad : MonoBehaviour
     {
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
+    
+    /// <summary>
+    /// Handles the successful completion of a CSS challenge by providing positive feedback,
+    /// updating the challenge status as complete, and performing level completion checks.
+    /// </summary>
+    private void HandleSuccess()
+    {
+        PlaySound(successSound);
+        
+        ShowFeedback("Correct!", Color.green);
+        MarkChallengeAsComplete();
+        
+        SetTextOfComponent(inputField, "", Color.clear, false);
+        ChangeFocusTo(null);
+        
+        if (IsLevelComplete()) LevelComplete();
+    }
 
+    /// <summary>
+    /// Handles the scenario when the user's CSS input is incorrect.
+    /// Provides feedback to the user about potential syntax issues and plays an error sound.
+    /// </summary>
+    private void HandleFailure()
+    {
+        PlaySound(errorSound);
+        ShowFeedback("Check colons, semicolons, dashes, and syntax!", Color.red);
+    }
+
+    /// <summary>
+    /// Displays feedback to the user with the specified message and color.
+    /// </summary>
+    /// <param name="message">The feedback message to display.</param>
+    /// <param name="color">The color of the feedback text.</param>
+    private void ShowFeedback(string message, Color color)
+    {
+        SetTextOfComponent(feedbackText, message, color, false);
+    }
+
+    /// <summary>
+    /// Marks the current challenge as complete, updates the progress internally,
+    /// and increments the number of levels completed.
+    /// </summary>
+    private void MarkChallengeAsComplete()
+    {
+        if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
+        SaveProgress();
+        levelsCompleted++;
+    }
+    
+    /// <summary>
+    /// Checks whether the level is complete
+    /// </summary>
+    /// <returns>boolean stating whether the level is complete</returns>
+    private bool IsLevelComplete() => levelsCompleted == scrollBar.imageSprites.Length;
+
+    /// <summary>
+    /// The level is complete
+    /// </summary>
+    private void LevelComplete()
+    {
+        if (journal) journal.CloseJournal();
+        SetSprite(furnishedRoomSprite);
+        PlaySound(successJingle);
+        StartCoroutine(ShowPopupAfterDelay(1.2f));
+    }
+    
+    /// <summary>
+    /// Displays a popup after a specified delay.
+    /// </summary>
+    /// <param name="delay">The amount of time in seconds to wait before showing the popup.</param>
+    /// <returns>An enumerator that handles the delay.</returns>
+    private IEnumerator ShowPopupAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        SetTextOfComponent(feedbackText, "All challenges completed!", Color.cyan, false);
+        SetTextOfComponent(inputField, "", Color.clear, false);
+        SetButtonInteractable(submitBtn, false);
+        SetButtonInteractable(resetBtn, false);
+        challengeComplete.SetActive(true);
+    }
+    
+    /// <summary>
+    /// Plays the specified audio clip using the configured audio source.
+    /// </summary>
+    /// <param name="clip">The audio clip to be played.</param>
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource && clip) audioSource.PlayOneShot(clip);
+    }
+
+    /// <summary>
+    /// Sets the provided sprite as the background image.
+    /// </summary>
+    /// <param name="newSprite">The new sprite to apply to the background image.</param>
+    private void SetSprite(Sprite newSprite)
+    {
+        if (backgroundImage && newSprite) backgroundImage.sprite = newSprite;
+    }
+
+    /// <summary>
+    /// Changes the currently focused UI element to the specified GameObject.
+    /// </summary>
+    /// <param name="gameObj">The GameObject to set focus to. If null, clears the current focus.</param>
+    private static void ChangeFocusTo(GameObject gameObj) => EventSystem.current.SetSelectedGameObject(gameObj);
+    
+    /// <summary>
+    /// Set the button's interactability status
+    /// </summary>
+    /// <param name="button">The button to set</param>
+    /// <param name="isInteractable">The interactability status</param>
+    private static void SetButtonInteractable(GameObject button, bool isInteractable)
+    {
+        button.GetComponent<Button>().interactable = isInteractable;
+    }
+
+    /// <summary>
+    /// For GameObject inputField (gets text, trims, lowers)
+    /// </summary>
+    /// <param name="inputField">The input field GameObject</param>
+    /// <returns>The text (string) trimmed and lowered</returns>
+    private static string InputFieldStrToLower(GameObject inputField)
+    {
+        return inputField.TryGetComponent<TMP_InputField>(out var input) ? input.text.Trim().ToLower() : null;
+    }
+    
+    /// <summary>
+    /// For scrollBar + index (gets challenge value, lowers)
+    /// </summary>
+    /// <param name="scrollBar">The horizontal scrollbar reference</param>
+    /// <param name="index">the index of the text to lower</param>
+    /// <returns>The text (string) lowered</returns>
+    private static string ScrollBarStrValToLower(Onboarding_HorizontalScrollBar scrollBar, int index)
+    {
+        return scrollBar.CssChallenges[index].Value.ToLower();
+    }
+    
     /// <summary>
     /// The user data to save
     /// </summary>
@@ -449,7 +549,7 @@ public class Onboarding_Notepad : MonoBehaviour
         /// </summary>
         public string entryText;
     }
-
+    
     /// <summary>
     /// Save the current user's progress
     /// </summary>
@@ -471,8 +571,8 @@ public class Onboarding_Notepad : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            string json = File.ReadAllText(saveFilePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            var json = File.ReadAllText(saveFilePath);
+            var data = JsonUtility.FromJson<SaveData>(json);
             currentChallengeIndex = data.currentChallengeIndex;
             savedTexts.Clear();
             foreach (var entry in data.challenges.Where(entry => !string.IsNullOrWhiteSpace(entry.entryText)))
