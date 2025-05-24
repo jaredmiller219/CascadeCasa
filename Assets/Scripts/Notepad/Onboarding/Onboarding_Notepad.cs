@@ -76,7 +76,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <summary>
     /// The background image displayed during the room transition
     /// </summary>
-    [Header("Room Transition")] 
+    [Header("Room Transition")]
     public Image backgroundImage;
 
     /// <summary>
@@ -93,7 +93,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// The journal component used for tracking user progress and displaying relevant information
     /// during the onboarding process.
     /// </summary>
-    [Header("Journal")] 
+    [Header("Journal")]
     public Onboarding_Journal journal;
 
     /// <summary>
@@ -106,12 +106,12 @@ public class Onboarding_Notepad : MonoBehaviour
     /// The sound to play when the button is clicked
     /// </summary>
     public AudioClip clickSound;
-    
+
     /// <summary>
     /// the success sound
     /// </summary>
     public AudioClip successSound;
-    
+
     /// <summary>
     /// the error sound
     /// </summary>
@@ -214,7 +214,7 @@ public class Onboarding_Notepad : MonoBehaviour
 
         LoadProgress();
     }
-    
+
     /// <summary>
     /// Switch to the i-beam when inside the input field
     /// </summary>
@@ -238,7 +238,7 @@ public class Onboarding_Notepad : MonoBehaviour
         LoadInputForChallenge(currentChallengeIndex);
         UpdateChallengeUI(currentChallengeIndex);
     }
-    
+
     /// <summary>
     /// Save the currently displayed text into the savedTexts dictionary, only if a challenge is loaded.
     /// </summary>
@@ -248,7 +248,7 @@ public class Onboarding_Notepad : MonoBehaviour
         savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
         SaveProgress();
     }
-    
+
     /// <summary>
     /// Save the current text at the button's index
     /// </summary>
@@ -258,7 +258,7 @@ public class Onboarding_Notepad : MonoBehaviour
         savedTexts[index] = inputField.GetComponent<TMP_InputField>().text;
         SaveProgress();
     }
-    
+
     /// <summary>
     /// Reset the current challenge's text
     /// </summary>
@@ -269,14 +269,14 @@ public class Onboarding_Notepad : MonoBehaviour
             SetTextOfComponent(inputField, "", Color.black, true);
             return;
         }
-        
+
         var challengeKey = scrollBar.CssChallenges[currentChallengeIndex].Key;
         savedTexts.Remove(currentChallengeIndex);
         SetTextOfComponent(inputField, challengeKey, Color.black, true);
         UpdateChallengeUI(currentChallengeIndex);
         LoadChallenge();
     }
-    
+
     /// <summary>
     /// Load the CSS for the current challenge
     /// </summary>
@@ -299,7 +299,7 @@ public class Onboarding_Notepad : MonoBehaviour
         SetTextOfComponent(hintText, _cssHints[challengeIndex], Color.black, false);
         SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
     }
-    
+
     /// <summary>
     /// Set the CSS text
     /// </summary>
@@ -309,7 +309,7 @@ public class Onboarding_Notepad : MonoBehaviour
         if (!inputField) return;
         SetTextOfComponent(inputField, css, Color.black, true);
     }
-    
+
     /// <summary>
     /// Sets the feedback text and color for the user
     /// </summary>
@@ -331,7 +331,7 @@ public class Onboarding_Notepad : MonoBehaviour
             tmpText.color = color;
         }
     }
-    
+
     /// <summary>
     /// Validates user input against the current challenge's correct CSS snippet
     /// </summary>
@@ -339,11 +339,11 @@ public class Onboarding_Notepad : MonoBehaviour
     {
         PlaySound(clickSound);
         if (!CanAttemptSubmission()) return;
-        
+
         if (IsUserCssCorrect()) HandleSuccess();
         else HandleFailure();
     }
-    
+
     /// <summary>
     /// Determines whether a submission attempt can be made.
     /// </summary>
@@ -354,7 +354,7 @@ public class Onboarding_Notepad : MonoBehaviour
         var inputText = inputField.GetComponent<TMP_InputField>().text;
         return canSubmit && !string.IsNullOrWhiteSpace(inputText);
     }
-    
+
     /// <summary>
     /// Determines whether the CSS code entered by the user matches the required correct CSS code.
     /// </summary>
@@ -363,13 +363,13 @@ public class Onboarding_Notepad : MonoBehaviour
     {
         var InputFieldString = InputFieldStrToLower(inputField);
         var ScrollBarString = ScrollBarStrValToLower(scrollBar, currentChallengeIndex);
-        
-        var userCss =  NormalizeCss(InputFieldString);
+
+        var userCss = NormalizeCss(InputFieldString);
         var correctCss = NormalizeCss(ScrollBarString);
-        
+
         return userCss == correctCss;
     }
-    
+
     /// <summary>
     /// Make the text easier to check against the correct value
     /// </summary>
@@ -379,7 +379,7 @@ public class Onboarding_Notepad : MonoBehaviour
     {
         return input.Replace("\n", "").Replace("  ", " ").Trim();
     }
-    
+
     /// <summary>
     /// Handles the successful completion of a CSS challenge by providing positive feedback,
     /// updating the challenge status as complete, and performing level completion checks.
@@ -387,13 +387,13 @@ public class Onboarding_Notepad : MonoBehaviour
     private void HandleSuccess()
     {
         PlaySound(successSound);
-        
+
         ShowFeedback("Correct!", Color.green);
         MarkChallengeAsComplete();
-        
+
         SetTextOfComponent(inputField, "", Color.clear, false);
         ChangeFocusTo(null);
-        
+
         if (IsLevelComplete()) LevelComplete();
     }
 
@@ -427,7 +427,7 @@ public class Onboarding_Notepad : MonoBehaviour
         SaveProgress();
         levelsCompleted++;
     }
-    
+
     /// <summary>
     /// Checks whether the level is complete
     /// </summary>
@@ -444,7 +444,7 @@ public class Onboarding_Notepad : MonoBehaviour
         PlaySound(successJingle);
         StartCoroutine(ShowPopupAfterDelay(1.2f));
     }
-    
+
     /// <summary>
     /// Displays a popup after a specified delay.
     /// </summary>
@@ -460,7 +460,7 @@ public class Onboarding_Notepad : MonoBehaviour
         SetButtonInteractable(resetBtn, false);
         challengeComplete.SetActive(true);
     }
-    
+
     /// <summary>
     /// Plays the specified audio clip using the configured audio source.
     /// </summary>
@@ -484,7 +484,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     /// <param name="gameObj">The GameObject to set focus to. If null, clears the current focus.</param>
     private static void ChangeFocusTo(GameObject gameObj) => EventSystem.current.SetSelectedGameObject(gameObj);
-    
+
     /// <summary>
     /// Set the button's interactability status
     /// </summary>
@@ -504,7 +504,7 @@ public class Onboarding_Notepad : MonoBehaviour
     {
         return inputField.TryGetComponent<TMP_InputField>(out var input) ? input.text.Trim().ToLower() : null;
     }
-    
+
     /// <summary>
     /// For scrollBar + index (gets challenge value, lowers)
     /// </summary>
@@ -515,7 +515,7 @@ public class Onboarding_Notepad : MonoBehaviour
     {
         return scrollBar.CssChallenges[index].Value.ToLower();
     }
-    
+
     /// <summary>
     /// The user data to save
     /// </summary>
@@ -526,7 +526,7 @@ public class Onboarding_Notepad : MonoBehaviour
         /// The current challenge index of the save data
         /// </summary>
         public int currentChallengeIndex;
-        
+
         /// <summary>
         /// A list of challenge entries for the save data
         /// </summary>
@@ -543,13 +543,13 @@ public class Onboarding_Notepad : MonoBehaviour
         /// The index of the challenge to be saved
         /// </summary>
         public int index;
-        
+
         /// <summary>
         /// The text of the challenge to be saved
         /// </summary>
         public string entryText;
     }
-    
+
     /// <summary>
     /// Save the current user's progress
     /// </summary>
