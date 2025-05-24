@@ -45,6 +45,11 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     public bool Locked { get; set; }
 
     /// <summary>
+    ///
+    /// </summary>
+    public event Action OnInteracted;
+
+    /// <summary>
     /// The original parent of the image.
     /// </summary>
     private Transform _originalParent;
@@ -95,7 +100,6 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        // if (Completed || !_scrollBar) return;
         if (!_interactable || Completed || !_scrollBar) return;
         if (_notepad.currentChallengeIndex == -1) _notepad.ResetCurrentChallenge();
         if (_notepad.buttonIndex >= 0) _notepad.SaveTextForIndex(_notepad.buttonIndex);
@@ -108,9 +112,9 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
 
         var clickedIndex = transform.GetSiblingIndex();
         _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
-
-        // Update after the check
         PreviousButtonIndex = buttonIndex;
+
+        OnInteracted?.Invoke();
     }
 
     private void Awake()
