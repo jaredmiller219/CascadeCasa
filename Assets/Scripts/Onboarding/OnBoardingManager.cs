@@ -17,21 +17,24 @@ public class OnBoardingManager : MonoBehaviour
     /// Used to display or manage dropdown elements during the tutorial process.
     /// </summary>
     [Tooltip("Dropdown GameObject reference")]
-    [SerializeField] private GameObject dropdown;
+    [SerializeField]
+    private GameObject dropdown;
 
     /// <summary>
     /// An array of GameObjects representing the sequence of tutorial steps
     /// to be displayed and managed during the onboarding process.
     /// </summary>
     [Tooltip("List of tutorial step GameObjects")]
-    [SerializeField] private GameObject[] tutorialSteps;
+    [SerializeField]
+    private GameObject[] tutorialSteps;
 
     /// <summary>
     /// Stores a list of interactable steps, where each step contains its associated
     /// main interactable GameObjects used within the onboarding tutorial process.
     /// </summary>
     [Tooltip("List of interactable data per tutorial step")]
-    [SerializeField] private List<InteractableStep> interactableItems = new();
+    [SerializeField]
+    private List<InteractableStep> interactableItems = new();
 
     /// <summary>
     /// Stores the list of interactable GameObjects specific to the current tutorial step.
@@ -54,6 +57,7 @@ public class OnBoardingManager : MonoBehaviour
     {
         if (dropdown) dropdown.SetActive(true);
         else Debug.LogWarning("Dropdown reference not set!");
+
         if (tutorialSteps.Length > 0) ShowStep(0);
         else Debug.LogWarning("No tutorial steps configured!");
     }
@@ -67,6 +71,7 @@ public class OnBoardingManager : MonoBehaviour
     {
         if (!IsValidStepIndex(index)) return;
         if (!HasInteractableForStep(index)) return;
+
         UpdateStepVisibility(index);
         PrepareStep(index);
     }
@@ -80,6 +85,7 @@ public class OnBoardingManager : MonoBehaviour
     private bool IsValidStepIndex(int index)
     {
         if (index >= 0 && index < tutorialSteps.Length) return true;
+
         Debug.LogError($"Tutorial step index {index} is out of range!");
         return false;
     }
@@ -88,12 +94,16 @@ public class OnBoardingManager : MonoBehaviour
     /// Updates the visibility of tutorial steps, ensuring that only the specified
     /// step is active while all others are deactivated.
     /// </summary>
-    /// <param name="index">The index of the tutorial step to activate and display.</param>
-    private void UpdateStepVisibility(int index)
+    /// <param name="StepIndex">The index of the tutorial step to activate and display.</param>
+    private void UpdateStepVisibility(int StepIndex)
     {
-        for (var i = 0; i < tutorialSteps.Length; i++)
+        bool IsStepActive(int indexToCheck) => indexToCheck == StepIndex;
+
+        for (var localIndex = 0; localIndex < tutorialSteps.Length; localIndex++)
         {
-            tutorialSteps[i].SetActive(i == index);
+            var currentStep = tutorialSteps[localIndex];
+            var activeStatus = IsStepActive(localIndex);
+            currentStep.SetActive(activeStatus);
         }
     }
 
@@ -105,6 +115,7 @@ public class OnBoardingManager : MonoBehaviour
     private bool HasInteractableForStep(int index)
     {
         if (index < interactableItems.Count) return true;
+
         Debug.LogWarning($"No interactable data configured for step {index}");
         return false;
     }
@@ -124,7 +135,9 @@ public class OnBoardingManager : MonoBehaviour
         // Add current step's interactables to the cumulative list
         foreach (var mainObject in step.mainInteractable)
         {
-            if (!cumulativeInteractable.Contains(mainObject)) cumulativeInteractable.Add(mainObject);
+            if (!cumulativeInteractable.Contains(mainObject))
+                cumulativeInteractable.Add(mainObject);
+
             currentStepInteractable.Add(mainObject);
             AddHighlight(mainObject);
             HookStepAdvance(mainObject);
@@ -132,9 +145,7 @@ public class OnBoardingManager : MonoBehaviour
 
         // Re-enable all cumulative interactables
         foreach (var gameObject in cumulativeInteractable)
-        {
             SetInteractable(gameObject, true);
-        }
     }
 
     /// <summary>
@@ -145,7 +156,10 @@ public class OnBoardingManager : MonoBehaviour
         var rootCanvas = FindFirstObjectByType<Canvas>();
         if (!rootCanvas) return;
 
-        foreach (var child in rootCanvas.GetComponentsInChildren<Transform>(true))
+        static IEnumerable<Transform> GetAllChildTransforms(Canvas root) =>
+            root.GetComponentsInChildren<Transform>(true);
+
+        foreach (var child in GetAllChildTransforms(rootCanvas))
         {
             SetInteractable(child.gameObject, false);
             RemoveHighlight(child.gameObject);
@@ -177,23 +191,45 @@ public class OnBoardingManager : MonoBehaviour
     private static void AddHighlight(GameObject obj)
     {
         if (!obj) return;
-        var outline = GetOutline(obj) ?? AddOutline(obj);
+        var outline = GetOutline(obj);
+        if (!outline) outline = AddOutline(obj);
         ConfigureOutline(outline, Color.yellow, new Vector2(5, 5), true);
+    }
+
+    /// <summary>
+    /// Removes the highlight effect from the specified GameObject by disabling the associated Outline component,
+    /// if present.
+    /// </summary>
+    /// <param name="obj">The GameObject from which the highlight effect will be removed.
+    /// If null, no action is performed.</param>
+    private static void RemoveHighlight(GameObject obj)
+    {
+        if (!obj) return;
+        if (obj.TryGetComponent<Outline>(out var outline))
+            outline.enabled = false;
     }
 
     /// <summary>
     /// Retrieves the Outline component from the specified GameObject, if it exists.
     /// </summary>
     /// <param name="obj">The GameObject from which to retrieve the Outline component.</param>
-    /// <returns>The Outline component attached to the GameObject, or null if no Outline component is found.</returns>
-    private static Outline GetOutline(GameObject obj) => obj?.GetComponent<Outline>();
+    /// <returns>The Outline component attached to the GameObject, or null if no Outline component is found or obj is null.</returns>
+    private static Outline GetOutline(GameObject obj)
+    {
+        if (!obj) return null;
+        return obj.GetComponent<Outline>();
+    }
 
     /// <summary>
     /// Adds an Outline component to the specified GameObject to create a visual effect.
     /// </summary>
     /// <param name="obj">The GameObject to which the Outline component will be added.</param>
-    /// <returns>The newly created Outline component attached to the GameObject.</returns>
-    private static Outline AddOutline(GameObject obj) => obj?.AddComponent<Outline>();
+    /// <returns>The newly created Outline component attached to the GameObject, or null if obj is null.</returns>
+    private static Outline AddOutline(GameObject obj)
+    {
+        if (!obj) return null;
+        return obj.AddComponent<Outline>();
+    }
 
     /// <summary>
     /// Configures the properties of a given Outline component, including its color,
@@ -209,17 +245,6 @@ public class OnBoardingManager : MonoBehaviour
         outline.effectColor = outlineColor;
         outline.effectDistance = outlineThickness;
         outline.enabled = enabled;
-    }
-
-    /// <summary>
-    /// Removes the highlight effect from the specified GameObject by disabling the associated Outline component,
-    /// if present.
-    /// </summary>
-    /// <param name="obj">The GameObject from which the highlight effect will be removed.
-    /// If null, no action is performed.</param>
-    private static void RemoveHighlight(GameObject obj)
-    {
-        if (obj && obj.TryGetComponent(out Outline outline)) outline.enabled = false;
     }
 
     /// <summary>
@@ -245,8 +270,9 @@ public class OnBoardingManager : MonoBehaviour
     private void HookButton(GameObject obj)
     {
         var button = obj.GetComponent<Button>();
-        button?.onClick.RemoveAllListeners();
-        button?.onClick.AddListener(() =>
+        if (!button) return;
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() =>
         {
             if (currentStepInteractable.Contains(obj)) GoToNextStep();
         });
@@ -284,8 +310,11 @@ public class OnBoardingManager : MonoBehaviour
     /// </summary>
     private void GoToNextStep()
     {
+        // Checks if the step index is within the valid range of tutorial steps.
+        bool IsValidStep(int step) => step < tutorialSteps.Length;
+
         currentStep++;
-        if (currentStep < tutorialSteps.Length) ShowStep(currentStep);
+        if (IsValidStep(currentStep)) ShowStep(currentStep);
         else EndTutorial();
     }
 
@@ -296,7 +325,7 @@ public class OnBoardingManager : MonoBehaviour
     /// </summary>
     private void EndTutorial()
     {
-        foreach (var step in tutorialSteps) step?.SetActive(false);
+        foreach (var step in tutorialSteps) if (step) step.SetActive(false);
         PlayerPrefs.SetInt("TutorialFinished", 1);
         PlayerPrefs.Save();
         NavigationData.CameFromOnBoarding = true;
