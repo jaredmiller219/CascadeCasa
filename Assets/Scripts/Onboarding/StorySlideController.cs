@@ -10,18 +10,18 @@ public class StorySlideController : MonoBehaviour
     /// </summary>
     [Header("Slides")]
     public List<Sprite> slideImages;
-    
+
     /// <summary>
     /// A list of audio tracks for the slides
     /// </summary>
     public List<AudioClip> slideMusic;
-    
+
     /// <summary>
     /// The root GameObject of the story
     /// </summary>
     [Header("End Behavior")]
     public GameObject storyRoot;
-    
+
     /// <summary>
     /// The challenge that needs to be enabled
     /// </summary>
@@ -30,7 +30,7 @@ public class StorySlideController : MonoBehaviour
     /// <summary>
     /// The UI element used to display the current slide image
     /// </summary>
-    [Header("UI References")] 
+    [Header("UI References")]
     public Image slideDisplay;
 
     /// <summary>
@@ -46,13 +46,13 @@ public class StorySlideController : MonoBehaviour
     /// <summary>
     /// The duration of the fade effect in seconds
     /// </summary>
-    [Header("Fade Settings")] 
+    [Header("Fade Settings")]
     public float fadeDuration = 1f;
 
     /// <summary>
     /// The audio source responsible for playing music tracks during the slides
     /// </summary>
-    [Header("Audio")] 
+    [Header("Audio")]
     public AudioSource musicSource;
 
     /// <summary>
@@ -101,7 +101,7 @@ public class StorySlideController : MonoBehaviour
         if (slideMusic == null) return;
         if (index >= slideMusic.Count) return;
         if (!slideMusic[index]) return;
-        
+
         musicSource.Stop();
         musicSource.clip = slideMusic[index];
         musicSource.Play();
@@ -118,7 +118,7 @@ public class StorySlideController : MonoBehaviour
         slideDisplay.sprite = newSlide;
         slideDisplay.SetNativeSize();
         slideDisplay.CrossFadeAlpha(1f, fadeDuration, false);
-        
+
         yield return new WaitForSeconds(fadeDuration);
     }
 
