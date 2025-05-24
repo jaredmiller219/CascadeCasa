@@ -1,10 +1,11 @@
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    private static readonly int Hover = Animator.StringToHash("hover");
+
     /// <summary>
     /// Reference to the journal popup GameObject that appears when the journal button is clicked.
     /// </summary>
@@ -43,11 +44,6 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     [SerializeField]
     private Onboarding_Notepad notepad;
 
-    /// <summary>
-    /// Represents the hash ID for the "hover" animation parameter used by the Animator.
-    /// </summary>
-    private static readonly int Hover = Animator.StringToHash("hover");
-
     private void Start()
     {
         if (journalPopup) journalPopup.SetActive(false);
@@ -55,10 +51,11 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     }
 
     /// <summary>
-    /// Toggles the visibility state of the journal popup.
-    /// If the popup is currently visible, it will be hidden, and vice versa.
-    /// Also ensures that the current input in the notepad is saved if necessary.
+    /// Toggles the visibility of the journal popup.
+    /// <br />
+    /// This method is called when the journal button is clicked.
     /// </summary>
+    /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
     {
         notepad.SaveCurrentInputIfNeeded();
@@ -69,7 +66,6 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// Sets the hover state of the journal button.
     /// </summary>
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>
-    [UsedImplicitly]
     public void SetHover(bool isHovering)
     {
         if (animator) animator.SetBool(Hover, isHovering);
@@ -82,6 +78,7 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// <param name="eventData">The event data associated with the pointer down event.</param>
     public void OnPointerDown(PointerEventData eventData)
     {
+        // Light gray
         if (JournalImage) JournalImage.GetComponent<Image>().color = new Color32(200, 200, 200, 255);
     }
 
@@ -93,6 +90,7 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// <param name="eventData">The event data associated with the pointer up event.</param>
     public void OnPointerUp(PointerEventData eventData)
     {
+        // White
         if (JournalImage) JournalImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
@@ -102,8 +100,10 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// </summary>
     public void CloseJournal()
     {
-        if (!journalPopup || !journalPopup.activeSelf) return;
-        notepad.SaveCurrentInputIfNeeded();
-        journalPopup.SetActive(false);
+        if (journalPopup && journalPopup.activeSelf)
+        {
+            notepad.SaveCurrentInputIfNeeded(); // same as in ToggleJournal
+            journalPopup.SetActive(false);
+        }
     }
 }
