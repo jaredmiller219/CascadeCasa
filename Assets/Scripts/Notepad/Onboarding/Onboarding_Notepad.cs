@@ -191,7 +191,9 @@ public class Onboarding_Notepad : MonoBehaviour
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
-            if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
+            if (audioSource && clickSound)
+                audioSource.PlayOneShot(clickSound);
+
             ResetCurrentChallenge();
             ChangeFocusTo(null);
         });
@@ -200,10 +202,12 @@ public class Onboarding_Notepad : MonoBehaviour
         inputField.GetComponent<TMP_InputField>().scrollSensitivity = 0.01f;
 
         _cursorManager = GlobalCursorManager.Instance;
-        if (_cursorManager) _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
+        if (_cursorManager)
+            _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
 
         scrollBar = FindFirstObjectByType<Onboarding_HorizontalScrollBar>();
-        if (!scrollBar) Debug.LogError("Onboarding_HorizontalScrollBar not found in scene!");
+        if (!scrollBar)
+            Debug.LogError("Onboarding_HorizontalScrollBar not found in scene!");
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.json");
 
@@ -245,6 +249,7 @@ public class Onboarding_Notepad : MonoBehaviour
     public void SaveCurrentInputIfNeeded()
     {
         if (currentChallengeIndex < 0 || !inputField.activeSelf) return;
+
         savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
         SaveProgress();
     }
@@ -340,7 +345,9 @@ public class Onboarding_Notepad : MonoBehaviour
         PlaySound(clickSound);
         if (!CanAttemptSubmission()) return;
 
-        if (IsUserCssCorrect()) HandleSuccess();
+        if (IsUserCssCorrect())
+            HandleSuccess();
+
         else HandleFailure();
     }
 
@@ -394,7 +401,8 @@ public class Onboarding_Notepad : MonoBehaviour
         SetTextOfComponent(inputField, "", Color.clear, false);
         ChangeFocusTo(null);
 
-        if (IsLevelComplete()) LevelComplete();
+        if (IsLevelComplete())
+            LevelComplete();
     }
 
     /// <summary>
@@ -423,7 +431,9 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     private void MarkChallengeAsComplete()
     {
-        if (scrollBar) scrollBar.MarkChallengeCompleted(buttonIndex);
+        if (scrollBar)
+            scrollBar.MarkChallengeCompleted(buttonIndex);
+
         SaveProgress();
         levelsCompleted++;
     }
@@ -439,7 +449,9 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     private void LevelComplete()
     {
-        if (journal) journal.CloseJournal();
+        if (journal)
+            journal.CloseJournal();
+
         SetSprite(furnishedRoomSprite);
         PlaySound(successJingle);
         StartCoroutine(ShowPopupAfterDelay(1.2f));
@@ -467,7 +479,8 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <param name="clip">The audio clip to be played.</param>
     private void PlaySound(AudioClip clip)
     {
-        if (audioSource && clip) audioSource.PlayOneShot(clip);
+        if (audioSource && clip)
+            audioSource.PlayOneShot(clip);
     }
 
     /// <summary>
@@ -476,7 +489,8 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <param name="newSprite">The new sprite to apply to the background image.</param>
     private void SetSprite(Sprite newSprite)
     {
-        if (backgroundImage && newSprite) backgroundImage.sprite = newSprite;
+        if (backgroundImage && newSprite)
+            backgroundImage.sprite = newSprite;
     }
 
     /// <summary>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-///
+/// Represents a single step in the tutorial containing the main interactable GameObjects for that step.
 /// </summary>
 [System.Serializable]
 public class InteractableStep

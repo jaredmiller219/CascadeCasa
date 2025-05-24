@@ -50,7 +50,9 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     private void Start()
     {
-        if (journalPopup) journalPopup.SetActive(false);
+        if (journalPopup)
+            journalPopup.SetActive(false);
+
         animator = journalButton.GetComponent<Animator>();
     }
 
@@ -72,7 +74,8 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     [UsedImplicitly]
     public void SetHover(bool isHovering)
     {
-        if (animator) animator.SetBool(Hover, isHovering);
+        if (animator)
+            animator.SetBool(Hover, isHovering);
     }
 
     /// <summary>
@@ -82,7 +85,8 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// <param name="eventData">The event data associated with the pointer down event.</param>
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (JournalImage) JournalImage.GetComponent<Image>().color = new Color32(200, 200, 200, 255);
+        if (JournalImage)
+            JournalImage.GetComponent<Image>().color = new Color32(200, 200, 200, 255);
     }
 
     /// <summary>
@@ -93,8 +97,11 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// <param name="eventData">The event data associated with the pointer up event.</param>
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (JournalImage) JournalImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
+        if (JournalImage)
+            JournalImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
+        if (audioSource && clickSound)
+            audioSource.PlayOneShot(clickSound);
     }
 
     /// <summary>
@@ -103,6 +110,7 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     public void CloseJournal()
     {
         if (!journalPopup || !journalPopup.activeSelf) return;
+
         notepad.SaveCurrentInputIfNeeded();
         journalPopup.SetActive(false);
     }
