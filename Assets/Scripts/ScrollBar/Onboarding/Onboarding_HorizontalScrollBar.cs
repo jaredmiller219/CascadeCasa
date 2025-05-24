@@ -4,10 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Represents a horizontal scroll bar component designed for the onboarding system.
+/// Provides functionality to display and interact with a dynamically generated list of image challenges.
+/// </summary>
 public class Onboarding_HorizontalScrollBar : MonoBehaviour
 {
-    // ---------------- Public Variables --------------------------
-
     /// <summary>
     /// the content area
     /// </summary>
@@ -15,9 +17,11 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     [Header("Unlock Display")]
     public RectTransform unlockedImagePanel;
 
-
-    [Header("References")]
-    public RectTransform content;
+    /// <summary>
+    /// The container for dynamically added or modified UI elements,
+    /// mainly used to manage the layout of child components in the horizontal scroll bar.
+    /// </summary>
+    [Header("References")] public RectTransform content;
 
     /// <summary>
     /// The image prefabs to be added
@@ -64,11 +68,6 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
         new KeyValuePair<string, string>("img {\n    width 100px;\n    height 100px;\n}", "img {\n    width: 100px;\n    height: 100px;\n}")
     };
 
-    // --------------------------------------------------------------
-
-
-    // ---------------- Private Variables ---------------------------
-
     /// <summary>
     /// a reference to the notepad script
     /// </summary>
@@ -76,7 +75,8 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     private Onboarding_Notepad notepad;
 
     /// <summary>
-    ///
+    /// Tracks the previously clicked image index in the onboarding process.
+    /// Used to determine if the same image button has been clicked consecutively.
     /// </summary>
     private int previousIndex = -1;
 
@@ -84,8 +84,6 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// The list of images in the scroll bar
     /// </summary>
     private readonly List<Image> _scrollImages = new();
-
-    // --------------------------------------------------------------
 
     private void Start()
     {
@@ -103,10 +101,10 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Handles the click event for an image, performing related updates and actions.
     /// </summary>
-    /// <param name="clickedIndex"></param>
-    /// <param name="css"></param>
+    /// <param name="clickedIndex">The index of the clicked image.</param>
+    /// <param name="css">The CSS class or identifier associated with the image.</param>
     public void HandleImageClick(int clickedIndex, string css)
     {
         var clickedImage = GetImageAtIndex(clickedIndex);
@@ -133,9 +131,9 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     }
 
     /// <summary>
-    ///
+    /// Marks the challenge at the specified index as completed by updating its visual state and properties.
     /// </summary>
-    /// <param name="index"></param>
+    /// <param name="index">The index of the challenge to mark as completed.</param>
     public void MarkChallengeCompleted(int index)
     {
         if (index < 0 || index >= _scrollImages.Count)
@@ -148,11 +146,11 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
         var checkmark = button.transform.Find("Checkmark");
         var lockIcon = button.transform.Find("Lock");
 
-        if (checkmark && lockIcon)
+        if (checkmark && lockIcon && button.TryGetComponent<Onboarding_ChallengeImage>(out var challengeImage))
         {
             checkmark.gameObject.SetActive(true);
             lockIcon.gameObject.SetActive(false);
-            if (!button.TryGetComponent<Onboarding_ChallengeImage>(out var challengeImage)) return;
+
             challengeImage.Completed = true;
             challengeImage.Locked = false;
 
@@ -161,7 +159,11 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
         else Debug.LogWarning("Checkmark object not found under button!");
     }
 
-    private void AddUnlockedImage(int index) 
+    /// <summary>
+    /// Adds an unlocked image to the unlocked image panel based on the provided index.
+    /// </summary>
+    /// <param name="index">The index of the image in the imageSprites array to be added.</param>
+    private void AddUnlockedImage(int index)
     {
         if (!unlockedImagePanel)
         {
@@ -181,8 +183,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
         newImage.sprite = imageSprites[index];
         newImage.preserveAspect = true;
         newImage.GetComponent<RectTransform>().sizeDelta = imageSize;
-
-        // Optional: Remove ChallengeImage component from clone
+        
         var challengeComponent = newImageObj.GetComponent<Onboarding_ChallengeImage>();
         if (challengeComponent) Destroy(challengeComponent);
     }
@@ -205,27 +206,64 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     private void SetupLayout()
     {
         if (!content) return;
-
-        if (!content.TryGetComponent<HorizontalLayoutGroup>(out var layoutGroup))
-        {
-            layoutGroup = content.gameObject.AddComponent<HorizontalLayoutGroup>();
-        }
-
-        layoutGroup.childAlignment = TextAnchor.MiddleLeft;
-        layoutGroup.padding = new RectOffset(10, 10, 30, 10);
-        layoutGroup.childControlWidth = false;
-        layoutGroup.childControlHeight = false;
-        layoutGroup.childForceExpandWidth = false;
-        layoutGroup.childForceExpandHeight = false;
-
-        if (!content.TryGetComponent<ContentSizeFitter>(out var fitter))
-        {
-            fitter = content.gameObject.AddComponent<ContentSizeFitter>();
-        }
-
-        fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-        fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        var layoutGroup = GetOrAddComponent<HorizontalLayoutGroup>(content.gameObject);
+        
+        SetLayoutGroupOptions(layoutGroup, false, false, 
+            false, false, TextAnchor.MiddleLeft, 
+            new RectOffset(10, 10, 30, 10));
+        
+        var ContentSizeFitter = GetOrAddComponent<ContentSizeFitter>(content.gameObject);
+        SetContentFitter(ContentSizeFitter, ContentSizeFitter.FitMode.PreferredSize);
     }
+
+    /// <summary>
+    /// Configures the layout group settings of a HorizontalLayoutGroup component.
+    /// </summary>
+    /// <param name="layout">The HorizontalLayoutGroup component to be configured.</param>
+    /// <param name="controlWidth">Indicates whether the layout group should control the width of its child elements.</param>
+    /// <param name="controlHeight">Indicates whether the layout group should control the height of its child elements.</param>
+    /// <param name="expandWidth">Indicates whether the layout group should force its child elements
+    /// to expand their width.</param>
+    /// <param name="expandHeight">Indicates whether the layout group should force its child elements
+    /// to expand their height.</param>
+    /// <param name="childAlignment">The alignment of the child elements.</param>
+    /// <param name="padding">The padding of the layout group.</param>
+    private static void SetLayoutGroupOptions(HorizontalLayoutGroup layout, bool controlWidth, bool controlHeight,
+        bool expandWidth, bool expandHeight, TextAnchor childAlignment, RectOffset padding)
+    {
+        layout.childControlWidth = controlWidth;
+        layout.childControlHeight = controlHeight;
+        layout.childForceExpandWidth = expandWidth;
+        layout.childForceExpandHeight = expandHeight;
+        layout.childAlignment = childAlignment;
+        layout.padding = padding;
+    }
+
+    /// <summary>
+    /// Configures the given <see cref="ContentSizeFitter"/> to use the specified fit mode
+    /// for both horizontal and vertical layout fitting.
+    /// </summary>
+    /// <param name="fitter">The <see cref="ContentSizeFitter"/> component to be configured.</param>
+    /// <param name="fitMode">The desired
+    /// <see cref="ContentSizeFitter.FitMode"/> to apply to horizontal and vertical fitting.</param>
+    private static void SetContentFitter(ContentSizeFitter fitter, ContentSizeFitter.FitMode fitMode)
+    {
+        fitter.horizontalFit = fitMode;
+        fitter.verticalFit = fitMode;
+    }
+
+    /// <summary>
+    /// Retrieves the specified component of type <typeparamref name="T"/> from the given GameObject.
+    /// If the component does not exist, it adds a new one and returns it.
+    /// </summary>
+    /// <param name="obj">The GameObject to search for the component.</param>
+    /// <typeparam name="T">The type of the component to retrieve or add.</typeparam>
+    /// <returns>
+    /// The existing component of type <typeparamref name="T"/> if found;
+    /// otherwise, a newly added component of type <typeparamref name="T"/>.
+    /// </returns>
+    private T GetOrAddComponent<T>(GameObject obj) where T : Component =>
+        obj.TryGetComponent(out T comp) ? comp : obj.AddComponent<T>();
 
     /// <summary>
     /// Load the images from the image sprites array
