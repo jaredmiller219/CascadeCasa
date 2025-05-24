@@ -98,12 +98,13 @@ public class StorySlideController : MonoBehaviour
     /// <param name="index">The index of the slide whose music should be played.</param>
     private void PlaySlideMusic(int index)
     {
-        if (slideMusic == null) return;
-        if (index >= slideMusic.Count) return;
-        if (!slideMusic[index]) return;
+        if (slideMusic == null || index >= slideMusic.Count) return;
+
+        var audioClip = slideMusic[index];
+        if (!audioClip) return;
 
         musicSource.Stop();
-        musicSource.clip = slideMusic[index];
+        musicSource.clip = audioClip;
         musicSource.Play();
     }
 
@@ -127,8 +128,11 @@ public class StorySlideController : MonoBehaviour
     /// </summary>
     private void ExitStoryMode()
     {
-        if (storyRoot) storyRoot.SetActive(false);
-        if (challengeUIToEnable) challengeUIToEnable.SetActive(true);
+        if (storyRoot)
+            storyRoot.SetActive(false);
+
+        if (challengeUIToEnable)
+            challengeUIToEnable.SetActive(true);
     }
 
     /// <summary>
