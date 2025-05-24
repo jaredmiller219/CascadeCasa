@@ -68,22 +68,43 @@ public class StorySlideController : MonoBehaviour
     }
 
     /// <summary>
-    /// Displays a specific slide, updates the UI, and plays the corresponding audio if available.
+    /// Displays the specified slide by updating the slide image, playing associated music,
+    /// and adjusting the state of navigation buttons.
     /// </summary>
     /// <param name="index">The index of the slide to display.</param>
     private void ShowSlide(int index)
     {
-        StartCoroutine(FadeInSlide(slideImages[index]));
+        var slideToShow = slideImages[index];
+        StartCoroutine(FadeInSlide(slideToShow));
+        PlaySlideMusic(index);
+        SetButtonInteractable(prevButton, index > 0);
+        SetButtonInteractable(nextButton, true);
+    }
 
-        if (slideMusic != null && index < slideMusic.Count && slideMusic[index])
-        {
-            musicSource.Stop();
-            musicSource.clip = slideMusic[index];
-            musicSource.Play();
-        }
+    /// <summary>
+    /// Sets the interactable state of a button based on the specified condition.
+    /// </summary>
+    /// <param name="button">The button whose interactable state is being modified.</param>
+    /// <param name="condition">A boolean value determining whether the button should be interactable.</param>
+    private static void SetButtonInteractable(Button button, bool condition)
+    {
+        button.interactable = condition;
+    }
 
-        prevButton.interactable = index > 0;
-        nextButton.interactable = true;
+    /// <summary>
+    /// Plays the music track corresponding to the specified slide, if available.
+    /// Stops any currently playing track before starting the new one.
+    /// </summary>
+    /// <param name="index">The index of the slide whose music should be played.</param>
+    private void PlaySlideMusic(int index)
+    {
+        if (slideMusic == null) return;
+        if (index >= slideMusic.Count) return;
+        if (!slideMusic[index]) return;
+        
+        musicSource.Stop();
+        musicSource.clip = slideMusic[index];
+        musicSource.Play();
     }
 
     /// <summary>
@@ -97,6 +118,7 @@ public class StorySlideController : MonoBehaviour
         slideDisplay.sprite = newSlide;
         slideDisplay.SetNativeSize();
         slideDisplay.CrossFadeAlpha(1f, fadeDuration, false);
+        
         yield return new WaitForSeconds(fadeDuration);
     }
 
