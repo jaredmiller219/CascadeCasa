@@ -52,7 +52,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// A list of challenges for each image index
     /// </summary>
-    [HideInInspector]
+    // Also Hidden in inspector
     public readonly List<KeyValuePair<string, string>> CssChallenges = new()
     {
         new KeyValuePair<string, string>("div {\n    background color blue;\n    width: 100px;\n}", "div {\n    background-color: blue;\n    width: 100px;\n}"),
@@ -158,37 +158,34 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
 
             AddUnlockedImage(index);
         }
-        else
+        else Debug.LogWarning("Checkmark object not found under button!");
+    }
+
+    private void AddUnlockedImage(int index) 
+    {
+        if (!unlockedImagePanel)
         {
-            Debug.LogWarning("Checkmark object not found under button!");
+            Debug.LogWarning("Unlocked image panel is not assigned!");
+            return;
         }
+
+        if (index < 0 || index >= imageSprites.Length)
+        {
+            Debug.LogWarning("Index out of range for imageSprites.");
+            return;
+        }
+
+        var newImageObj = Instantiate(imagePrefab, unlockedImagePanel);
+        if (!newImageObj.TryGetComponent<Image>(out var newImage)) return;
+
+        newImage.sprite = imageSprites[index];
+        newImage.preserveAspect = true;
+        newImage.GetComponent<RectTransform>().sizeDelta = imageSize;
+
+        // Optional: Remove ChallengeImage component from clone
+        var challengeComponent = newImageObj.GetComponent<Onboarding_ChallengeImage>();
+        if (challengeComponent) Destroy(challengeComponent);
     }
-
-    private void AddUnlockedImage(int index)
-{
-    if (!unlockedImagePanel)
-    {
-        Debug.LogWarning("Unlocked image panel is not assigned!");
-        return;
-    }
-
-    if (index < 0 || index >= imageSprites.Length)
-    {
-        Debug.LogWarning("Index out of range for imageSprites.");
-        return;
-    }
-
-    GameObject newImageObj = Instantiate(imagePrefab, unlockedImagePanel);
-    if (!newImageObj.TryGetComponent<Image>(out var newImage)) return;
-
-    newImage.sprite = imageSprites[index];
-    newImage.preserveAspect = true;
-    newImage.GetComponent<RectTransform>().sizeDelta = imageSize;
-
-    // Optional: Remove ChallengeImage component from clone
-    var challengeComponent = newImageObj.GetComponent<Onboarding_ChallengeImage>();
-    if (challengeComponent) Destroy(challengeComponent);
-}
 
     /// <summary>
     /// wait for one frame until rebuild
@@ -196,10 +193,8 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <returns>IEnumerator</returns>
     private IEnumerator DelayedLoad()
     {
-        yield return null; // Wait one frame
-        LoadImagesFromArray(); // Will just add images — no rebuilding inside
-
-        // Now safe to rebuild here
+        yield return null;
+        LoadImagesFromArray();
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
     }
@@ -331,10 +326,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <param name="clickedIndex">the current index of the button clicked</param>
     /// <param name="previousIndex">the index of the previous button clicked</param>
     /// <returns>boolean representing whether the same button was clicked or not</returns>
-    private static bool IsSameButton(int clickedIndex, int previousIndex)
-    {
-        return clickedIndex == previousIndex;
-    }
+    private static bool IsSameButton(int clickedIndex, int previousIndex) => clickedIndex == previousIndex;
 
     /// <summary>
     /// Checks if the journal is open.

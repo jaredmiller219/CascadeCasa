@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -102,6 +103,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// whether you can click the reset button
     /// </summary>
     [HideInInspector]
+    [UsedImplicitly]
     public bool canReset;
 
     /// <summary>
