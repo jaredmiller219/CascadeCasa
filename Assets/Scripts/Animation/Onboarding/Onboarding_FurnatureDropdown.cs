@@ -57,7 +57,8 @@ public class Onboarding_FurnitureDropdown : MonoBehaviour
     public void PullBarDown()
     {
         if (!furnitureDropdown || !_animator) return;
-        if (audioSource && dropdownSound) audioSource.PlayOneShot(dropdownSound);
+        if (audioSource && dropdownSound)
+            audioSource.PlayOneShot(dropdownSound);
 
         var isOpen = _animator.GetBool(Open);
 

@@ -13,7 +13,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// the content area
     /// </summary>
-    /// 
+    ///
     [Header("Unlock Display")]
     public RectTransform unlockedImagePanel;
 
@@ -40,6 +40,11 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     [Header("Layout")]
     public Vector2 imageSize;
+
+    /// <summary>
+    /// The amount to scale the image
+    /// </summary>
+    public readonly int imageScaleFactor = 2;
 
     /// <summary>
     /// An array of sprites to add
@@ -88,10 +93,12 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     private void Start()
     {
         notepad = FindFirstObjectByType<Onboarding_Notepad>();
-        if (!notepad) Debug.LogError("Notepad not found in scene!");
-
         journal = FindFirstObjectByType<Onboarding_Journal>();
-        if (!journal) Debug.Log("journal not initialized");
+        if (!notepad || !journal)
+        {
+            if (!notepad) Debug.LogError("Notepad not found in scene!");
+            else Debug.LogWarning("Journal not initialized");
+        }
 
         Onboarding_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;
         Onboarding_ChallengeImage.OnAnyImageClicked += notepad.SetCssText;
@@ -109,7 +116,9 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     {
         var clickedImage = GetImageAtIndex(clickedIndex);
         if (clickedImage) Onboarding_ChallengeImage.NotifyImageClicked(css);
+
         SetupNotepad(notepad, clickedIndex, true, true);
+
         if (IsSameButton(clickedIndex, previousIndex) || !IsJournalOpen(journal)) journal.ToggleJournal();
         previousIndex = clickedIndex;
     }
@@ -124,39 +133,51 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </returns>
     private Onboarding_ChallengeImage GetImageAtIndex(int index)
     {
-        if (index >= 0 && index < _scrollImages.Count) return _scrollImages[index].GetComponent<Onboarding_ChallengeImage>();
-        Debug.LogError($"Index {index} out of range.");
-        return null;
+        if (index < 0 || index >= _scrollImages.Count)
+        {
+            Debug.LogError($"Index {index} out of range.");
+            return null;
+        }
 
+        return _scrollImages[index].GetComponent<Onboarding_ChallengeImage>();
     }
 
     /// <summary>
-    /// Marks the challenge at the specified index as completed by updating its visual state and properties.
+    /// Marks the challenge at the given index as completed.
+    /// This updates the UI to show a checkmark, hide the lock icon, and update the challenge state.
     /// </summary>
     /// <param name="index">The index of the challenge to mark as completed.</param>
     public void MarkChallengeCompleted(int index)
     {
         if (index < 0 || index >= _scrollImages.Count)
         {
-            Debug.LogWarning($"Invalid index {index} for marking challenge as complete.");
+            Debug.LogWarning($"Invalid index {index}. Cannot mark challenge as completed.");
             return;
         }
 
-        var button = _scrollImages[index].gameObject;
-        var checkmark = button.transform.Find("Checkmark");
-        var lockIcon = button.transform.Find("Lock");
+        var challengeButton = _scrollImages[index].gameObject;
+        var checkmark = challengeButton.transform.Find("Checkmark");
+        var lockIcon = challengeButton.transform.Find("Lock");
+        var hasChallengeImage = challengeButton.TryGetComponent<Onboarding_ChallengeImage>(out var challengeImage);
 
-        if (checkmark && lockIcon && button.TryGetComponent<Onboarding_ChallengeImage>(out var challengeImage))
+        if (!checkmark || !lockIcon || !hasChallengeImage)
         {
-            checkmark.gameObject.SetActive(true);
-            lockIcon.gameObject.SetActive(false);
-
-            challengeImage.Completed = true;
-            challengeImage.Locked = false;
-
-            AddUnlockedImage(index);
+            Debug.LogWarning(
+                $"Missing elements on challenge button at index {index}: " +
+                $"{(!checkmark ? "Checkmark " : "")}" +
+                $"{(!lockIcon ? "LockIcon " : "")}" +
+                $"{(!hasChallengeImage ? "ChallengeImage component" : "")}"
+            );
+            return;
         }
-        else Debug.LogWarning("Checkmark object not found under button!");
+
+        checkmark.gameObject.SetActive(true);
+        lockIcon.gameObject.SetActive(false);
+
+        challengeImage.Completed = true;
+        challengeImage.Locked = false;
+
+        AddUnlockedImage(index);
     }
 
     /// <summary>
@@ -165,15 +186,10 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <param name="index">The index of the image in the imageSprites array to be added.</param>
     private void AddUnlockedImage(int index)
     {
-        if (!unlockedImagePanel)
+        if (!unlockedImagePanel || index < 0 || index >= imageSprites.Length)
         {
-            Debug.LogWarning("Unlocked image panel is not assigned!");
-            return;
-        }
-
-        if (index < 0 || index >= imageSprites.Length)
-        {
-            Debug.LogWarning("Index out of range for imageSprites.");
+            if (!unlockedImagePanel) Debug.LogWarning("Unlocked image panel is not assigned!");
+            else Debug.LogWarning("Index out of range for imageSprites.");
             return;
         }
 
@@ -183,7 +199,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
         newImage.sprite = imageSprites[index];
         newImage.preserveAspect = true;
         newImage.GetComponent<RectTransform>().sizeDelta = imageSize;
-        
+
         var challengeComponent = newImageObj.GetComponent<Onboarding_ChallengeImage>();
         if (challengeComponent) Destroy(challengeComponent);
     }
@@ -195,6 +211,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     private IEnumerator DelayedLoad()
     {
         yield return null;
+
         LoadImagesFromArray();
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
@@ -206,12 +223,12 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     private void SetupLayout()
     {
         if (!content) return;
+
         var layoutGroup = GetOrAddComponent<HorizontalLayoutGroup>(content.gameObject);
-        
-        SetLayoutGroupOptions(layoutGroup, false, false, 
-            false, false, TextAnchor.MiddleLeft, 
+        SetLayoutGroupOptions(layoutGroup, false, false,
+            false, false, TextAnchor.MiddleLeft,
             new RectOffset(10, 10, 30, 10));
-        
+
         var ContentSizeFitter = GetOrAddComponent<ContentSizeFitter>(content.gameObject);
         SetContentFitter(ContentSizeFitter, ContentSizeFitter.FitMode.PreferredSize);
     }
@@ -233,8 +250,10 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     {
         layout.childControlWidth = controlWidth;
         layout.childControlHeight = controlHeight;
+
         layout.childForceExpandWidth = expandWidth;
         layout.childForceExpandHeight = expandHeight;
+
         layout.childAlignment = childAlignment;
         layout.padding = padding;
     }
@@ -272,7 +291,9 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     {
         if (imageSprites == null) return;
         ClearImages();
-        foreach (var sprite in imageSprites) AddImage(sprite);
+
+        foreach (var sprite in imageSprites)
+            AddImage(sprite);
     }
 
     /// <summary>
@@ -306,11 +327,13 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void ApplyImageProperties(Image img, Sprite sprite)
     {
-        var rect = img.GetComponent<RectTransform>();
         img.sprite = sprite;
         img.preserveAspect = true;
+
+        var rectTransform = img.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = imageSize * imageScaleFactor;
+
         _scrollImages.Add(img);
-        rect.sizeDelta = imageSize * 2;
     }
 
     /// <summary>
@@ -319,7 +342,9 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void AddScriptToImage(GameObject imgObj)
     {
-        if (imgObj.TryGetComponent<LayoutElement>(out var layout)) DestroyImmediate(layout);
+        if (imgObj.TryGetComponent<LayoutElement>(out var layout))
+            DestroyImmediate(layout);
+
         var image = imgObj.AddComponent<Onboarding_ChallengeImage>();
         var index = (_scrollImages.Count - 1) % CssChallenges.Count;
         image.AssociatedCss = CssChallenges[index].Key;
@@ -330,26 +355,29 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void ClearImages()
     {
-        foreach (var img in _scrollImages.Where(i => i)) Destroy(img.gameObject);
+        foreach (var img in _scrollImages.Where(i => i))
+            Destroy(img.gameObject);
+
         _scrollImages.Clear();
     }
 
     /// <summary>
     /// Call update image sizes if the app is currently playing
     /// </summary>
-    private void OnValidate()
-    {
-        if (Application.isPlaying) UpdateImageSizes();
-    }
+    private void OnValidate() { if (Application.isPlaying) UpdateImageSizes(); }
 
     /// <summary>
     /// Update the image sizes
     /// </summary>
     private void UpdateImageSizes()
     {
-        foreach (var img in _scrollImages.Where(img => img))
+        for (int imageIndex = 0; imageIndex < _scrollImages.Count; imageIndex++)
         {
-            img.GetComponent<RectTransform>().sizeDelta = imageSize * 2;
+            var img = _scrollImages[imageIndex];
+            if (!img) continue;
+
+            var rectTransform = img.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = imageSize * imageScaleFactor;
         }
 
         if (!content) return;

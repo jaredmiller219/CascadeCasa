@@ -39,9 +39,11 @@ public class Onboarding_SlidePanelController : MonoBehaviour
     /// </summary>
     public void TogglePanel()
     {
-        if (audioSource && toggleSound) audioSource.PlayOneShot(toggleSound);
+        if (audioSource && toggleSound)
+            audioSource.PlayOneShot(toggleSound);
+
         var isOpen = _animator.GetBool(Open);
-        
+
         // Set the "open" parameter to the opposite of its current value
         _animator.SetBool(Open, !isOpen);
     }

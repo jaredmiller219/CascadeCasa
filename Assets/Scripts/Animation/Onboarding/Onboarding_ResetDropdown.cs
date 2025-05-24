@@ -39,9 +39,12 @@ public class Onboarding_ResetPopup : MonoBehaviour
     /// </summary>
     public void Animate()
     {
-        if (audioSource && popupSound) audioSource.PlayOneShot(popupSound);
+        if (audioSource && popupSound)
+            audioSource.PlayOneShot(popupSound);
+
         if (!resetPopup || !_animator || !notepad) return;
         if (GetNotepadText(notepad.inputField) == "") return;
+
         resetPopup.SetActive(true);
         _animator.Play("Pull", 0, 0f);
         StartCoroutine(WaitForAnimationToEnd());

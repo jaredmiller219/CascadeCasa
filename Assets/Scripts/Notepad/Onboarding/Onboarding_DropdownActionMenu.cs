@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,7 +22,8 @@ public class Onboarding_DropdownActionMenu : MonoBehaviour
         else Debug.LogError("Dropdown reference is missing!");
 
         notepad = GetComponentInChildren<Onboarding_Notepad>();
-        if (!notepad) Debug.LogError("Onboarding_Notepad reference is missing!");
+        if (!notepad)
+            Debug.LogError("Onboarding_Notepad reference is missing!");
     }
 
     /// <summary>
@@ -66,7 +68,7 @@ public class Onboarding_DropdownActionMenu : MonoBehaviour
 
                 // If in the editor, stop playing. If in build, quit the application
 #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
+                EditorApplication.isPlaying = false;
 #endif
                 Application.Quit();
                 break;
