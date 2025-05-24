@@ -11,7 +11,7 @@ public class InteractableStep
     public List<GameObject> mainInteractables = new();
 }
 
-public class TutorialManager : MonoBehaviour
+public class OnBoardingManager : MonoBehaviour
 {
     [Tooltip("Dropdown GameObject reference")]
     [SerializeField] private GameObject dropdown;
@@ -133,24 +133,6 @@ public class TutorialManager : MonoBehaviour
         if (outline) outline.enabled = false;
     }
 
-    // private void HookStepAdvance(GameObject obj)
-    // {
-    //     if (!obj) return;
-
-    //     var button = obj.GetComponent<Button>();
-    //     if (button)
-    //     {
-    //         button.onClick.RemoveListener(GoToNextStep);
-    //         button.onClick.AddListener(GoToNextStep);
-    //     }
-
-    //     var challengeImage = obj.GetComponent<Onboarding_ChallengeImage>();
-    //     if (challengeImage)
-    //     {
-    //         challengeImage.OnInteracted -= GoToNextStep;
-    //         challengeImage.OnInteracted += GoToNextStep;
-    //     }
-    // }
 
     private void HookStepAdvance(GameObject obj)
     {

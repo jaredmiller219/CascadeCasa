@@ -2072,18 +2072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6a647128ae94d31905d4fa3c018e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropdown: {fileID: 1120590761}
-  tutorialSteps:
-  - {fileID: 994073573}
-  - {fileID: 1441942481}
-  - {fileID: 71732558}
-  - {fileID: 1390441927}
-  interactableItems:
-  - mainInteractables:
-    - {fileID: 115715710}
-  - mainInteractables:
-    - {fileID: 1925823660}
-    - {fileID: 2084070686}
+  dropdown: {fileID: 0}
+  tutorialSteps: []
+  interactableItems: []
 --- !u!1 &756250499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3104,11 +3095,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039518712}
   m_CullTransparentMesh: 1
---- !u!1 &1120590761 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1478123259666531481, guid: 3fb5df43f0e4c4f8681b05adfb45c72e, type: 3}
-  m_PrefabInstance: {fileID: 2154237166895555260}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1185903503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4740,7 +4726,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2604417490545525840, guid: 3fb5df43f0e4c4f8681b05adfb45c72e, type: 3}
   m_PrefabInstance: {fileID: 2154237166895555260}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120590761}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
