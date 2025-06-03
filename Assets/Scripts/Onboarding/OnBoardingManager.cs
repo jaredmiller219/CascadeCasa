@@ -313,7 +313,6 @@ public class OnBoardingManager : MonoBehaviour
         else EndTutorial();
         return;
         
-        // Checks if the step index is within the valid range of tutorial steps.
         bool IsValidStep(int step) => step < tutorialSteps.Length;
     }
 
