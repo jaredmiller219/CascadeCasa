@@ -55,6 +55,9 @@ public class StorySlideController : MonoBehaviour
     [Header("Audio")]
     public AudioSource musicSource;
 
+    [Header("Onboarding")] 
+    public GameObject onboardingManager;
+
     /// <summary>
     /// The index of the currently displayed slide
     /// </summary>
@@ -65,6 +68,7 @@ public class StorySlideController : MonoBehaviour
         nextButton.onClick.AddListener(NextSlide);
         prevButton.onClick.AddListener(PrevSlide);
         ShowSlide(currentSlide);
+        onboardingManager.SetActive(false);
     }
 
     /// <summary>
@@ -133,6 +137,9 @@ public class StorySlideController : MonoBehaviour
 
         if (challengeUIToEnable)
             challengeUIToEnable.SetActive(true);
+
+        if (onboardingManager)
+            onboardingManager.SetActive(true);
     }
 
     /// <summary>
