@@ -55,6 +55,9 @@ public class StorySlideController : MonoBehaviour
     [Header("Audio")]
     public AudioSource musicSource;
 
+    [Header("Onboarding")] 
+    public GameObject onboardingManager;
+
     /// <summary>
     /// The index of the currently displayed slide
     /// </summary>
@@ -65,6 +68,7 @@ public class StorySlideController : MonoBehaviour
         nextButton.onClick.AddListener(NextSlide);
         prevButton.onClick.AddListener(PrevSlide);
         ShowSlide(currentSlide);
+        onboardingManager.SetActive(false);
     }
 
     /// <summary>
@@ -79,16 +83,9 @@ public class StorySlideController : MonoBehaviour
         PlaySlideMusic(index);
         SetButtonInteractable(prevButton, index > 0);
         SetButtonInteractable(nextButton, true);
-    }
-
-    /// <summary>
-    /// Sets the interactable state of a button based on the specified condition.
-    /// </summary>
-    /// <param name="button">The button whose interactable state is being modified.</param>
-    /// <param name="condition">A boolean value determining whether the button should be interactable.</param>
-    private static void SetButtonInteractable(Button button, bool condition)
-    {
-        button.interactable = condition;
+        return;
+        
+        static void SetButtonInteractable(Button button, bool condition) => button.interactable = condition;
     }
 
     /// <summary>
@@ -98,13 +95,9 @@ public class StorySlideController : MonoBehaviour
     /// <param name="index">The index of the slide whose music should be played.</param>
     private void PlaySlideMusic(int index)
     {
-        if (slideMusic == null || index >= slideMusic.Count) return;
-
-        var audioClip = slideMusic[index];
-        if (!audioClip) return;
-
+        if (!(slideMusic?.Count > index) || !slideMusic[index]) return;
         musicSource.Stop();
-        musicSource.clip = audioClip;
+        musicSource.clip = slideMusic[index];
         musicSource.Play();
     }
 
@@ -133,6 +126,12 @@ public class StorySlideController : MonoBehaviour
 
         if (challengeUIToEnable)
             challengeUIToEnable.SetActive(true);
+
+        if (onboardingManager)
+            onboardingManager.SetActive(true);
+        
+        if (gameObject.activeInHierarchy)
+            gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -142,11 +141,9 @@ public class StorySlideController : MonoBehaviour
     /// </summary>
     private void NextSlide()
     {
-        if (currentSlide < slideImages.Count - 1)
-        {
-            currentSlide++;
-            ShowSlide(currentSlide);
-        }
+        if (currentSlide < slideImages.Count - 1) 
+            ShowSlide(++currentSlide);
+        
         else ExitStoryMode();
     }
 
@@ -156,7 +153,6 @@ public class StorySlideController : MonoBehaviour
     private void PrevSlide()
     {
         if (currentSlide <= 0) return;
-        currentSlide--;
-        ShowSlide(currentSlide);
+        ShowSlide(--currentSlide);
     }
 }

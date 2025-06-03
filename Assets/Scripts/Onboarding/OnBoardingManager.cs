@@ -39,13 +39,13 @@ public class OnBoardingManager : MonoBehaviour
     /// <summary>
     /// Stores the list of interactable GameObjects specific to the current tutorial step.
     /// </summary>
-    private List<GameObject> currentStepInteractable = new();
+    private readonly List<GameObject> currentStepInteractable = new();
 
     /// <summary>
     /// Tracks all interactable GameObjects accumulated across the tutorial steps.
     /// These GameObjects remain enabled and interactable as the user progresses through the steps.
     /// </summary>
-    private HashSet<GameObject> cumulativeInteractable = new();
+    private readonly HashSet<GameObject> cumulativeInteractable = new();
 
     /// <summary>
     /// Stores the index of the currently active step in the onboarding tutorial flow.
@@ -97,14 +97,16 @@ public class OnBoardingManager : MonoBehaviour
     /// <param name="StepIndex">The index of the tutorial step to activate and display.</param>
     private void UpdateStepVisibility(int StepIndex)
     {
-        bool IsStepActive(int indexToCheck) => indexToCheck == StepIndex;
-
         for (var localIndex = 0; localIndex < tutorialSteps.Length; localIndex++)
         {
-            var currentStep = tutorialSteps[localIndex];
+            var _currentStep = tutorialSteps[localIndex];
             var activeStatus = IsStepActive(localIndex);
-            currentStep.SetActive(activeStatus);
+            _currentStep.SetActive(activeStatus);
         }
+
+        return;
+        
+        bool IsStepActive(int indexToCheck) => indexToCheck == StepIndex;
     }
 
     /// <summary>
@@ -132,20 +134,18 @@ public class OnBoardingManager : MonoBehaviour
         currentStep = index;
         var step = interactableItems[index];
 
-        // Add current step's interactables to the cumulative list
+        // Add current step's interactable to the cumulative list
         foreach (var mainObject in step.mainInteractable)
         {
-            if (!cumulativeInteractable.Contains(mainObject))
-                cumulativeInteractable.Add(mainObject);
-
+            cumulativeInteractable.Add(mainObject);
             currentStepInteractable.Add(mainObject);
             AddHighlight(mainObject);
             HookStepAdvance(mainObject);
         }
 
-        // Re-enable all cumulative interactables
-        foreach (var gameObject in cumulativeInteractable)
-            SetInteractable(gameObject, true);
+        // Re-enable all cumulative interactable
+        foreach (var gameObj in cumulativeInteractable)
+            SetInteractable(gameObj, true);
     }
 
     /// <summary>
@@ -216,8 +216,7 @@ public class OnBoardingManager : MonoBehaviour
     /// <returns>The Outline component attached to the GameObject, or null if no Outline component is found or obj is null.</returns>
     private static Outline GetOutline(GameObject obj)
     {
-        if (!obj) return null;
-        return obj.GetComponent<Outline>();
+        return !obj ? null : obj.GetComponent<Outline>();
     }
 
     /// <summary>
@@ -227,8 +226,7 @@ public class OnBoardingManager : MonoBehaviour
     /// <returns>The newly created Outline component attached to the GameObject, or null if obj is null.</returns>
     private static Outline AddOutline(GameObject obj)
     {
-        if (!obj) return null;
-        return obj.AddComponent<Outline>();
+        return !obj ? null : obj.AddComponent<Outline>();
     }
 
     /// <summary>
@@ -310,12 +308,12 @@ public class OnBoardingManager : MonoBehaviour
     /// </summary>
     private void GoToNextStep()
     {
-        // Checks if the step index is within the valid range of tutorial steps.
-        bool IsValidStep(int step) => step < tutorialSteps.Length;
-
         currentStep++;
         if (IsValidStep(currentStep)) ShowStep(currentStep);
         else EndTutorial();
+        return;
+        
+        bool IsValidStep(int step) => step < tutorialSteps.Length;
     }
 
     /// <summary>
