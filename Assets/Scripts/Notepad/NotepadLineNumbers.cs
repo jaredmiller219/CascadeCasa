@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+// using UnityEngine.UI;
 
 public class NotepadLineNumbers : MonoBehaviour
 {
@@ -16,7 +16,14 @@ public class NotepadLineNumbers : MonoBehaviour
     [Tooltip("The TextMeshProUGUI element that displays line numbers")]
     public TextMeshProUGUI lineNumbersText;
 
+    /// <summary>
+    /// The RectTransform of the line numbers text.
+    /// </summary>
     private RectTransform lineNumbersRect;
+
+    /// <summary>
+    /// The RectTransform of the text area in the input field.
+    /// </summary>
     private RectTransform textRect;
 
     private void Start()
