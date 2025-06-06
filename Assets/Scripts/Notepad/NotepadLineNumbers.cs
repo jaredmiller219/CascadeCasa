@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-// using UnityEngine.UI;
 
 public class NotepadLineNumbers : MonoBehaviour
 {
@@ -28,26 +27,22 @@ public class NotepadLineNumbers : MonoBehaviour
 
     private void Start()
     {
-        if (inputField)
-        {
-            inputField.onValueChanged.AddListener(UpdateLineNumbers);
-            UpdateLineNumbers(inputField.text);
+        if (!inputField) return;
+        inputField.onValueChanged.AddListener(UpdateLineNumbers);
+        UpdateLineNumbers(inputField.text);
 
-            // Get ScrollRect and text RectTransform
-            lineNumbersRect = lineNumbersText.GetComponent<RectTransform>();
-            textRect = inputField.textComponent.GetComponent<RectTransform>();
-        }
+        // Get ScrollRect and text RectTransform
+        lineNumbersRect = lineNumbersText.GetComponent<RectTransform>();
+        textRect = inputField.textComponent.GetComponent<RectTransform>();
     }
 
     private void Update()
     {
         // Sync vertical scroll with the text area
-        if (textRect && lineNumbersRect)
-        {
-            var pos = lineNumbersRect.anchoredPosition;
-            pos.y = textRect.anchoredPosition.y;
-            lineNumbersRect.anchoredPosition = pos;
-        }
+        if (!textRect || !lineNumbersRect) return;
+        var pos = lineNumbersRect.anchoredPosition;
+        pos.y = textRect.anchoredPosition.y;
+        lineNumbersRect.anchoredPosition = pos;
     }
 
     /// <summary>
@@ -56,10 +51,9 @@ public class NotepadLineNumbers : MonoBehaviour
     /// <param name="text">the text</param>
     private void UpdateLineNumbers(string text)
     {
-        int lineCount = text.Split('\n').Length;
-        string numbers = "";
-
-        for (int i = 1; i <= lineCount; i++) numbers += i + "\n";
+        var lineCount = text.Split('\n').Length;
+        var numbers = "";
+        for (var i = 1; i <= lineCount; i++) numbers += i + "\n";
         if (lineNumbersText) lineNumbersText.text = numbers;
     }
 }
