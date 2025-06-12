@@ -50,11 +50,6 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     public bool Locked { get; set; }
 
     /// <summary>
-    /// Event triggered when the associated challenge image is interacted with.
-    /// </summary>
-    public event Action OnInteracted;
-
-    /// <summary>
     /// The original parent of the image.
     /// </summary>
     private Transform _originalParent;
@@ -75,17 +70,29 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     private bool _interactable = true;
 
     /// <summary>
-    /// Image was clicked
+    /// Event triggered when the associated challenge image is interacted with.
     /// </summary>
-    /// <param name="css">The CSS of the image</param>
-    public static void NotifyImageClicked(string css) => OnAnyImageClicked?.Invoke(css);
+    public event Action OnInteracted;
 
     /// <summary>
-    /// Sets the interactability state of the object.
+    /// Initialize the image
     /// </summary>
-    /// <param name="state">The state to set interactability to.
-    /// True for interactable, false for non-interactable.</param>
-    public void SetInteractable(bool state) => _interactable = state;
+    /// <param name="image">The image</param>
+    /// <param name="associatedCss">The css for the associated image</param>
+    public void Init(GameObject image, string associatedCss)
+    {
+        _scrollBar.imagePrefab = image;
+        AssociatedCss = associatedCss;
+    }
+
+    /// <summary>
+    /// Image was clicked
+    /// </summary>
+    /// <param name="css"></param>
+    public static void NotifyImageClicked(string css)
+    {
+        OnAnyImageClicked?.Invoke(css);
+    }
 
     /// <summary>
     /// Handles pointer click events on the draggable image.
@@ -93,22 +100,32 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Pointer event data containing information about the click.</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!_interactable || Completed || !_scrollBar) return;
+        if (Completed || !_scrollBar) return;
         if (_notepad.currentChallengeIndex == -1) _notepad.ResetCurrentChallenge();
         if (_notepad.buttonIndex >= 0) _notepad.SaveTextForIndex(_notepad.buttonIndex);
 
         // ---------------- For debug only --------------------------
-        // Onboarding_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
+        // LivingRoom_ChallengeImage clickedImage = _scrollBar.GetImageAtIndex(_buttonIndex);
         // string imageName = clickedImage.GetComponent<Image>().sprite.name;
         // Debug.Log($"Image: {imageName}\nIndex: {_buttonIndex}");
         // ----------------------------------------------------------
 
         var clickedIndex = transform.GetSiblingIndex();
         _scrollBar.HandleImageClick(clickedIndex, CurrentCss ?? AssociatedCss);
+
+        // Update after the check
         PreviousButtonIndex = buttonIndex;
 
+        // If the image is interactable, invoke the interaction event
         OnInteracted?.Invoke();
     }
+
+    /// <summary>
+    /// Sets the interactability state of the object.
+    /// </summary>
+    /// <param name="state">The state to set interactability to.
+    /// True for interactable, false for non-interactable.</param>
+    public void SetInteractable(bool state) => _interactable = state;
 
     private void Awake()
     {
@@ -129,5 +146,4 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
     {
         if (_notepad) OnAnyImageClicked -= _notepad.SetCssText;
     }
-
 }
