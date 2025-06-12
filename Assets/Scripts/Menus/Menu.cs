@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
@@ -72,7 +73,9 @@ public class Menu : MonoBehaviour
         {
             PlayerPrefs.DeleteKey("TutorialFinished");
             prefsResetThisSession = true;
-            Debug.Log("PlayerPrefs reset at session start (Editor only)");
+            var statusText = GetStatusText(prefsResetThisSession);
+
+            Debug.Log($"PlayerPrefs Reset This Session: {statusText}" + "\n(Editor only)");
         }
 #endif
 
@@ -87,11 +90,26 @@ public class Menu : MonoBehaviour
         SetLevelSelectInteractable(unlocked);
     }
 
+    /// <summary>
+    /// Returns the status text indicating whether PlayerPrefs were reset this session
+    /// </summary>
+    /// <param name="statusToCheck">The boolean to check</param>
+    /// <returns>A <see langword="string"/> representing the truthiness of the boolean</returns>
+    string GetStatusText(bool statusToCheck) => statusToCheck ? "Yes" : "No";
+
+    /// <summary>
+    /// Checks if the level select button should be unlocked
+    /// </summary>
+    /// <returns>a boolean of the condition (unlocked)</returns>
     private static bool CheckUnlockCondition()
     {
         return PlayerPrefs.GetInt("TutorialFinished", 0) == 1;
     }
 
+    /// <summary>
+    /// Sets the interactable state of the level select button and its lock icon
+    /// </summary>
+    /// <param name="interactable">Whether the item is interactable</param>
     private void SetLevelSelectInteractable(bool interactable)
     {
         if (levelSelectButton) levelSelectButton.GetComponent<EventTrigger>().enabled = interactable;
@@ -101,10 +119,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// Sets the text color when the level select button is clicked
     /// </summary>
-    public void OnLevelSelectPress()
-    {
-        SetPressedColor(levelSelectText);
-    }
+    public void OnLevelSelectPress() => SetPressedColor(levelSelectText);
 
     /// <summary>
     /// Sets the text color when the level select button is released
@@ -122,10 +137,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// Sets the text color when the Play button is clicked
     /// </summary>
-    public void OnTutorialPress()
-    {
-        SetPressedColor(tutorialText);
-    }
+    public void OnTutorialPress() => SetPressedColor(tutorialText);
 
     /// <summary>
     /// Sets the text color when the Play button is released
@@ -142,10 +154,7 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// Sets the text color when the Instructions button is clicked
     /// </summary>
-    public void OnInstructionsPress()
-    {
-        SetPressedColor(instructionsText);
-    }
+    public void OnInstructionsPress() => SetPressedColor(instructionsText);
 
     /// <summary>
     /// Sets the text color when the Instructions button is released
@@ -218,8 +227,5 @@ public class Menu : MonoBehaviour
     /// <summary>
     /// Open the settings scene
     /// </summary>
-    public void Settings()
-    {
-        SceneManager.LoadScene("Settings");
-    }
+    public void Settings() => SceneManager.LoadScene("Settings");
 }

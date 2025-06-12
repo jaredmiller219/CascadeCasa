@@ -105,7 +105,7 @@ public class OnBoardingManager : MonoBehaviour
         }
 
         return;
-        
+
         bool IsStepActive(int indexToCheck) => indexToCheck == StepIndex;
     }
 
@@ -312,7 +312,7 @@ public class OnBoardingManager : MonoBehaviour
         if (IsValidStep(currentStep)) ShowStep(currentStep);
         else EndTutorial();
         return;
-        
+
         bool IsValidStep(int step) => step < tutorialSteps.Length;
     }
 

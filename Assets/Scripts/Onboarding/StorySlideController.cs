@@ -55,7 +55,7 @@ public class StorySlideController : MonoBehaviour
     [Header("Audio")]
     public AudioSource musicSource;
 
-    [Header("Onboarding")] 
+    [Header("Onboarding")]
     public GameObject onboardingManager;
 
     /// <summary>
@@ -84,7 +84,7 @@ public class StorySlideController : MonoBehaviour
         SetButtonInteractable(prevButton, index > 0);
         SetButtonInteractable(nextButton, true);
         return;
-        
+
         static void SetButtonInteractable(Button button, bool condition) => button.interactable = condition;
     }
 
@@ -129,7 +129,7 @@ public class StorySlideController : MonoBehaviour
 
         if (onboardingManager)
             onboardingManager.SetActive(true);
-        
+
         if (gameObject.activeInHierarchy)
             gameObject.SetActive(false);
     }
@@ -141,9 +141,9 @@ public class StorySlideController : MonoBehaviour
     /// </summary>
     private void NextSlide()
     {
-        if (currentSlide < slideImages.Count - 1) 
+        if (currentSlide < slideImages.Count - 1)
             ShowSlide(++currentSlide);
-        
+
         else ExitStoryMode();
     }
 
