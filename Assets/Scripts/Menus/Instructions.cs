@@ -28,6 +28,17 @@ public class Instructions : MonoBehaviour
     public Vector2 buttonSize;
 
     /// <summary>
+    /// The source of the audio
+    /// </summary>
+    [Header("Audio")]
+    public AudioSource audioSource;
+
+    /// <summary>
+    /// The sound to play when the button is clicked
+    /// </summary>
+    public AudioClip clickSound;
+
+    /// <summary>
     /// A structure composed of the button name and the instruction's text to set.
     /// </summary>
     [System.Serializable]
@@ -117,6 +128,7 @@ public class Instructions : MonoBehaviour
     /// </summary>
     public void BackToMenu()
     {
+        PlayClickSound();
         StartCoroutine(LoadSceneWithDelay(NavigationData.PreviousScene));
     }
 
@@ -152,6 +164,14 @@ public class Instructions : MonoBehaviour
 
         buttonObj.GetComponentInChildren<TMP_Text>().text = _instructions[index].buttonName;
         buttonObj.GetComponent<Button>().onClick.AddListener(() => SetText(index));
+    }
+
+    /// <summary>
+    /// Play the click sound
+    /// </summary>
+    private void PlayClickSound()
+    {
+        if (audioSource && clickSound) audioSource.PlayOneShot(clickSound);
     }
 
 }
