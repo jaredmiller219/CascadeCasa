@@ -165,6 +165,11 @@ public class Bathroom_Notepad : MonoBehaviour
         "This final one is a recap — remember colons, semicolons, and consistent spacing. You’ve got this!"
     };
 
+    public Bathroom_Notepad(Bathroom_ChallengeImage selectedImage)
+    {
+        this.selectedImage = selectedImage;
+    }
+
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
@@ -473,8 +478,8 @@ public class Bathroom_Notepad : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            string json = File.ReadAllText(saveFilePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            var json = File.ReadAllText(saveFilePath);
+            var data = JsonUtility.FromJson<SaveData>(json);
             currentChallengeIndex = data.currentChallengeIndex;
             savedTexts.Clear();
             foreach (var entry in data.challenges.Where(entry => !string.IsNullOrWhiteSpace(entry.entryText)))

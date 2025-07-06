@@ -69,7 +69,7 @@ public class Patio_DropdownActionMenu : MonoBehaviour
                 break;
 
             case 4:
-                // Ouit
+                // Quit
                 notepad.SaveProgress();
 
                 // If in editor, stop playing. If in build, quit application

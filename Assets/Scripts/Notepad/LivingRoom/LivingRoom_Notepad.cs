@@ -165,6 +165,11 @@ public class LivingRoom_Notepad : MonoBehaviour
         "This final one is a recap — remember colons, semicolons, and consistent spacing. You’ve got this!"
     };
 
+    public LivingRoom_Notepad(LivingRoom_ChallengeImage selectedImage)
+    {
+        this.selectedImage = selectedImage;
+    }
+
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);

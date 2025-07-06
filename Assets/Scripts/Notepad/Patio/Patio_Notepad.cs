@@ -88,6 +88,11 @@ public class Patio_Notepad : MonoBehaviour
         "Great work! You’ve learned the essentials — now style like a pro!"
     };
 
+    public Patio_Notepad(Patio_ChallengeImage selectedImage)
+    {
+        this.selectedImage = selectedImage;
+    }
+
     private void Start()
     {
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);

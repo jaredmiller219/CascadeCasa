@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +34,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// the spacing between each image (uniform)
     /// </summary>
     [Header("Layout")]
+    [UsedImplicitly]
     public float spacing;
 
     /// <summary>
@@ -44,7 +46,7 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// The amount to scale the image
     /// </summary>
-    public readonly int imageScaleFactor = 2;
+    private readonly int imageScaleFactor = 2;
 
     /// <summary>
     /// An array of sprites to add
@@ -188,8 +190,9 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     {
         if (!unlockedImagePanel || index < 0 || index >= imageSprites.Length)
         {
-            if (!unlockedImagePanel) Debug.LogWarning("Unlocked image panel is not assigned!");
-            else Debug.LogWarning("Index out of range for imageSprites.");
+            Debug.LogWarning(!unlockedImagePanel
+                ? "Unlocked image panel is not assigned!"
+                : "Index out of range for imageSprites.");
             return;
         }
 
@@ -371,12 +374,8 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
     /// </summary>
     private void UpdateImageSizes()
     {
-        for (int imageIndex = 0; imageIndex < _scrollImages.Count; imageIndex++)
+        foreach (var rectTransform in from img in _scrollImages where img select img.GetComponent<RectTransform>())
         {
-            var img = _scrollImages[imageIndex];
-            if (!img) continue;
-
-            var rectTransform = img.GetComponent<RectTransform>();
             rectTransform.sizeDelta = imageSize * imageScaleFactor;
         }
 

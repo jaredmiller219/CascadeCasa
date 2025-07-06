@@ -55,7 +55,6 @@ public class Bathroom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     /// <br />
     /// This method is called when the journal button is clicked.
     /// </summary>
-    /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
     {
         notepad.SaveCurrentInputIfNeeded();
@@ -66,6 +65,7 @@ public class Bathroom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     /// Sets the hover state of the journal button.
     /// </summary>
     /// <param name="isHovering">True if the mouse is hovering over the button, false otherwise.</param>
+    
     public void SetHover(bool isHovering)
     {
         if (animator) animator.SetBool(Hover, isHovering);
@@ -100,10 +100,8 @@ public class Bathroom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     /// </summary>
     public void CloseJournal()
     {
-        if (journalPopup && journalPopup.activeSelf)
-        {
-            notepad.SaveCurrentInputIfNeeded();
-            journalPopup.SetActive(false);
-        }
+        if (!journalPopup || !journalPopup.activeSelf) return;
+        notepad.SaveCurrentInputIfNeeded();
+        journalPopup.SetActive(false);
     }
 }

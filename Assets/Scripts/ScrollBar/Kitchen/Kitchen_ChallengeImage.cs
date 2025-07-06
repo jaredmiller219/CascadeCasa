@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,6 +13,7 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     ///  The previous button index
     /// </summary>
+    [UsedImplicitly]
     public int PreviousButtonIndex = -1;
 
     /// <summary>
@@ -22,6 +24,7 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// The current css
     /// </summary>
+    [UsedImplicitly]
     public string CurrentCss { get; set; }
 
     /// <summary>
@@ -32,6 +35,7 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// The index related to the css
     /// </summary>
+    [UsedImplicitly]
     public int AssociatedIndex;
 
     /// <summary>
@@ -42,6 +46,7 @@ public class Kitchen_ChallengeImage : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Whether the image is locked or not
     /// </summary>
+    [UsedImplicitly]
     public bool Locked { get; set; }
 
     /// <summary>

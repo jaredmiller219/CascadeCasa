@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+// using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
@@ -62,7 +62,7 @@ public class Menu : MonoBehaviour
     // TEMPORARY WHILE TESTING
 #if UNITY_EDITOR
     private static bool prefsResetThisSession;
-    private static bool ResetPlayerPrefsInEditor = true;
+    private const bool ResetPlayerPrefsInEditor = true;
 #endif
 
     private void Start()

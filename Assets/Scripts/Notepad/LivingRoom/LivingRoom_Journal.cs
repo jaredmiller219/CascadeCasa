@@ -55,7 +55,6 @@ public class LivingRoom_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// <br />
     /// This method is called when the journal button is clicked.
     /// </summary>
-    /// <param name="isActive">True to show the journal popup, false to hide it.</param>
     public void ToggleJournal()
     {
         notepad.SaveCurrentInputIfNeeded();

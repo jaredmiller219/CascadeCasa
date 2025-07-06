@@ -8,7 +8,7 @@ public class GlobalCursorManager : MonoBehaviour
     /// <summary>
     /// Singleton instance of the GlobalCursorManager.
     /// </summary>
-    public static GlobalCursorManager Instance { get; set; }
+    public static GlobalCursorManager Instance { get; private set; }
 
     /// <summary>
     /// Texture for the black cursor.

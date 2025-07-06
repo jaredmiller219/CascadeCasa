@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,7 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// the spacing between each image (uniform)
     /// </summary>
     [Header("Layout")]
+    [UsedImplicitly]
     public float spacing;
 
     /// <summary>
@@ -47,7 +49,6 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
     /// <summary>
     /// A list of challenges for each image index
     /// </summary>
-    [HideInInspector]
     public readonly List<KeyValuePair<string, string>> CssChallenges = new()
 {
     new KeyValuePair<string, string>(
