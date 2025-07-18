@@ -50,10 +50,15 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     private void Start()
     {
+        // Debug all Inspector references
+
         if (journalPopup)
             journalPopup.SetActive(false);
 
-        animator = journalButton.GetComponent<Animator>();
+        if (journalButton != null)
+            animator = journalButton.GetComponent<Animator>();
+        else
+            Debug.LogError("[Onboarding_Journal] journalButton is NULL! Please assign it in the Inspector.");
     }
 
     /// <summary>
@@ -63,6 +68,18 @@ public class Onboarding_Journal : MonoBehaviour, IPointerDownHandler, IPointerUp
     /// </summary>
     public void ToggleJournal()
     {
+        if (notepad == null)
+        {
+            Debug.LogError("[Journal] CRITICAL: notepad is NULL! Check Inspector assignment.");
+            return;
+        }
+
+        if (journalPopup == null)
+        {
+            Debug.LogError("[Journal] CRITICAL: journalPopup is NULL! Check Inspector assignment.");
+            return;
+        }
+
         notepad.SaveCurrentInputIfNeeded();
         journalPopup.SetActive(!journalPopup.activeSelf);
     }

@@ -172,7 +172,7 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <summary>
     /// The hints related to the CSS challenges
     /// </summary>
-    private readonly List<string> _cssHints = new()
+    private List<string> _cssHints = new()
     {
         "Use a colon (:) between property and value. Properties like background-color and width define how elements look.",
         "Text styling: font-size and text-align both need colons and semicolons. Always hyphenate compound property names.",
@@ -191,8 +191,79 @@ public class Onboarding_Notepad : MonoBehaviour
         this.selectedImage = selectedImage;
     }
 
+    private void Awake()
+    {
+        // Force initialization in Awake to ensure they're ready before Start
+        if (savedTexts == null)
+        {
+            savedTexts = new Dictionary<int, string>();
+        }
+
+        if (_cssHints == null)
+        {
+            _cssHints = new List<string>
+            {
+                "Use a colon (:) between property and value. Properties like background-color and width define how elements look.",
+                "Text styling: font-size and text-align both need colons and semicolons. Always hyphenate compound property names.",
+                "Borders and margins are common layout tools. Remember: margin-top and border use hyphens.",
+                "Use color and font-weight to style text. Both need colons, and the values go after them.",
+                "Lists use 'list-style-type' to control bullets and 'padding' for spacing. Double-check spelling and colons.",
+                "Links are styled with 'text-decoration' and 'color'. Use hyphens for compound properties.",
+                "Width and height often go together. Each needs a colon and unit like px or %.",
+                "Practice combining multiple properties in one rule block. Don't forget a semicolon at the end of each line.",
+                "CSS selectors like .class or #id target specific elements. Check your dots and hashes!",
+                "This final one is a recap — remember colons, semicolons, and consistent spacing. You've got this!"
+            };
+        }
+    }
+
     private void Start()
     {
+        // Debug instance information
+        // Debug.Log($"[Notepad] Start() called on GameObject: {gameObject.name} (InstanceID: {GetInstanceID()})");
+
+        // Check for multiple instances
+        var allNotepads = FindObjectsOfType<Onboarding_Notepad>();
+        // Debug.Log($"[Notepad] Total Onboarding_Notepad instances in scene: {allNotepads.Length}");
+        // for (int i = 0; i < allNotepads.Length; i++)
+        // {
+        //     Debug.Log($"[Notepad] Instance {i}: {allNotepads[i].gameObject.name} (InstanceID: {allNotepads[i].GetInstanceID()}) - Active: {allNotepads[i].gameObject.activeInHierarchy}");
+        // }
+
+        // Debug all Inspector assignments
+        // Debug.Log($"[Notepad] Inspector Check - inputField: {(inputField != null ? "ASSIGNED" : "NULL")}");
+        // Debug.Log($"[Notepad] Inspector Check - feedbackText: {(feedbackText != null ? "ASSIGNED" : "NULL")}");
+        // Debug.Log($"[Notepad] Inspector Check - submitBtn: {(submitBtn != null ? "ASSIGNED" : "NULL")}");
+        // Debug.Log($"[Notepad] Inspector Check - resetBtn: {(resetBtn != null ? "ASSIGNED" : "NULL")}");
+        // Debug.Log($"[Notepad] Inspector Check - resetPopup: {(resetPopup != null ? "ASSIGNED" : "NULL")}");
+        // Debug.Log($"[Notepad] Inspector Check - hintText: {(hintText != null ? "ASSIGNED" : "NULL")}");
+        // Debug.Log($"[Notepad] Inspector Check - journal: {(journal != null ? "ASSIGNED" : "NULL")}");
+
+        // Defensive initialization - these should never be null but apparently they are
+        if (savedTexts == null)
+        {
+            Debug.LogError("[Notepad] savedTexts is NULL in Start()! Initializing...");
+            savedTexts = new Dictionary<int, string>();
+        }
+
+        if (_cssHints == null)
+        {
+            Debug.LogError("[Notepad] _cssHints is NULL in Start()! Initializing...");
+            _cssHints = new List<string>
+            {
+                "Use a colon (:) between property and value. Properties like background-color and width define how elements look.",
+                "Text styling: font-size and text-align both need colons and semicolons. Always hyphenate compound property names.",
+                "Borders and margins are common layout tools. Remember: margin-top and border use hyphens.",
+                "Use color and font-weight to style text. Both need colons, and the values go after them.",
+                "Lists use 'list-style-type' to control bullets and 'padding' for spacing. Double-check spelling and colons.",
+                "Links are styled with 'text-decoration' and 'color'. Use hyphens for compound properties.",
+                "Width and height often go together. Each needs a colon and unit like px or %.",
+                "Practice combining multiple properties in one rule block. Don't forget a semicolon at the end of each line.",
+                "CSS selectors like .class or #id target specific elements. Check your dots and hashes!",
+                "This final one is a recap — remember colons, semicolons, and consistent spacing. You've got this!"
+            };
+        }
+
         submitBtn.GetComponent<Button>().onClick.AddListener(CheckCssInput);
         resetBtn.GetComponent<Button>().onClick.AddListener(() =>
         {
@@ -253,9 +324,36 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     public void SaveCurrentInputIfNeeded()
     {
-        if (currentChallengeIndex < 0 || !inputField.activeSelf) return;
+        // Debug.Log($"[Notepad] SaveCurrentInputIfNeeded - savedTexts is null: {savedTexts == null}");
+        // Debug.Log($"[Notepad] SaveCurrentInputIfNeeded - inputField is null: {inputField == null}");
+        // Debug.Log($"[Notepad] SaveCurrentInputIfNeeded - currentChallengeIndex: {currentChallengeIndex}");
 
-        savedTexts[currentChallengeIndex] = inputField.GetComponent<TMP_InputField>().text;
+        if (savedTexts == null)
+        {
+            Debug.LogError("[Notepad] savedTexts is NULL! Initializing...");
+            savedTexts = new Dictionary<int, string>();
+        }
+
+        if (inputField == null)
+        {
+            Debug.LogError("[Notepad] inputField is NULL!");
+            return;
+        }
+
+        if (currentChallengeIndex < 0 || !inputField.activeSelf)
+        {
+            Debug.Log("[Notepad] Returning early - conditions not met");
+            return;
+        }
+
+        var inputComponent = inputField.GetComponent<TMP_InputField>();
+        if (inputComponent == null)
+        {
+            Debug.LogError("[Notepad] TMP_InputField component is NULL!");
+            return;
+        }
+
+        savedTexts[currentChallengeIndex] = inputComponent.text;
         SaveProgress();
     }
 
@@ -306,6 +404,36 @@ public class Onboarding_Notepad : MonoBehaviour
     /// <param name="challengeIndex">The challenge index</param>
     private void UpdateChallengeUI(int challengeIndex)
     {
+        // Debug.Log($"[Notepad] UpdateChallengeUI - challengeIndex: {challengeIndex}");
+        // Debug.Log($"[Notepad] UpdateChallengeUI - hintText is null: {hintText == null}");
+        // Debug.Log($"[Notepad] UpdateChallengeUI - feedbackText is null: {feedbackText == null}");
+        // Debug.Log($"[Notepad] UpdateChallengeUI - _cssHints is null: {_cssHints == null}");
+        // Debug.Log($"[Notepad] UpdateChallengeUI - _cssHints count: {_cssHints?.Count ?? -1}");
+
+        if (hintText == null)
+        {
+            Debug.LogError("[Notepad] hintText is NULL! Check Inspector assignment.");
+            return;
+        }
+
+        if (feedbackText == null)
+        {
+            Debug.LogError("[Notepad] feedbackText is NULL! Check Inspector assignment.");
+            return;
+        }
+
+        if (_cssHints == null)
+        {
+            Debug.LogError("[Notepad] _cssHints is NULL! This should never happen.");
+            return;
+        }
+
+        if (challengeIndex < 0 || challengeIndex >= _cssHints.Count)
+        {
+            Debug.LogError($"[Notepad] challengeIndex {challengeIndex} is out of range for _cssHints (count: {_cssHints.Count})");
+            return;
+        }
+
         SetTextOfComponent(hintText, _cssHints[challengeIndex], Color.black, false);
         SetTextOfComponent(feedbackText, "Fix the syntax!", Color.yellow, false);
     }
@@ -588,8 +716,18 @@ public class Onboarding_Notepad : MonoBehaviour
     /// </summary>
     private void LoadProgress()
     {
+        // Debug.Log($"[Notepad] LoadProgress - savedTexts is null: {savedTexts == null}");
+        // Debug.Log($"[Notepad] LoadProgress - saveFilePath: {saveFilePath}");
+
+        if (savedTexts == null)
+        {
+            Debug.LogError("[Notepad] savedTexts is NULL in LoadProgress! Initializing...");
+            savedTexts = new Dictionary<int, string>();
+        }
+
         if (File.Exists(saveFilePath))
         {
+            // Debug.Log("[Notepad] Save file exists, loading...");
             var json = File.ReadAllText(saveFilePath);
             var data = JsonUtility.FromJson<SaveData>(json);
             currentChallengeIndex = data.currentChallengeIndex;
@@ -598,6 +736,10 @@ public class Onboarding_Notepad : MonoBehaviour
             {
                 savedTexts[entry.index] = entry.entryText;
             }
+        }
+        else
+        {
+            Debug.Log("[Notepad] No save file found");
         }
         LoadChallenge();
     }
