@@ -118,10 +118,10 @@ public class Kitchen_HorizontalScrollBar : MonoBehaviour
 
     private void Start()
     {
-        notepad = FindFirstObjectByType<Kitchen_Notepad>();
+        notepad = FindAnyObjectByType<Kitchen_Notepad>();
         if (!notepad) Debug.LogError("Notepad not found in scene!");
 
-        journal = FindFirstObjectByType<Kitchen_Journal>();
+        journal = FindAnyObjectByType<Kitchen_Journal>();
         if (!journal) Debug.Log("journal not initialized");
 
         Kitchen_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;

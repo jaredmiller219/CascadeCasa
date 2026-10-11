@@ -106,7 +106,7 @@ public class Patio_Notepad : MonoBehaviour
         _cursorManager = GlobalCursorManager.Instance;
         if (_cursorManager) _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
 
-        scrollBar = FindFirstObjectByType<Patio_HorizontalScrollBar>();
+        scrollBar = FindAnyObjectByType<Patio_HorizontalScrollBar>();
         if (!scrollBar) Debug.LogError("Patio_HorizontalScrollBar not found in scene!");
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.json");

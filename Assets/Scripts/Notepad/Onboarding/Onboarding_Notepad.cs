@@ -205,7 +205,7 @@ public class Onboarding_Notepad : MonoBehaviour
         if (_cursorManager)
             _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
 
-        scrollBar = FindFirstObjectByType<Onboarding_HorizontalScrollBar>();
+        scrollBar = FindAnyObjectByType<Onboarding_HorizontalScrollBar>();
         if (!scrollBar)
             Debug.LogError("Onboarding_HorizontalScrollBar not found in scene!");
 

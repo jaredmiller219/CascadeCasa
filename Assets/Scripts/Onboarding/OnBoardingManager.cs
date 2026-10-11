@@ -130,8 +130,10 @@ public class OnBoardingManager : MonoBehaviour
     private void PrepareStep(int index)
     {
         DisableAllInteractionsAndHighlights();
+        SetInteractable(dropdown, true);
         currentStepInteractable.Clear();
         currentStep = index;
+        Debug.Log($"Step {index + 1}");
         var step = interactableItems[index];
 
         // Add current step's interactable to the cumulative list
@@ -153,7 +155,7 @@ public class OnBoardingManager : MonoBehaviour
     /// </summary>
     private static void DisableAllInteractionsAndHighlights()
     {
-        var rootCanvas = FindFirstObjectByType<Canvas>();
+        var rootCanvas = FindAnyObjectByType<Canvas>();
         if (!rootCanvas) return;
 
         static IEnumerable<Transform> GetAllChildTransforms(Canvas root) =>

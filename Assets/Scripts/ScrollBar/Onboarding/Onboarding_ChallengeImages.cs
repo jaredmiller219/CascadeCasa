@@ -132,7 +132,7 @@ public class Onboarding_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _originalParent = transform.parent;
         _scrollBar = _originalParent.GetComponentInParent<Onboarding_HorizontalScrollBar>();
 
-        _notepad = FindFirstObjectByType<Onboarding_Notepad>();
+        _notepad = FindAnyObjectByType<Onboarding_Notepad>();
         if (_notepad) OnAnyImageClicked += _notepad.SetCssText;
 
         Completed = false;

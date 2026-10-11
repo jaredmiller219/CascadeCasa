@@ -118,10 +118,10 @@ public class Patio_HorizontalScrollBar : MonoBehaviour
 
     private void Start()
     {
-        notepad = FindFirstObjectByType<Patio_Notepad>();
+        notepad = FindAnyObjectByType<Patio_Notepad>();
         if (!notepad) Debug.LogError("Notepad not found in scene!");
 
-        journal = FindFirstObjectByType<Patio_Journal>();
+        journal = FindAnyObjectByType<Patio_Journal>();
         if (!journal) Debug.Log("journal not initialized");
 
         Patio_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;

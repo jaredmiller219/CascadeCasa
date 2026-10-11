@@ -58,27 +58,8 @@ public class Menu : MonoBehaviour
     /// </summary>
     private TMP_Text instructionsText;
 
-
-    // TEMPORARY WHILE TESTING
-#if UNITY_EDITOR
-    private static bool prefsResetThisSession;
-    private static bool ResetPlayerPrefsInEditor = true;
-#endif
-
     private void Start()
     {
-        // TEMPORARY WHILE TESTING
-#if UNITY_EDITOR
-        if (ResetPlayerPrefsInEditor && !prefsResetThisSession)
-        {
-            PlayerPrefs.DeleteKey("TutorialFinished");
-            prefsResetThisSession = true;
-            var statusText = GetStatusText(prefsResetThisSession);
-
-            Debug.Log($"PlayerPrefs Reset This Session: {statusText}" + "\n(Editor only)");
-        }
-#endif
-
         NavigationData.CameFromOnBoarding = false;
         NavigationData.CameFromLevelComplete = false;
 
@@ -86,24 +67,7 @@ public class Menu : MonoBehaviour
         tutorialText = tutorialButton.GetComponentInChildren<TMP_Text>();
         instructionsText = instructionsButton.GetComponentInChildren<TMP_Text>();
         if (!levelSelectLock) levelSelectLock = GameObject.Find("LvlSelectLock");
-        var unlocked = CheckUnlockCondition();
-        SetLevelSelectInteractable(unlocked);
-    }
-
-    /// <summary>
-    /// Returns the status text indicating whether PlayerPrefs were reset this session
-    /// </summary>
-    /// <param name="statusToCheck">The boolean to check</param>
-    /// <returns>A <see langword="string"/> representing the truthiness of the boolean</returns>
-    string GetStatusText(bool statusToCheck) => statusToCheck ? "Yes" : "No";
-
-    /// <summary>
-    /// Checks if the level select button should be unlocked
-    /// </summary>
-    /// <returns>a boolean of the condition (unlocked)</returns>
-    private static bool CheckUnlockCondition()
-    {
-        return PlayerPrefs.GetInt("TutorialFinished", 0) == 1;
+        SetLevelSelectInteractable(MasterSettings.AllowLevelSelectBeforeOnboarding);
     }
 
     /// <summary>
@@ -112,7 +76,13 @@ public class Menu : MonoBehaviour
     /// <param name="interactable">Whether the item is interactable</param>
     private void SetLevelSelectInteractable(bool interactable)
     {
-        if (levelSelectButton) levelSelectButton.GetComponent<EventTrigger>().enabled = interactable;
+        if (levelSelectButton)
+        {
+            if (levelSelectButton.TryGetComponent(out Button button))
+                button.interactable = interactable;
+            if (levelSelectButton.TryGetComponent(out EventTrigger eventTrigger))
+                eventTrigger.enabled = interactable;
+        }
         if (levelSelectLock) levelSelectLock.SetActive(!interactable);
     }
 

@@ -31,7 +31,7 @@ public class Patio_ResetPopup : MonoBehaviour
     private void Start()
     {
         _animator = resetPopup.GetComponent<Animator>();
-        notepad = FindFirstObjectByType<Patio_Notepad>();
+        notepad = FindAnyObjectByType<Patio_Notepad>();
     }
 
     /// <summary>

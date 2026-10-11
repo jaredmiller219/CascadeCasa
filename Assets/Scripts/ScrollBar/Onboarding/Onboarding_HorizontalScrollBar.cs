@@ -92,8 +92,8 @@ public class Onboarding_HorizontalScrollBar : MonoBehaviour
 
     private void Start()
     {
-        notepad = FindFirstObjectByType<Onboarding_Notepad>();
-        journal = FindFirstObjectByType<Onboarding_Journal>();
+        notepad = FindAnyObjectByType<Onboarding_Notepad>();
+        journal = FindAnyObjectByType<Onboarding_Journal>();
         if (!notepad || !journal)
         {
             if (!notepad) Debug.LogError("Notepad not found in scene!");

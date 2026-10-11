@@ -31,7 +31,7 @@ public class LivingRoom_ResetPopup : MonoBehaviour
     private void Start()
     {
         _animator = resetPopup.GetComponent<Animator>();
-        notepad = FindFirstObjectByType<LivingRoom_Notepad>();
+        notepad = FindAnyObjectByType<LivingRoom_Notepad>();
     }
 
     /// <summary>

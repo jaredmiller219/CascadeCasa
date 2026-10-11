@@ -107,7 +107,7 @@ public class Patio_ChallengeImage : MonoBehaviour, IPointerClickHandler
         _originalParent = transform.parent;
         _scrollBar = _originalParent.GetComponentInParent<Patio_HorizontalScrollBar>();
 
-        _notepad = FindFirstObjectByType<Patio_Notepad>();
+        _notepad = FindAnyObjectByType<Patio_Notepad>();
         if (_notepad) OnAnyImageClicked += _notepad.SetCssText;
 
         Completed = false;

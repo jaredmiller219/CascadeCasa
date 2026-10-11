@@ -181,7 +181,7 @@ public class Bathroom_Notepad : MonoBehaviour
         _cursorManager = GlobalCursorManager.Instance;
         if (_cursorManager) _previousCursorIndex = GlobalCursorManager.GetSelectedCursor();
 
-        scrollBar = FindFirstObjectByType<Bathroom_HorizontalScrollBar>();
+        scrollBar = FindAnyObjectByType<Bathroom_HorizontalScrollBar>();
         if (!scrollBar) Debug.LogError("Bathroom_HorizontalScrollBar not found in scene!");
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "notepad_progress.json");

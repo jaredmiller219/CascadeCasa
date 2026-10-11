@@ -118,10 +118,10 @@ public class Bathroom_HorizontalScrollBar : MonoBehaviour
 
     private void Start()
     {
-        notepad = FindFirstObjectByType<Bathroom_Notepad>();
+        notepad = FindAnyObjectByType<Bathroom_Notepad>();
         if (!notepad) Debug.LogError("Notepad not found in scene!");
 
-        journal = FindFirstObjectByType<Bathroom_Journal>();
+        journal = FindAnyObjectByType<Bathroom_Journal>();
         if (!journal) Debug.Log("journal not initialized");
 
         Bathroom_ChallengeImage.OnAnyImageClicked -= notepad.SetCssText;

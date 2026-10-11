@@ -31,7 +31,7 @@ public class Kitchen_ResetDropdown : MonoBehaviour
     private void Start()
     {
         _animator = resetPopup.GetComponent<Animator>();
-        notepad = FindFirstObjectByType<Kitchen_Notepad>();
+        notepad = FindAnyObjectByType<Kitchen_Notepad>();
     }
 
     /// <summary>
